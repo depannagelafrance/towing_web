@@ -10,6 +10,7 @@ class Login extends Page {
     	$this->load->library('form_validation');
 
       $this->load->library('towing/Login_service');
+      $this->load->library('towing/Dossier_service');
     }
 
 	/**
