@@ -41,6 +41,10 @@
 $route['default_controller'] = "login";
 $route['404_override'] = '';
 
+$route['login'] = 'login';
+//$route['news'] = 'news';
+//$route['(:any)'] = 'pages/view/$1';
+
 
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

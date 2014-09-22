@@ -4,9 +4,12 @@ require_once('page.php');
 class Login extends Page {
 
     public function __construct(){
-        parent::__construct();
-        $this->load->spark('restclient/2.2.1');
-        $this->load->library('rest');
+      parent::__construct();
+
+    	$this->load->helper('form');
+    	$this->load->library('form_validation');
+
+      $this->load->library('towing/Login_service');
     }
 
 	/**
@@ -16,40 +19,31 @@ class Login extends Page {
 	{
 		$this->_add_content($this->load->view('login'));
 		$this->_render_page();
-
-    // Set config options (only 'server' is required to work)
-
-    $config = array('server'            => 'http://localhost:8443/login',
-                    //'api_key'         => 'Setec_Astronomy'
-                    //'api_name'        => 'X-API-KEY'
-                    //'http_user'       => 'username',
-                    //'http_pass'       => 'password',
-                    //'http_auth'       => 'basic',
-                    //'ssl_verify_peer' => TRUE,
-                    //'ssl_cainfo'      => '/certs/cert.pem'
-                    );
-
-    // Run some setup
-    $this->rest->initialize($config);
-
-//invalid login
-    $params = array(
-      "login" => "test",
-      "password" => "test"
-    );
-
-    // Pull in an array of tweets
-    $result = $this->rest->post('/',$params);
-    var_dump($result);
-
-//valid login
-    $params = array(
-      "login" => "admin",
-      "password" => "T0w1nG"
-    );
-
-    // Pull in an array of tweets
-    $result = $this->rest->post('/',$params);
-    var_dump($result);
 	}
+
+  public function perform()
+  {
+    	$this->form_validation->set_rules('login', 'Login', 'required');
+    	$this->form_validation->set_rules('password', 'Password', 'required');
+
+    	if ($this->form_validation->run() === FALSE)
+    	{
+    		$this->load->view('login');
+    	}
+    	else
+    	{
+          $login = $this->input->post('login');
+          $password = $this->input->post('password');
+
+          $result = $this->login_service->login($login, $password);
+
+          if(array_key_exists('statusCode', $result)) {
+            $this->load->view('login');
+          } else {
+            echo "<pre>";
+            var_dump($result);
+            echo "</pre>";
+          }
+    	}
+  }
 }

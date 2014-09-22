@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://towing.localhost';
+$config['base_url']	= 'http://towing.localhost:8888';
 
 /*
 |--------------------------------------------------------------------------
