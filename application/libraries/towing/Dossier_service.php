@@ -25,7 +25,6 @@ class Dossier_service {
       $this->CI->rest->initialize($config);
     }
 
-    //-- FETCH THE DOSSIERS
     public function fetchAllDossiers($token) {
       return $this->CI->rest->get(sprintf('/%s', $token));
     }
