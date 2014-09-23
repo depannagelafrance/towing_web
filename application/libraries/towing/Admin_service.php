@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Vocabulary_service {
+class Admin_service {
   private $CI = null;
 
   public function __construct() {
@@ -34,15 +34,11 @@ class Vocabulary_service {
   }
 
   public function createUser(User_model $user, $token) {
-    $json = json_encode($user);
-
-    return $this->CI->rest->post(sprintf('/users/%s', $token), $json);
+    return $this->CI->rest->post(sprintf('/users/%s', $token), get_object_vars($user));
   }
 
   public function updateUser(User_model $user, $token) {
-    $json = json_encode($user);
-
-    return $this->CI->rest->post(sprintf('/users/%s/%s', $user->id, $token), $json);
+    return $this->CI->rest->post(sprintf('/users/%s/%s', $user->id, $token), get_object_vars($user));
   }
 
   public function deleteUser($user_id, $token) {
@@ -69,15 +65,11 @@ class Vocabulary_service {
   }
 
   public function createCalendar(Calendar_model $calendar, $token) {
-    $json = json_encode($calendar);
-
-    return $this->CI->rest->post(sprintf('/calendar/%s', $token), $json);
+    return $this->CI->rest->post(sprintf('/calendar/%s', $token), get_object_vars($calendar));
   }
 
   public function updateCalendar(Calendar_model $calendar, $token) {
-    $json = json_encode($calendar);
-
-    return $this->CI->rest->put(sprintf('/calendar/%s/%s', $calendar->id, $token), $json);
+    return $this->CI->rest->put(sprintf('/calendar/%s/%s', $calendar->id, $token), get_object_vars($calendar));
   }
 
   public function deleteCalendar($calendar_id, $token) {
@@ -97,15 +89,11 @@ class Vocabulary_service {
   }
 
   public function createInsurance(Vocabulary_model $insurance, $token) {
-    $json = json_encode($insurance);
-
-    return $this->CI->rest->post(sprintf('/insurance/%s', $token), $json);
+    return $this->CI->rest->post(sprintf('/insurance/%s', $token), get_object_vars($insurance));
   }
 
   public function updateInsurance(Vocabulary_model $insurance, $token) {
-    $json = json_encode($insurance);
-
-    return $this->CI->rest->put(sprintf('/insurance/%s/%s', $insurance->id, $token), $json);
+    return $this->CI->rest->put(sprintf('/insurance/%s/%s', $insurance->id, $token), get_object_vars($insurance));
   }
 
   public function deleteInsurance($id, $token) {
@@ -125,15 +113,11 @@ class Vocabulary_service {
   }
 
   public function createCollector(Vocabulary_model $collector, $token) {
-    $json = json_encode($collector);
-
-    return $this->CI->rest->post(sprintf('/collector/%s', $token), $json);
+    return $this->CI->rest->post(sprintf('/collector/%s', $token), get_object_vars($collector));
   }
 
   public function updateCollector(Vocabulary_model $collector, $token) {
-    $json = json_encode($collector);
-
-    return $this->CI->rest->put(sprintf('/collector/%s/%s', $collector->id, $token), $json);
+    return $this->CI->rest->put(sprintf('/collector/%s/%s', $collector->id, $token), get_object_vars($collector));
   }
 
   public function deleteCollector($id, $token) {

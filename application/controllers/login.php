@@ -1,5 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 require_once('page.php');
+require_once(APPPATH . '/models/Vocabulary_model.php');
 
 class Login extends Page {
 
@@ -10,8 +11,8 @@ class Login extends Page {
     	$this->load->library('form_validation');
 
       $this->load->library('towing/Login_service');
-      $this->load->library('towing/Dossier_service');
-      $this->load->library('towing/Vocabulary_service');
+
+      $this->load->library('towing/Admin_service');
     }
 
 	/**
@@ -22,7 +23,10 @@ class Login extends Page {
 		$this->_add_content($this->load->view('login'));
 		$this->_render_page();
 
-    var_dump($this->vocabulary_service->fetchAllCountryLicencePlates('TOKEN1'));
+
+    $insurance = new Vocabulary_model();
+    $insurance->name='AXA Verzekeringen';
+    var_dump($this->admin_service->createInsurance($insurance, 'TOKEN1'));
 	}
 
   public function perform()
