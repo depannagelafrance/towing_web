@@ -1,10 +1,10 @@
 ./application/config/config.php
 
 # Ignore the node modules folder (created by 'npm install').
-./public/node_modules
+public/node_modules
 
 # Ignore the bower_components folder (bower manages our libraries so they don't need to be in git).
-./public/bower_components
+public/bower_components
 
 # We absolutely don't want to have the .sass-cache in git.
-./public/.sass-cache
+public/.sass-cache
