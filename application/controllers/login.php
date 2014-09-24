@@ -23,10 +23,10 @@ class Login extends Page {
 		$this->_add_content($this->load->view('login'));
 		$this->_render_page();
 
-
     $insurance = new Vocabulary_model();
-    $insurance->name='AXA Verzekeringen';
-    var_dump($this->admin_service->createInsurance($insurance, 'TOKEN1'));
+    $insurance->name = 'Baloise';
+
+    $this->admin_service->createInsurance($insurance, 'TOKEN1');
 	}
 
   public function perform()
@@ -46,6 +46,7 @@ class Login extends Page {
           $result = $this->login_service->login($login, $password);
 
           if(array_key_exists('statusCode', $result)) {
+            $this->_add_error('Authentication failed');
             $this->load->view('login');
           } else {
             echo "<pre>";
