@@ -1,0 +1,9 @@
+
+.form_input_border{
+  border: 1px solid $form_input_border_color_fallback;
+  border: 1px solid $form_input_border_color;
+}
+
+.form_input_bg{
+  background-color: $form_input_bg_color;
+}
