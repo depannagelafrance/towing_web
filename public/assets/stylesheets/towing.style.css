@@ -1,0 +1,10 @@
+.form_input_border, input {
+  border: 1px solid #E5E5E5;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.form_input_bg, input {
+  background-color: #FFFFFF;
+}
+
+/* No files to import found in components/**\/* */
