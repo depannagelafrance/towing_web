@@ -1,7 +1,41 @@
-input{
+input[type="text"],
+input[type="password"],
+input[type="color"],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="email"],
+input[type="month"],
+input[type="number"],
+input[type="range"],
+input[type="search"],
+input[type="tel"],
+input[type="time"],
+input[type="url"],
+input[type="week"],
+textarea{
   @extend .form_input_border;
   @extend .form_input_bg;
+  @include border-radius(2px);
   width: 100%;
   height: 34px;
   padding: 0 20px;
+  display: block;
+}
+
+label{
+  display: block;
+  font-weight: bold;
+  padding: 5px 0;
+}
+
+button,
+input[type="submit"],
+input[type="button"]{
+  @include border-radius(2px);
+  padding: 0 20px;
+  height: 34px;
+  display: block;
+
+  border: none;
 }
