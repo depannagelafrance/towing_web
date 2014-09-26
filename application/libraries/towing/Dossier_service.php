@@ -44,6 +44,10 @@ class Dossier_service extends Rest_service {
       return $this->CI->rest->get(sprintf('/dossier/%s/%s', $dossier, $token));
     }
 
+    public function fetchDossierByNumber($dossier, $token) {
+      return $this->CI->rest->get(sprintf('/dossier/find/dossier_number/%s/%s', $dossier, $token));
+    }
+
     public function createDossier($token) {
       return $this->CI->rest->post(sprintf('/dossier/%s', $token));
     }

@@ -1,4 +1,5 @@
 
+<a href="/fast_dispatch/create">New Voucher</a>
 <?php
 
 $this->load->helper('date');
