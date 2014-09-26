@@ -4,8 +4,9 @@
 ?>
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="css/style.css" />
-    <title><?= $title ?></title>
+	<link rel="stylesheet" type="text/css" href="public/assets/stylesheets/towing.style.css" />
+
+  <title><?= $title ?></title>
    <?php
 	if (isset($css)) {
 		foreach ($css as $file) {
