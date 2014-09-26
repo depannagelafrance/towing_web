@@ -53,6 +53,13 @@ class Dossier_service extends Rest_service {
     }
 
     public function updateDossier(Dossier_model $dossier, $token) {
-      return $this->CI->rest->put(sprintf('/dossier/%s/%s', $dossier->id, $token), get_object_vars($dossier));
+
+      $_dossier = new stdClass();
+      $_dossier->dossier = $dossier;
+
+      return $this->CI->rest->put(
+          sprintf('/dossier/%s/%s', $dossier->id, $token),
+          json_encode($_dossier),
+          'application/json');
     }
 }

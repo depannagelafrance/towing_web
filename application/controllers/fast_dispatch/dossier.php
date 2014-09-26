@@ -1,5 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 require_once(APPPATH . '/controllers/page.php');
+require_once(APPPATH . '/models/Dossier_model.php');
 
 class Dossier extends Page {
     public function __construct(){
@@ -30,6 +31,7 @@ class Dossier extends Page {
         'fast_dispatch/dossier',
           array(
             'dossier'                 => $dossier,
+            'vouchers'                => $this->dossier_service->fetchAllNewVouchers($token),
             'incident_types'          => $this->vocabulary_service->fetchAllIncidentTypes($token),
             'insurances'              => $this->vocabulary_service->fetchAllInsurances($token),
             'directions'              => $this->vocabulary_service->fetchAllDirections($token),
@@ -43,4 +45,24 @@ class Dossier extends Page {
     $this->_render_page();
   }
 
+  public function save($number) {
+    $token = $this->_get_user_token();
+
+    $dossier = $this->dossier_service->fetchDossierByNumber($number, $token);
+
+    if($dossier && $dossier->dossier) {
+      $dossier->dossier->call_number = $this->input->post('call_number');
+      $dossier->dossier->company_id = 1;
+      $dossier->dossier->incident_type_id = $this->input->post('incident_type');
+      $dossier->dossier->allotment_id = 1;
+      $dossier->dossier->direction_id = $this->input->post('direction');
+      $dossier->dossier->indicator_id = 1;
+
+      $dossier = $this->dossier_service->updateDossier(new Dossier_model($dossier), $token);
+
+      if($dossier) {
+        redirect(sprintf("/fast_dispatch/dossier/%s", $dossier->dossier->dossier_number));
+      }
+    }
+  }
 }
