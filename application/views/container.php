@@ -1,5 +1,7 @@
-<!DOCTYPE html>
-<?php header("Content-type: text/html; charset=utf-8");?>
+<?php
+	echo doctype('html5');
+	header("Content-type: text/html; charset=utf-8");
+?>
 <html>
 <head>
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
@@ -19,6 +21,17 @@
 
 </head>
 <body>
+<?php
+if(isset($available_modules) && !empty($available_modules)) {
+	echo "<ul>";
+
+	foreach($available_modules as $module) {
+			echo sprintf('<li><a href="/%s/index">%s</a></li>', strtolower($module->code), $module->name);
+	}
+
+	echo "</ul>";
+}
+?>
 <div class="container">
     <?php echo $content; ?>
 </div>

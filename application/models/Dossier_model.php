@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-require_once(APP_PATH . '/models/Voucher_model.php');
+require_once(APPPATH . '/models/Voucher_model.php');
 
 class Dossier_model  {
   public $id   = null;
@@ -27,7 +27,7 @@ class Dossier_model  {
       $this->traffic_post_id    = array_key_exists('traffic_post_id', $data) ? $data['traffic_post_id'] : null;
 
       if(array_key_exists('towing_vouchers', $data) && is_array($data['towing_vouchers'])) {
-        foreach($voucher in $data['towing_vouchers']) {
+        foreach($data['towing_vouchers'] as $voucher) {
           $this->towing_vouchers[] = new Voucher_model($voucher);
         }
       }

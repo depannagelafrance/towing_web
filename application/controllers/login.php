@@ -8,12 +8,10 @@ class Login extends Page {
       parent::__construct();
 
     	$this->load->helper('form');
+      $this->load->helper('url');
     	$this->load->library('form_validation');
 
-      $this->load->library('towing/Rest_service');
       $this->load->library('towing/Login_service');
-
-      $this->load->library('towing/Admin_service');
     }
 
 	/**
@@ -21,13 +19,8 @@ class Login extends Page {
 	 */
 	public function index()
 	{
-		$this->_add_content($this->load->view('login'));
+		$this->_add_content($this->load->view('login', '', true));
 		$this->_render_page();
-
-    $insurance = new Vocabulary_model();
-    $insurance->name = 'Baloise';
-
-    $this->admin_service->createInsurance($insurance, 'TOKEN1');
 	}
 
   public function perform()
@@ -37,7 +30,7 @@ class Login extends Page {
 
     	if ($this->form_validation->run() === FALSE)
     	{
-    		$this->load->view('login');
+        $this->_add_content($this->load->view('login', '', true));
     	}
     	else
     	{
@@ -46,14 +39,21 @@ class Login extends Page {
 
           $result = $this->login_service->login($login, $password);
 
-          if(array_key_exists('statusCode', $result)) {
+          if(!$result || array_key_exists('statusCode', $result)) {
             $this->_add_error('Authentication failed');
-            $this->load->view('login');
+            $this->_add_content($this->load->view('login', '', true));
           } else {
-            echo "<pre>";
-            var_dump($result);
-            echo "</pre>";
+            $this->_set_authenticated_user($result);
+            //$this->_add_content($this->load->view('login', '', true));
+
+            $modules = $this->_get_available_modules();
+            if($modules && ($module = array_pop($modules))) {
+              redirect(sprintf("/%s/index",strtolower($module->code)));
+            }
+
           }
     	}
+
+      $this->_render_page();
   }
 }
