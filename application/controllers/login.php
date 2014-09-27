@@ -47,10 +47,11 @@ class Login extends Page {
             //$this->_add_content($this->load->view('login', '', true));
 
             $modules = $this->_get_available_modules();
+
             if($modules && ($module = array_pop($modules))) {
               redirect(sprintf("/%s/index",strtolower($module->code)));
+              exit;
             }
-
           }
     	}
 

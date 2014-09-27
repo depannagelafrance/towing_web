@@ -11,7 +11,7 @@ class Rest_service {
 
       // Set config options (only 'server' is required to work)
 
-      $config = array('server'            => 'http://localhost:8443',
+      $config = array('server'            => $this->CI->config->item('towing_api'),
                       //'api_key'         => 'Setec_Astronomy'
                       //'api_name'        => 'X-API-KEY'
                       //'http_user'       => 'username',

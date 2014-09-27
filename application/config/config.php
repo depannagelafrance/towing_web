@@ -357,6 +357,10 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 
+// CUSTOM CONFIG
+
+$config['towing_api'] = 'http://localhost:8443';
+
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */

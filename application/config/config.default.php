@@ -358,5 +358,9 @@ $config['rewrite_short_tags'] = FALSE;
 $config['proxy_ips'] = '';
 
 
+// CUSTOM CONFIG
+
+$config['towing_api'] = 'https://api.towing.be';
+
 /* End of file config.php */
 /* Location: ./application/config/config.php */
