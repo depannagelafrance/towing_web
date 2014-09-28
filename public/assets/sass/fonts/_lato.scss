@@ -1,0 +1,47 @@
+@include font-face(
+    "Lato Hairline",
+    inline-font-files(
+        "hairline/lato-hairline-webfont.woff", woff,
+        "hairline/lato-hairline-webfont.ttf", ttf),
+    "hairline/lato-hairline-webfont.eot"
+);
+
+@include font-face(
+    "Lato Light",
+    inline-font-files(
+        "light/lato-light-webfont.woff", woff,
+        "light/lato-light-webfont.ttf", ttf),
+    "light/lato-light-webfont.eot"
+);
+
+@include font-face(
+    "Lato Regular",
+    inline-font-files(
+        "regular/lato-regular-webfont.woff", woff,
+        "regular/lato-regular-webfont.ttf", ttf),
+    "regular/lato-regular-webfont.eot"
+);
+
+@include font-face(
+    "Lato Bold",
+    inline-font-files(
+        "bold/lato-bold-webfont.woff", woff,
+        "bold/lato-bold-webfont.ttf", ttf),
+    "bold/lato-bold-webfont.eot"
+);
+
+@include font-face(
+    "Lato Black",
+    inline-font-files(
+        "black/lato-black-webfont.woff", woff,
+        "black/lato-black-webfont.ttf", ttf),
+    "black/lato-black-webfont.eot"
+);
+
+
+
+$font-lato-hairline: 'Lato Hairline', Helvetica, sans-serif;
+$font-lato-light: 'Lato Light', Helvetica, sans-serif;
+$font-lato-regular: 'Lato Regular', Helvetica, sans-serif;
+$font-lato-bold: 'Lato Bold', Helvetica, sans-serif;
+$font-lato-black: 'Lato Black', Helvetica, sans-serif;
