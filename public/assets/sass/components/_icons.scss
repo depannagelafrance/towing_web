@@ -1,0 +1,236 @@
+.icon{
+
+  width: 55px;
+  height: 50px;
+  background-image: image-url('icons/icons.png', false, false);
+  background-repeat: no-repeat;
+
+  &.icon-user{
+
+    background-position: -6px -74px;
+
+    &.icon-light{
+
+      background-position: -6px -136px;
+
+    }
+
+  }
+
+  &.icon-settings{
+
+    background-position: -71px -74px;
+
+    &.icon-light{
+
+      background-position: -71px -136px;
+
+    }
+
+  }
+
+  &.icon-off{
+
+    background-position: -136px -74px;
+
+    &.icon-light{
+
+      background-position: -136px -136px;
+
+    }
+
+  }
+
+  &.icon-edit{
+
+    background-position: -200px -74px;
+
+    &.icon-light{
+
+      background-position: -200px -136px;
+
+    }
+
+  }
+
+  &.icon-edit-small{
+
+    background-position: -591px -74px;
+
+    &.icon-light{
+
+      background-position: -591px -136px;
+
+    }
+
+  }
+
+  &.icon-add{
+
+    background-position: -264px -74px;
+
+    &.icon-light{
+
+      background-position: -264px -136px;
+
+    }
+
+  }
+
+  &.icon-clock{
+
+    background-position: -331px -74px;
+
+    &.icon-light{
+
+      background-position: -331px -136px;
+
+    }
+
+  }
+
+  &.icon-date{
+
+    background-position: -395px -74px;
+
+    &.icon-light{
+
+      background-position: -395px -136px;
+
+    }
+
+  }
+
+  &.icon-arrow-down{
+
+    background-position: -524px -74px;
+
+    &.icon-light{
+
+      background-position: -524px -136px;
+
+    }
+
+  }
+
+  &.icon-arrow-left{
+
+    background-position: -654px -74px;
+
+    &.icon-light{
+
+      background-position: -654px -136px;
+
+    }
+
+  }
+
+  &.icon-arrow-right{
+
+    background-position: -720px -74px;
+
+    &.icon-light{
+
+      background-position: -720px -136px;
+
+    }
+
+  }
+
+  &.icon-phone{
+
+    background-position: -461px -74px;
+
+    &.icon-light{
+
+      background-position: -461px -136px;
+
+    }
+
+  }
+
+  &.icon-remove{
+
+    background-position: -786px -74px;
+
+    &.icon-light{
+
+      background-position: -786px -136px;
+
+    }
+
+  }
+
+  &.icon-attachement{
+
+    background-position: -850px -74px;
+
+    &.icon-light{
+
+      background-position: -850px -136px;
+
+    }
+
+  }
+
+  &.icon-nota{
+
+    background-position: -915px -74px;
+
+    &.icon-light{
+
+      background-position: -915px -136px;
+
+    }
+
+  }
+
+  &.icon-email{
+
+    background-position: -6px -270px;
+
+    &.icon-light{
+
+      background-position: -6px -332px;
+
+    }
+
+  }
+
+  &.icon-print-preview{
+
+    background-position: -71px -270px;
+
+    &.icon-light{
+
+      background-position: -71px -332px;
+
+    }
+
+  }
+
+  &.icon-print{
+
+    background-position: -136px -270px;
+
+    &.icon-light{
+
+      background-position: -136px -332px;
+
+    }
+
+  }
+
+  &.icon-plus{
+
+    background-position: -200px -270px;
+
+    &.icon-light{
+
+      background-position: -200px -332px;
+
+    }
+
+  }
+
+}
