@@ -290,10 +290,17 @@ textarea {
   background-color: #FFFFFF;
 }
 
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
 html {
   font-size: 12px;
   font-family: "Lato Regular", Helvetica, sans-serif;
   color: #868685;
+  background-color: #e5e5e5;
 }
 
 input[type="text"],
@@ -317,7 +324,7 @@ textarea {
   border-radius: 2px;
   width: 100%;
   height: 34px;
-  padding: 0 20px;
+  padding: 0 10px;
   display: block;
 }
 
@@ -334,12 +341,29 @@ input[type="button"] {
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
   border-radius: 2px;
-  padding: 0 20px;
+  padding: 0 40px;
   height: 34px;
   display: block;
   border: none;
   background-color: #4285f4;
   color: #FFFFFF;
+}
+button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover {
+  background-color: #2a75f3;
+}
+
+.form-item {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.logo {
+  width: 155px;
+  height: 55px;
+  background-image: url('../images/branding/logo.png');
+  background-repeat: no-repeat;
 }
 
 .btn {
@@ -480,4 +504,16 @@ input[type="button"] {
 }
 .icon.icon-plus.icon-light {
   background-position: -200px -332px;
+}
+
+.l-login {
+  margin: 100px auto;
+  width: 30%;
+  padding: 25px;
+  background-color: rgba(0, 0, 0, 0.91);
+}
+
+.l-topbar {
+  background-color: #222222;
+  background-color: rgba(0, 0, 0, 0.85);
 }

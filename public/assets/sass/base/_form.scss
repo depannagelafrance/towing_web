@@ -14,30 +14,49 @@ input[type="time"],
 input[type="url"],
 input[type="week"],
 textarea{
+
   @extend .form_input_border;
   @extend .form_input_bg;
   @include border-radius(2px);
   width: 100%;
   height: 34px;
-  padding: 0 20px;
+  padding: 0 10px;
   display: block;
+
 }
 
 label{
+
   display: block;
   padding: 5px 0;
   color: $form_label_color;
   font-family: $font-lato-bold;
+
 }
 
 button,
 input[type="submit"],
 input[type="button"]{
+
   @include border-radius(2px);
-  padding: 0 20px;
+  padding: 0 40px;
   height: 34px;
   display: block;
   border: none;
   background-color: $form_submit_bg_color;
   color: $form_submit_color;
+
+  &:hover{
+
+    background-color: darken($form_submit_bg_color, 5%);
+
+  }
+
+}
+
+.form-item{
+
+  margin-top: 10px;
+  margin-bottom: 10px;
+
 }

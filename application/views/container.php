@@ -22,17 +22,22 @@
 
 </head>
 <body>
-<?php
-if(isset($available_modules) && !empty($available_modules)) {
-	echo "<ul>";
+<div class="l-topbar">
+  <div class="logo"></div>
+  <div class="menu">
+  <?php
+  if(isset($available_modules) && !empty($available_modules)) {
+    echo "<ul>";
 
-	foreach($available_modules as $module) {
-			echo sprintf('<li><a href="/%s/index">%s</a></li>', strtolower($module->code), $module->name);
-	}
+    foreach($available_modules as $module) {
+        echo sprintf('<li><a href="/%s/index">%s</a></li>', strtolower($module->code), $module->name);
+    }
 
-	echo "</ul>";
-}
-?>
+    echo "</ul>";
+  }
+  ?>
+  </div>
+</div>
 <div class="container">
     <?php echo $content; ?>
 </div>
