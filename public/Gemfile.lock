@@ -33,7 +33,7 @@ GEM
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.6.0)
     eventmachine (1.0.3)
-    ffi (1.9.4)
+    ffi (1.9.5)
     formatador (0.2.5)
     guard (2.6.1)
       formatador (>= 0.2.4)
@@ -52,7 +52,7 @@ GEM
       guard (>= 1.1.0)
     hitimes (1.2.2)
     http_parser.rb (0.6.0)
-    listen (2.7.9)
+    listen (2.7.11)
       celluloid (>= 0.15.2)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
@@ -98,6 +98,7 @@ DEPENDENCIES
   compass-rgbapng
   compass-validator
   css_parser
+  ffi (~> 1.9.5)
   guard
   guard-compass
   guard-livereload

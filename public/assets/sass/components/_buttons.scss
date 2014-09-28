@@ -1,0 +1,20 @@
+.btn{
+  @include border-radius(2px);
+}
+
+.btn_action{
+  width: 56px;
+  height: 52px;
+}
+
+.btn_submit{
+
+}
+
+.btn_focus{
+  background-color: $btn_focus_bg;
+}
+
+.btn_normal{
+  background-color: $btn_bg;
+}

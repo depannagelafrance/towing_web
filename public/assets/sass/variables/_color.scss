@@ -1,7 +1,29 @@
+//COLORS
+$white : #FFFFFF;
+$blue : #4285f4;
+$light_blue : #42b7f4;
 
+$light_gray : #F5F5F5;
+$dark_gray : #868685;
+$black : #171717;
+
+//MAIN
+$main_text_color : $dark_gray;
+
+//ICONS
+$icon_focus_bg : $blue;
+
+//BUTTONS
+$btn_bg : $light_gray;
+$btn_focus_bg : $blue;
 
 //FORM
 $form_input_border_color : rgba(0,0,0,0.1);
 $form_input_border_color_fallback : #E5E5E5;
 
 $form_input_bg_color : #FFFFFF;
+
+$form_label_color : $black;
+
+$form_submit_bg_color : $blue;
+$form_submit_color : $white;

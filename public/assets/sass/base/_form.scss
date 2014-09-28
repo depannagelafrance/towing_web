@@ -25,8 +25,9 @@ textarea{
 
 label{
   display: block;
-  font-weight: bold;
   padding: 5px 0;
+  color: $form_label_color;
+  font-family: $font-lato-bold;
 }
 
 button,
@@ -36,6 +37,7 @@ input[type="button"]{
   padding: 0 20px;
   height: 34px;
   display: block;
-
   border: none;
+  background-color: $form_submit_bg_color;
+  color: $form_submit_color;
 }
