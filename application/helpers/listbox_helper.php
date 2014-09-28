@@ -10,11 +10,11 @@ if ( ! function_exists('listbox')) {
 
 
     if($attributes) {
-      if(array_key_exists($attributes, 'value_key')) {
+      if(array_key_exists('value_key', $attributes)) {
         $_attributes['value_key'] = $attributes['value_key'];
       }
 
-      if(array_key_exists($attributes, 'label_key')) {
+      if(array_key_exists('label_key', $attributes)) {
         $_attributes['label_key'] = $attributes['label_key'];
       }
     }
@@ -30,7 +30,7 @@ if ( ! function_exists('listbox')) {
 
     if($data && sizeof($data) > 0) {
       $select_data .= sprintf('<option value="">--</option>');
-      
+
       foreach($data as $item) {
         if($item->$valueKey == $selected_value) {
           $select_data .= sprintf('<option value="%s" selected>%s</option>', $item->$valueKey, $item->$labelKey);

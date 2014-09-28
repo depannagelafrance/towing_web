@@ -55,8 +55,8 @@ class Dossier extends Page {
       $dossier->dossier->company_id = 1;
       $dossier->dossier->incident_type_id = $this->input->post('incident_type');
       $dossier->dossier->allotment_id = 1;
-      $dossier->dossier->direction_id = $this->input->post('direction');
-      $dossier->dossier->indicator_id = 1;
+      $dossier->dossier->allotment_direction_id = $this->input->post('direction');
+      $dossier->dossier->allotment_direction_indicator_id = 1;
 
       $dossier = $this->dossier_service->updateDossier(new Dossier_model($dossier), $token);
 

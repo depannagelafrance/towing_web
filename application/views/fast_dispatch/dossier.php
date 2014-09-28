@@ -45,17 +45,17 @@ $_dossier = $dossier->dossier;
 </div>
 <div>
     <label>Richting</label>
-    <?= listbox('direction', $directions, null); ?>
+    <?= listbox('direction', $directions, $_dossier->allotment_direction_id); ?>
 </div>
 
 <div>
     <label>KM Paal</label>
-    <?= listbox('indicator', array(), null); ?>
+    <?= listbox('indicator', array(), $_dossier->allotment_direction_indicator_id); ?>
 </div>
 
 <div>
     <label>Rijstrook</label>
-    <?= listbox('traffic_lane', $traffic_lanes, null); ?>
+    <?= listbox('traffic_lane', $traffic_lanes, $_dossier->traffic_lane_id); ?>
 </div>
 
 <div>
@@ -70,7 +70,7 @@ $_dossier = $dossier->dossier;
 
 <div>
     <label>Assistance</label>
-    <?= listbox('insurances', $insurances, null); ?>
+    <?= listbox('insurances', $insurances, $_dossier->towing_vouchers[0]->insurance_id); ?>
 </div>
 
 <div>
@@ -90,7 +90,13 @@ $_dossier = $dossier->dossier;
 
 <div>
     <label>Land</label>
-    <?= listbox('licence_plate_country', $licence_plate_countries, null); ?>
+    <?= listbox('licence_plate_country',
+                  $licence_plate_countries,
+                  $_dossier->towing_vouchers[0]->vehicule_country,
+                  array(
+                      'value_key' => 'name',
+                      'label_key' => 'name',
+                  )); ?>
 </div>
 
 <div>
