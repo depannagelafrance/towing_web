@@ -3,44 +3,52 @@
 	header("Content-type: text/html; charset=utf-8");
 ?>
 <html>
+
 <head>
 	<link rel="stylesheet" type="text/css" href="public/assets/stylesheets/towing.style.css" />
-
-  <title><?= $title ?></title>
-   <?php
-	if (isset($css)) {
-		foreach ($css as $file) {
-			print link_tag('css/' . $file);
-		}
-	}
-	if (!empty($js)) {
-		foreach ($js as $file) {
-			print '<script type="text/javascript" src="' . site_url($file) . '"></script>';
-		}
-	}
-	?>
-
-</head>
-<body>
-<div class="l-topbar">
-  <div class="logo"></div>
-  <div class="menu">
+  <title><?php print $title ?></title>
   <?php
-  if(isset($available_modules) && !empty($available_modules)) {
-    echo "<ul>";
+	  if (isset($css)) {
+		  foreach ($css as $file) {
+			  print link_tag('css/' . $file);
+		  }
+	  }
+	  if (!empty($js)) {
+		  foreach ($js as $file) {
+			  print '<script type="text/javascript" src="' . site_url($file) . '"></script>';
+		  }
+	  }
+	?>
+</head>
 
-    foreach($available_modules as $module) {
-        echo sprintf('<li><a href="/%s/index">%s</a></li>', strtolower($module->code), $module->name);
-    }
-
-    echo "</ul>";
-  }
-  ?>
+<body>
+  <div class="l-topbar topbar">
+    <div class="l-topbar-content topbar-content">
+      <div class="l-branding">
+        <div class="logo"></div>
+      </div>
+      <div class="l-main-navigation">
+        <nav class="main-navigation">
+          <?php if(isset($available_modules) && !empty($available_modules)) : ?>
+            <ul>
+              <?php foreach($available_modules as $module) : ?>
+                <?php print sprintf('<li><a href="/%s/index">%s</a></li>', strtolower($module->code), $module->name); ?>
+              <?php endforeach; ?>
+            </ul>
+          <?php endif; ?>
+        </nav>
+      </div>
+      <div class="l-user-navigation">
+        <div class="user-navigation">
+          <div class="l-user-action"><a href="#" class="icon icon-user"></a></div>
+          <div class="l-user-action"><a href="#" class="icon icon-settings"></a></div>
+          <div class="l-user-action"><a href="#" class="icon icon-off"></a></div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
-<div class="container">
-    <?php echo $content; ?>
-</div>
-
+  <div class="container">
+      <?php print $content; ?>
+  </div>
 </body>
 </html>
