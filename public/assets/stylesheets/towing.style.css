@@ -267,7 +267,7 @@ input[type="time"],
 input[type="url"],
 input[type="week"],
 textarea {
-  border: 1px solid #E5E5E5;
+  border: 1px solid #e5e5e5;
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
@@ -359,11 +359,64 @@ input[type="button"]:hover {
   margin-bottom: 10px;
 }
 
+a {
+  text-decoration: underline;
+  color: #4285f4;
+}
+a:hover {
+  color: #5a95f5;
+}
+
+table {
+  width: 100%;
+  max-width: 100%;
+  text-align: center;
+  border-collapse: collapse;
+}
+table th {
+  color: #171717;
+  font-family: "Lato Bold", Helvetica, sans-serif;
+}
+table th,
+table td {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+table tbody tr {
+  border-bottom: 1px solid #FFFFFF;
+}
+table tbody tr:hover {
+  color: #FFFFFF;
+  background-color: #42b7f4;
+}
+table tbody tr:nth-child(even),
+table tbody tr.even {
+  background-color: #efefef;
+}
+table tbody tr:nth-child(even):hover,
+table tbody tr.even:hover {
+  color: #FFFFFF;
+  background-color: #42b7f4;
+}
+table tbody tr:nth-child(odd),
+table tbody tr.odd {
+  background-color: #F5F5F5;
+}
+table tbody tr:nth-child(odd):hover,
+table tbody tr.odd:hover {
+  color: #FFFFFF;
+  background-color: #42b7f4;
+}
+table thead tr {
+  border-bottom: 2px solid #f5f5f5;
+}
+
 .logo {
   width: 155px;
-  height: 55px;
+  height: 45px;
   background-image: url('../images/branding/logo.png');
   background-repeat: no-repeat;
+  background-position: 0px -3px;
 }
 
 .btn {
@@ -382,7 +435,7 @@ input[type="button"]:hover {
 }
 
 .btn_normal {
-  background-color: #F5F5F5;
+  background-color: #efefef;
 }
 
 .icon {
@@ -390,120 +443,146 @@ input[type="button"]:hover {
   height: 50px;
   background-image: url('../images/icons/icons.png');
   background-repeat: no-repeat;
+  display: block;
+  text-indent: -119988px;
+  overflow: hidden;
+  text-align: left;
+  text-transform: capitalize;
 }
 .icon.icon-user {
   background-position: -6px -74px;
 }
-.icon.icon-user.icon-light {
-  background-position: -6px -136px;
+.icon.icon-user.icon-light, .icon.icon-user:hover {
+  background-position: -6px -137px;
 }
 .icon.icon-settings {
   background-position: -71px -74px;
 }
-.icon.icon-settings.icon-light {
-  background-position: -71px -136px;
+.icon.icon-settings.icon-light, .icon.icon-settings:hover {
+  background-position: -71px -138px;
 }
 .icon.icon-off {
   background-position: -136px -74px;
 }
-.icon.icon-off.icon-light {
-  background-position: -136px -136px;
+.icon.icon-off.icon-light, .icon.icon-off:hover {
+  background-position: -136px -138px;
 }
 .icon.icon-edit {
   background-position: -200px -74px;
 }
-.icon.icon-edit.icon-light {
-  background-position: -200px -136px;
+.icon.icon-edit.icon-light, .icon.icon-edit:hover {
+  background-position: -200px -138px;
 }
 .icon.icon-edit-small {
   background-position: -591px -74px;
 }
-.icon.icon-edit-small.icon-light {
-  background-position: -591px -136px;
+.icon.icon-edit-small.icon-light, .icon.icon-edit-small:hover {
+  background-position: -591px -138px;
 }
 .icon.icon-add {
   background-position: -264px -74px;
 }
-.icon.icon-add.icon-light {
-  background-position: -264px -136px;
+.icon.icon-add.icon-light, .icon.icon-add:hover {
+  background-position: -264px -138px;
 }
 .icon.icon-clock {
   background-position: -331px -74px;
 }
-.icon.icon-clock.icon-light {
-  background-position: -331px -136px;
+.icon.icon-clock.icon-light, .icon.icon-clock:hover {
+  background-position: -331px -138px;
 }
 .icon.icon-date {
   background-position: -395px -74px;
 }
-.icon.icon-date.icon-light {
-  background-position: -395px -136px;
+.icon.icon-date.icon-light, .icon.icon-date:hover {
+  background-position: -395px -138px;
 }
 .icon.icon-arrow-down {
   background-position: -524px -74px;
 }
-.icon.icon-arrow-down.icon-light {
-  background-position: -524px -136px;
+.icon.icon-arrow-down.icon-light, .icon.icon-arrow-down:hover {
+  background-position: -524px -138px;
 }
 .icon.icon-arrow-left {
   background-position: -654px -74px;
 }
-.icon.icon-arrow-left.icon-light {
-  background-position: -654px -136px;
+.icon.icon-arrow-left.icon-light, .icon.icon-arrow-left:hover {
+  background-position: -654px -138px;
 }
 .icon.icon-arrow-right {
   background-position: -720px -74px;
 }
-.icon.icon-arrow-right.icon-light {
-  background-position: -720px -136px;
+.icon.icon-arrow-right.icon-light, .icon.icon-arrow-right:hover {
+  background-position: -720px -138px;
 }
 .icon.icon-phone {
   background-position: -461px -74px;
 }
-.icon.icon-phone.icon-light {
-  background-position: -461px -136px;
+.icon.icon-phone.icon-light, .icon.icon-phone:hover {
+  background-position: -461px -138px;
 }
 .icon.icon-remove {
   background-position: -786px -74px;
 }
-.icon.icon-remove.icon-light {
-  background-position: -786px -136px;
+.icon.icon-remove.icon-light, .icon.icon-remove:hover {
+  background-position: -786px -138px;
 }
 .icon.icon-attachement {
   background-position: -850px -74px;
 }
-.icon.icon-attachement.icon-light {
-  background-position: -850px -136px;
+.icon.icon-attachement.icon-light, .icon.icon-attachement:hover {
+  background-position: -850px -138px;
 }
 .icon.icon-nota {
   background-position: -915px -74px;
 }
-.icon.icon-nota.icon-light {
-  background-position: -915px -136px;
+.icon.icon-nota.icon-light, .icon.icon-nota:hover {
+  background-position: -915px -138px;
 }
 .icon.icon-email {
   background-position: -6px -270px;
 }
-.icon.icon-email.icon-light {
+.icon.icon-email.icon-light, .icon.icon-email:hover {
   background-position: -6px -332px;
 }
 .icon.icon-print-preview {
   background-position: -71px -270px;
 }
-.icon.icon-print-preview.icon-light {
+.icon.icon-print-preview.icon-light, .icon.icon-print-preview:hover {
   background-position: -71px -332px;
 }
 .icon.icon-print {
   background-position: -136px -270px;
 }
-.icon.icon-print.icon-light {
+.icon.icon-print.icon-light, .icon.icon-print:hover {
   background-position: -136px -332px;
 }
 .icon.icon-plus {
   background-position: -200px -270px;
 }
-.icon.icon-plus.icon-light {
+.icon.icon-plus.icon-light, .icon.icon-plus:hover {
   background-position: -200px -332px;
+}
+
+.l-topbar .l-topbar-content {
+  width: 90%;
+  margin: auto;
+  overflow: hidden;
+  *zoom: 1;
+}
+.l-topbar .l-topbar-content .l-branding {
+  float: left;
+}
+.l-topbar .l-topbar-content .l-main-navigation {
+  float: left;
+}
+.l-topbar .l-topbar-content .l-user-navigation {
+  float: right;
+  overflow: hidden;
+  *zoom: 1;
+}
+.l-topbar .l-topbar-content .l-user-navigation .l-user-action {
+  float: left;
 }
 
 .l-login {
@@ -513,7 +592,60 @@ input[type="button"]:hover {
   background-color: rgba(0, 0, 0, 0.91);
 }
 
-.l-topbar {
+.main-navigation {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  *zoom: 1;
+  padding-top: 17px;
+  padding-bottom: 17px;
+}
+.main-navigation li {
+  list-style-image: none;
+  list-style-type: none;
+  margin-left: 0;
+  white-space: nowrap;
+  float: left;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+.main-navigation li:first-child {
+  padding-left: 0;
+}
+.main-navigation li:last-child {
+  padding-right: 0;
+}
+.main-navigation li.last {
+  padding-right: 0;
+}
+.main-navigation ul {
+  margin: 0;
+  padding: 0;
+}
+.main-navigation ul li {
+  margin: 0;
+  padding: 0;
+}
+.main-navigation ul li a {
+  padding-left: 25px;
+  padding-right: 25px;
+  text-decoration: none;
+  color: #6b6b6b;
+  font-size: 14px;
+  cursor: pointer;
+}
+.main-navigation ul li a:hover {
+  color: #FFFFFF;
+}
+.main-navigation ul li a .active {
+  color: #FFFFFF;
+}
+
+.topbar {
   background-color: #222222;
   background-color: rgba(0, 0, 0, 0.85);
+}
+.topbar .topbar-content {
+  padding: 10px 0;
 }

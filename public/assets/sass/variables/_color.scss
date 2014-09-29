@@ -1,29 +1,51 @@
 //COLORS
 $white : #FFFFFF;
+
 $blue : #4285f4;
 $light_blue : #42b7f4;
 
-$light_gray : #F5F5F5;
+$gray_lightest : #f6f6f6;
+$gray_lighter : #F5F5F5;
+$gray_light : #efefef;
 $gray : #e5e5e5;
-$dark_gray : #868685;
+$gray_dark : #868685;
+$gray_darkest : #6b6b6b;
+
 $black : #171717;
 
 //MAIN
-$main_text_color : $dark_gray;
+$main_text_color : $gray_dark;
 $main_bg_color : $gray;
+
+//LINK
+$link_color : $blue;
+$link_color_hover : lighten($blue, 5%);
+
+//TABLE
+$table_heading_color : $black;
+$table_row_even : $gray_light;
+$table_row_odd : $gray_lighter;
+$table_row_hover_color : $white;
+$table_row_hover_bg_color : $light_blue;
+$table_row_border_color : $white;
+
+//NAV MAIN
+$nav_main_link_color : $gray_darkest;
+$nav_main_link_color_hover : $white;
+$nav_main_link_color_active : $white;
 
 //ICONS
 $icon_focus_bg : $blue;
 
 //BUTTONS
-$btn_bg : $light_gray;
+$btn_bg : $gray_light;
 $btn_focus_bg : $blue;
 
 //FORM
 $form_input_border_color : rgba(0,0,0,0.1);
-$form_input_border_color_fallback : #E5E5E5;
+$form_input_border_color_fallback : $gray;
 
-$form_input_bg_color : #FFFFFF;
+$form_input_bg_color : $white;
 
 $form_label_color : $black;
 

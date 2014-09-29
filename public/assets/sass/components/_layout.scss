@@ -1,0 +1,36 @@
+.l-topbar{
+
+  .l-topbar-content{
+
+    width: 90%;
+    margin: auto;
+    @include clearfix;
+
+    .l-branding{
+
+      float: left;
+
+    }
+
+    .l-main-navigation{
+
+      float: left;
+
+    }
+
+    .l-user-navigation{
+
+      float: right;
+      @include clearfix;
+
+      .l-user-action{
+
+        float: left;
+
+      }
+
+    }
+
+  }
+
+}
