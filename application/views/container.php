@@ -48,7 +48,7 @@
     </div>
   </div>
   <div class="container">
-      <?php print $content; ?>
+    <?php print $content; ?>
   </div>
 </body>
 </html>

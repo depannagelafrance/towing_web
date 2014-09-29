@@ -17,6 +17,11 @@ $black : #171717;
 $main_text_color : $gray_dark;
 $main_bg_color : $gray;
 
+//BLOCK
+$block_bg_color : $white;
+$block_border_color : rgba(0,0,0,0.1);
+$block_border_color_fallback : $gray;
+
 //LINK
 $link_color : $blue;
 $link_color_hover : lighten($blue, 5%);
