@@ -26,6 +26,40 @@ class Dossier extends Page {
 
     $dossier = $this->dossier_service->fetchDossierByNumber($number, $token);
 
+    $this->_loadDossierView($token, $dossier);
+
+  }
+
+  public function save($number) {
+    $token = $this->_get_user_token();
+
+    $dossier = $this->dossier_service->fetchDossierByNumber($number, $token);
+    $this->form_validation->set_rules('direction', 'Richting', 'required');
+    $this->form_validation->set_rules('indicator', 'KM Paal', 'required');
+    $this->form_validation->set_rules('incident_type', 'Type incident', 'required');
+    $this->form_validation->set_rules('call_number', 'Oproepnummer', 'required');
+    $this->form_validation->set_rules('vehicule_type', 'Type wagen', 'required');
+
+    if ($this->form_validation->run() === FALSE)
+    {
+      $this->_setDossierValuesFromPostRequest($dossier);
+      $this->_loadDossierView($token, $dossier);
+    }
+    else
+    {
+      if($dossier && $dossier->dossier) {
+        $this->_setDossierValuesFromPostRequest($dossier);
+
+        $dossier = $this->dossier_service->updateDossier(new Dossier_model($dossier), $token);
+
+        if($dossier) {
+          redirect(sprintf("/fast_dispatch/dossier/%s", $dossier->dossier->dossier_number));
+        }
+      }
+    }
+  }
+
+  private function _loadDossierView($token, $dossier) {
     $this->_add_content(
       $this->load->view(
         'fast_dispatch/dossier',
@@ -35,6 +69,7 @@ class Dossier extends Page {
             'incident_types'          => $this->vocabulary_service->fetchAllIncidentTypes($token),
             'insurances'              => $this->vocabulary_service->fetchAllInsurances($token),
             'directions'              => $this->vocabulary_service->fetchAllDirections($token),
+            'indicators'              => $this->vocabulary_service->fetchAllIndicatorsByDirection($dossier->dossier->allotment_direction_id, $token),
             'traffic_lanes'           => $this->vocabulary_service->fetchAllTrafficLanes($token),
             'licence_plate_countries' => $this->vocabulary_service->fetchAllCountryLicencePlates($token)
           ),
@@ -45,24 +80,18 @@ class Dossier extends Page {
     $this->_render_page();
   }
 
-  public function save($number) {
-    $token = $this->_get_user_token();
+  private function _setDossierValuesFromPostRequest($dossier) {
+    $dossier->dossier->call_number = $this->input->post('call_number');
+    $dossier->dossier->company_id = 1;
+    $dossier->dossier->incident_type_id = $this->input->post('incident_type');
+    $dossier->dossier->allotment_id = 1;
+    $dossier->dossier->allotment_direction_id = $this->input->post('direction');
+    $dossier->dossier->allotment_direction_indicator_id = $this->input->post('indicator');
 
-    $dossier = $this->dossier_service->fetchDossierByNumber($number, $token);
+    $dossier->dossier->towing_vouchers[0]->vehicule_type = $this->input->post('vehicule_type');
+    $dossier->dossier->towing_vouchers[0]->vehicule_licenceplate = $this->input->post('vehicule_licenceplate');
+    $dossier->dossier->towing_vouchers[0]->vehicule_country = $this->input->post('licence_plate_country');
 
-    if($dossier && $dossier->dossier) {
-      $dossier->dossier->call_number = $this->input->post('call_number');
-      $dossier->dossier->company_id = 1;
-      $dossier->dossier->incident_type_id = $this->input->post('incident_type');
-      $dossier->dossier->allotment_id = 1;
-      $dossier->dossier->allotment_direction_id = $this->input->post('direction');
-      $dossier->dossier->allotment_direction_indicator_id = 1;
-
-      $dossier = $this->dossier_service->updateDossier(new Dossier_model($dossier), $token);
-
-      if($dossier) {
-        redirect(sprintf("/fast_dispatch/dossier/%s", $dossier->dossier->dossier_number));
-      }
-    }
+    $dossier->dossier->towing_vouchers[0]->additional_info = $this->input->post('additional_info');
   }
 }

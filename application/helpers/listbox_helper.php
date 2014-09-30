@@ -24,7 +24,7 @@ if ( ! function_exists('listbox')) {
 
 
 
-    $open_select = sprintf('<select name="%s">', $name);
+    $open_select = sprintf('<select name="%s" id="list_%s">', $name, $name);
 
     $select_data = "";
 

@@ -50,7 +50,7 @@ $_dossier = $dossier->dossier;
 
 <div>
     <label>KM Paal</label>
-    <?= listbox('indicator', array(), $_dossier->allotment_direction_indicator_id); ?>
+    <?= listbox('indicator', $indicators, $_dossier->allotment_direction_indicator_id); ?>
 </div>
 
 <div>
@@ -99,9 +99,9 @@ $_dossier = $dossier->dossier;
                   )); ?>
 </div>
 
-<div>
+<div class="form-item">
     <label>Afmelding CIC</label>
-    <?= form_input('cic', $_dossier->towing_vouchers[0]->vehicule_type); ?>
+    <?= form_input('cic', $_dossier->towing_vouchers[0]->cic); ?>
 </div>
 
 <div>
@@ -109,10 +109,32 @@ $_dossier = $dossier->dossier;
     <?= form_textarea('additional_info', $_dossier->towing_vouchers[0]->additional_info); ?>
 </div>
 
-<input type="submit" value="Bewaren" name="btnSave" />
+<div class="form-item">
+  <input type="submit" value="Bewaren" name="btnSave" />
+</div>
 <?= form_close(); ?>
 
 <pre>
 
 <? var_dump($_dossier); ?>
 </pre>
+
+
+<script>
+$('#list_direction').change(function(){
+  var id = $('#list_direction option:selected').val();
+
+  $.getJSON("/fast_dispatch/ajax/indicators/"+id,
+    function(data) {
+      $('#list_indicator').empty();
+
+      $.each(data, function(index, item) {
+          $('#list_indicator').append($('<option/>', {
+                  value: item.id,
+                  text : item.name
+              }));
+      });
+    }
+  );
+});
+</script>

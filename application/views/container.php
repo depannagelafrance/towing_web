@@ -5,7 +5,9 @@
 <html>
 
 <head>
-	<link rel="stylesheet" type="text/css" href="public/assets/stylesheets/towing.style.css" />
+	<link rel="stylesheet" type="text/css" href="/public/assets/stylesheets/towing.style.css" />
+	<script src="/public/assets/js/jquery/jquery.min.js"></script>
+
   <title><?php print $title ?></title>
   <?php
 	  if (isset($css)) {

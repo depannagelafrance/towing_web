@@ -19,7 +19,7 @@ class Vocabulary_service extends Rest_service {
     return $this->CI->rest->get(sprintf('/vocab/directions/%s', $token));
   }
 
-  public function fetchAllIndicatorsByDirections($direction, $token) {
+  public function fetchAllIndicatorsByDirection($direction, $token) {
     return $this->CI->rest->get(sprintf('/vocab/indicators/%s/%s', $direction, $token));
   }
 
