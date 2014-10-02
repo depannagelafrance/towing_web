@@ -1,7 +1,8 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 require_once(APPPATH . '/controllers/page.php');
 
-class Index extends Page {
+class Collector extends Page {
+    
     public function __construct(){
       parent::__construct();
 
@@ -15,8 +16,8 @@ class Index extends Page {
    */
   public function index()
   {
-      $this->_add_content($this->load->view('admin/index', '', true));
-      $this->_render_page();
+      
+      $this->_add_content($this->load->view('admin/index'));
   }
   
 }

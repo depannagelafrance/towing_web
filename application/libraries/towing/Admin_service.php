@@ -8,7 +8,7 @@ class Admin_service extends Rest_service {
     }
 
   public function fetchAllUsers($token) {
-    return $this->CI->rest->get(sprintf('/admin/admin/users/%s', $token));
+    return $this->CI->rest->get(sprintf('/admin/users/%s', $token));
   }
 
   public function fetchUserById($id, $token) {

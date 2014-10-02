@@ -23,7 +23,7 @@ class User_model {
       $this->email      = array_key_exists('email', $data) ? $data['email'] : "";
 
       if(array_key_exists('user_roles', $data) && is_array($data['user_roles'])) {
-        foreach($role in $data['user_roles']) {
+        foreach($role as $data['user_roles']) {
           $this->user_roles[] = new Role_model($role);
         }
       }
