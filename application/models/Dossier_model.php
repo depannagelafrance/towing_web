@@ -26,8 +26,8 @@ class Dossier_model  {
       $this->traffic_lane_id                       = $data->dossier->traffic_lane_id;
       $this->police_traffic_post_id                = $data->dossier->police_traffic_post_id;
 
-      if(array_key_exists('towing_vouchers', $data) && is_array($data['towing_vouchers'])) {
-        foreach($data['towing_vouchers'] as $voucher) {
+      if($data->dossier->towing_vouchers && is_array($data->dossier->towing_vouchers)) {
+        foreach($data->dossier->towing_vouchers as $voucher) {
           $this->towing_vouchers[] = new Voucher_model($voucher);
         }
       }

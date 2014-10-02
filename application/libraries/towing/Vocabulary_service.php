@@ -20,7 +20,10 @@ class Vocabulary_service extends Rest_service {
   }
 
   public function fetchAllIndicatorsByDirection($direction, $token) {
-    return $this->CI->rest->get(sprintf('/vocab/indicators/%s/%s', $direction, $token));
+    if($direction && trim($direction) !== "")
+      return $this->CI->rest->get(sprintf('/vocab/indicators/%s/%s', $direction, $token));
+
+    return array();
   }
 
   public function fetchAllTrafficLanes($token) {

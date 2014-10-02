@@ -15,16 +15,29 @@ class Page extends CI_Controller {
 		$this->load->helper('html');
 		$this->load->library('session');
 
-        //Set default view vars (if wanted), can be overwritten in specific controller (add construct)
-		//title of every page
-		$this->data['title'] = 'Towing';
-		$this->data['content'] 	= '';
-		// initialize messages
-		$this->data['succes']	= '';
-		$this->data['error']	= '';
+		if(!$this->_get_authenticated_user())
+		{
+			$this->load->helper('url');
+			$uri = uri_string();
 
-		if($this->_get_authenticated_user()) {
-			$this->data['available_modules'] = $this->_get_available_modules();
+			if(substr($uri,0,5) !== 'login') {
+				redirect("/login");
+			}
+		}
+		else
+		{
+			//Set default view vars (if wanted), can be overwritten in specific controller (add construct)
+			//title of every page
+			$this->data['title'] = 'Towing';
+			$this->data['content'] 	= '';
+
+			// initialize messages
+			$this->data['succes']	= '';
+			$this->data['error']	= '';
+
+			if($this->_get_authenticated_user()) {
+				$this->data['available_modules'] = $this->_get_available_modules();
+			}
 		}
 	}
 
@@ -35,6 +48,14 @@ class Page extends CI_Controller {
 	 * @param type $string
 	 */
 	public function _add_content($string) {
+		if(!$this->data) {
+			$this->data = array();
+		}
+
+		if(!array_key_exists('content', $this->data)) {
+			$this->data['content'] = '';
+		}
+
 		$this->data['content'] = $this->data['content'] . $string;
 	}
 
