@@ -35,6 +35,10 @@ class Admin_service extends Rest_service {
     return $this->CI->rest->put(sprintf('/admin/users/unlock/%s/%s', $user_id, $token));
   }
 
+  public function fetchAvailableRoles($token) {
+    return $this->CI->rest->put(sprintf('/admin/roles/%s', $token));  
+  }
+
 // -- -------------------------------------------------
 // -- CALENDAR MANAGEMENT
 // -- -------------------------------------------------
