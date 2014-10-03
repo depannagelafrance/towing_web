@@ -1,3 +1,4 @@
+/* Import Sass Mixins, Variables, Compass Modules, Base Styles etc. */
 /*! normalize.css v3.0.0 | MIT License | git.io/normalize */
 /*! normalize.css v3.0.0 | HTML5 Display Definitions | MIT License | git.io/normalize */
 article,
@@ -411,17 +412,9 @@ table thead tr {
   border-bottom: 2px solid #f5f5f5;
 }
 
-.area {
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
-  background: #FFFFFF;
-  border: 1px solid #e5e5e5;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-bottom-width: 2px;
-  padding: 10px;
-}
-
+/* Import Layouts */
+/* No files to import found in layout/**\/* */
+/* Import Components */
 .logo {
   width: 155px;
   height: 45px;
@@ -430,149 +423,29 @@ table thead tr {
   background-position: 0px -3px;
 }
 
-.btn {
+.btn, .btn--icon, .btn--icon--highlighted {
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
   border-radius: 2px;
+  background-color: #efefef;
+  color: #868685;
+  padding: 15px;
+}
+.btn:hover, .btn--icon:hover, .btn--icon--highlighted:hover {
+  background-color: #e2e2e2;
 }
 
-.btn_action {
+.btn--icon, .btn--icon--highlighted {
   width: 56px;
   height: 52px;
+  padding: 0;
 }
 
-.btn_focus {
+.btn--icon--highlighted {
   background-color: #4285f4;
 }
-
-.btn_normal {
-  background-color: #efefef;
-}
-
-.icon {
-  width: 55px;
-  height: 50px;
-  background-image: url('../images/icons/icons.png');
-  background-repeat: no-repeat;
-  display: block;
-  text-indent: -119988px;
-  overflow: hidden;
-  text-align: left;
-  text-transform: capitalize;
-}
-.icon.icon-user {
-  background-position: -6px -74px;
-}
-.icon.icon-user.icon-light, .icon.icon-user:hover {
-  background-position: -6px -138px;
-}
-.icon.icon-settings {
-  background-position: -71px -74px;
-}
-.icon.icon-settings.icon-light, .icon.icon-settings:hover {
-  background-position: -71px -138px;
-}
-.icon.icon-off {
-  background-position: -136px -74px;
-}
-.icon.icon-off.icon-light, .icon.icon-off:hover {
-  background-position: -136px -138px;
-}
-.icon.icon-edit {
-  background-position: -200px -74px;
-}
-.icon.icon-edit.icon-light, .icon.icon-edit:hover {
-  background-position: -200px -138px;
-}
-.icon.icon-edit-small {
-  background-position: -591px -74px;
-}
-.icon.icon-edit-small.icon-light, .icon.icon-edit-small:hover {
-  background-position: -591px -138px;
-}
-.icon.icon-add {
-  background-position: -264px -74px;
-}
-.icon.icon-add.icon-light, .icon.icon-add:hover {
-  background-position: -264px -138px;
-}
-.icon.icon-clock {
-  background-position: -331px -74px;
-}
-.icon.icon-clock.icon-light, .icon.icon-clock:hover {
-  background-position: -331px -138px;
-}
-.icon.icon-date {
-  background-position: -395px -74px;
-}
-.icon.icon-date.icon-light, .icon.icon-date:hover {
-  background-position: -395px -138px;
-}
-.icon.icon-arrow-down {
-  background-position: -524px -74px;
-}
-.icon.icon-arrow-down.icon-light, .icon.icon-arrow-down:hover {
-  background-position: -524px -138px;
-}
-.icon.icon-arrow-left {
-  background-position: -654px -74px;
-}
-.icon.icon-arrow-left.icon-light, .icon.icon-arrow-left:hover {
-  background-position: -654px -138px;
-}
-.icon.icon-arrow-right {
-  background-position: -720px -74px;
-}
-.icon.icon-arrow-right.icon-light, .icon.icon-arrow-right:hover {
-  background-position: -720px -138px;
-}
-.icon.icon-phone {
-  background-position: -461px -74px;
-}
-.icon.icon-phone.icon-light, .icon.icon-phone:hover {
-  background-position: -461px -138px;
-}
-.icon.icon-remove {
-  background-position: -786px -74px;
-}
-.icon.icon-remove.icon-light, .icon.icon-remove:hover {
-  background-position: -786px -138px;
-}
-.icon.icon-attachement {
-  background-position: -850px -74px;
-}
-.icon.icon-attachement.icon-light, .icon.icon-attachement:hover {
-  background-position: -850px -138px;
-}
-.icon.icon-nota {
-  background-position: -915px -74px;
-}
-.icon.icon-nota.icon-light, .icon.icon-nota:hover {
-  background-position: -915px -138px;
-}
-.icon.icon-email {
-  background-position: -6px -270px;
-}
-.icon.icon-email.icon-light, .icon.icon-email:hover {
-  background-position: -6px -332px;
-}
-.icon.icon-print-preview {
-  background-position: -71px -270px;
-}
-.icon.icon-print-preview.icon-light, .icon.icon-print-preview:hover {
-  background-position: -71px -332px;
-}
-.icon.icon-print {
-  background-position: -136px -270px;
-}
-.icon.icon-print.icon-light, .icon.icon-print:hover {
-  background-position: -136px -332px;
-}
-.icon.icon-plus {
-  background-position: -200px -270px;
-}
-.icon.icon-plus.icon-light, .icon.icon-plus:hover {
-  background-position: -200px -332px;
+.btn--icon--highlighted:hover {
+  background-color: #2a75f3;
 }
 
 .l-topbar .l-topbar-content {
@@ -662,4 +535,160 @@ table thead tr {
 }
 .topbar .topbar-content {
   padding: 10px 0;
+}
+
+.box {
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  background: #FFFFFF;
+  border: 1px solid #e5e5e5;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom-width: 2px;
+  padding: 10px;
+}
+
+.icon, .icon--user, .icon--settings, .icon--off, .icon--edit, .icon--edit--small, .icon--add, .icon--clock, .icon--date, .icon--arrow--down, .icon--arrow--left, .icon--arrow--right, .icon--phone, .icon--remove, .icon--attachement, .icon--nota, .icon--email, .icon--print--preview, .icon--print, .icon--plus {
+  width: 55px;
+  height: 50px;
+  background-image: url('../images/icons/icons.png');
+  background-repeat: no-repeat;
+  display: block;
+  text-indent: -119988px;
+  overflow: hidden;
+  text-align: left;
+  text-transform: capitalize;
+}
+
+.icon--user {
+  background-position: -4px -71px;
+}
+.bright .icon--user {
+  background-position: -4px -135px;
+}
+
+.icon--settings {
+  background-position: -71px -71px;
+}
+.bright .icon--settings {
+  background-position: -71px -135px;
+}
+
+.icon--off {
+  background-position: -136px -71px;
+}
+.bright .icon--off {
+  background-position: -136px -135px;
+}
+
+.icon--edit {
+  background-position: -200px -71px;
+}
+.bright .icon--edit {
+  background-position: -200px -135px;
+}
+
+.icon--edit--small {
+  background-position: -591px -71px;
+}
+.bright .icon--edit--small {
+  background-position: -591px -135px;
+}
+
+.icon--add {
+  background-position: -264px -71px;
+}
+.bright .icon--add {
+  background-position: -264px -135px;
+}
+
+.icon--clock {
+  background-position: -331px -71px;
+}
+.bright .icon--clock {
+  background-position: -331px -135px;
+}
+
+.icon--date {
+  background-position: -395px -71px;
+}
+.bright .icon--date {
+  background-position: -395px -135px;
+}
+
+.icon--arrow--down {
+  background-position: -524px -71px;
+}
+.bright .icon--arrow--down {
+  background-position: -524px -135px;
+}
+
+.icon--arrow--left {
+  background-position: -654px -71px;
+}
+.bright .icon--arrow--left {
+  background-position: -654px -135px;
+}
+
+.icon--arrow--right {
+  background-position: -720px -71px;
+}
+.bright .icon--arrow--right {
+  background-position: -720px -135px;
+}
+
+.icon--phone {
+  background-position: -461px -71px;
+}
+.bright .icon--phone {
+  background-position: -461px -135px;
+}
+
+.icon--remove {
+  background-position: -786px -71px;
+}
+.bright .icon--remove {
+  background-position: -786px -135px;
+}
+
+.icon--attachement {
+  background-position: -850px -71px;
+}
+.bright .icon--attachement {
+  background-position: -850px -135px;
+}
+
+.icon--nota {
+  background-position: -915px -71px;
+}
+.bright .icon--nota {
+  background-position: -915px -135px;
+}
+
+.icon--email {
+  background-position: -6px -270px;
+}
+.bright .icon--email {
+  background-position: -6px -332px;
+}
+
+.icon--print--preview {
+  background-position: -71px -270px;
+}
+.bright .icon--print--preview {
+  background-position: -71px -332px;
+}
+
+.icon--print {
+  background-position: -136px -270px;
+}
+.bright .icon--print {
+  background-position: -136px -332px;
+}
+
+.icon--plus {
+  background-position: -200px -270px;
+}
+.bright .icon--plus {
+  background-position: -200px -332px;
 }

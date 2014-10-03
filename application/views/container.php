@@ -41,10 +41,10 @@
         </nav>
       </div>
       <div class="l-user-navigation">
-        <div class="user-navigation">
-          <div class="l-user-action"><a href="#" class="icon icon-user"></a></div>
-          <div class="l-user-action"><a href="#" class="icon icon-settings"></a></div>
-          <div class="l-user-action"><a href="#" class="icon icon-off"></a></div>
+        <div class="user-navigation bright">
+          <div class="l-user-action"><a href="#" class="icon--user"></a></div>
+          <div class="l-user-action"><a href="#" class="icon--settings"></a></div>
+          <div class="l-user-action"><a href="#" class="icon--off"></a></div>
         </div>
       </div>
     </div>

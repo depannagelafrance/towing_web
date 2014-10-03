@@ -21,3 +21,39 @@ can be made more reusable by making them components in their own right, so they
 can then be used within other components.
 
 Almost everything that doesn't belong in base should be made a component.
+
+
+
+// Component
+//
+// The base for the Design Component
+//
+// Styleguide 2.1
+
+
+// Element
+//
+// All the different elements of the Design Component
+//
+// Styleguide 2.2
+
+
+// Modifiers
+//
+// All the different variants of the Design Component
+//
+// Styleguide 2.3
+
+
+// State
+//
+// All the different states of the Design Component
+//
+// Styleguide 2.4
+
+
+// Skin
+//
+// A special global modifier for the Design Component
+//
+// Styleguide 2.5

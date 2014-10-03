@@ -1,0 +1,19 @@
+// Box
+//
+// Overview of the Box Design Component
+//
+// Markup:
+// <div class="box">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus neque ligula, cursus ut lacus id, vulputate faucibus lorem. Proin id diam odio. Vivamus eu facilisis lacus. Quisque consectetur quam risus, sit amet dignissim orci fermentum a. Morbi tempor fermentum quam sit amet commodo. Morbi sed mollis nisi. Sed pulvinar risus ac ante sodales, eu consequat nisi tempus.</div>
+//
+// Styleguide 2.0
+
+.box{
+
+  @include border-radius(3px);
+  background: $block_bg_color;
+  border: 1px solid $block_border_color_fallback;
+  border: 1px solid $block_border_color;
+  border-bottom-width: 2px;
+  padding: 10px;
+
+}

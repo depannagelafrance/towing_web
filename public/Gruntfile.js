@@ -23,6 +23,10 @@ module.exports = function (grunt) {
       scripts: {
         files: ['assets/scripts/{,**/}*.js', '!assets/scripts/{,**/}*.min.js'],
         tasks: ['jshint', 'uglify:dev']
+      },
+      styleguide: {
+        files: ['assets/stylesheets/{,**/}*.css'],
+        tasks: ['styleguide']
       }
     },
 
@@ -42,6 +46,24 @@ module.exports = function (grunt) {
           environment: 'production'
         }
       }
+    },
+
+    styleguide: {
+        options: {
+            framework: {
+                name: 'kss'
+            },
+
+            template: {
+                src: 'assets/kss_template'
+            }
+
+        },
+        all: {
+            files: [{
+                'assets/styleguide': 'assets/sass/**/*.scss'
+            }]
+        }
     },
 
     jshint: {
@@ -99,6 +121,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-shell');
+  grunt.loadNpmTasks('grunt-styleguide');
 
   grunt.registerTask('build', [
     'uglify:dist',

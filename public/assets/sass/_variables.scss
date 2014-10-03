@@ -1,3 +1,6 @@
+//TYPO
+$font_base_size : 12px;
+
 //COLORS
 $white : #FFFFFF;
 
@@ -43,8 +46,9 @@ $nav_main_link_color_active : $white;
 $icon_focus_bg : $blue;
 
 //BUTTONS
+$btn_color : $gray_dark;
 $btn_bg : $gray_light;
-$btn_focus_bg : $blue;
+$btn_highlighted_bg : $blue;
 
 //FORM
 $form_input_border_color : rgba(0,0,0,0.1);
