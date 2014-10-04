@@ -1,0 +1,24 @@
+.form-item-licenseplate{
+
+  .licenseplate-container{
+
+    @include clearfix;
+
+    input{
+      width: 74%;
+      float: left;
+      margin-right: 1%;
+    }
+
+    .chosen-container{
+
+      width: 25% !important;
+      float: right;
+
+    }
+
+  }
+
+
+
+}

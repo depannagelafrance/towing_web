@@ -5,8 +5,15 @@
 <html>
 
 <head>
-	<link rel="stylesheet" type="text/css" href="/public/assets/stylesheets/towing.style.css" />
-	<script src="/public/assets/js/jquery/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="/public/bower_components/chosen/chosen.min.css" />
+  <link rel="stylesheet" type="text/css" href="/public/assets/stylesheets/towing.style.css" />
+  <script src="/public/bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="/public/bower_components/chosen/chosen.jquery.min.js"></script>
+  <script type="application/javascript">
+    $(document).ready(function() {
+      $('select').chosen({disable_search: true});
+    });
+  </script>
 
   <title><?php print $title ?></title>
   <?php
@@ -50,7 +57,12 @@
     </div>
   </div>
   <div class="container">
-    <?php print $content; ?>
+    <div class="layout-full">
+      <div class="layout-center">
+        <?php print $content; ?>
+      </div>
+    </div>
   </div>
+
 </body>
 </html>

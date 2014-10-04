@@ -1,0 +1,20 @@
+.layout-has-sidebar{
+
+  @include clearfix;
+
+  .layout-sidebar{
+
+    width: 20%;
+    float: left;
+    margin-right: 2.5%;
+
+  }
+
+  .layout-content{
+
+    width: 77.5%;
+    float: right;
+
+  }
+
+}

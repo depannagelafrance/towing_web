@@ -4,6 +4,8 @@ class Page extends CI_Controller {
 
 	public $data;
 
+  public $pagetype;
+
 	/**
 	 *	Constructor
 	 *
@@ -76,8 +78,14 @@ class Page extends CI_Controller {
 	/**
 	 * rendering the whole page
 	 */
-	public function _render_page() {
-		$this->load->view('container', $this->data);
+	public function _render_page($pagetype = 'container') {
+    if($pagetype === 'container'){
+      $this->load->view('container', $this->data);
+    }
+    elseif($pagetype === 'login_container'){
+      $this->load->view('login_container', $this->data);
+    }
+
 	}
 
 	protected function _set_authenticated_user($user) {

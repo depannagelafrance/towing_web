@@ -5,13 +5,13 @@ $this->load->helper('date');
 $_dossier = $dossier->dossier;
 ?>
 
-<div style="background-color: #ffeb3b;">
+<div>
   <div><?=$_dossier->dossier_number?></div>
   <div><?= mdate('%d/%m/%Y',strtotime($_dossier->call_date)); ?></div>
   <div><?= mdate('%H:%i',strtotime($_dossier->call_date)); ?></div>
 </div>
 
-<div style="background-color: #fffde7;">
+<div>
   <div>
       <label>Oproepnr.</label>
       <?= $_dossier->call_number ?>

@@ -1,0 +1,36 @@
+.idbar{
+
+  @include clearfix;
+  margin-bottom: 15px;
+
+}
+
+.idbar__item{
+
+  @include clearfix;
+  float: left;
+  margin-right: 35px;
+
+}
+
+.idbar__label{
+
+  float: left;
+
+}
+
+.idbar__value{
+
+  float: left;
+  padding: 20px 35px;
+
+}
+
+.idbar__id{
+
+  background-color: $idbar_bg_color;
+  color: $idbar_color;
+  padding: 20px 35px;
+  @include border-radius(2px 0 0 2px);
+
+}

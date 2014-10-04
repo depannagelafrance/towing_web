@@ -13,7 +13,7 @@ input[type="tel"],
 input[type="time"],
 input[type="url"],
 input[type="week"],
-textarea{
+select{
 
   @extend .form_input_border;
   @extend .form_input_bg;
@@ -22,6 +22,21 @@ textarea{
   height: 34px;
   padding: 0 10px;
   display: block;
+  color: $form_input_color;
+
+
+}
+
+textarea{
+
+  @extend .form_input_border;
+  @extend .form_input_bg;
+  @include border-radius(2px);
+  width: 100%;
+  padding: 0 10px;
+  display: block;
+  color: $form_input_color;
+
 
 }
 
@@ -51,12 +66,5 @@ input[type="button"]{
     background-color: darken($form_submit_bg_color, 5%);
 
   }
-
-}
-
-.form-item{
-
-  margin-top: 10px;
-  margin-bottom: 10px;
 
 }
