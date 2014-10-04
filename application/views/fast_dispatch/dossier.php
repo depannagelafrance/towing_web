@@ -139,7 +139,7 @@
 
         <div class="form-item-horizontal">
             <label>Perceel (naam)</label>
-            <?php print form_input('allotment_name', ""); ?>
+            <?php print form_input('allotment_name', $_dossier->allotment_name); ?>
         </div>
 
         <div class="form-item-horizontal">

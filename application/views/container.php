@@ -11,7 +11,7 @@
   <script src="/public/bower_components/chosen/chosen.jquery.min.js"></script>
   <script type="application/javascript">
     $(document).ready(function() {
-      $('select').chosen();
+      $('select').chosen({disable_search: true});
     });
   </script>
 
