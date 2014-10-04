@@ -1,0 +1,27 @@
+.form-item{
+
+  margin-top: 15px;
+  margin-bottom: 15px;
+
+}
+
+.form-item-horizontal{
+  @extend .form-item;
+  @include clearfix;
+
+  label{
+    padding: 8px 20px 8px 0px;
+    width: 25%;
+    float: left;
+  }
+
+  input, select, textarea, .chosen-container, .licenseplate-container{
+    width: 75%;
+    float: right;
+  }
+
+  .chosen-container{
+    width: 75% !important;
+  }
+
+}
