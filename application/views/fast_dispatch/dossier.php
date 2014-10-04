@@ -125,7 +125,11 @@ $('#list_direction').change(function(){
   var id = $('#list_direction option:selected').val();
 
   $.getJSON("/fast_dispatch/ajax/indicators/"+id,
-    function(data) {
+    function(data, status, xhr) {
+      console.log(data);
+      console.log(status);
+      console.log(xhr);
+      
       $('#list_indicator').empty();
 
       $.each(data, function(index, item) {
