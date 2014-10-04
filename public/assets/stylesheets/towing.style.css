@@ -423,7 +423,7 @@ table thead tr {
   background-position: 0px -3px;
 }
 
-.btn, .btn--icon, .btn--icon--highlighted {
+.btn, .btn--highlighted, .btn--icon, .btn--icon--highlighted {
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
   border-radius: 2px;
@@ -431,8 +431,16 @@ table thead tr {
   color: #868685;
   padding: 15px;
 }
-.btn:hover, .btn--icon:hover, .btn--icon--highlighted:hover {
+.btn:hover, .btn--highlighted:hover, .btn--icon:hover, .btn--icon--highlighted:hover {
   background-color: #e2e2e2;
+}
+
+.btn--highlighted {
+  background-color: #4285f4;
+  color: #FFFFFF;
+}
+.btn--highlighted:hover {
+  background-color: #2a75f3;
 }
 
 .btn--icon, .btn--icon--highlighted {

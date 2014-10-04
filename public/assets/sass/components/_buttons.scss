@@ -2,10 +2,15 @@
 //
 // Overview of the Button Design Component
 //
+// Styleguide 3.0
+
+
+// .btn
+//
 // Markup:
 // <div class="btn">Lorem ipsum dolor sit amet!</div>
 //
-// Styleguide 3.0
+// Styleguide 3.0.1
 
 .btn{
   @include border-radius(2px);
@@ -18,6 +23,23 @@
 }
 
 
+// .btn--highlighted
+//
+// Markup:
+// <div class="btn--highlighted">Lorem ipsum dolor sit amet!</div>
+//
+// Styleguide 3.0.2
+
+.btn--highlighted{
+  @extend .btn;
+  background-color: $btn_highlighted_bg;
+  color: $btn_highlighted_color;
+  &:hover{
+    background-color: darken($btn_highlighted_bg, 5%);
+  }
+}
+
+
 // .btn--icon
 //
 // Button that contains an icon
@@ -25,7 +47,7 @@
 // Markup:
 // <div class="btn--icon"><div class="icon--user"></div></div>
 //
-// Styleguide 3.0.1
+// Styleguide 3.0.3
 
 .btn--icon{
   @extend .btn;
@@ -42,7 +64,7 @@
 // Markup:
 // <div class="btn--icon--highlighted bright"><div class="icon--add"></div></div>
 //
-// Styleguide 3.0.2
+// Styleguide 3.0.4
 
 .btn--icon--highlighted{
   @extend .btn;
