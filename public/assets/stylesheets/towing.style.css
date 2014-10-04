@@ -686,6 +686,12 @@ table thead tr {
   margin: 0;
   padding: 10px;
 }
+.chosen-container-single .chosen-drop .chosen-search:after,
+.chosen-container-active.chosen-with-drop .chosen-drop .chosen-search:after {
+  content: "";
+  display: table;
+  clear: both;
+}
 .chosen-container-single .chosen-drop .chosen-search input[type="text"],
 .chosen-container-active.chosen-with-drop .chosen-drop .chosen-search input[type="text"] {
   -moz-border-radius: 2px;

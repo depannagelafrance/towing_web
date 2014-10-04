@@ -2,8 +2,10 @@
 .chosen-container-active.chosen-with-drop{
   .chosen-drop{
 
-    .chosen-search{
 
+    .chosen-search{
+      
+      @include clearfix;
       margin: 0;
       padding: 10px;
 
