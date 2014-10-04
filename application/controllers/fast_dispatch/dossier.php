@@ -81,10 +81,10 @@ class Dossier extends Page {
   }
 
   private function _setDossierValuesFromPostRequest($dossier) {
-    $dossier->dossier->call_number = $this->input->post('call_number');
-    $dossier->dossier->company_id = 1;
-    $dossier->dossier->incident_type_id = $this->input->post('incident_type');
-    $dossier->dossier->allotment_id = 1;
+    $dossier->dossier->call_number            = $this->input->post('call_number');
+    $dossier->dossier->company_id             =  $this->input->post('company_id');
+    $dossier->dossier->incident_type_id       = $this->input->post('incident_type');
+    $dossier->dossier->allotment_id           =  $this->input->post('allotment_id');
     $dossier->dossier->allotment_direction_id = $this->input->post('direction');
     $dossier->dossier->allotment_direction_indicator_id = $this->input->post('indicator');
 

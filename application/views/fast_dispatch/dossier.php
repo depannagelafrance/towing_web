@@ -120,13 +120,34 @@
             </div>
         </div>
 
+
         <div class="form-item-horizontal">
             <label>Afmelding CIC</label>
             <?php print form_input('cic', $_dossier->towing_vouchers[0]->cic); ?>
         </div>
       </div>
 
+  <!-- second column -->
+
       <div class="layout_2col_item">
+
+
+        <div class="form-item-horizontal">
+            <label>Perceel</label>
+            <?php print form_input('allotment_id', $_dossier->allotment_id); ?>
+        </div>
+
+        <div class="form-item-horizontal">
+            <label>Perceel (naam)</label>
+            <?php print form_input('allotment_name', ""); ?>
+        </div>
+
+        <div class="form-item-horizontal">
+            <label>Takeldienst</label>
+            <?php print listbox('company_id', array(), $_dossier->company_id); ?>
+        </div>
+
+
 
         <div class="form-item-horizontal">
             <label>Extra info</label>
@@ -151,15 +172,38 @@
 </div>
 
 <script>
+function fetchAllotmentAndTowingServices()
+{
+  var direction_id = $('#list_direction option:selected').val();
+  var indicator_id = $('#list_indicator option:selected').val();
+
+  $.getJSON("/fast_dispatch/ajax/allotments/"+direction_id+"/"+indicator_id, function(data, status, xhr) {
+      if(data && data.length == 1) {
+        var allotment = data.shift();
+
+        console.log("allotment " + allotment.id);
+        $("input[name*='allotment_id']").val(allotment.id);
+        $("input[name*='allotment_name']").val(allotment.name);
+
+
+        $('#list_company_id').empty();
+
+        $.each(allotment.towing_services, function(index, item) {
+            $('#list_company_id').append($('<option/>', {
+                    value: item.id,
+                    text : item.name
+                }));
+        });
+
+        $('#list_company_id').trigger('chosen:updated');
+      }
+  });
+}
+
 $('#list_direction').change(function(){
   var id = $('#list_direction option:selected').val();
 
-  $.getJSON("/fast_dispatch/ajax/indicators/"+id,
-    function(data, status, xhr) {
-      console.log(data);
-      console.log(status);
-      console.log(xhr);
-      
+  $.getJSON("/fast_dispatch/ajax/indicators/"+id, function(data, status, xhr) {
       $('#list_indicator').empty();
 
       $.each(data, function(index, item) {
@@ -171,7 +215,14 @@ $('#list_direction').change(function(){
 
       $('#list_indicator').trigger('chosen:updated');
 
-    }
-  );
+  });
+
+  fetchAllotmentAndTowingServices();
 });
+
+$('#list_indicator').change(function(){
+  fetchAllotmentAndTowingServices();
+});
+
+
 </script>
