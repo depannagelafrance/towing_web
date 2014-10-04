@@ -221,6 +221,9 @@ $('#list_direction').change(function(){
                   text : item.name
               }));
       });
+
+      $('#list_indicator').trigger('chosen:updated');
+
     }
   );
 });
