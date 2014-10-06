@@ -146,7 +146,7 @@ $_voucher = $_dossier->towing_vouchers[0];
 
   <div>
       <label>Depot</label>
-      <?= form_input('towing_depot', $_voucher->towing_depot); ?>
+      <?= $_voucher->depot->display_name ?>
   </div>
 </div>
 

@@ -39,6 +39,7 @@ class Dossier extends Page {
     $this->form_validation->set_rules('incident_type', 'Type incident', 'required');
     $this->form_validation->set_rules('call_number', 'Oproepnummer', 'required');
     $this->form_validation->set_rules('vehicule_type', 'Type wagen', 'required');
+    $this->form_validation->set_rules('company_id', 'Takeldienst', 'required');
 
     if ($this->form_validation->run() === FALSE)
     {

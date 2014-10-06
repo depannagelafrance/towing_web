@@ -14,6 +14,7 @@ class Dossier_model  {
   public $police_traffic_post_id = null;
   public $towing_vouchers = array(); //array of Voucher_model
 
+
   public function __construct($data = null) {
     if($data) {
       $this->id                                    = $data->dossier->id;
@@ -25,6 +26,7 @@ class Dossier_model  {
       $this->indicator_id                          = $data->dossier->allotment_direction_indicator_id;
       $this->traffic_lane_id                       = $data->dossier->traffic_lane_id;
       $this->police_traffic_post_id                = $data->dossier->police_traffic_post_id;
+
 
       if($data->dossier->towing_vouchers && is_array($data->dossier->towing_vouchers)) {
         foreach($data->dossier->towing_vouchers as $voucher) {
