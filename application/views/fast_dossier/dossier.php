@@ -4,11 +4,31 @@ $this->load->helper('date');
 
 $_dossier = $dossier->dossier;
 ?>
-
 <div class="layout-has-sidebar">
   <div class="layout-sidebar">
     <div class="box">
 
+      <?php
+
+      $this->load->helper('date');
+
+      $this->table->set_heading('Id', 'Datum', 'Tijd');
+
+      //d.id, d.id as 'dossier_id', t.id as 'voucher_id', d.call_number, d.call_date, t.voucher_number, ad.name 'direction_name',
+      //adi.name 'indicator_name', c.code as `towing_service`, ip.name as `incident_type`
+
+      if($vouchers && sizeof($vouchers) > 0) {
+        foreach($vouchers as $voucher) {
+          $this->table->add_row(
+            $voucher->voucher_number,
+            mdate('%d/%m/%Y',strtotime($voucher->call_date)),
+            mdate('%H:%i',strtotime($voucher->call_date))
+          );
+        }
+      }
+
+      echo $this->table->generate();
+      ?>
     </div>
   </div>
 
