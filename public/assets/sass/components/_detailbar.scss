@@ -1,0 +1,14 @@
+.detailbar{
+
+  @include clearfix;
+  margin-bottom: 15px;
+
+}
+
+.detailbar__row{
+
+  width: 33.33%;
+  float: left;
+  padding: 10px;
+
+}
