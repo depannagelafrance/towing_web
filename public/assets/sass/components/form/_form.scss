@@ -9,19 +9,30 @@
   @extend .form-item;
   @include clearfix;
 
+  &.less_padded{
+
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+  }
+
   label{
     padding: 8px 20px 8px 0px;
     width: 25%;
     float: left;
   }
 
-  input, select, textarea, .chosen-container, .licenseplate-container{
+  input, select, textarea, .chosen-container, .licenseplate-container, .value{
     width: 75%;
     float: right;
   }
 
   .chosen-container{
     width: 75% !important;
+  }
+
+  .value{
+    padding: 8px 20px 8px 20px;
   }
 
 }

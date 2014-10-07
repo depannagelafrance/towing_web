@@ -39,47 +39,47 @@ $_dossier = $dossier->dossier;
 
     </div>
 
-    <div class="box detailbar">
+    <div class="box box--unpadded detailbar">
       <div class="detailbar__row">
-        <div class="form-item-horizontal">
-          <label>Oproepnr.</label>
-          <?php print $_dossier->call_number; ?>
+        <div class="form-item-horizontal less_padded">
+          <label>Oproepnr.&nbsp;:</label>
+          <div class="value"><?php print $_dossier->call_number; ?></div>
         </div>
 
-        <div class="form-item-horizontal">
-          <label>Perceel</label>
-          <?= $_dossier->allotment_name ?>
+        <div class="form-item-horizontal less_padded">
+          <label>Perceel&nbsp;:</label>
+          <div class="value"><?php print $_dossier->allotment_name ?></div>
         </div>
 
-        <div class="form-item-horizontal">
-          <label>Toegewezen aan</label>
-          <?= $_dossier->company_name ?>
+        <div class="form-item-horizontal less_padded">
+          <label>Toegewezen aan&nbsp;:</label>
+          <div class="value"><?php print $_dossier->company_name ?></div>
         </div>
       </div>
 
       <div class="detailbar__row">
 
-         <div class="form-item-horizontal">
-           <label>Richting</label>
-           <?= $_dossier->direction_name ?>
+         <div class="form-item-horizontal less_padded">
+           <label>Richting&nbsp;:</label>
+           <div class="value"><?php print $_dossier->direction_name; ?></div>
          </div>
 
-         <div class="form-item-horizontal">
-           <label>KM Paal</label>
-           <?=  $_dossier->indicator_name ?>
+         <div class="form-item-horizontal less_padded">
+           <label>KM Paal&nbsp;:</label>
+           <div class="value"><?php print $_dossier->indicator_name; ?></div>
          </div>
 
-         <div class="form-item-horizontal">
-           <label>Rijstrook</label>
-           <?= $_dossier->traffic_lane_name ?>
+         <div class="form-item-horizontal less_padded">
+           <label>Rijstrook&nbsp;:</label>
+           <div class="value"><?php print $_dossier->traffic_lane_name; ?></div>
          </div>
       </div>
 
       <div class="detailbar__row">
 
-        <div class="form-item-horizontal">
-          <label>Type incident</label>
-          <?= $_dossier->incident_type_name ?>
+        <div class="form-item-horizontal less_padded">
+          <label>Type incident&nbsp;:</label>
+          <div class="value"><?php print $_dossier->incident_type_name; ?></div>
         </div>
 
       </div>
@@ -89,19 +89,57 @@ $_dossier = $dossier->dossier;
   <?= validation_errors(); ?>
   <?= form_open('fast_dossier/dossier/save/' . $_dossier->dossier_number) ?>
 
-  <div style="background-color: #fff9c4;">
-    <?php
-    foreach($_dossier->towing_vouchers as $_voucher) {
-      ?>
+  <div class="dossierbar">
 
+    <div class="dossierbar__vouchers">
+      <?php foreach($_dossier->towing_vouchers as $_voucher) : ?>
+        <div class="dossierbar__id active">
+          <?php print $_voucher->voucher_number; ?>
+        </div>
+      <?php endforeach; ?>
+    </div>
 
-      <div>
-        <label>Takelbon:</label>
-        <?= $_voucher->voucher_number ?>
+    <div class="dossierbar__mainactions">
+      <div class="dossierbar__mainaction__item">
+        <div class="btn--icon">
+          <a class="icon--edit" href="#">Edit</a>
+        </div>
       </div>
-    <?
-    }
-    ?>
+      <div class="dossierbar__mainaction__item">
+        <div class="btn--icon--highlighted bright">
+          <a class="icon--add" href="#">Add</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="dossierbar__actions">
+      <div class="dossierbar__action__item">
+        <div class="btn--icon">
+          <a class="icon--nota" href="">Nota</a>
+        </div>
+      </div>
+      <div class="dossierbar__action__item">
+        <div class="btn--icon">
+          <a class="icon--attachement" href="">Bijlage</a>
+        </div>
+      </div>
+      <div class="dossierbar__action__item">
+        <div class="btn--icon">
+          <a class="icon--email" href="">Email</a>
+        </div>
+      </div>
+      <div class="dossierbar__action__item">
+        <div class="btn--icon">
+          <a class="icon--print--preview" href="">Print Preview</a>
+        </div>
+      </div>
+      <div class="dossierbar__action__item">
+        <div class="btn--icon">
+          <a class="icon--print" href="">Print</a>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <div class="box">

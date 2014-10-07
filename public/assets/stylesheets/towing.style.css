@@ -515,6 +515,7 @@ table thead tr {
 
 .detailbar {
   margin-bottom: 15px;
+  background: #F5F5F5 !important;
 }
 .detailbar:after {
   content: "";
@@ -526,6 +527,71 @@ table thead tr {
   width: 33.33%;
   float: left;
   padding: 10px;
+  padding-left: 35px;
+}
+
+.dossierbar {
+  margin-bottom: 15px;
+}
+.dossierbar:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.dossierbar__vouchers {
+  float: left;
+}
+.dossierbar__vouchers:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.dossierbar__id {
+  float: left;
+  padding: 19px 35px;
+  background: #F5F5F5 !important;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #e5e5e5;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom-width: 2px;
+}
+.dossierbar__id.active {
+  background: #FFFFFF !important;
+}
+
+.dossierbar__mainactions {
+  float: left;
+}
+.dossierbar__mainactions:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.dossierbar__mainaction__item {
+  float: left;
+  margin-left: 5px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+}
+
+.dossierbar__actions {
+  float: right;
+}
+.dossierbar__actions:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.dossierbar__action__item {
+  float: left;
+  margin-left: 5px;
 }
 
 .idbar {
@@ -773,17 +839,24 @@ table thead tr {
   display: table;
   clear: both;
 }
+.form-item-horizontal.less_padded {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
 .form-item-horizontal label {
   padding: 8px 20px 8px 0px;
   width: 25%;
   float: left;
 }
-.form-item-horizontal input, .form-item-horizontal select, .form-item-horizontal textarea, .form-item-horizontal .chosen-container, .form-item-horizontal .licenseplate-container {
+.form-item-horizontal input, .form-item-horizontal select, .form-item-horizontal textarea, .form-item-horizontal .chosen-container, .form-item-horizontal .licenseplate-container, .form-item-horizontal .value {
   width: 75%;
   float: right;
 }
 .form-item-horizontal .chosen-container {
   width: 75% !important;
+}
+.form-item-horizontal .value {
+  padding: 8px 20px 8px 20px;
 }
 
 .form-item-licenseplate .licenseplate-container:after {
@@ -905,7 +978,7 @@ table thead tr {
 }
 
 .icon--attachement {
-  background-position: -850px -71px;
+  background-position: -850px -69px;
 }
 .bright .icon--attachement {
   background-position: -850px -135px;
@@ -919,21 +992,21 @@ table thead tr {
 }
 
 .icon--email {
-  background-position: -6px -270px;
+  background-position: -4px -265px;
 }
 .bright .icon--email {
   background-position: -6px -332px;
 }
 
 .icon--print--preview {
-  background-position: -71px -270px;
+  background-position: -71px -266px;
 }
 .bright .icon--print--preview {
   background-position: -71px -332px;
 }
 
 .icon--print {
-  background-position: -136px -270px;
+  background-position: -135px -265px;
 }
 .bright .icon--print {
   background-position: -136px -332px;
