@@ -1,0 +1,58 @@
+.dossierbar{
+
+  @include clearfix;
+  margin-bottom: 15px;
+
+}
+
+.dossierbar__vouchers{
+
+  float: left;
+  @include clearfix;
+
+}
+
+.dossierbar__id{
+
+  float: left;
+  padding: 19px 35px;
+  background: #F5F5F5 !important;
+  @include border-radius(3px);
+  border: 1px solid $block_border_color_fallback;
+  border: 1px solid $block_border_color;
+  border-bottom-width: 2px;
+
+  &.active{
+    background: #FFFFFF !important;
+  }
+
+}
+
+.dossierbar__mainactions{
+
+  float: left;
+  @include clearfix;
+
+}
+
+.dossierbar__mainaction__item{
+
+  float: left;
+  margin-left: 5px;
+  @include border-radius(3px);
+
+}
+
+.dossierbar__actions{
+
+  float: right;
+  @include clearfix;
+
+}
+
+.dossierbar__action__item{
+
+  float: left;
+  margin-left: 5px;
+
+}

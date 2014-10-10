@@ -48,6 +48,14 @@ class Dossier_service extends Rest_service {
       return $this->CI->rest->get(sprintf('/dossier/find/dossier_number/%s/%s', $dossier, $token));
     }
 
+    public function fetchAvailableAllotments($direction, $indicator, $token) {
+      if($indicator && trim($indicator) != "") {
+        return $this->CI->rest->get(sprintf('/dossier/list/available_allotments/direction/%s/indicator/%s/%s', $direction, $indicator, $token));
+      } else {
+        return $this->CI->rest->get(sprintf('/dossier/list/available_allotments/direction/%s/%s', $direction, $token));
+      }
+    }
+
     public function createDossier($token) {
       return $this->CI->rest->post(sprintf('/dossier/%s', $token));
     }

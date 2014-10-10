@@ -1,4 +1,4 @@
-
+<div class="box">
 <?php
 
 $this->load->helper('date');
@@ -21,3 +21,4 @@ if($dossiers && sizeof($dossiers) > 0) {
 
 echo $this->table->generate();
 ?>
+</div>

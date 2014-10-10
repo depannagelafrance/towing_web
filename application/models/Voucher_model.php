@@ -1,5 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+require_once(APPPATH . '/models/Depot_model.php');
+
 class Voucher_model  {
   public $id                          = null;
   public $insurance_id                = null;
@@ -13,7 +15,7 @@ class Voucher_model  {
   public $vehicule_country            = null;
   public $vehicule_collected          = null;
   public $towed_by             = null;
-  public $towed_by_vehicule    = null;
+  public $towed_by_vehicle     = null;
   public $towing_called        = null;
   public $towing_arrival       = null;
   public $towing_start         = null;
@@ -24,6 +26,8 @@ class Voucher_model  {
   public $signa_arrival        = null;
   public $cic                  = null;
   public $additional_info      = null;
+
+  public $depot = null; //instance of Depot_model
 
 
   public function __construct($data = null) {
@@ -40,16 +44,21 @@ class Voucher_model  {
       $this->vehicule_country             = $data->vehicule_country;
       $this->vehicule_collected           = $data->vehicule_collected;
       $this->towed_by                     = $data->towed_by;
-      //$this->towed_by_vehicule            = $data->towed_by_vehicule;
+      $this->towed_by_vehicle             = $data->towed_by_vehicle;
       $this->towing_called                = $data->towing_called;
       $this->towing_arrival               = $data->towing_arrival;
       $this->towing_start                 = $data->towing_start;
       $this->towing_completed             = $data->towing_completed;
-      $this->towing_depot                 = $data->towing_depot;
+      //$this->towing_depot                 = $data->towing_depot;
       $this->signa_by                     = $data->signa_by;
       $this->signa_arrival                = $data->signa_arrival;
       $this->cic                          = $data->cic;
       $this->additional_info              = $data->additional_info;
+
+      if($data->depot) {
+        $this->depot = new Depot_model($data->depot);
+      }
+
     }
   }
 }

@@ -19,8 +19,11 @@ class Login extends Page {
 	 */
 	public function index()
 	{
-		$this->_add_content($this->load->view('login', '', true));
-		$this->_render_page();
+    $data = array();
+    $data['title'] = 'Login';
+
+    $this->_add_content($this->load->view('login', $data, true));
+		$this->_render_page('login_container');
 	}
 
   public function perform()
@@ -31,7 +34,9 @@ class Login extends Page {
     	if ($this->form_validation->run() === FALSE)
     	{
         $this->_add_content($this->load->view('login', '', true));
-    	}
+        $this->_render_page('login_container');
+
+      }
     	else
     	{
           $login = $this->input->post('login');
@@ -53,8 +58,9 @@ class Login extends Page {
               exit;
             }
           }
-    	}
 
-      $this->_render_page();
+          $this->_render_page();
+
+      }
   }
 }

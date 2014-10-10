@@ -5,8 +5,15 @@
 <html>
 
 <head>
-	<link rel="stylesheet" type="text/css" href="/public/assets/stylesheets/towing.style.css" />
-	<script src="/public/assets/js/jquery/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="/public/bower_components/chosen/chosen.min.css" />
+  <link rel="stylesheet" type="text/css" href="/public/assets/stylesheets/towing.style.css" />
+  <script src="/public/bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="/public/bower_components/chosen/chosen.jquery.min.js"></script>
+  <script type="application/javascript">
+    $(document).ready(function() {
+      $('select').chosen();
+    });
+  </script>
 
   <title><?php print $title ?></title>
   <?php
@@ -41,16 +48,21 @@
         </nav>
       </div>
       <div class="l-user-navigation">
-        <div class="user-navigation">
-          <div class="l-user-action"><a href="#" class="icon icon-user"></a></div>
-          <div class="l-user-action"><a href="#" class="icon icon-settings"></a></div>
-          <div class="l-user-action"><a href="#" class="icon icon-off"></a></div>
+        <div class="user-navigation bright">
+          <div class="l-user-action"><a href="#" class="icon--user"></a></div>
+          <div class="l-user-action"><a href="#" class="icon--settings"></a></div>
+          <div class="l-user-action"><a href="#" class="icon--off"></a></div>
         </div>
       </div>
     </div>
   </div>
   <div class="container">
-    <?php print $content; ?>
+    <div class="layout-full">
+      <div class="layout-center">
+        <?php print $content; ?>
+      </div>
+    </div>
   </div>
+
 </body>
 </html>

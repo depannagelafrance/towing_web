@@ -1,0 +1,13 @@
+.layout_2col_container{
+
+  @include clearfix;
+
+  .layout_2col_item{
+
+    float: left;
+    width: 50%;
+    padding: 15px;
+
+  }
+
+}

@@ -1,0 +1,377 @@
+// Icons
+//
+// Overview of the Icon Design Component
+//
+// Styleguide 1.0
+
+.icon{
+  width: 55px;
+  height: 50px;
+  background-image: image-url('icons/icons.png', false, false);
+  background-repeat: no-repeat;
+  display: block;
+  @include hide-text;
+}
+
+
+// .icon--user
+//
+// The User Icon component based on icon
+//
+// Markup:
+// <div class="icon--user"></div>
+//
+// Styleguide 1.0.1
+
+.icon--user{
+  @extend .icon;
+  background-position: -4px -71px;
+  .bright & {
+
+    background-position: -4px -135px;
+
+  }
+
+}
+
+// .icon--settings
+//
+// Markup:
+// <div class="icon--settings"></div>
+//
+// Styleguide 1.0.2
+
+.icon--settings{
+  @extend .icon;
+  background-position: -71px -71px;
+
+  .bright & {
+
+    background-position: -71px -135px;
+
+  }
+
+}
+
+// .icon--off
+//
+// Markup:
+// <div class="icon--off"></div>
+//
+// Styleguide 1.0.3
+
+.icon--off{
+  @extend .icon;
+  background-position: -136px -71px;
+
+  .bright & {
+
+    background-position: -136px -135px;
+
+  }
+
+}
+
+// .icon--edit
+//
+// Markup:
+// <div class="icon--edit"></div>
+//
+// Styleguide 1.0.4
+
+.icon--edit{
+  @extend .icon;
+  background-position: -200px -71px;
+
+  .bright & {
+
+    background-position: -200px -135px;
+
+  }
+
+}
+
+// .icon--edit--small
+//
+// Markup:
+// <div class="icon--edit--small"></div>
+//
+// Styleguide 1.0.5
+
+.icon--edit--small{
+  @extend .icon;
+  background-position: -591px -71px;
+
+  .bright & {
+
+    background-position: -591px -135px;
+
+  }
+
+}
+
+// .icon--add
+//
+// Markup:
+// <div class="icon--add"></div>
+//
+// Styleguide 1.0.6
+
+.icon--add{
+  @extend .icon;
+  background-position: -264px -71px;
+
+  .bright & {
+
+    background-position: -264px -135px;
+
+  }
+
+}
+
+// .icon--clock
+//
+// Markup:
+// <div class="icon--clock"></div>
+//
+// Styleguide 1.0.7
+
+.icon--clock{
+  @extend .icon;
+  background-position: -331px -71px;
+
+  .bright & {
+
+    background-position: -331px -135px;
+
+  }
+
+}
+
+// .icon--date
+//
+// Markup:
+// <div class="icon--date"></div>
+//
+// Styleguide 1.0.8
+
+.icon--date{
+  @extend .icon;
+  background-position: -395px -71px;
+
+  .bright & {
+
+    background-position: -395px -135px;
+
+  }
+
+}
+
+// .icon--arrow--down
+//
+// Markup:
+// <div class="icon--arrow--down"></div>
+//
+// Styleguide 1.0.9
+
+.icon--arrow--down{
+  @extend .icon;
+  background-position: -524px -71px;
+
+  .bright & {
+
+    background-position: -524px -135px;
+
+  }
+
+}
+
+// .icon--arrow--left
+//
+// Markup:
+// <div class="icon--arrow--left"></div>
+//
+// Styleguide 1.0.10
+
+.icon--arrow--left{
+  @extend .icon;
+  background-position: -654px -71px;
+
+  .bright & {
+
+    background-position: -654px -135px;
+
+  }
+
+}
+
+// .icon--arrow--right
+//
+// Markup:
+// <div class="icon--arrow--right"></div>
+//
+// Styleguide 1.0.11
+
+.icon--arrow--right{
+  @extend .icon;
+  background-position: -720px -71px;
+
+  .bright & {
+
+    background-position: -720px -135px;
+
+  }
+
+}
+
+// .icon--phone
+//
+// Markup:
+// <div class="icon--phone"></div>
+//
+// Styleguide 1.0.12
+
+.icon--phone{
+  @extend .icon;
+  background-position: -461px -71px;
+
+  .bright & {
+
+    background-position: -461px -135px;
+
+  }
+
+}
+
+// .icon--remove
+//
+// Markup:
+// <div class="icon--remove"></div>
+//
+// Styleguide 1.0.13
+
+.icon--remove{
+  @extend .icon;
+  background-position: -786px -71px;
+
+  .bright & {
+
+    background-position: -786px -135px;
+
+  }
+
+}
+
+// .icon--attachement
+//
+// Markup:
+// <div class="icon--attachement"></div>
+//
+// Styleguide 1.0.14
+
+.icon--attachement{
+  @extend .icon;
+  background-position: -850px -69px;
+
+  .bright & {
+
+    background-position: -850px -135px;
+
+  }
+
+}
+
+// .icon--nota
+//
+// Markup:
+// <div class="icon--nota"></div>
+//
+// Styleguide 1.0.15
+
+.icon--nota{
+  @extend .icon;
+  background-position: -915px -71px;
+
+  .bright & {
+
+    background-position: -915px -135px;
+
+  }
+
+}
+
+// .icon--email
+//
+// Markup:
+// <div class="icon--email"></div>
+//
+// Styleguide 1.0.16
+
+.icon--email{
+  @extend .icon;
+  background-position: -4px -265px;
+
+  .bright & {
+
+    background-position: -6px -332px;
+
+  }
+
+}
+
+// .icon--print--preview
+//
+// Markup:
+// <div class="icon--print--preview"></div>
+//
+// Styleguide 1.0.17
+
+.icon--print--preview{
+  @extend .icon;
+  background-position: -71px -266px;
+
+  .bright & {
+
+    background-position: -71px -332px;
+
+  }
+
+}
+
+// .icon--print
+//
+// Markup:
+// <div class="icon--print"></div>
+//
+// Styleguide 1.0.18
+
+.icon--print{
+  @extend .icon;
+  background-position: -135px -265px;
+
+  .bright & {
+
+    background-position: -136px -332px;
+
+  }
+
+}
+
+// .icon--plus
+//
+// Markup:
+// <div class="icon--plus"></div>
+//
+// Styleguide 1.0.19
+
+.icon--plus{
+  @extend .icon;
+  background-position: -200px -270px;
+
+  .bright & {
+
+    background-position: -200px -332px;
+
+  }
+
+}

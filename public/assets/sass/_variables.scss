@@ -1,3 +1,6 @@
+//TYPO
+$font_base_size : 12px;
+
 //COLORS
 $white : #FFFFFF;
 
@@ -43,16 +46,30 @@ $nav_main_link_color_active : $white;
 $icon_focus_bg : $blue;
 
 //BUTTONS
+$btn_color : $gray_dark;
 $btn_bg : $gray_light;
-$btn_focus_bg : $blue;
+$btn_highlighted_bg : $blue;
+$btn_highlighted_color : $white;
 
 //FORM
 $form_input_border_color : rgba(0,0,0,0.1);
 $form_input_border_color_fallback : $gray;
 
 $form_input_bg_color : $white;
+$form_input_color : $gray_dark;
+
+$form_select_bg_color : $gray_lightest;
 
 $form_label_color : $black;
 
 $form_submit_bg_color : $blue;
 $form_submit_color : $white;
+
+//CHOSEN
+$chosen_highlight_bg_color : $light_blue;
+$chosen_highlight_color : $white;
+
+
+//IDBAR
+$idbar_bg_color : $light_blue;
+$idbar_color : $white;

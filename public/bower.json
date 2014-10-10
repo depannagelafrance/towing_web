@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "dependencies": {
       "jquery" : "1.11",
-      "modernizr" : "2.8.3"
+      "modernizr" : "2.8.3",
+      "chosen": "https://github.com/harvesthq/chosen/releases/download/v1.1.0/chosen_v1.1.0.zip"
   }
 }
