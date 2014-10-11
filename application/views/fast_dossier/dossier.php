@@ -119,6 +119,10 @@ $_dossier = $dossier->dossier;
       <?php endforeach; ?>
     </div>
 
+<?php
+$_voucher = $_dossier->towing_vouchers[0];
+?>
+
     <div class="dossierbar__mainactions">
       <div class="dossierbar__mainaction__item">
         <div class="btn--icon">
@@ -150,7 +154,7 @@ $_dossier = $dossier->dossier;
       </div>
       <div class="dossierbar__action__item">
         <div class="btn--icon">
-          <a class="icon--print--preview" href="">Print Preview</a>
+          <a class="icon--print--preview" href="/fast_dossier/report/voucher/<?=$_dossier->id?>/<?=$_voucher->id?>">Print Preview</a>
         </div>
       </div>
       <div class="dossierbar__action__item">
@@ -163,9 +167,7 @@ $_dossier = $dossier->dossier;
   </div>
 
   <div class="box">
-    <?php
-    $_voucher = $_dossier->towing_vouchers[0];
-    ?>
+
 
       <div class="form-item-horizontal">
         <label>Signa</label>
