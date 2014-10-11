@@ -1,0 +1,27 @@
+.msg{
+
+  padding: 15px;
+  @include border-radius(2px);
+  background-image: image-url('messages/messages.png', false, false);
+  background-repeat: no-repeat;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+
+}
+
+.msg__error{
+
+  background-color: $error_bg_color;
+  color: $error_color;
+  background-position: -5px -12px;
+
+}
+
+.msg__succes{
+
+  background-color: $succes_bg_color;
+  color: $succes_color;
+  background-position: -5px -119px;
+
+}
