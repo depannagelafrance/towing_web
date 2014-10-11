@@ -1,0 +1,64 @@
+//SIGNA
+.vehicule-container{
+  @include clearfix;
+}
+
+.vehicule-container__left{
+  float: left;
+  width: 65%;
+
+  input{
+
+    width: 50%;
+    margin-right: 5%;
+
+  }
+
+  label{
+
+    width: 45%;
+
+  }
+
+}
+
+.vehicule-container__right{
+  float: right;
+  width: 35%;
+
+
+  input,.chosen-container{
+
+    width: 50% !important;
+    margin-right: 5%;
+
+    input{
+
+      width: 100% !important;
+
+    }
+
+  }
+
+  label{
+
+    width: 45%;
+
+  }
+
+}
+
+.vehicule-container__vehicule{
+  float: left;
+  width: 50%;
+}
+
+.vehicule-container__license{
+  float: left;
+  width: 50%;
+}
+
+.vehicule-container__country{
+  float: left;
+  width: 50%;
+}

@@ -842,8 +842,27 @@ table thead tr {
   background-position: 0 7px;
 }
 
-.dsform {
-  border: 1px sold red;
+.dsform__clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.dsform__left {
+  float: left;
+  width: 65%;
+}
+
+.dsform__right {
+  float: right;
+  width: 35%;
+}
+.dsform__right input {
+  width: 50%;
+  margin-right: 5%;
+}
+.dsform__right label {
+  width: 45%;
 }
 
 .form-item, .form-item-horizontal {
@@ -877,6 +896,102 @@ table thead tr {
 }
 .form-item-horizontal .form-value {
   padding: 8px 2px 8px 2px;
+}
+
+.assistance-container:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.assistance-container input, .assistance-container .chosen-container {
+  width: 75% !important;
+  float: left;
+  margin-right: 0;
+}
+.assistance-container label {
+  width: 22%;
+  float: left;
+}
+
+.depot-full-container:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.depot-full-container__left {
+  float: left;
+  width: 65%;
+}
+.depot-full-container__left input {
+  width: 50%;
+  margin-right: 5%;
+}
+.depot-full-container__left label {
+  width: 45%;
+}
+
+.depot-full-container__right {
+  float: right;
+  width: 35%;
+}
+.depot-full-container__right input {
+  width: 50%;
+  margin-right: 5%;
+}
+.depot-full-container__right label {
+  width: 45%;
+}
+
+.depot-full-container__depot {
+  float: left;
+  width: 50%;
+}
+
+.depot-full-container__street {
+  float: left;
+  width: 50%;
+}
+
+.depot-full-container__streetnr {
+  float: left;
+  width: 50%;
+}
+
+.depot-full-container__streetbox {
+  float: left;
+  width: 50%;
+}
+
+.depot-full-container__postal {
+  float: left;
+  width: 50%;
+}
+
+.depot-full-container__city {
+  float: left;
+  width: 50%;
+}
+
+.depot-container:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.dossiernr-container:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.dossiernr-container input {
+  width: 75%;
+  float: left;
+  margin-right: 0;
+}
+.dossiernr-container label {
+  width: 22%;
+  float: left;
 }
 
 .signa-container:after {
@@ -972,6 +1087,79 @@ table thead tr {
 .towedby-container__call {
   float: left;
   width: 50%;
+}
+
+.towedby-container__start {
+  float: left;
+  width: 50%;
+}
+
+.towedby-container__completed {
+  float: left;
+  width: 50%;
+}
+
+.vehicule-container:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.vehicule-container__left {
+  float: left;
+  width: 65%;
+}
+.vehicule-container__left input {
+  width: 50%;
+  margin-right: 5%;
+}
+.vehicule-container__left label {
+  width: 45%;
+}
+
+.vehicule-container__right {
+  float: right;
+  width: 35%;
+}
+.vehicule-container__right input, .vehicule-container__right .chosen-container {
+  width: 50% !important;
+  margin-right: 5%;
+}
+.vehicule-container__right input input, .vehicule-container__right .chosen-container input {
+  width: 100% !important;
+}
+.vehicule-container__right label {
+  width: 45%;
+}
+
+.vehicule-container__vehicule {
+  float: left;
+  width: 50%;
+}
+
+.vehicule-container__license {
+  float: left;
+  width: 50%;
+}
+
+.vehicule-container__country {
+  float: left;
+  width: 50%;
+}
+
+.warrenty-container:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.warrenty-container input {
+  width: 75%;
+  float: left;
+  margin-right: 0;
+}
+.warrenty-container label {
+  width: 22%;
+  float: left;
 }
 
 .form-item-licenseplate .licenseplate-container:after {

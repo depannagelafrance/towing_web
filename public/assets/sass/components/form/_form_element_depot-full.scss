@@ -1,9 +1,9 @@
-//towedby
-.towedby-container{
+//depot-full
+.depot-full-container{
   @include clearfix;
 }
 
-.towedby-container__left{
+.depot-full-container__left{
   float: left;
   width: 65%;
 
@@ -23,9 +23,10 @@
 }
 
 
-.towedby-container__right{
+.depot-full-container__right{
   float: right;
   width: 35%;
+
 
   input{
 
@@ -42,32 +43,32 @@
 
 }
 
-.towedby-container__towedby{
+.depot-full-container__depot{
   float: left;
   width: 50%;
 }
 
-.towedby-container__licenceplate{
+.depot-full-container__street{
   float: left;
   width: 50%;
 }
 
-.towedby-container__arival{
+.depot-full-container__streetnr{
   float: left;
   width: 50%;
 }
 
-.towedby-container__call{
+.depot-full-container__streetbox{
   float: left;
   width: 50%;
 }
 
-.towedby-container__start{
+.depot-full-container__postal{
   float: left;
   width: 50%;
 }
 
-.towedby-container__completed{
+.depot-full-container__city{
   float: left;
   width: 50%;
 }

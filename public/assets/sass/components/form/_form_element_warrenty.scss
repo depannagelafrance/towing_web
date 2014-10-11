@@ -1,0 +1,19 @@
+.warrenty-container{
+  @include clearfix;
+
+  input{
+
+    width: 75%;
+    float: left;
+    margin-right: 0;
+
+  }
+
+  label{
+
+    width: 22%;
+    float: left;
+
+  }
+
+}
