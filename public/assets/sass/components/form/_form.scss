@@ -22,7 +22,7 @@
     float: left;
   }
 
-  input, select, textarea, .chosen-container, .licenseplate-container, .value{
+  input, select, textarea, .chosen-container, .licenseplate-container, .value, .form-value{
     width: 75%;
     float: right;
   }
@@ -33,6 +33,10 @@
 
   .value{
     padding: 8px 20px 8px 20px;
+  }
+
+  .form-value{
+    padding: 8px 2px 8px 2px;
   }
 
 }

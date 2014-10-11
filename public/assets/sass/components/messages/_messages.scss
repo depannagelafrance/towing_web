@@ -1,7 +1,7 @@
 .msg{
 
   padding: 15px;
-  @include border-radius(2px);
+  @include border-radius(4px);
   background-image: image-url('messages/messages.png', false, false);
   background-repeat: no-repeat;
   margin-top: 10px;

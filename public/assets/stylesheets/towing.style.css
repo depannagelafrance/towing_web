@@ -420,6 +420,10 @@ table tbody tr.even:hover {
   color: #FFFFFF;
   background-color: #42b7f4;
 }
+table tbody tr:nth-child(even):hover a,
+table tbody tr.even:hover a {
+  color: #FFFFFF;
+}
 table tbody tr:nth-child(odd),
 table tbody tr.odd {
   background-color: #F5F5F5;
@@ -428,6 +432,10 @@ table tbody tr:nth-child(odd):hover,
 table tbody tr.odd:hover {
   color: #FFFFFF;
   background-color: #42b7f4;
+}
+table tbody tr:nth-child(odd):hover a,
+table tbody tr.odd:hover a {
+  color: #FFFFFF;
 }
 table thead tr {
   border-bottom: 2px solid #f5f5f5;
@@ -834,6 +842,10 @@ table thead tr {
   background-position: 0 7px;
 }
 
+.dsform {
+  border: 1px sold red;
+}
+
 .form-item, .form-item-horizontal {
   margin-top: 15px;
   margin-bottom: 15px;
@@ -853,7 +865,7 @@ table thead tr {
   width: 25%;
   float: left;
 }
-.form-item-horizontal input, .form-item-horizontal select, .form-item-horizontal textarea, .form-item-horizontal .chosen-container, .form-item-horizontal .licenseplate-container, .form-item-horizontal .value {
+.form-item-horizontal input, .form-item-horizontal select, .form-item-horizontal textarea, .form-item-horizontal .chosen-container, .form-item-horizontal .licenseplate-container, .form-item-horizontal .value, .form-item-horizontal .form-value {
   width: 75%;
   float: right;
 }
@@ -862,6 +874,104 @@ table thead tr {
 }
 .form-item-horizontal .value {
   padding: 8px 20px 8px 20px;
+}
+.form-item-horizontal .form-value {
+  padding: 8px 2px 8px 2px;
+}
+
+.signa-container:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.signa-container__left {
+  float: left;
+  width: 65%;
+}
+.signa-container__left input {
+  width: 50%;
+  margin-right: 5%;
+}
+.signa-container__left label {
+  width: 45%;
+}
+
+.signa-container__right {
+  float: right;
+  width: 35%;
+}
+.signa-container__right input {
+  width: 50%;
+  margin-right: 5%;
+}
+.signa-container__right label {
+  width: 45%;
+}
+
+.signa-container__signa {
+  float: left;
+  width: 50%;
+}
+
+.signa-container__licenceplate {
+  float: left;
+  width: 50%;
+}
+
+.signa-container__arrival {
+  float: left;
+  width: 50%;
+}
+
+.towedby-container:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.towedby-container__left {
+  float: left;
+  width: 65%;
+}
+.towedby-container__left input {
+  width: 50%;
+  margin-right: 5%;
+}
+.towedby-container__left label {
+  width: 45%;
+}
+
+.towedby-container__right {
+  float: right;
+  width: 35%;
+}
+.towedby-container__right input {
+  width: 50%;
+  margin-right: 5%;
+}
+.towedby-container__right label {
+  width: 45%;
+}
+
+.towedby-container__towedby {
+  float: left;
+  width: 50%;
+}
+
+.towedby-container__licenceplate {
+  float: left;
+  width: 50%;
+}
+
+.towedby-container__arival {
+  float: left;
+  width: 50%;
+}
+
+.towedby-container__call {
+  float: left;
+  width: 50%;
 }
 
 .form-item-licenseplate .licenseplate-container:after {
@@ -1026,9 +1136,9 @@ table thead tr {
 
 .msg {
   padding: 15px;
-  -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
-  border-radius: 2px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
   background-image: url('../images/messages/messages.png');
   background-repeat: no-repeat;
   margin-top: 10px;
