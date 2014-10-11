@@ -167,69 +167,64 @@ $_dossier = $dossier->dossier;
     $_voucher = $_dossier->towing_vouchers[0];
     ?>
 
-    <div style="background-color: #fff59d;">
-      <div>
+      <div class="form-item-horizontal">
         <label>Signa</label>
-        <?= form_input('signa_by', $_voucher->signa_by); ?>
+        <?php print form_input('signa_by', $_voucher->signa_by); ?>
       </div>
 
-      <div>
+      <div class="form-item-horizontal">
         <label>Nummerplaat</label>
-        <?= form_input('signa_by_vehicle', $_voucher->signa_by_vehicle); ?>
+        <?php print form_input('signa_by_vehicle', $_voucher->signa_by_vehicle); ?>
       </div>
 
-      <div>
+      <div class="form-item-horizontal">
         <label>Aankomst</label>
-        <?= form_input('signa_arrival', $_voucher->signa_arrival); ?>
+        <?php print form_input('signa_arrival', $_voucher->signa_arrival); ?>
       </div>
-    </div>
 
-    <div style="background-color: #fff176;">
-      <div>
+      <div class="form-item-horizontal">
         <label>Takelaar</label>
-        <?= form_input('towed_by', $_voucher->towed_by); ?>
+        <?php print form_input('towed_by', $_voucher->towed_by); ?>
       </div>
 
-      <div>
+      <div class="form-item-horizontal">
         <label>Nummerplaat</label>
-        <?= form_input('towed_by_vehicle', $_voucher->towed_by_vehicle); ?>
+        <?php print form_input('towed_by_vehicle', $_voucher->towed_by_vehicle); ?>
       </div>
 
-      <div>
+      <div class="form-item-horizontal">
         <label>Oproep</label>
-        <?= form_input('towing_called', $_voucher->towing_called); ?>
+        <?php print form_input('towing_called', $_voucher->towing_called); ?>
       </div>
 
-      <div>
+      <div class="form-item-horizontal">
         <label>Aankomst</label>
-        <?= form_input('towing_arrival', $_voucher->towing_arrival); ?>
+        <?php print form_input('towing_arrival', $_voucher->towing_arrival); ?>
       </div>
 
-      <div>
+      <div class="form-item-horizontal">
         <label>Start takel</label>
-        <?= form_input('towing_start', $_voucher->towing_start); ?>
+        <?php print form_input('towing_start', $_voucher->towing_start); ?>
       </div>
 
-      <div>
+      <div class="form-item-horizontal">
         <label>Stop takel</label>
-        <?= form_input('towing_completed', $_voucher->towing_completed); ?>
+        <?php print form_input('towing_completed', $_voucher->towing_completed); ?>
       </div>
-    </div>
 
-    <div style="background-color: #ffee58;">
-      <div>
+      <div class="form-item-horizontal">
         <label>Type wagen</label>
-        <?= form_input('vehicule_type', $_voucher->vehicule_type); ?>
+        <?php print form_input('vehicule_type', $_voucher->vehicule_type); ?>
       </div>
 
-      <div>
+      <div class="form-item-horizontal">
         <label>Nummerplaat</label>
-        <?= form_input('vehicule_licenceplate', $_voucher->vehicule_licenceplate); ?>
+        <?php print form_input('vehicule_licenceplate', $_voucher->vehicule_licenceplate); ?>
       </div>
 
-      <div>
+      <div class="form-item-horizontal">
         <label>Land</label>
-        <?= listbox('licence_plate_country',
+        <?php print listbox('licence_plate_country',
           $licence_plate_countries,
           $_voucher->vehicule_country,
           array(
@@ -238,9 +233,9 @@ $_dossier = $dossier->dossier;
           )); ?>
       </div>
 
-      <div>
+      <div class="form-item-horizontal">
         <label>Depot</label>
-        <?= $_voucher->depot->display_name ?>
+        <?php print $_voucher->depot->display_name ?>
       </div>
     </div>
 
