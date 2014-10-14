@@ -20,6 +20,9 @@
     padding: 8px 20px 8px 0px;
     width: 25%;
     float: left;
+    &.notbold{
+      color: #868685;
+    }
   }
 
   input, select, textarea, .chosen-container, .licenseplate-container, .value, .form-value{
@@ -54,6 +57,9 @@
 
   label{
     padding: 8px 20px 8px 0px;
+    &.notbold{
+      color: #868685;
+    }
   }
 
   .value{

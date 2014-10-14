@@ -335,7 +335,7 @@ $_voucher = $_dossier->towing_vouchers[0];
         <!--ASSI-->
         <div class="form-item-horizontal  assistance-container">
           <label>Assistance:</label>
-          <?= listbox('insurances', $insurances, $_voucher->insurance_id); ?>
+          <?php print listbox('insurances', $insurances, $_voucher->insurance_id); ?>
         </div>
         <!--END ASSI-->
 
@@ -413,8 +413,60 @@ $_voucher = $_dossier->towing_vouchers[0];
         </div>
       </div>
     </div>
-
     <!-- END WORK-->
+
+    <!--AUTOGRAPHS-->
+    <div class="form-item-vertical autograph-container">
+      <div class="autograph-container__police">
+        <label>Bevestiging politie:</label>
+
+        <div class="form-item-horizontal  autograph-container__police__trafficpost">
+          <label class="notbold">Verkeerspost:</label>
+
+        </div>
+
+        <div class="form-item-horizontal  autograph-container__police__timestamp">
+          <label class="notbold">Tijdstip:</label>
+          <?php print form_input('police-timestamp'); ?>
+        </div>
+
+        <div class="autograph-container__police__autograph">
+
+        </div>
+
+      </div>
+      <div class="autograph-container__nuisance">
+        <label>Bevestiging hinderverwerker:</label>
+
+        <div class="autograph-container__nuisance__autograph">
+
+        </div>
+
+      </div>
+      <div class="autograph-container__collecting">
+        <label>Bevestiging afhaler:</label>
+
+        <div class="form-item-horizontal  autograph-container__collecting__collector">
+          <label class="notbold">Afhaler:</label>
+
+        </div>
+
+        <div class="form-item-horizontal  autograph-container__collecting__date">
+          <label class="notbold">Datum:</label>
+          <?php print form_input('police-timestamp'); ?>
+        </div>
+
+        <div class="autograph-container__collecting__autograph">
+
+        </div>
+
+      </div>
+    </div>
+
+
+
+    <!-- END AUTOGRAPHS-->
+
   </div>
 
   <div class="form-item">

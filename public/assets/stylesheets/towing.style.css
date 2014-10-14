@@ -890,6 +890,9 @@ table thead tr {
   width: 25%;
   float: left;
 }
+.form-item-horizontal label.notbold {
+  color: #868685;
+}
 .form-item-horizontal input, .form-item-horizontal select, .form-item-horizontal textarea, .form-item-horizontal .chosen-container, .form-item-horizontal .licenseplate-container, .form-item-horizontal .value, .form-item-horizontal .form-value {
   width: 75%;
   float: right;
@@ -916,6 +919,9 @@ table thead tr {
 .form-item-vertical label {
   padding: 8px 20px 8px 0px;
 }
+.form-item-vertical label.notbold {
+  color: #868685;
+}
 .form-item-vertical .value {
   padding: 8px 20px 8px 20px;
 }
@@ -935,6 +941,35 @@ table thead tr {
 }
 .assistance-container label {
   width: 22%;
+  float: left;
+}
+
+.autograph-container:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.autograph-container__police {
+  width: 30%;
+  margin-right: 5%;
+  float: left;
+}
+.autograph-container__police input, .autograph-container__police .chosen-container {
+  width: 50%;
+}
+.autograph-container__police label {
+  width: 50%;
+}
+
+.autograph-container__nuisance {
+  width: 30%;
+  float: left;
+  margin-right: 5%;
+}
+
+.autograph-container__collecting {
+  width: 30%;
   float: left;
 }
 
