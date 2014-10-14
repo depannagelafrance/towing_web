@@ -304,7 +304,7 @@ $_voucher = $_dossier->towing_vouchers[0];
             <div>T: 00000000000</div>
             <div>E: info@lorem.com</div>
           </div>
-          <a href="#">Bewerken</a>
+          <a href="#" id="edit-facturation">Bewerken</a>
         </div>
         <!--END FACTURATION-->
 
@@ -505,4 +505,13 @@ $('#list_direction').change(function(){
     }
   );
 });
+
+$(document).ready(function() {
+  $('#edit-facturation').click(function(){
+    $.fancybox(
+      '<div>Lorem isis id et neque</div>'
+    );
+  });
+});
+
 </script>
