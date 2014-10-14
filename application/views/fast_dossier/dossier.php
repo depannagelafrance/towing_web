@@ -295,6 +295,32 @@ $_voucher = $_dossier->towing_vouchers[0];
     <div class="dsform__clearfix">
       <div class="dsform__left">
 
+        <!--FACTURATION-->
+        <div class="form-item-vertical facturation-container">
+          <label>Facturatiegegevens:</label>
+          <div class="facturation-container__info">
+            <div>Lorem ipsum 12</div>
+            <div>2920 Lorem</div>
+            <div>T: 00000000000</div>
+            <div>E: info@lorem.com</div>
+          </div>
+          <a href="#">Bewerken</a>
+        </div>
+        <!--END FACTURATION-->
+
+        <!--NUISANCE-->
+        <div class="form-item-vertical nuisance-container">
+          <label>Hinderverwekker:</label>
+          <div class="nuisance-container__info">
+            <div>Lorem ipsum 12</div>
+            <div>2920 Lorem</div>
+            <div>T: 00000000000</div>
+            <div>E: info@lorem.com</div>
+          </div>
+          <a href="#">Bewerken</a>
+        </div>
+        <!--END NUISANCE-->
+
       </div>
       <div class="dsform__right">
 
@@ -331,47 +357,69 @@ $_voucher = $_dossier->towing_vouchers[0];
     </div>
 
 
+    <!--WORK-->
+    <div class="form-item-vertical work-container">
+      <div class="work-container__fields">
+        <div class="form-item-vertical work-container__task">
+          <label>Werkzaamheden:</label>
+          <?php
+            foreach($_voucher->towing_activities as $_activity) {
+              print form_input('name', $_activity->name);
+            }
+          ?>
+        </div>
 
+        <div class="form-item-vertical work-container__number">
+          <label>Aantal:</label>
+          <?php
+          foreach($_voucher->towing_activities as $_activity) {
+            print form_input('amount', $_activity->amount);
+          }
+          ?>
+        </div>
 
+        <div class="form-item-vertical work-container__unitprice">
+          <label>EHP:</label>
+          <?php
+          foreach($_voucher->towing_activities as $_activity) {
+            print form_input('fee_incl_vat', $_activity->fee_incl_vat);
+          }
+          ?>
+        </div>
 
+        <div class="form-item-vertical work-container__excl">
+          <label>Excl:</label>
+          <?php
+          foreach($_voucher->towing_activities as $_activity) {
+            print form_input('fee_incl_vat', $_activity->cal_fee_excl_vat);
+          }
+          ?>
+        </div>
 
+        <div class="form-item-vertical work-container__incl">
+          <label>Incl:</label>
+          <?php
+          foreach($_voucher->towing_activities as $_activity) {
+            print form_input('fee_incl_vat', $_activity->cal_fee_incl_vat);
+          }
+          ?>
+        </div>
+      </div>
+      <div class="work-container__actions">
+        <div class="work-container__add">
+          <div class="btn--icon--small">
+            <a class="icon--add--small" href="#">Add</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- END WORK-->
   </div>
 
-    <div style="background-color: #ffeb3b;">
-      Facturatiegegevens
-    </div>
-
-    <div style="background-color: #fdd835;">
-      Hinderverwekker
-    </div>
-
-    <div style="background-color: #fbc02d;">
-
-    </div>
-
-    <div style="background-color: #f9a825;">
-      <?php
-      $this->table->set_heading('Werkzaamheden', 'Aantal', 'EHP', 'Excl', 'Incl');
-
-
-      foreach($_voucher->towing_activities as $_activity) {
-        $this->table->add_row(
-          form_input('name', $_activity->name),
-          form_input('amount', $_activity->amount),
-          form_input('fee_incl_vat', $_activity->fee_incl_vat),
-          form_input('fee_incl_vat', $_activity->cal_fee_excl_vat),
-          form_input('fee_incl_vat', $_activity->cal_fee_incl_vat)
-        );
-      }
-
-      echo $this->table->generate();
-      ?>
-    </div>
-
-
-    <div class="form-item">
-      <input type="submit" value="Bewaren" name="btnSave" />
-    </div>
+  <div class="form-item">
+    <input type="submit" value="Bewaren" name="btnSave" />
+  </div>
 
   </div>
   <?= form_close(); ?>

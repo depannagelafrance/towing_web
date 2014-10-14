@@ -26,7 +26,7 @@ header("Content-type: text/html; charset=utf-8");
 <body>
 <div class="login_container">
   <div class="login_messages">
-    <?php print isset($error) ? '<div class="msg msg__error">' . $error . '</div>' : ''; ?>
+    <?php print isset($error) && !empty($error) ? '<div class="msg msg__error">' . $error . '</div>' : ''; ?>
   </div>
   <?php print $content; ?>
 </div>

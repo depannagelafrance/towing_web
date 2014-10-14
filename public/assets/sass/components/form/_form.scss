@@ -40,3 +40,28 @@
   }
 
 }
+
+.form-item-vertical{
+  @extend .form-item;
+  @include clearfix;
+
+  &.less_padded{
+
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+  }
+
+  label{
+    padding: 8px 20px 8px 0px;
+  }
+
+  .value{
+    padding: 8px 20px 8px 20px;
+  }
+
+  .form-value{
+    padding: 8px 2px 8px 2px;
+  }
+
+}
