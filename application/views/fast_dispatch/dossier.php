@@ -77,7 +77,7 @@
 
         <div class="form-item-horizontal">
             <label>Rijstrook:</label>
-            <?php print listbox('traffic_lane', $traffic_lanes, $_dossier->traffic_lane_id); ?>
+            <?php print listbox('traffic_lane_id', $traffic_lanes, $_dossier->traffic_lane_id); ?>
         </div>
 
         <div class="form-item-horizontal">
@@ -92,7 +92,7 @@
 
         <div class="form-item-horizontal">
             <label>Assistance:</label>
-            <?php print listbox('insurances', $insurances, $_dossier->towing_vouchers[0]->insurance_id); ?>
+            <?php print listbox('insurance_id', $insurances, $_dossier->towing_vouchers[0]->insurance_id); ?>
         </div>
 
         <div class="form-item-horizontal">
