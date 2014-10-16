@@ -131,7 +131,7 @@ $_voucher = $_dossier->towing_vouchers[0];
       </div>
       <div class="dossierbar__mainaction__item">
         <div class="btn--icon--highlighted bright">
-          <a class="icon--add" href="#">Add</a>
+          <a class="icon--add" href="/fast_dossier/dossier/voucher/<?=$_dossier->id?>">Add</a>
         </div>
       </div>
     </div>

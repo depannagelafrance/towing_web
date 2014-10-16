@@ -64,6 +64,10 @@ class Dossier_service extends Rest_service {
       return $this->CI->rest->post(sprintf('/dossier/%s', $token));
     }
 
+    public function createTowingVoucherForDossier($dossier_id, $token) {
+      return $this->CI->rest->post(sprintf('/dossier/voucher/%s/%s', $dossier_id, $token));
+    }
+
     public function updateDossier(Dossier_model $dossier, $token) {
 
       $_dossier = new stdClass();
