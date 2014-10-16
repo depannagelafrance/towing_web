@@ -112,15 +112,33 @@ $_dossier = $dossier->dossier;
   <div class="dossierbar">
 
     <div class="dossierbar__vouchers">
-      <?php foreach($_dossier->towing_vouchers as $_voucher) : ?>
-        <div class="dossierbar__id active">
-          <?php print $_voucher->voucher_number; ?>
-        </div>
-      <?php endforeach; ?>
+      <?php
+        $_voucher = null;
+
+        foreach($_dossier->towing_vouchers as $_v) :
+          $_is_selected = false;
+
+          if($_is_selected = ($_v->voucher_number == $voucher_number)) {
+            $_voucher = $_v;
+          }
+      ?>
+          <div class="dossierbar__id active">
+            <?php
+            if($_is_selected) {
+              printf('%s', $_v->voucher_number);
+            } else {
+              printf('<a href="/fast_dossier/dossier/%s/%s">%s</a>', $_dossier->dossier_number, $_v->voucher_number, $_v->voucher_number);
+            }
+            ?>
+          </div>
+      <?php
+        endforeach;
+      ?>
     </div>
 
 <?php
-$_voucher = $_dossier->towing_vouchers[0];
+if(!$_voucher)
+  $_voucher = $_dossier->towing_vouchers[0];
 ?>
 
     <div class="dossierbar__mainactions">

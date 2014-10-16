@@ -20,13 +20,13 @@ class Dossier extends Page {
   /**
    * Index Page for this controller.
    */
-  public function view($number)
+  public function view($dossier_number, $voucher_number = null)
   {
     $token = $this->_get_user_token();
 
-    $dossier = $this->dossier_service->fetchDossierByNumber($number, $token);
+    $dossier = $this->dossier_service->fetchDossierByNumber($dossier_number, $token);
 
-    $this->_loadDossierView($token, $dossier);
+    $this->_loadDossierView($token, $dossier, $voucher_number);
 
   }
 
@@ -69,12 +69,13 @@ class Dossier extends Page {
   }
 
 
-  private function _loadDossierView($token, $dossier) {
+  private function _loadDossierView($token, $dossier, $voucher_number = null) {
     $this->_add_content(
       $this->load->view(
         'fast_dossier/dossier',
           array(
             'dossier'                 => $dossier,
+            'voucher_number'          => $voucher_number,
             'vouchers'                => $this->dossier_service->fetchAllNewVouchers($token),
             'traffic_posts'           => $this->dossier_service->fetchAllTrafficPostsByAllotment($dossier->dossier->allotment_id, $token),
             'insurances'              => $this->vocabulary_service->fetchAllInsurances($token),
