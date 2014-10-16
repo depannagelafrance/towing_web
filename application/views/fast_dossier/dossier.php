@@ -124,6 +124,7 @@ $_dossier = $dossier->dossier;
       ?>
           <div class="dossierbar__id active">
             <?php
+            
             if($_is_selected) {
               printf('%s', $_v->voucher_number);
             } else {
