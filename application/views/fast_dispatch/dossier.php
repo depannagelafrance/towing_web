@@ -33,7 +33,6 @@
   </div>
 
   <?php print form_open('fast_dispatch/dossier/save/' . $_dossier->dossier_number) ?>
-  <?php print validation_errors(); ?>
 
   <div class="layout-content">
 
@@ -62,6 +61,18 @@
       </div>
 
     </div>
+
+<?php
+//TODO: @Gert, voorzien van een correcte styling voor de form errors!
+
+$errors = validation_errors();
+
+if($errors) {
+  printf('<div style="background: red; color: white; font-size: 1.2em; padding-top:10px; padding-bottom: 10px; padding-left: 4px;">%s</div>', $errors);
+}
+
+?>
+
 
     <div class="box layout_2col_container">
       <div class="layout_2col_item">

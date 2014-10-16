@@ -56,6 +56,10 @@ class Dossier_service extends Rest_service {
       }
     }
 
+    public function fetchAllTrafficPostsByAllotment($allotment, $token) {
+      return $this->CI->rest->get(sprintf('/dossier/list/traffic_posts/allotment/%s/%s', $allotment, $token));
+    }
+
     public function createDossier($token) {
       return $this->CI->rest->post(sprintf('/dossier/%s', $token));
     }

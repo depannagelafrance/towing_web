@@ -422,7 +422,7 @@ $_voucher = $_dossier->towing_vouchers[0];
 
         <div class="form-item-horizontal  autograph-container__police__trafficpost">
           <label class="notbold">Verkeerspost:</label>
-
+          <?php print listbox('traffic_post_id', $traffic_posts, $_dossier->police_traffic_post_id); ?>
         </div>
 
         <div class="form-item-horizontal  autograph-container__police__timestamp">
@@ -448,7 +448,7 @@ $_voucher = $_dossier->towing_vouchers[0];
 
         <div class="form-item-horizontal  autograph-container__collecting__collector">
           <label class="notbold">Afhaler:</label>
-
+          <?php print listbox('collector_id', $collectors, $_voucher->collector_id); ?>
         </div>
 
         <div class="form-item-horizontal  autograph-container__collecting__date">
