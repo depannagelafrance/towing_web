@@ -95,7 +95,7 @@ class Dossier extends Page {
     $dossier->dossier->towing_vouchers[0]->vehicule_country = $this->input->post('licence_plate_country');
 
     $dossier->dossier->towing_vouchers[0]->additional_info = $this->input->post('additional_info');
-    
+
     $dossier->dossier->towing_vouchers[0]->insurance_id = $this->input->post('insurance_id');
     $dossier->dossier->towing_vouchers[0]->insurance_dossiernr = $this->input->post('insurance_dossiernr');
   }
