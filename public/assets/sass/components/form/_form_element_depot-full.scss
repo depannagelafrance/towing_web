@@ -1,0 +1,74 @@
+//depot-full
+.depot-full-container{
+  @include clearfix;
+}
+
+.depot-full-container__left{
+  float: left;
+  width: 65%;
+
+  input{
+
+    width: 50%;
+    margin-right: 5%;
+
+  }
+
+  label{
+
+    width: 45%;
+
+  }
+
+}
+
+
+.depot-full-container__right{
+  float: right;
+  width: 35%;
+
+
+  input{
+
+    width: 50%;
+    margin-right: 5%;
+
+  }
+
+  label{
+
+    width: 45%;
+
+  }
+
+}
+
+.depot-full-container__depot{
+  float: left;
+  width: 50%;
+}
+
+.depot-full-container__street{
+  float: left;
+  width: 50%;
+}
+
+.depot-full-container__streetnr{
+  float: left;
+  width: 50%;
+}
+
+.depot-full-container__streetbox{
+  float: left;
+  width: 50%;
+}
+
+.depot-full-container__postal{
+  float: left;
+  width: 50%;
+}
+
+.depot-full-container__city{
+  float: left;
+  width: 50%;
+}

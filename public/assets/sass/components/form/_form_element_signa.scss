@@ -1,0 +1,58 @@
+//SIGNA
+.signa-container{
+  @include clearfix;
+}
+
+.signa-container__left{
+  float: left;
+  width: 65%;
+
+  input{
+
+    width: 50%;
+    margin-right: 5%;
+
+  }
+
+  label{
+
+    width: 45%;
+
+  }
+
+}
+
+.signa-container__right{
+  float: right;
+  width: 35%;
+
+
+  input{
+
+    width: 50%;
+    margin-right: 5%;
+
+  }
+
+  label{
+
+    width: 45%;
+
+  }
+
+}
+
+.signa-container__signa{
+  float: left;
+  width: 50%;
+}
+
+.signa-container__licenceplate{
+  float: left;
+  width: 50%;
+}
+
+.signa-container__arrival{
+  float: left;
+  width: 50%;
+}

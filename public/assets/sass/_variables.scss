@@ -7,6 +7,13 @@ $white : #FFFFFF;
 $blue : #4285f4;
 $light_blue : #42b7f4;
 
+$yellow : #feec8a;
+
+$red : #7f2710;
+
+$green : #ccfe8b;
+$green_dark : #477f10;
+
 $gray_lightest : #f6f6f6;
 $gray_lighter : #F5F5F5;
 $gray_light : #efefef;
@@ -15,6 +22,14 @@ $gray_dark : #868685;
 $gray_darkest : #6b6b6b;
 
 $black : #171717;
+
+//ERROR
+$error_bg_color : $yellow;
+$error_color : $red;
+
+//SUCCES
+$succes_bg_color : $green;
+$succes_color : $green_dark;
 
 //MAIN
 $main_text_color : $gray_dark;

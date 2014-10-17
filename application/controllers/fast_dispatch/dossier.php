@@ -88,11 +88,15 @@ class Dossier extends Page {
     $dossier->dossier->allotment_id           =  $this->input->post('allotment_id');
     $dossier->dossier->allotment_direction_id = $this->input->post('direction');
     $dossier->dossier->allotment_direction_indicator_id = $this->input->post('indicator');
+    $dossier->dossier->traffic_lane_id        = $this->input->post('traffic_lane_id');
 
     $dossier->dossier->towing_vouchers[0]->vehicule_type = $this->input->post('vehicule_type');
     $dossier->dossier->towing_vouchers[0]->vehicule_licenceplate = $this->input->post('vehicule_licenceplate');
     $dossier->dossier->towing_vouchers[0]->vehicule_country = $this->input->post('licence_plate_country');
 
     $dossier->dossier->towing_vouchers[0]->additional_info = $this->input->post('additional_info');
+
+    $dossier->dossier->towing_vouchers[0]->insurance_id = $this->input->post('insurance_id');
+    $dossier->dossier->towing_vouchers[0]->insurance_dossiernr = $this->input->post('insurance_dossiernr');
   }
 }

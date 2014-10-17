@@ -420,6 +420,10 @@ table tbody tr.even:hover {
   color: #FFFFFF;
   background-color: #42b7f4;
 }
+table tbody tr:nth-child(even):hover a,
+table tbody tr.even:hover a {
+  color: #FFFFFF;
+}
 table tbody tr:nth-child(odd),
 table tbody tr.odd {
   background-color: #F5F5F5;
@@ -428,6 +432,10 @@ table tbody tr:nth-child(odd):hover,
 table tbody tr.odd:hover {
   color: #FFFFFF;
   background-color: #42b7f4;
+}
+table tbody tr:nth-child(odd):hover a,
+table tbody tr.odd:hover a {
+  color: #FFFFFF;
 }
 table thead tr {
   border-bottom: 2px solid #f5f5f5;
@@ -480,7 +488,7 @@ table thead tr {
   background-position: 0px -3px;
 }
 
-.btn, .btn--highlighted, .btn--icon, .btn--icon--highlighted {
+.btn, .btn--highlighted, .btn--icon, .btn--icon--highlighted, .btn--icon--small {
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
   border-radius: 2px;
@@ -488,7 +496,7 @@ table thead tr {
   color: #868685;
   padding: 15px;
 }
-.btn:hover, .btn--highlighted:hover, .btn--icon:hover, .btn--icon--highlighted:hover {
+.btn:hover, .btn--highlighted:hover, .btn--icon:hover, .btn--icon--highlighted:hover, .btn--icon--small:hover {
   background-color: #e2e2e2;
 }
 
@@ -503,6 +511,12 @@ table thead tr {
 .btn--icon, .btn--icon--highlighted {
   width: 56px;
   height: 52px;
+  padding: 0;
+}
+
+.btn--icon--small {
+  width: 40px;
+  height: 34px;
   padding: 0;
 }
 
@@ -685,6 +699,11 @@ table thead tr {
   height: 100%;
 }
 
+.login_messages {
+  margin: auto;
+  width: 30%;
+}
+
 .main-navigation {
   margin: 0;
   padding: 0;
@@ -829,7 +848,34 @@ table thead tr {
   background-position: 0 7px;
 }
 
-.form-item, .form-item-horizontal {
+.dsform {
+  padding: 10px 20px;
+}
+
+.dsform__clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.dsform__left {
+  float: left;
+  width: 65%;
+}
+
+.dsform__right {
+  float: right;
+  width: 35%;
+}
+.dsform__right input {
+  width: 50%;
+  margin-right: 5%;
+}
+.dsform__right label {
+  width: 45%;
+}
+
+.form-item, .form-item-horizontal, .form-item-vertical {
   margin-top: 15px;
   margin-bottom: 15px;
 }
@@ -848,7 +894,10 @@ table thead tr {
   width: 25%;
   float: left;
 }
-.form-item-horizontal input, .form-item-horizontal select, .form-item-horizontal textarea, .form-item-horizontal .chosen-container, .form-item-horizontal .licenseplate-container, .form-item-horizontal .value {
+.form-item-horizontal label.notbold {
+  color: #868685;
+}
+.form-item-horizontal input, .form-item-horizontal select, .form-item-horizontal textarea, .form-item-horizontal .chosen-container, .form-item-horizontal .licenseplate-container, .form-item-horizontal .value, .form-item-horizontal .form-value {
   width: 75%;
   float: right;
 }
@@ -857,6 +906,408 @@ table thead tr {
 }
 .form-item-horizontal .value {
   padding: 8px 20px 8px 20px;
+}
+.form-item-horizontal .form-value {
+  padding: 8px 2px 8px 2px;
+}
+
+.form-item-vertical:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.form-item-vertical.less_padded {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.form-item-vertical label {
+  padding: 8px 20px 8px 0px;
+}
+.form-item-vertical label.notbold {
+  color: #868685;
+}
+.form-item-vertical .value {
+  padding: 8px 20px 8px 20px;
+}
+.form-item-vertical .form-value {
+  padding: 8px 2px 8px 2px;
+}
+
+.assistance-container:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.assistance-container input, .assistance-container .chosen-container {
+  width: 75% !important;
+  float: left;
+  margin-right: 0;
+}
+.assistance-container label {
+  width: 22%;
+  float: left;
+}
+
+.autograph-container:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.autograph-container__police {
+  width: 30%;
+  margin-right: 5%;
+  float: left;
+}
+.autograph-container__police input, .autograph-container__police .chosen-container {
+  width: 50%;
+}
+.autograph-container__police label {
+  width: 50%;
+}
+
+.autograph-container__nuisance {
+  width: 30%;
+  float: left;
+  margin-right: 5%;
+}
+
+.autograph-container__collecting {
+  width: 30%;
+  float: left;
+}
+
+.depot-full-container:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.depot-full-container__left {
+  float: left;
+  width: 65%;
+}
+.depot-full-container__left input {
+  width: 50%;
+  margin-right: 5%;
+}
+.depot-full-container__left label {
+  width: 45%;
+}
+
+.depot-full-container__right {
+  float: right;
+  width: 35%;
+}
+.depot-full-container__right input {
+  width: 50%;
+  margin-right: 5%;
+}
+.depot-full-container__right label {
+  width: 45%;
+}
+
+.depot-full-container__depot {
+  float: left;
+  width: 50%;
+}
+
+.depot-full-container__street {
+  float: left;
+  width: 50%;
+}
+
+.depot-full-container__streetnr {
+  float: left;
+  width: 50%;
+}
+
+.depot-full-container__streetbox {
+  float: left;
+  width: 50%;
+}
+
+.depot-full-container__postal {
+  float: left;
+  width: 50%;
+}
+
+.depot-full-container__city {
+  float: left;
+  width: 50%;
+}
+
+.depot-container:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.dossiernr-container:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.dossiernr-container input {
+  width: 75%;
+  float: left;
+  margin-right: 0;
+}
+.dossiernr-container label {
+  width: 22%;
+  float: left;
+}
+
+.facturation-container {
+  width: 50%;
+  float: left;
+}
+
+.facturation-container__info {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.facturation-container__info div {
+  padding-top: 6px;
+  padding-bottom: 3px;
+}
+
+.nuisance-container {
+  width: 50%;
+  float: left;
+}
+
+.nuisance-container__info {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.nuisance-container__info div {
+  padding-top: 6px;
+  padding-bottom: 3px;
+}
+
+.signa-container:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.signa-container__left {
+  float: left;
+  width: 65%;
+}
+.signa-container__left input {
+  width: 50%;
+  margin-right: 5%;
+}
+.signa-container__left label {
+  width: 45%;
+}
+
+.signa-container__right {
+  float: right;
+  width: 35%;
+}
+.signa-container__right input {
+  width: 50%;
+  margin-right: 5%;
+}
+.signa-container__right label {
+  width: 45%;
+}
+
+.signa-container__signa {
+  float: left;
+  width: 50%;
+}
+
+.signa-container__licenceplate {
+  float: left;
+  width: 50%;
+}
+
+.signa-container__arrival {
+  float: left;
+  width: 50%;
+}
+
+.towedby-container:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.towedby-container__left {
+  float: left;
+  width: 65%;
+}
+.towedby-container__left input {
+  width: 50%;
+  margin-right: 5%;
+}
+.towedby-container__left label {
+  width: 45%;
+}
+
+.towedby-container__right {
+  float: right;
+  width: 35%;
+}
+.towedby-container__right input {
+  width: 50%;
+  margin-right: 5%;
+}
+.towedby-container__right label {
+  width: 45%;
+}
+
+.towedby-container__towedby {
+  float: left;
+  width: 50%;
+}
+
+.towedby-container__licenceplate {
+  float: left;
+  width: 50%;
+}
+
+.towedby-container__arival {
+  float: left;
+  width: 50%;
+}
+
+.towedby-container__call {
+  float: left;
+  width: 50%;
+}
+
+.towedby-container__start {
+  float: left;
+  width: 50%;
+}
+
+.towedby-container__completed {
+  float: left;
+  width: 50%;
+}
+
+.vehicule-container:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.vehicule-container__left {
+  float: left;
+  width: 65%;
+}
+.vehicule-container__left input {
+  width: 50%;
+  margin-right: 5%;
+}
+.vehicule-container__left label {
+  width: 45%;
+}
+
+.vehicule-container__right {
+  float: right;
+  width: 35%;
+}
+.vehicule-container__right input, .vehicule-container__right .chosen-container {
+  width: 50% !important;
+  margin-right: 5%;
+}
+.vehicule-container__right input input, .vehicule-container__right .chosen-container input {
+  width: 100% !important;
+}
+.vehicule-container__right label {
+  width: 45%;
+}
+
+.vehicule-container__vehicule {
+  float: left;
+  width: 50%;
+}
+
+.vehicule-container__license {
+  float: left;
+  width: 50%;
+}
+
+.vehicule-container__country {
+  float: left;
+  width: 50%;
+}
+
+.warrenty-container:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.warrenty-container input {
+  width: 75%;
+  float: left;
+  margin-right: 0;
+}
+.warrenty-container label {
+  width: 22%;
+  float: left;
+}
+
+.work-container {
+  position: relative;
+}
+.work-container:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.work-container input {
+  margin-bottom: 5px;
+}
+
+.work-container__task {
+  float: left;
+  width: 50%;
+  margin-right: 1%;
+}
+
+.work-container__number {
+  float: left;
+  width: 10%;
+  margin-right: 1%;
+}
+
+.work-container__unitprice {
+  float: left;
+  width: 10%;
+  margin-right: 1%;
+}
+
+.work-container__excl {
+  float: left;
+  width: 10%;
+  margin-right: 1%;
+}
+
+.work-container__incl {
+  float: left;
+  width: 10%;
+}
+
+.work-container__add {
+  float: left;
+}
+
+.work-container__fields {
+  width: 100%;
+  float: left;
+}
+
+.work-container__actions {
+  position: absolute;
+  right: 0;
+  bottom: 20px;
 }
 
 .form-item-licenseplate .licenseplate-container:after {
@@ -877,6 +1328,18 @@ table thead tr {
 .icon, .icon--user, .icon--settings, .icon--off, .icon--edit, .icon--edit--small, .icon--add, .icon--clock, .icon--date, .icon--arrow--down, .icon--arrow--left, .icon--arrow--right, .icon--phone, .icon--remove, .icon--attachement, .icon--nota, .icon--email, .icon--print--preview, .icon--print, .icon--plus {
   width: 55px;
   height: 50px;
+  background-image: url('../images/icons/icons.png');
+  background-repeat: no-repeat;
+  display: block;
+  text-indent: -119988px;
+  overflow: hidden;
+  text-align: left;
+  text-transform: capitalize;
+}
+
+.icon--small, .icon--add--small {
+  width: 40px;
+  height: 34px;
   background-image: url('../images/icons/icons.png');
   background-repeat: no-repeat;
   display: block;
@@ -926,6 +1389,13 @@ table thead tr {
 }
 .bright .icon--add {
   background-position: -264px -135px;
+}
+
+.icon--add--small {
+  background-position: -271px -79px;
+}
+.bright .icon--add--small {
+  background-position: -271px -135px;
 }
 
 .icon--clock {
@@ -1017,4 +1487,28 @@ table thead tr {
 }
 .bright .icon--plus {
   background-position: -200px -332px;
+}
+
+.msg {
+  padding: 15px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  background-image: url('../images/messages/messages.png');
+  background-repeat: no-repeat;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.msg__error {
+  background-color: #feec8a;
+  color: #7f2710;
+  background-position: -5px -12px;
+}
+
+.msg__succes {
+  background-color: #ccfe8b;
+  color: #477f10;
+  background-position: -5px -119px;
 }

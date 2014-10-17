@@ -1,0 +1,40 @@
+.autograph-container{
+
+  @include clearfix;
+
+}
+
+.autograph-container__police{
+
+  width: 30%;
+  margin-right: 5%;
+  float: left;
+
+  input, .chosen-container{
+
+    width: 50%;
+
+  }
+
+  label{
+
+    width: 50%;
+
+  }
+
+}
+
+.autograph-container__nuisance{
+
+  width: 30%;
+  float: left;
+  margin-right: 5%;
+
+}
+
+.autograph-container__collecting{
+
+  width: 30%;
+  float: left;
+
+}

@@ -1,0 +1,38 @@
+.dsform{
+
+  padding: 10px 20px;
+
+}
+
+.dsform__clearfix{
+
+  @include clearfix;
+
+}
+
+.dsform__left{
+
+  float: left;
+  width: 65%;
+
+}
+
+.dsform__right{
+
+  float: right;
+  width: 35%;
+
+  input{
+
+    width: 50%;
+    margin-right: 5%;
+
+  }
+
+  label{
+
+    width: 45%;
+
+  }
+
+}

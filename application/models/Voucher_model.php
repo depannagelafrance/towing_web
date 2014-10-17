@@ -34,8 +34,8 @@ class Voucher_model  {
     if($data) {
       $this->id                           = $data->id;
       $this->insurance_id                 = $data->insurance_id;
-      $this->insurrance_dossiernr         = $data->insurance_dossiernr;
-      $this->insurrance_warranty_held_by  = $data->insurance_warranty_held_by;
+      $this->insurance_dossiernr          = $data->insurance_dossiernr;
+      $this->insurance_warranty_held_by   = $data->insurance_warranty_held_by;
       $this->collector_id                 = $data->collector_id;
       $this->police_signature_dt          = $data->police_signature_dt;
       $this->recipient_signature_dt       = $data->recipient_signature_dt;

@@ -1,0 +1,19 @@
+.assistance-container{
+  @include clearfix;
+
+  input, .chosen-container{
+
+    width: 75%!important;
+    float: left;
+    margin-right: 0;
+
+  }
+
+  label{
+
+    width: 22%;
+    float: left;
+
+  }
+
+}

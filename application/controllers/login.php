@@ -47,6 +47,8 @@ class Login extends Page {
           if(!$result || array_key_exists('statusCode', $result)) {
             $this->_add_error('Authentication failed');
             $this->_add_content($this->load->view('login', '', true));
+            $this->_render_page('login_container');
+
           } else {
             $this->_set_authenticated_user($result);
             //$this->_add_content($this->load->view('login', '', true));
@@ -57,9 +59,10 @@ class Login extends Page {
               redirect(sprintf("/%s/index",strtolower($module->code)));
               exit;
             }
-          }
 
-          $this->_render_page();
+            $this->_render_page();
+
+          }
 
       }
   }

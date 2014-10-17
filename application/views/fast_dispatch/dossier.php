@@ -33,7 +33,6 @@
   </div>
 
   <?php print form_open('fast_dispatch/dossier/save/' . $_dossier->dossier_number) ?>
-  <?php print validation_errors(); ?>
 
   <div class="layout-content">
 
@@ -63,50 +62,62 @@
 
     </div>
 
+<?php
+//TODO: @Gert, voorzien van een correcte styling voor de form errors!
+
+$errors = validation_errors();
+
+if($errors) {
+  printf('<div style="background: red; color: white; font-size: 1.2em; padding-top:10px; padding-bottom: 10px; padding-left: 4px;">%s</div>', $errors);
+}
+
+?>
+
+
     <div class="box layout_2col_container">
       <div class="layout_2col_item">
         <div class="form-item-horizontal">
-            <label>Richting</label>
+            <label>Richting:</label>
             <?php print listbox('direction', $directions, $_dossier->allotment_direction_id); ?>
         </div>
 
         <div class="form-item-horizontal">
-            <label>KM Paal</label>
+            <label>KM Paal:</label>
             <?php print listbox('indicator', $indicators, $_dossier->allotment_direction_indicator_id); ?>
         </div>
 
         <div class="form-item-horizontal">
-            <label>Rijstrook</label>
-            <?php print listbox('traffic_lane', $traffic_lanes, $_dossier->traffic_lane_id); ?>
+            <label>Rijstrook:</label>
+            <?php print listbox('traffic_lane_id', $traffic_lanes, $_dossier->traffic_lane_id); ?>
         </div>
 
         <div class="form-item-horizontal">
-            <label>Type incident</label>
+            <label>Type incident:</label>
             <?php print listbox('incident_type', $incident_types, $_dossier->incident_type_id); ?>
         </div>
 
         <div class="form-item-horizontal">
-            <label>Oproepnr.</label>
+            <label>Oproepnr.:</label>
             <?php print form_input('call_number', $_dossier->call_number); ?>
         </div>
 
         <div class="form-item-horizontal">
-            <label>Assistance</label>
-            <?php print listbox('insurances', $insurances, $_dossier->towing_vouchers[0]->insurance_id); ?>
+            <label>Assistance:</label>
+            <?php print listbox('insurance_id', $insurances, $_dossier->towing_vouchers[0]->insurance_id); ?>
         </div>
 
         <div class="form-item-horizontal">
-            <label>Dossiernr.</label>
+            <label>Dossiernr.:</label>
             <?php print form_input('insurance_dossiernr', $_dossier->towing_vouchers[0]->insurance_dossiernr); ?>
         </div>
 
         <div class="form-item-horizontal">
-            <label>Type wagen</label>
+            <label>Type wagen:</label>
             <?php print form_input('vehicule_type', $_dossier->towing_vouchers[0]->vehicule_type); ?>
         </div>
 
         <div class="form-item-horizontal form-item-licenseplate">
-            <label>Nummerplaat</label>
+            <label>Nummerplaat:</label>
             <div class="licenseplate-container">
               <?php print form_input('vehicule_licenceplate', $_dossier->towing_vouchers[0]->vehicule_licenceplate); ?>
 
@@ -122,7 +133,7 @@
 
 
         <div class="form-item-horizontal">
-            <label>Afmelding CIC</label>
+            <label>Afmelding CIC:</label>
             <?php print form_input('cic', $_dossier->towing_vouchers[0]->cic); ?>
         </div>
       </div>
@@ -131,26 +142,25 @@
 
       <div class="layout_2col_item">
 
-
         <div class="form-item-horizontal">
             <label>Perceel</label>
             <?php print form_input('allotment_id', $_dossier->allotment_id); ?>
         </div>
 
         <div class="form-item-horizontal">
-            <label>Perceel (naam)</label>
-            <?php print form_input('allotment_name', $_dossier->allotment_name); ?>
+            <label>Perceel:</label>
+            <div class="form-value"><?php print $_dossier->allotment_name; ?></div>
         </div>
 
         <div class="form-item-horizontal">
-            <label>Takeldienst</label>
+            <label>Takeldienst:</label>
             <?php print listbox('company_id', array(), $_dossier->company_id); ?>
         </div>
 
 
 
         <div class="form-item-horizontal">
-            <label>Extra info</label>
+            <label>Extra info:</label>
             <?php print form_textarea('additional_info', $_dossier->towing_vouchers[0]->additional_info); ?>
         </div>
 

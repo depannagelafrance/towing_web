@@ -20,9 +20,12 @@
     padding: 8px 20px 8px 0px;
     width: 25%;
     float: left;
+    &.notbold{
+      color: #868685;
+    }
   }
 
-  input, select, textarea, .chosen-container, .licenseplate-container, .value{
+  input, select, textarea, .chosen-container, .licenseplate-container, .value, .form-value{
     width: 75%;
     float: right;
   }
@@ -33,6 +36,38 @@
 
   .value{
     padding: 8px 20px 8px 20px;
+  }
+
+  .form-value{
+    padding: 8px 2px 8px 2px;
+  }
+
+}
+
+.form-item-vertical{
+  @extend .form-item;
+  @include clearfix;
+
+  &.less_padded{
+
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+  }
+
+  label{
+    padding: 8px 20px 8px 0px;
+    &.notbold{
+      color: #868685;
+    }
+  }
+
+  .value{
+    padding: 8px 20px 8px 20px;
+  }
+
+  .form-value{
+    padding: 8px 2px 8px 2px;
   }
 
 }

@@ -1,0 +1,73 @@
+//towedby
+.towedby-container{
+  @include clearfix;
+}
+
+.towedby-container__left{
+  float: left;
+  width: 65%;
+
+  input{
+
+    width: 50%;
+    margin-right: 5%;
+
+  }
+
+  label{
+
+    width: 45%;
+
+  }
+
+}
+
+
+.towedby-container__right{
+  float: right;
+  width: 35%;
+
+  input{
+
+    width: 50%;
+    margin-right: 5%;
+
+  }
+
+  label{
+
+    width: 45%;
+
+  }
+
+}
+
+.towedby-container__towedby{
+  float: left;
+  width: 50%;
+}
+
+.towedby-container__licenceplate{
+  float: left;
+  width: 50%;
+}
+
+.towedby-container__arival{
+  float: left;
+  width: 50%;
+}
+
+.towedby-container__call{
+  float: left;
+  width: 50%;
+}
+
+.towedby-container__start{
+  float: left;
+  width: 50%;
+}
+
+.towedby-container__completed{
+  float: left;
+  width: 50%;
+}

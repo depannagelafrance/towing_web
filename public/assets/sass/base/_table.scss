@@ -45,6 +45,10 @@ table{
         color: $table_row_hover_color;
         background-color: $table_row_hover_bg_color;
 
+        a{
+          color: $table_row_hover_color;
+        }
+
       }
 
     }
@@ -58,6 +62,10 @@ table{
 
         color: $table_row_hover_color;
         background-color: $table_row_hover_bg_color;
+
+        a{
+          color: $table_row_hover_color;
+        }
 
       }
 
