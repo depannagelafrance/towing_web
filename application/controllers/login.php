@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 require_once('page.php');
-require_once(APPPATH . '/models/Vocabulary_model.php');
+//require_once(APPPATH . 'models/Vocabulary_model.php');
 
 class Login extends Page {
 

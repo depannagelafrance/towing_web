@@ -1,5 +1,4 @@
 <div style="width: 800px; margin: auto;">
-  <?php echo validation_errors(); ?>
 
   <?php echo form_open('admin/user/create')?>
     <div class="form-item">
@@ -9,7 +8,7 @@
 
     <div class="form-item">
     	<input type="text" placeholder="Voornaam"
-    		value="<?php print set_value('firstname'); ?>" name="firstname" />
+    		value="<?php print set_value('firstname', $users->firstname); ?>" name="firstname" />
     </div>
     
     <div class="form-item">

@@ -359,7 +359,9 @@ $config['proxy_ips'] = '';
 
 // CUSTOM CONFIG
 
-$config['towing_api'] = 'https://api.towing.be';
+//$config['towing_api'] = 'https://api.towing.be';
+$config['towing_api'] = 'http://localhost:8443';// 'https://api.towing.be';
+
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */

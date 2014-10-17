@@ -1,7 +1,7 @@
 <div style="width: 800px; margin: auto;">
   <?php echo validation_errors(); ?>
 
-  <?php echo form_open('admin/user/create')?>
+  <?php echo form_open('admin/insurances/edit')?>
     <div class="form-item">
 	<input type="text" placeholder="Login"
 		value="<?php print set_value('login'); ?>" name="login" />
