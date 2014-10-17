@@ -124,8 +124,8 @@ $_dossier = $dossier->dossier;
       ?>
           <div class="dossierbar__id active">
             <?php
-            
-            if($_is_selected) {
+
+            if($_is_selected || sizeof($_dossier->towing_vouchers) == 1) {
               printf('%s', $_v->voucher_number);
             } else {
               printf('<a href="/fast_dossier/dossier/%s/%s">%s</a>', $_dossier->dossier_number, $_v->voucher_number, $_v->voucher_number);
