@@ -90,3 +90,10 @@ $chosen_highlight_color : $white;
 //IDBAR
 $idbar_bg_color : $light_blue;
 $idbar_color : $white;
+
+//DOSSIERBAR
+$dossierbar_active_bg_color : $light_blue;
+$dossierbar_active_color : $white;
+$dossierbar_hover_bg_color : darken($gray_light, 5%);
+$dossierbar_hover_color : $gray_dark;
+$dossierbar_link_color : $gray_dark;

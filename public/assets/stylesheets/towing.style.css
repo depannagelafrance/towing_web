@@ -582,9 +582,44 @@ table thead tr {
   border: 1px solid #e5e5e5;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-bottom-width: 2px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+.dossierbar__id:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.dossierbar__id a {
+  color: #868685;
+  text-decoration: none;
 }
 .dossierbar__id.active {
-  background: #FFFFFF !important;
+  background: #42b7f4 !important;
+  color: #FFFFFF;
+  border: 1px solid #2aaef3;
+  border-bottom-width: 2px;
+}
+.dossierbar__id.active:hover {
+  background: #42b7f4 !important;
+  color: #FFFFFF;
+  border: 1px solid #2aaef3;
+  border-bottom-width: 2px;
+}
+.dossierbar__id.active a {
+  color: #FFFFFF;
+}
+.dossierbar__id:hover {
+  background: #e2e2e2 !important;
+  color: #868685;
+  border: 1px solid #d5d5d5;
+  border-bottom-width: 2px;
+}
+.dossierbar__id:hover a {
+  color: #868685;
+}
+.dossierbar__id.has_icon {
+  padding-left: 50px;
 }
 
 .dossierbar__mainactions {
@@ -616,6 +651,17 @@ table thead tr {
 .dossierbar__action__item {
   float: left;
   margin-left: 5px;
+}
+
+.dossierbar__icon {
+  float: left;
+  margin-bottom: -25px;
+  margin-left: -45px;
+  margin-top: -10px;
+}
+
+.dossierbar__id__value {
+  float: left;
 }
 
 .idbar {
@@ -653,6 +699,20 @@ table thead tr {
   -moz-border-radius: 2px 0 0 2px;
   -webkit-border-radius: 2px;
   border-radius: 2px 0 0 2px;
+}
+.idbar__id.has_icon {
+  padding-left: 60px;
+}
+
+.idbar__icon {
+  float: left;
+  margin-bottom: -25px;
+  margin-left: -45px;
+  margin-top: -10px;
+}
+
+.idbar__id__value {
+  float: left;
 }
 
 .l-topbar .l-topbar-content {
@@ -1352,7 +1412,7 @@ table a {
   text-transform: capitalize;
 }
 
-.icon--small, .icon--add--small {
+.icon--small, .icon--add--small, .icon--map, .icon--ticket {
   width: 40px;
   height: 34px;
   background-image: url('../images/icons/icons.png');
@@ -1502,6 +1562,20 @@ table a {
 }
 .bright .icon--plus {
   background-position: -200px -332px;
+}
+
+.icon--map {
+  background-position: -274px -275px;
+}
+.bright .icon--map {
+  background-position: -274px -341px;
+}
+
+.icon--ticket {
+  background-position: -338px -276px;
+}
+.bright .icon--ticket {
+  background-position: -337px -342px;
 }
 
 .msg {

@@ -34,7 +34,9 @@ $_dossier = $dossier->dossier;
       <?php
 
       $last = $this->uri->total_segments();
-      $urlid = $this->uri->segment($last - 1);
+      $url_dossier_id = $this->uri->segment($last - 1);
+      $url_takelbon_id = $this->uri->segment($last);
+
 
       $this->load->helper('date');
 
@@ -42,21 +44,27 @@ $_dossier = $dossier->dossier;
 
       //d.id, d.id as 'dossier_id', t.id as 'voucher_id', d.call_number, d.call_date, t.voucher_number, ad.name 'direction_name',
       //adi.name 'indicator_name', c.code as `towing_service`, ip.name as `incident_type`
-
+      $prev = '';
       if($vouchers && sizeof($vouchers) > 0) {
         foreach($vouchers as $voucher) {
 
-          if($voucher->dossier_number === $urlid){
+          if($voucher->dossier_number === $url_dossier_id){
             $class = 'active';
           }else{
             $class = 'inactive';
           }
 
-          $this->table->add_row(
-                array('class' => $class, 'data' => sprintf('<a href="/fast_dossier/dossier/%s/%s">%s</a>', $voucher->dossier_number, $voucher->voucher_number, $voucher->dossier_number)), // $voucher->voucher_number),
-                array('class' => $class, 'data' =>mdate('%d %M',strtotime($voucher->call_date))),
-                array('class' => $class, 'data' =>mdate('%H:%i',strtotime($voucher->call_date)))
-          );
+          if($prev !== $voucher->dossier_number){
+
+            $prev = $voucher->dossier_number;
+
+            $this->table->add_row(
+                  array('class' => $class, 'data' => sprintf('<a href="/fast_dossier/dossier/%s/%s">%s</a>', $voucher->dossier_number, $voucher->voucher_number, $voucher->dossier_number)), // $voucher->voucher_number),
+                  array('class' => $class, 'data' =>mdate('%d %M',strtotime($voucher->call_date))),
+                  array('class' => $class, 'data' =>mdate('%H:%i',strtotime($voucher->call_date)))
+            );
+
+          }
         }
       }
 
@@ -69,8 +77,9 @@ $_dossier = $dossier->dossier;
   <div class="layout-content">
     <div class="box box--unpadded idbar">
 
-      <div class="idbar__item idbar__id">
-        <?php print $_dossier->dossier_number; ?>
+      <div class="idbar__item idbar__id bright has_icon">
+        <div class="idbar__icon icon--map"></div>
+        <div class="idbar__id__value"><?php print $_dossier->dossier_number; ?></div>
       </div>
 
       <div class="idbar__item">
@@ -156,7 +165,9 @@ $_dossier = $dossier->dossier;
             $_voucher = $_v;
           }
       ?>
-          <div class="dossierbar__id active">
+          <div class="dossierbar__id has_icon <?php print ($_is_selected || sizeof($_dossier->towing_vouchers) == 1) ? 'active bright' : 'inactive'; ?>">
+            <div class="dossierbar__icon icon--ticket"></div>
+            <div class="dossierbar__id__value">
             <?php
 
             if($_is_selected || sizeof($_dossier->towing_vouchers) == 1) {
@@ -165,6 +176,7 @@ $_dossier = $dossier->dossier;
               printf('<a href="/fast_dossier/dossier/%s/%s">%s</a>', $_dossier->dossier_number, $_v->voucher_number, $_v->voucher_number);
             }
             ?>
+            </div>
           </div>
       <?php
         endforeach;
