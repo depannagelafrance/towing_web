@@ -1,4 +1,4 @@
-application/config/config.php
+application/config/config.prd.php
 
 # Ignore the node modules folder (created by 'npm install').
 public/node_modules
@@ -8,3 +8,5 @@ public/bower_components
 
 # We absolutely don't want to have the .sass-cache in git.
 public/.sass-cache
+
+#Ignore config
