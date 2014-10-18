@@ -30,7 +30,7 @@ $_dossier = $dossier->dossier;
           }
 
           $this->table->add_row(
-                array('class' => $class, 'data' => sprintf('<a href="/fast_dossier/dossier/%s/%s">%s</a>', $voucher->dossier_number, $voucher->voucher_number, $voucher->voucher_number)), // $voucher->voucher_number),
+                array('class' => $class, 'data' => sprintf('<a href="/fast_dossier/dossier/%s/%s">%s</a>', $voucher->dossier_number, $voucher->voucher_number, $voucher->dossier_number)), // $voucher->voucher_number),
                 array('class' => $class, 'data' =>mdate('%d %M',strtotime($voucher->call_date))),
                 array('class' => $class, 'data' =>mdate('%H:%i',strtotime($voucher->call_date)))
           );
