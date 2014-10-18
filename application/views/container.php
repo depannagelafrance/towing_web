@@ -46,17 +46,17 @@
         <nav class="main-navigation">
           <?php if(isset($available_modules) && !empty($available_modules)) : ?>
             <ul>
-              <?php $urlid = $this->uri->segment(1);?>
-              <?php foreach($available_modules as $module) : ?>
-                <?php
-                  if(strtoupper($urlid) === $module->code){
-                    print sprintf('<li><a class="active" href="/%s/index">%s</a></li>', strtolower($module->code), $module->name);
-                  }else{
-                    print sprintf('<li><a href="/%s/index">%s</a></li>', strtolower($module->code), $module->name);
-                  }
-                ?>
+              <?php
+							 	$urlid = $this->uri->segment(1);
 
-              <?php endforeach; ?>
+               	foreach($available_modules as $module) {
+									if(strtoupper($urlid) === $module->code){
+										printf('<li><a class="active" href="/%s/index">%s</a></li>', strtolower($module->code), $module->name);
+									} else {
+										printf('<li><a href="/%s/index">%s</a></li>', strtolower($module->code), $module->name);
+									}
+							 	}
+							?>
             </ul>
           <?php endif; ?>
         </nav>
@@ -74,27 +74,18 @@
     <div class="layout-full">
       <div class="layout-center">
 				<?php
-					if(isset($error) && $error !== "") {
-						?>
-						<div class="login_messages">
-							<div class="msg msg__error">
-								<?php print $error; ?>
-							</div>
-						</div>
-						<?
+					if(isset($error) && $error !== "")
+					{
+						printf('<div class="login_messages"><div class="msg msg__error">%s</div></div>', $error);
 					}
 
-					if($this->session->flashdata('_INFO_MSG')) {
-						?>
-						<div class="login_messages">
-							<div class="msg msg__error">
-								<?php print $this->session->flashdata('_INFO_MSG'); ?>
-							</div>
-						</div>
-						<?
+					if($this->session->flashdata('_INFO_MSG'))
+					{
+						printf('<div class="login_messages"><div class="msg msg__error">%s</div></div>', $this->session->flashdata('_INFO_MSG'));
 					}
+
+					print $content;
 				?>
-        <?php print $content; ?>
       </div>
     </div>
   </div>
