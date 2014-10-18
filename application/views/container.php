@@ -16,6 +16,7 @@
       $('select').chosen();
     });
   </script>
+  <script src="/public/assets/js/towing/towing.js"></script>
 
 
   <title><?php print $title ?></title>
@@ -43,8 +44,16 @@
         <nav class="main-navigation">
           <?php if(isset($available_modules) && !empty($available_modules)) : ?>
             <ul>
+              <?php $urlid = $this->uri->segment(1);?>
               <?php foreach($available_modules as $module) : ?>
-                <?php print sprintf('<li><a href="/%s/index">%s</a></li>', strtolower($module->code), $module->name); ?>
+                <?php
+                  if(strtoupper($urlid) === $module->code){
+                    print sprintf('<li><a class="active" href="/%s/index">%s</a></li>', strtolower($module->code), $module->name);
+                  }else{
+                    print sprintf('<li><a href="/%s/index">%s</a></li>', strtolower($module->code), $module->name);
+                  }
+                ?>
+
               <?php endforeach; ?>
             </ul>
           <?php endif; ?>

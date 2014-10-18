@@ -403,6 +403,16 @@ table th,
 table td {
   padding-top: 10px;
   padding-bottom: 10px;
+  cursor: pointer !important;
+}
+table th.active,
+table td.active {
+  background-color: #42b7f4;
+  color: #FFFFFF;
+}
+table th.active a,
+table td.active a {
+  color: #FFFFFF;
 }
 table tbody tr {
   border-bottom: 1px solid #FFFFFF;
@@ -753,7 +763,7 @@ table thead tr {
 .main-navigation ul li a:hover {
   color: #FFFFFF;
 }
-.main-navigation ul li a .active {
+.main-navigation ul li a.active {
   color: #FFFFFF;
 }
 
@@ -931,6 +941,11 @@ table thead tr {
 }
 .form-item-vertical .form-value {
   padding: 8px 2px 8px 2px;
+}
+
+table a {
+  text-decoration: none;
+  color: #868685;
 }
 
 .assistance-container:after {
