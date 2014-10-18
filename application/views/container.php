@@ -1,6 +1,8 @@
 <?php
 	echo doctype('html5');
 	header("Content-type: text/html; charset=utf-8");
+
+	$this->load->library('session');
 ?>
 <html>
 
@@ -71,6 +73,27 @@
   <div class="container">
     <div class="layout-full">
       <div class="layout-center">
+				<?php
+					if(isset($error) && $error !== "") {
+						?>
+						<div class="login_messages">
+							<div class="msg msg__error">
+								<?php print $error; ?>
+							</div>
+						</div>
+						<?
+					}
+
+					if($this->session->flashdata('_INFO_MSG')) {
+						?>
+						<div class="login_messages">
+							<div class="msg msg__error">
+								<?php print $this->session->flashdata('_INFO_MSG'); ?>
+							</div>
+						</div>
+						<?
+					}
+				?>
         <?php print $content; ?>
       </div>
     </div>
