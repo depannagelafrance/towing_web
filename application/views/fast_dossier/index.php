@@ -8,7 +8,7 @@ $this->table->set_heading('Takelbon', 'Oproepnummer', 'Oproep', 'Richting', 'KM-
 if($dossiers && sizeof($dossiers) > 0) {
   foreach($dossiers as $voucher) {
     $this->table->add_row(
-      sprintf('<a href="/fast_dossier/dossier/%s">%s</a>', $voucher->dossier_number, $voucher->voucher_number),
+      sprintf('<a href="/fast_dossier/dossier/%s/%s">%s</a>', $voucher->dossier_number, $voucher->voucher_number, $voucher->voucher_number),
       $voucher->call_number,
       mdate('%d/%m/%Y %H:%i',strtotime($voucher->call_date)),
       $voucher->direction_name,
