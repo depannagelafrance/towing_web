@@ -11,7 +11,7 @@ $_dossier = $dossier->dossier;
       <?php
 
       $last = $this->uri->total_segments();
-      $urlid = $this->uri->segment($last);
+      $urlid = $this->uri->segment($last - 1);
 
       $this->load->helper('date');
 
