@@ -364,7 +364,7 @@ if(!$_voucher)
         <div class="form-item-vertical facturation-container">
           <label>Facturatiegegevens:</label>
           <div class="facturation-container__info">
-            <? print(composeCustomerInformation($_voucher->customer)) ?>
+            <?php print(composeCustomerInformation($_voucher->customer)) ?>
           </div>
           <a href="#" id="edit-facturation">Bewerken</a>
         </div>
@@ -374,7 +374,7 @@ if(!$_voucher)
         <div class="form-item-vertical nuisance-container">
           <label>Hinderverwekker:</label>
           <div class="nuisance-container__info">
-            <? print(composeCustomerInformation($_voucher->causer)) ?>
+            <?php print(composeCustomerInformation($_voucher->causer)) ?>
           </div>
           <a href="#">Bewerken</a>
         </div>
