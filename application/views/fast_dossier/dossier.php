@@ -1,4 +1,27 @@
 <?php
+
+function composeCustomerInformation($c) {
+  $output = "<div>";
+
+  if($c->company_name) {
+    $output .= $c->company_name;
+  } else {
+    $output .= sprintf("%s %s", $c->last_name, $c->first_name);
+  }
+
+  $output .= "</div>";
+  $output .= "<div>";
+  $output .= sprintf("%s %s %s", $c->street, $c->street_number, ($c->street_pobox ? "/" . $c->street_pobox : ""));
+  $output .= "</div>";
+  $output .= "<div>" . sprintf("%s %s", $c->zip, $c->city) . "</div>";
+  $output .= "<div>" . $c->country . "</div>";
+  $output .= "<div>T: " . $c->phone . "</div>";
+  $output .= "<div>E: " . $c->email . "</div>";
+
+  return $output;
+}
+
+
 $this->load->helper('listbox');
 $this->load->helper('date');
 
@@ -329,10 +352,7 @@ if(!$_voucher)
         <div class="form-item-vertical facturation-container">
           <label>Facturatiegegevens:</label>
           <div class="facturation-container__info">
-            <div>Lorem ipsum 12</div>
-            <div>2920 Lorem</div>
-            <div>T: 00000000000</div>
-            <div>E: info@lorem.com</div>
+            <? print(composeCustomerInformation($_voucher->customer)) ?>
           </div>
           <a href="#" id="edit-facturation">Bewerken</a>
         </div>
@@ -342,10 +362,7 @@ if(!$_voucher)
         <div class="form-item-vertical nuisance-container">
           <label>Hinderverwekker:</label>
           <div class="nuisance-container__info">
-            <div>Lorem ipsum 12</div>
-            <div>2920 Lorem</div>
-            <div>T: 00000000000</div>
-            <div>E: info@lorem.com</div>
+            <? print(composeCustomerInformation($_voucher->causer)) ?>
           </div>
           <a href="#">Bewerken</a>
         </div>
