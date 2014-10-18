@@ -1,3 +1,9 @@
+<div class="layout-actions">
+  <div class="btn--icon--highlighted bright">
+    <a class="icon--add" href="/admin/user/create">Create new user</a>
+  </div>
+</div>
+
 <?php
 
 //set table headers
@@ -26,6 +32,4 @@ foreach ($users as $user){
 // and finally generate the table
 echo $this->table->generate();
 
-//add link to create new collector
 ?>
-<a href="/admin/user/create">Create new user</a>

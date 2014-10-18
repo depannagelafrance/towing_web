@@ -11,6 +11,7 @@ class Dossier extends Page {
 
       $this->load->library('table');
       $this->load->library('form_validation');
+      $this->load->library('session');
 
       $this->load->helper('form');
       $this->load->helper('url');
@@ -24,7 +25,12 @@ class Dossier extends Page {
   {
     $token = $this->_get_user_token();
 
-    $dossier = $this->dossier_service->fetchDossierByNumber($dossier_number, $token);
+    //a dossier might be set in the flash data when and update occured. So no need to refetch.
+    if($this->session->flashdata('dossier_cache')) {
+      $dossier = $this->session->flashdata('dossier_cache');
+    } else {
+      $dossier = $this->dossier_service->fetchDossierByNumber($dossier_number, $token);
+    }
 
     $this->_loadDossierView($token, $dossier, $voucher_number);
 
@@ -52,8 +58,13 @@ class Dossier extends Page {
 
         $dossier = $this->dossier_service->updateDossier(new Dossier_model($dossier), $token);
 
-        if($dossier) {
-          redirect(sprintf("/fast_dispatch/dossier/%s", $dossier->dossier->dossier_number));
+        if($dossier)
+        {
+          //for performance improvements, put the dossier in the flash data cache
+          $this->session->set_flashdata('dossier_cache', $dossier);
+
+          //redirect to the view
+          redirect(sprintf("/fast_dossier/dossier/%s", $dossier->dossier->dossier_number));
         }
       }
     }
@@ -64,6 +75,10 @@ class Dossier extends Page {
     $dossier = $this->dossier_service->createTowingVoucherForDossier($dossier_id, $this->_get_user_token());
 
     if($dossier) {
+      //for performance improvements, put the dossier in the flash data cache
+      $this->session->set_flashdata('dossier_cache', $dossier);
+
+      //redirect to the view
       redirect(sprintf("/fast_dossier/dossier/%s", $dossier->dossier->dossier_number));
     }
   }

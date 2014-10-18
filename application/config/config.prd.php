@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= '';
+$config['base_url']	= 'https://tool.towing.be';
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +26,7 @@ $config['base_url']	= '';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = '';
+$config['index_page'] = 'index.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -211,7 +211,7 @@ $config['log_date_format'] = 'Y-m-d H:i:s';
 |
 | Leave this BLANK unless you would like to set something other than the default
 | system/cache/ folder.  Use a full server path with trailing slash.
-|dsdfgdf
+|
 */
 $config['cache_path'] = '';
 
@@ -245,7 +245,7 @@ $config['encryption_key'] = '23d737d0ad8daa8365bc4f1d64068ca8';
 |
 */
 $config['sess_cookie_name']		= 'ci_session';
-$config['sess_expiration']		= 7200;
+$config['sess_expiration']		= 0;
 $config['sess_expire_on_close']	= FALSE;
 $config['sess_encrypt_cookie']	= FALSE;
 $config['sess_use_database']	= FALSE;
@@ -357,11 +357,10 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 
+
 // CUSTOM CONFIG
 
-//$config['towing_api'] = 'https://api.towing.be';
-$config['towing_api'] = 'http://localhost:8443';// 'https://api.towing.be';
-
+$config['towing_api'] = 'http://localhost:8443';
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */
