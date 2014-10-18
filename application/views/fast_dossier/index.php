@@ -15,7 +15,7 @@ if($dossiers && sizeof($dossiers) > 0) {
       $prev = $voucher->dossier_number;
 
       $this->table->add_row(
-        sprintf('<a href="/fast_dossier/dossier/%s/%s">%s</a>', $voucher->dossier_number, $voucher->voucher_number, $voucher->dossier_number),
+        sprintf('<a class="id__cell" href="/fast_dossier/dossier/%s/%s"><span class="id__cell__icon icon--map"></span><span class="id__cell__text">%s</span></a>', $voucher->dossier_number, $voucher->voucher_number, $voucher->dossier_number),
         $voucher->call_number,
         mdate('%d/%m/%Y %H:%i',strtotime($voucher->call_date)),
         $voucher->direction_name,

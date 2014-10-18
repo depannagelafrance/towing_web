@@ -419,10 +419,16 @@ table tbody tr {
 }
 table tbody tr:hover {
   color: #FFFFFF;
-  background-color: #e2e2e2;
+  background-color: #2aaef3;
 }
 table tbody tr:hover a {
   color: #FFFFFF;
+}
+table tbody tr:hover .icon--ticket {
+  background-position: -337px -342px;
+}
+table tbody tr:hover .icon--map {
+  background-position: -274px -341px;
 }
 table tbody tr:nth-child(even),
 table tbody tr.even {
@@ -431,7 +437,7 @@ table tbody tr.even {
 table tbody tr:nth-child(even):hover,
 table tbody tr.even:hover {
   color: #FFFFFF;
-  background-color: #e2e2e2;
+  background-color: #2aaef3;
 }
 table tbody tr:nth-child(even):hover a,
 table tbody tr.even:hover a {
@@ -444,7 +450,7 @@ table tbody tr.odd {
 table tbody tr:nth-child(odd):hover,
 table tbody tr.odd:hover {
   color: #FFFFFF;
-  background-color: #e2e2e2;
+  background-color: #2aaef3;
 }
 table tbody tr:nth-child(odd):hover a,
 table tbody tr.odd:hover a {
@@ -452,6 +458,59 @@ table tbody tr.odd:hover a {
 }
 table thead tr {
   border-bottom: 2px solid #f5f5f5;
+}
+
+.table_list_small table th.active,
+.table_list_small table td.active {
+  background-color: #42b7f4;
+  color: #FFFFFF;
+}
+.table_list_small table th.active a,
+.table_list_small table td.active a {
+  color: #FFFFFF;
+}
+.table_list_small table tbody tr:hover {
+  color: #868685;
+  background-color: #e2e2e2;
+}
+.table_list_small table tbody tr:hover a {
+  color: #868685;
+}
+.table_list_small table tbody tr:hover .icon--ticket {
+  background-position: -338px -276px;
+}
+.table_list_small table tbody tr:hover .icon--map {
+  background-position: -274px -275px;
+}
+.table_list_small table tbody tr:hover td.active {
+  color: #FFF;
+}
+.table_list_small table tbody tr:hover td.active a {
+  color: #FFF !important;
+}
+.table_list_small table tbody tr:hover td.active .icon--map {
+  background-position: -274px -341px;
+}
+.table_list_small table tbody tr:hover td.active .icon--ticket {
+  background-position: -337px -342px;
+}
+.table_list_small table tbody tr:nth-child(even):hover,
+.table_list_small table tbody tr.even:hover {
+  color: #868685;
+  background-color: #e2e2e2;
+}
+.table_list_small table tbody tr:nth-child(even):hover a,
+.table_list_small table tbody tr.even:hover a {
+  color: #868685;
+}
+.table_list_small table tbody tr:nth-child(odd):hover,
+.table_list_small table tbody tr.odd:hover {
+  color: #868685;
+  background-color: #e2e2e2;
+}
+.table_list_small table tbody tr:nth-child(odd):hover a,
+.table_list_small table tbody tr.odd:hover a {
+  color: #868685;
 }
 
 /* Import Layouts */
@@ -542,7 +601,6 @@ table thead tr {
 
 .detailbar {
   margin-bottom: 15px;
-  background: #F5F5F5 !important;
 }
 .detailbar:after {
   content: "";

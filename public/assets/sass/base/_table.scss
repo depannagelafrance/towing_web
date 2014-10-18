@@ -50,6 +50,18 @@ table{
 
         }
 
+        .icon--ticket{
+
+            background-position: -337px -342px;
+
+        }
+
+        .icon--map{
+
+            background-position: -274px -341px;
+
+        }
+
       }
 
     }
@@ -99,6 +111,114 @@ table{
     tr{
 
       border-bottom: 2px solid #f5f5f5;
+
+    }
+
+  }
+
+}
+
+.table_list_small table{
+
+  th,
+  td{
+    &.active{
+
+      background-color: $table_small_row_active_bg_color;
+      color: $table_small_row_active_color;
+
+      a{
+
+        color: $table_small_row_active_color;
+
+      }
+
+    }
+  }
+
+  tbody{
+
+    tr{
+
+      &:hover{
+
+        color: $table_small_row_hover_color;
+        background-color: $table_small_row_hover_bg_color;
+
+        a{
+
+          color: $table_small_row_hover_color;
+
+        }
+
+        .icon--ticket{
+
+          background-position: -338px -276px;
+
+        }
+
+        .icon--map{
+
+          background-position: -274px -275px;
+
+        }
+
+        td{
+          &.active{
+            color: #FFF;
+
+            a{
+
+              color: #FFF!important;
+
+            }
+
+            .icon--map{
+
+              background-position: -274px -341px;
+
+            }
+            .icon--ticket{
+
+              background-position: -337px -342px;
+
+            }
+          }
+        }
+
+      }
+
+    }
+
+    tr:nth-child(even),
+    tr.even{
+
+      &:hover{
+
+        color: $table_small_row_hover_color;
+        background-color: $table_small_row_hover_bg_color;
+
+        a{
+          color: $table_small_row_hover_color;
+        }
+
+      }
+
+    }
+
+    tr:nth-child(odd),
+    tr.odd{
+
+      &:hover{
+
+        color: $table_small_row_hover_color;
+        background-color: $table_small_row_hover_bg_color;
+
+        a{
+          color: $table_small_row_hover_color;
+        }
+
+      }
 
     }
 
