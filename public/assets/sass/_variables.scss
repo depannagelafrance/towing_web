@@ -50,8 +50,8 @@ $table_row_even : $gray_light;
 $table_row_odd : $gray_lighter;
 $table_row_active_color : $white;
 $table_row_active_bg_color : $light_blue;
-$table_row_hover_color : $white;
-$table_row_hover_bg_color : $light_blue;
+$table_row_hover_color : $gray_dark;
+$table_row_hover_bg_color : darken($gray_light, 5%);
 $table_row_border_color : $white;
 
 //NAV MAIN

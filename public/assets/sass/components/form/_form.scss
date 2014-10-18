@@ -76,3 +76,21 @@ table a{
   text-decoration: none;
   color: #868685;
 }
+
+.id__cell{
+  @include clearfix;
+}
+
+.id__cell__icon{
+  float: left;
+  display: block;
+  margin-top: -5px;
+  margin-bottom: -5px;
+  margin-right: 40px;
+}
+
+.id__cell__text{
+  float: left;
+  display: block;
+  margin-top: 5px;
+}

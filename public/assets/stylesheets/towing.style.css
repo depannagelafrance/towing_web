@@ -419,7 +419,10 @@ table tbody tr {
 }
 table tbody tr:hover {
   color: #FFFFFF;
-  background-color: #42b7f4;
+  background-color: #e2e2e2;
+}
+table tbody tr:hover a {
+  color: #FFFFFF;
 }
 table tbody tr:nth-child(even),
 table tbody tr.even {
@@ -428,7 +431,7 @@ table tbody tr.even {
 table tbody tr:nth-child(even):hover,
 table tbody tr.even:hover {
   color: #FFFFFF;
-  background-color: #42b7f4;
+  background-color: #e2e2e2;
 }
 table tbody tr:nth-child(even):hover a,
 table tbody tr.even:hover a {
@@ -441,7 +444,7 @@ table tbody tr.odd {
 table tbody tr:nth-child(odd):hover,
 table tbody tr.odd:hover {
   color: #FFFFFF;
-  background-color: #42b7f4;
+  background-color: #e2e2e2;
 }
 table tbody tr:nth-child(odd):hover a,
 table tbody tr.odd:hover a {
@@ -1006,6 +1009,26 @@ table thead tr {
 table a {
   text-decoration: none;
   color: #868685;
+}
+
+.id__cell:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.id__cell__icon {
+  float: left;
+  display: block;
+  margin-top: -5px;
+  margin-bottom: -5px;
+  margin-right: 40px;
+}
+
+.id__cell__text {
+  float: left;
+  display: block;
+  margin-top: 5px;
 }
 
 .assistance-container:after {
