@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= '';
+$config['base_url']	= 'https://tool.towing.be';
 
 /*
 |--------------------------------------------------------------------------
@@ -359,8 +359,7 @@ $config['proxy_ips'] = '';
 
 // CUSTOM CONFIG
 
-//$config['towing_api'] = 'https://api.towing.be';
-$config['towing_api'] = 'http://localhost:8443';// 'https://api.towing.be';
+$config['towing_api'] = 'http://localhost:8443';
 
 
 /* End of file config.php */
