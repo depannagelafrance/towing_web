@@ -3,7 +3,7 @@
     <a class="icon--add" href="/fast_dispatch/create">New Voucher</a>
   </div>
 </div>
-<div class="box">
+<div class="box table_list">
   <?php
 
   $this->load->helper('date');

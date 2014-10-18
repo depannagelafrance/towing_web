@@ -17,7 +17,20 @@ table{
 
     padding-top: 10px;
     padding-bottom: 10px;
+    cursor: pointer !important;
 
+    &.active{
+
+      background-color: $table_row_active_bg_color;
+      color: $table_row_active_color;
+
+      a{
+
+        color: $table_row_active_color;
+
+      }
+
+    }
   }
 
   tbody{

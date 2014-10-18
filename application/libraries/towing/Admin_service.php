@@ -8,7 +8,7 @@ class Admin_service extends Rest_service {
     }
 
   public function fetchAllUsers($token) {
-    return $this->CI->rest->get(sprintf('/admin/admin/users/%s', $token));
+    return $this->CI->rest->get(sprintf('/admin/users/%s', $token));
   }
 
   public function fetchUserById($id, $token) {
@@ -16,11 +16,12 @@ class Admin_service extends Rest_service {
   }
 
   public function createUser(User_model $user, $token) {
-    return $this->CI->rest->post(sprintf('/admin/users/%s', $token), get_object_vars($user));
+    return $this->CI->rest->post(sprintf('/admin/users/%s', $token), json_encode($user),
+          'application/json');
   }
 
   public function updateUser(User_model $user, $token) {
-    return $this->CI->rest->post(sprintf('/admin/users/%s/%s', $user->id, $token), get_object_vars($user));
+    return $this->CI->rest->put(sprintf('/admin/users/%s/%s', $user->id, $token), get_object_vars($user));
   }
 
   public function deleteUser($user_id, $token) {
@@ -36,7 +37,7 @@ class Admin_service extends Rest_service {
   }
 
   public function fetchAvailableRoles($token) {
-    return $this->CI->rest->put(sprintf('/admin/roles/%s', $token));  
+    return $this->CI->rest->get(sprintf('/admin/roles/%s', $token));  
   }
 
 // -- -------------------------------------------------

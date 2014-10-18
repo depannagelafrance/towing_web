@@ -1,9 +1,9 @@
-<div class="box">
+<div class="box table_list">
 <?php
 
 $this->load->helper('date');
 
-$this->table->set_heading('Takelbon', 'Oproepnummer', 'Oproep', 'Richting', 'KM-Paal', 'Takeldienst', 'Type');
+$this->table->set_heading('Dossier', 'Oproepnummer', 'Oproep', 'Richting', 'KM-Paal', 'Takeldienst', 'Type');
 
 if($dossiers && sizeof($dossiers) > 0) {
   foreach($dossiers as $voucher) {
