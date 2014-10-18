@@ -33,4 +33,19 @@
   padding: 20px 35px;
   @include border-radius(2px 0 0 2px);
 
+  &.has_icon{
+    padding-left: 60px;
+  }
+
+}
+
+.idbar__icon{
+  float: left;
+  margin-bottom: -25px;
+  margin-left: -45px;
+  margin-top: -10px;
+}
+
+.idbar__id__value{
+  float: left;
 }
