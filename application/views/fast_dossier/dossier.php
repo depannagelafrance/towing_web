@@ -326,39 +326,6 @@ if(!$_voucher)
     </div>
     <!-- END CAR -->
 
-    <!-- DEPOT -->
-    <!--
-    <div class="depot-full-container">
-      <div class="depot-full-container__left">
-        <div class="form-item-horizontal depot-full-container__depot">
-          <label>Depot:</label>
-        </div>
-
-        <div class="form-item-horizontal depot-full-container__street">
-          <label>Straat:</label>
-        </div>
-      </div>
-      <div class="depot-full-container__right">
-
-        <div class="form-item-horizontal depot-full-container__streetnr">
-          <label>Nr:</label>
-        </div>
-
-        <div class="form-item-horizontal depot-full-container__streetbox">
-          <label>Box:</label>
-        </div>
-
-        <div class="form-item-horizontal depot-full-container__postal">
-          <label>Zip:</label>
-        </div>
-
-        <div class="form-item-horizontal depot-full-container__city">
-          <label>City:</label>
-        </div>
-      </div>
-    </div>
-    -->
-
     <div class="dsform__clearfix">
       <div class="dsform__left">
 
@@ -368,7 +335,7 @@ if(!$_voucher)
           <div class="facturation-container__info">
             <?php print(composeCustomerInformation($_voucher->customer)) ?>
           </div>
-          <a href="#" id="edit-facturation">Bewerken</a>
+          <a id="edit-invoice-data-link" href="#edit-invoice-data-form">Bewerken</a>
         </div>
         <!--END FACTURATION-->
 
@@ -378,7 +345,7 @@ if(!$_voucher)
           <div class="nuisance-container__info">
             <?php print(composeCustomerInformation($_voucher->causer)) ?>
           </div>
-          <a href="#">Bewerken</a>
+          <a id="edit-nuisance-data-link" href="#edit-nuisance-data-form">Bewerken</a>
         </div>
         <!--END NUISANCE-->
 
@@ -389,7 +356,7 @@ if(!$_voucher)
         <div class="form-item-horizontal depot-container">
           <label>Depot:</label>
           <?php print $_voucher->depot->display_name; ?>
-          <a href="#">Bewerken</a>
+          <a id="edit-depot-link" href="#edit-depot-form">Bewerken</a>
         </div>
         <!-- END DEPOT-->
 
@@ -537,6 +504,100 @@ if(!$_voucher)
   </div>
   <?= form_close(); ?>
 
+  <!-- DEPOT -->
+  <div id="edit-depot-form" style="display: none;">
+    <div class="fancybox-form">
+      <h3>Depot Bewerken</h3>
+      <?= form_open(); ?>
+      <!-- DEPOT -->
+      <div class="depot-full-container">
+        <div class="depot-full-container__left">
+          <div class="form-item-horizontal depot-full-container__depot">
+            <label>Depot:</label>
+            <?php print form_input('depot-name'); ?>
+          </div>
+
+          <div class="form-item-horizontal depot-full-container__street">
+            <label>Straat:</label>
+            <?php print form_input('depot-street'); ?>
+          </div>
+        </div>
+        <div class="depot-full-container__right">
+
+          <div class="form-item-horizontal depot-full-container__streetnr">
+            <label>Nr:</label>
+            <?php print form_input('depot-nr'); ?>
+          </div>
+
+          <div class="form-item-horizontal depot-full-container__streetbox">
+            <label>Box:</label>
+            <?php print form_input('depot-box'); ?>
+          </div>
+
+          <div class="form-item-horizontal depot-full-container__postal">
+            <label>Zip:</label>
+            <?php print form_input('depot-zip'); ?>
+          </div>
+
+          <div class="form-item-horizontal depot-full-container__city">
+            <label>City:</label>
+            <?php print form_input('depot-city'); ?>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-item">
+        <a class="close_overlay" href="#">Annuleren</a>
+      </div>
+
+      <div class="form-item">
+        <input type="submit" value="Bewaren" name="btnDepotSave" />
+      </div>
+      <?= form_close(); ?>
+    </div>
+  </div>
+
+  <!-- INVOICE -->
+  <div id="edit-invoice-data-form" style="display: none;">
+    <div class="fancybox-form">
+        <h3>Facturatie gegevens Bewerken</h3>
+        <?= form_open(); ?>
+        <div class="invoice-full-container">
+            facturatie
+        </div>
+
+        <div class="form-item">
+          <a class="close_overlay" href="#">Annuleren</a>
+        </div>
+
+        <div class="form-item">
+          <input type="submit" value="Bewaren" name="btnInvoiceSave" />
+        </div>
+        <?= form_close(); ?>
+    </div>
+  </div>
+
+  <!-- NUISANCE -->
+  <div id="edit-nuisance-data-form" style="display: none;">
+    <div class="fancybox-form">
+      <h3>Hinderverwerker gegevens Bewerken</h3>
+      <?= form_open(); ?>
+      <!-- DEPOT -->
+      <div class="nuisance-full-container">
+        Hinder
+      </div>
+
+      <div class="form-item">
+        <a class="close_overlay" href="#">Annuleren</a>
+      </div>
+
+      <div class="form-item">
+        <input type="submit" value="Bewaren" name="btnNuisanceSave" />
+      </div>
+      <?= form_close(); ?>
+    </div>
+  </div>
+
 </div>
 
 
@@ -568,11 +629,27 @@ $('#list_direction').change(function(){
 });
 
 $(document).ready(function() {
-  $('#edit-facturation').click(function(){
-    $.fancybox(
-      '<div>Lorem isis id et neque</div>'
-    );
+
+  $('#edit-depot-link').fancybox({
+    'scrolling'		: 'no',
+    'titleShow'		: false
   });
+
+  $('#edit-invoice-data-link').fancybox({
+    'scrolling'		: 'no',
+    'titleShow'		: false
+  });
+
+  $('#edit-nuisance-data-link').fancybox({
+    'scrolling'		: 'no',
+    'titleShow'		: false
+  });
+
+  $('.close_overlay').click(function(){
+    parent.$.fancybox.close();
+    return false;
+  });
+
 });
 
 </script>

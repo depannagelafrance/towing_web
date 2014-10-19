@@ -772,6 +772,28 @@ table a {
   float: left;
 }
 
+.fancybox-wrap {
+  width: 60% !important;
+  margin: auto;
+}
+.fancybox-wrap .fancybox-inner {
+  width: 100% !important;
+}
+
+.fancybox-close {
+  display: none;
+}
+
+.fancybox-form {
+  width: 100% !important;
+  padding: 15px;
+}
+.fancybox-form h3 {
+  margin-bottom: 25px;
+  border-bottom: 1px solid #EEE;
+  padding-bottom: 25px;
+}
+
 .idbar {
   margin-bottom: 15px;
 }
@@ -947,7 +969,7 @@ table a {
   padding: 10px 0;
 }
 
-.box {
+.box, .fancybox-wrap .fancybox-skin {
   -moz-border-radius: 1px;
   -webkit-border-radius: 1px;
   border-radius: 1px;
@@ -1169,6 +1191,9 @@ table a {
   width: 50%;
 }
 
+.depot-full-container {
+  padding-bottom: 30px;
+}
 .depot-full-container:after {
   content: "";
   display: table;
@@ -1177,7 +1202,7 @@ table a {
 
 .depot-full-container__left {
   float: left;
-  width: 65%;
+  width: 100%;
 }
 .depot-full-container__left input {
   width: 50%;
@@ -1189,7 +1214,7 @@ table a {
 
 .depot-full-container__right {
   float: right;
-  width: 35%;
+  width: 100%;
 }
 .depot-full-container__right input {
   width: 50%;
