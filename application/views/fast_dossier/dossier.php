@@ -27,7 +27,7 @@ $this->load->helper('date');
 
 $_dossier = $dossier->dossier;
 ?>
-<div class="layout-has-sidebar">
+<div class="layout-has-sidebar edit-view">
   <div class="layout-sidebar">
     <div class="box table_list table_list_small">
 
@@ -165,7 +165,7 @@ $_dossier = $dossier->dossier;
             $_voucher = $_v;
           }
       ?>
-          <div class="dossierbar__id has_icon <?php print ($_is_selected || sizeof($_dossier->towing_vouchers) == 1) ? 'active bright' : 'inactive'; ?>">
+          <div class="dossierbar__id box has_icon <?php print ($_is_selected || sizeof($_dossier->towing_vouchers) == 1) ? 'active bright' : 'inactive'; ?>">
             <div class="dossierbar__icon icon--ticket"></div>
             <div class="dossierbar__id__value">
             <?php
@@ -189,11 +189,13 @@ if(!$_voucher)
 ?>
 
     <div class="dossierbar__mainactions">
+      <!--
       <div class="dossierbar__mainaction__item">
         <div class="btn--icon">
           <a class="icon--edit" href="#">Edit</a>
         </div>
       </div>
+      -->
       <div class="dossierbar__mainaction__item">
         <div class="btn--icon--highlighted bright">
           <a class="icon--add" href="/fast_dossier/dossier/voucher/<?=$_dossier->id?>">Add</a>

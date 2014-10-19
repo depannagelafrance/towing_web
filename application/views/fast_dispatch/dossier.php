@@ -5,7 +5,7 @@
   $_dossier = $dossier->dossier;
 ?>
 
-<div class="layout-has-sidebar">
+<div class="layout-has-sidebar edit-view">
   <div class="layout-sidebar">
     <div class="box table_list table_list_small">
       <?php
@@ -15,7 +15,7 @@
 
       $this->load->helper('date');
 
-      $this->table->set_heading('Bon', 'Datum', 'Tijd');
+      $this->table->set_heading('Takelbon');
 
       //d.id, d.id as 'dossier_id', t.id as 'voucher_id', d.call_number, d.call_date, t.voucher_number, ad.name 'direction_name',
       //adi.name 'indicator_name', c.code as `towing_service`, ip.name as `incident_type`
@@ -24,15 +24,18 @@
         foreach($vouchers as $voucher) {
 
           if($voucher->dossier_number === $urlid){
-            $class = 'active';
+            $class = 'active bright';
           }else{
             $class = 'inactive';
           }
 
           $this->table->add_row(
-            array('class' => $class, 'data' => sprintf('<a href="/fast_dispatch/dossier/%s">%s</a>', $voucher->dossier_number, $voucher->voucher_number)),
-            array('class' => $class, 'data' => mdate('%d/%m/%Y',strtotime($voucher->call_date))),
-            array('class' => $class, 'data' => mdate('%H:%i',strtotime($voucher->call_date)))
+            array(
+              'class' => $class,
+              'data' => sprintf('<a class="id__cell" href="/fast_dispatch/dossier/%s"><span class="id__cell__icon icon--ticket"></span><span class="id__cell__text">%s</span></a>', $voucher->dossier_number, $voucher->voucher_number)
+            )
+            //array('class' => $class, 'data' => mdate('%d/%m/%Y',strtotime($voucher->call_date))),
+            //array('class' => $class, 'data' => mdate('%H:%i',strtotime($voucher->call_date)))
           );
         }
       }

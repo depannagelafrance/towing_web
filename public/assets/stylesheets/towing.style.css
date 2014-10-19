@@ -381,6 +381,14 @@ input[type="button"]:hover {
   background-color: #2a75f3;
 }
 
+.edit-view button,
+.edit-view input[type="submit"],
+.edit-view input[type="button"] {
+  width: 100%;
+  font-size: 15px;
+  height: 45px;
+}
+
 a {
   text-decoration: underline;
   color: #4285f4;
@@ -413,6 +421,10 @@ table td.active {
 table th.active a,
 table td.active a {
   color: #FFFFFF;
+}
+table th {
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 table tbody tr {
   border-bottom: 1px solid #FFFFFF;
@@ -457,7 +469,14 @@ table tbody tr.odd:hover a {
   color: #FFFFFF;
 }
 table thead tr {
-  border-bottom: 2px solid #f5f5f5;
+  border-bottom: 1px solid #E8E8E8;
+}
+
+.table_list_large table .id__cell__icon {
+  margin-top: -5px;
+  margin-bottom: -5px;
+  margin-right: 10px;
+  margin-left: 10px;
 }
 
 .table_list_small table th.active,
@@ -468,6 +487,10 @@ table thead tr {
 .table_list_small table th.active a,
 .table_list_small table td.active a {
   color: #FFFFFF;
+}
+.table_list_small table th {
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 .table_list_small table tbody tr:hover {
   color: #868685;
@@ -513,6 +536,32 @@ table thead tr {
   color: #868685;
 }
 
+table a {
+  text-decoration: none;
+  color: #868685;
+}
+
+.id__cell:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.id__cell__icon {
+  float: left;
+  display: block;
+  margin-top: -5px;
+  margin-bottom: -5px;
+  margin-right: 40px;
+  margin-left: 10px;
+}
+
+.id__cell__text {
+  float: left;
+  display: block;
+  margin-top: 5px;
+}
+
 /* Import Layouts */
 .layout_2col_container:after {
   content: "";
@@ -522,7 +571,7 @@ table thead tr {
 .layout_2col_container .layout_2col_item {
   float: left;
   width: 50%;
-  padding: 15px;
+  padding: 0px 15px;
 }
 
 .layout-full {
@@ -561,9 +610,12 @@ table thead tr {
 }
 
 .btn, .btn--highlighted, .btn--icon, .btn--icon--highlighted, .btn--icon--small {
-  -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
-  border-radius: 2px;
+  -moz-border-radius: 1px;
+  -webkit-border-radius: 1px;
+  border-radius: 1px;
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   background-color: #efefef;
   color: #868685;
   padding: 15px;
@@ -635,14 +687,12 @@ table thead tr {
 
 .dossierbar__id {
   float: left;
-  padding: 19px 35px;
+  padding: 20px 40px;
+  height: 53px;
   background: #F5F5F5 !important;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
-  border: 1px solid #e5e5e5;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-bottom-width: 2px;
+  -moz-border-radius: 1px;
+  -webkit-border-radius: 1px;
+  border-radius: 1px;
   cursor: pointer;
   margin-right: 5px;
 }
@@ -656,15 +706,13 @@ table thead tr {
   text-decoration: none;
 }
 .dossierbar__id.active {
-  background: #42b7f4 !important;
+  background: #666666 !important;
   color: #FFFFFF;
-  border: 1px solid #2aaef3;
   border-bottom-width: 2px;
 }
 .dossierbar__id.active:hover {
-  background: #42b7f4 !important;
+  background: #666666 !important;
   color: #FFFFFF;
-  border: 1px solid #2aaef3;
   border-bottom-width: 2px;
 }
 .dossierbar__id.active a {
@@ -673,7 +721,6 @@ table thead tr {
 .dossierbar__id:hover {
   background: #e2e2e2 !important;
   color: #868685;
-  border: 1px solid #d5d5d5;
   border-bottom-width: 2px;
 }
 .dossierbar__id:hover a {
@@ -757,9 +804,9 @@ table thead tr {
   background-color: #42b7f4;
   color: #FFFFFF;
   padding: 20px 35px;
-  -moz-border-radius: 2px 0 0 2px;
-  -webkit-border-radius: 2px;
-  border-radius: 2px 0 0 2px;
+  -moz-border-radius: 1px 0 0 1px;
+  -webkit-border-radius: 1px;
+  border-radius: 1px 0 0 1px;
 }
 .idbar__id.has_icon {
   padding-left: 60px;
@@ -841,6 +888,7 @@ table thead tr {
   border: 0;
   padding-top: 17px;
   padding-bottom: 17px;
+  margin-left: 80px;
 }
 .main-navigation:after {
   content: "";
@@ -874,12 +922,11 @@ table thead tr {
   padding: 0;
 }
 .main-navigation ul li a {
-  padding-left: 25px;
-  padding-right: 25px;
   text-decoration: none;
   color: #6b6b6b;
-  font-size: 14px;
+  font-size: 15px;
   cursor: pointer;
+  padding: 0px 25px;
 }
 .main-navigation ul li a:hover {
   color: #FFFFFF;
@@ -891,6 +938,9 @@ table thead tr {
 .topbar {
   background-color: #222222;
   background-color: rgba(0, 0, 0, 0.85);
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
 }
 .topbar .topbar-content {
@@ -898,14 +948,13 @@ table thead tr {
 }
 
 .box {
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
+  -moz-border-radius: 1px;
+  -webkit-border-radius: 1px;
+  border-radius: 1px;
   background: #FFFFFF;
-  border: 1px solid #e5e5e5;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-bottom-width: 2px;
-  padding: 10px;
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .box--unpadded {
@@ -980,7 +1029,7 @@ table thead tr {
 }
 
 .dsform {
-  padding: 10px 20px;
+  padding: 0px 15px;
 }
 
 .dsform__clearfix:after {
@@ -1064,31 +1113,6 @@ table thead tr {
   padding: 8px 2px 8px 2px;
 }
 
-table a {
-  text-decoration: none;
-  color: #868685;
-}
-
-.id__cell:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-.id__cell__icon {
-  float: left;
-  display: block;
-  margin-top: -5px;
-  margin-bottom: -5px;
-  margin-right: 40px;
-}
-
-.id__cell__text {
-  float: left;
-  display: block;
-  margin-top: 5px;
-}
-
 .assistance-container:after {
   content: "";
   display: table;
@@ -1116,7 +1140,10 @@ table a {
   float: left;
 }
 .autograph-container__police input, .autograph-container__police .chosen-container {
-  width: 50%;
+  width: 50% !important;
+}
+.autograph-container__police input input, .autograph-container__police .chosen-container input {
+  width: 100% !important;
 }
 .autograph-container__police label {
   width: 50%;
@@ -1131,6 +1158,15 @@ table a {
 .autograph-container__collecting {
   width: 30%;
   float: left;
+}
+.autograph-container__collecting input, .autograph-container__collecting .chosen-container {
+  width: 50% !important;
+}
+.autograph-container__collecting input input, .autograph-container__collecting .chosen-container input {
+  width: 100% !important;
+}
+.autograph-container__collecting label {
+  width: 50%;
 }
 
 .depot-full-container:after {
@@ -1253,11 +1289,11 @@ table a {
   width: 65%;
 }
 .signa-container__left input {
-  width: 50%;
+  width: 60%;
   margin-right: 5%;
 }
 .signa-container__left label {
-  width: 45%;
+  width: 35%;
 }
 
 .signa-container__right {
@@ -1298,11 +1334,11 @@ table a {
   width: 65%;
 }
 .towedby-container__left input {
-  width: 50%;
+  width: 60%;
   margin-right: 5%;
 }
 .towedby-container__left label {
-  width: 45%;
+  width: 35%;
 }
 
 .towedby-container__right {
@@ -1358,11 +1394,11 @@ table a {
   width: 65%;
 }
 .vehicule-container__left input {
-  width: 50%;
+  width: 60%;
   margin-right: 5%;
 }
 .vehicule-container__left label {
-  width: 45%;
+  width: 35%;
 }
 
 .vehicule-container__right {

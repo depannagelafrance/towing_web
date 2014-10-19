@@ -67,3 +67,14 @@ input[type="button"]{
   }
 
 }
+
+.edit-view button,
+.edit-view input[type="submit"],
+.edit-view input[type="button"]{
+
+  width: 100%;
+  font-size: 15px;
+  height: 45px;
+
+
+}

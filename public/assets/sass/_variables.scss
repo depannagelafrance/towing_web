@@ -20,6 +20,7 @@ $gray_light : #efefef;
 $gray : #e5e5e5;
 $gray_dark : #868685;
 $gray_darkest : #6b6b6b;
+$gray_darkdark: #666666;
 
 $black : #171717;
 
@@ -98,7 +99,7 @@ $idbar_bg_color : $light_blue;
 $idbar_color : $white;
 
 //DOSSIERBAR
-$dossierbar_active_bg_color : $light_blue;
+$dossierbar_active_bg_color : $gray_darkdark;
 $dossierbar_active_color : $white;
 $dossierbar_hover_bg_color : darken($gray_light, 5%);
 $dossierbar_hover_color : $gray_dark;

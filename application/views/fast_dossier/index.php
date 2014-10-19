@@ -1,4 +1,4 @@
-<div class="box table_list">
+<div class="box table_list table_list_large">
 <?php
 
 $this->load->helper('date');

@@ -33,6 +33,11 @@ table{
     }
   }
 
+  th{
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
   tbody{
 
     tr{
@@ -110,7 +115,7 @@ table{
 
     tr{
 
-      border-bottom: 2px solid #f5f5f5;
+      border-bottom: 1px solid #E8E8E8;
 
     }
 
@@ -118,6 +123,14 @@ table{
 
 }
 
+.table_list_large table{
+  .id__cell__icon{
+    margin-top: -5px;
+    margin-bottom: -5px;
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+}
 .table_list_small table{
 
   th,
@@ -134,6 +147,11 @@ table{
       }
 
     }
+  }
+
+  th{
+    padding-top: 20px;
+    padding-bottom: 20px;
   }
 
   tbody{
@@ -224,4 +242,28 @@ table{
 
   }
 
+}
+
+table a{
+  text-decoration: none;
+  color: #868685;
+}
+
+.id__cell{
+  @include clearfix;
+}
+
+.id__cell__icon{
+  float: left;
+  display: block;
+  margin-top: -5px;
+  margin-bottom: -5px;
+  margin-right: 40px;
+  margin-left: 10px;
+}
+
+.id__cell__text{
+  float: left;
+  display: block;
+  margin-top: 5px;
 }

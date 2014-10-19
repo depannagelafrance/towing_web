@@ -12,7 +12,14 @@
 
   input, .chosen-container{
 
-    width: 50%;
+    width: 50% !important;
+
+    input{
+
+      width: 100% !important;
+
+
+    }
 
   }
 
@@ -36,5 +43,24 @@
 
   width: 30%;
   float: left;
+
+  input, .chosen-container{
+
+    width: 50% !important;
+
+    input{
+
+      width: 100% !important;
+
+
+    }
+
+  }
+
+  label{
+
+    width: 50%;
+
+  }
 
 }
