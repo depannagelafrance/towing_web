@@ -1,5 +1,4 @@
 <?php
-echo $message;
 //set table headers
 $this->table->set_heading('Id', 'Naam');
 
