@@ -3,6 +3,7 @@
   @include horizontal-list;
   padding-top: 17px;
   padding-bottom: 17px;
+  margin-left: 80px;
 
   ul{
 
@@ -16,12 +17,11 @@
 
       a{
 
-        padding-left: 25px;
-        padding-right: 25px;
         text-decoration: none;
         color: $nav_main_link_color;
-        font-size: 14px;
+        font-size: 15px;
         cursor: pointer;
+        padding: 0px 25px;
 
         &:hover{
 
@@ -29,9 +29,10 @@
 
         }
 
-        .active{
+        &.active{
 
           color: $nav_main_link_color_active;
+
 
         }
 

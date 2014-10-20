@@ -11,10 +11,11 @@ class Dossier extends Page {
 
       $this->load->library('table');
       $this->load->library('form_validation');
+      $this->load->library('session');
 
       $this->load->helper('form');
       $this->load->helper('url');
-
+      $this->load->helper('restdata');
     }
 
   /**
@@ -24,39 +25,50 @@ class Dossier extends Page {
   {
     $token = $this->_get_user_token();
 
-    $dossier = $this->dossier_service->fetchDossierByNumber($dossier_number, $token);
+    //a dossier might be set in the cached data when an update occured. So no need to refetch.
+    $dossier = $this->_pop_Dossier_cache();
+
+    if(!$dossier) {
+      $dossier = $this->dossier_service->fetchDossierByNumber($dossier_number, $token);
+    }
 
     $this->_loadDossierView($token, $dossier, $voucher_number);
 
   }
 
-  public function save($number) {
+  public function save($number, $voucher_number) {
     $token = $this->_get_user_token();
 
     $dossier = $this->dossier_service->fetchDossierByNumber($number, $token);
-    $this->form_validation->set_rules('direction', 'Richting', 'required');
-    $this->form_validation->set_rules('indicator', 'KM Paal', 'required');
-    $this->form_validation->set_rules('incident_type', 'Type incident', 'required');
-    $this->form_validation->set_rules('call_number', 'Oproepnummer', 'required');
-    $this->form_validation->set_rules('vehicule_type', 'Type wagen', 'required');
+    // $this->form_validation->set_rules('direction', 'Richting', 'required');
+    // $this->form_validation->set_rules('indicator', 'KM Paal', 'required');
+    // $this->form_validation->set_rules('incident_type', 'Type incident', 'required');
+    // $this->form_validation->set_rules('call_number', 'Oproepnummer', 'required');
+    // $this->form_validation->set_rules('vehicule_type', 'Type wagen', 'required');
 
-    if ($this->form_validation->run() === FALSE)
-    {
-      $this->_setDossierValuesFromPostRequest($dossier);
-      $this->_loadDossierView($token, $dossier);
-    }
-    else
-    {
+    // if ($this->form_validation->run() === FALSE)
+    // {
+    //
+    //   $this->_setDossierValuesFromPostRequest($dossier);
+    //   $this->_loadDossierView($token, $dossier);
+    // }
+    // else
+    // {
       if($dossier && $dossier->dossier) {
-        $this->_setDossierValuesFromPostRequest($dossier);
+        $this->_setDossierValuesFromPostRequest($dossier, $voucher_number);
 
         $dossier = $this->dossier_service->updateDossier(new Dossier_model($dossier), $token);
 
-        if($dossier) {
-          redirect(sprintf("/fast_dispatch/dossier/%s", $dossier->dossier->dossier_number));
+        if($dossier)
+        {
+          //for performance improvements, put the dossier in the flash data cache
+          $this->_cache_Dossier($dossier);
+
+          //redirect to the view
+          redirect(sprintf("/fast_dossier/dossier/%s/%s", $dossier->dossier->dossier_number, $voucher_number));
         }
       }
-    }
+    // }
   }
 
 
@@ -64,6 +76,10 @@ class Dossier extends Page {
     $dossier = $this->dossier_service->createTowingVoucherForDossier($dossier_id, $this->_get_user_token());
 
     if($dossier) {
+      //for performance improvements, put the dossier in the flash data cache
+      $this->session->set_user_data('dossier_cache', $dossier);
+
+      //redirect to the view
       redirect(sprintf("/fast_dossier/dossier/%s", $dossier->dossier->dossier_number));
     }
   }
@@ -89,18 +105,30 @@ class Dossier extends Page {
     $this->_render_page();
   }
 
-  private function _setDossierValuesFromPostRequest($dossier) {
-    $dossier->dossier->call_number = $this->input->post('call_number');
-    $dossier->dossier->company_id = 1;
-    $dossier->dossier->incident_type_id = $this->input->post('incident_type');
-    $dossier->dossier->allotment_id = 1;
-    $dossier->dossier->allotment_direction_id = $this->input->post('direction');
-    $dossier->dossier->allotment_direction_indicator_id = $this->input->post('indicator');
+  private function _setDossierValuesFromPostRequest($dossier, $voucher_number) {
 
-    $dossier->dossier->towing_vouchers[0]->vehicule_type = $this->input->post('vehicule_type');
-    $dossier->dossier->towing_vouchers[0]->vehicule_licenceplate = $this->input->post('vehicule_licenceplate');
-    $dossier->dossier->towing_vouchers[0]->vehicule_country = $this->input->post('licence_plate_country');
+    $dossier->dossier->police_traffic_post_id = toIntegerValue($this->input->post('traffic_post_id'));
 
-    $dossier->dossier->towing_vouchers[0]->additional_info = $this->input->post('additional_info');
+    for($i = 0; $i < sizeof($dossier->dossier->towing_vouchers); $i++) {
+
+      $voucher = $dossier->dossier->towing_vouchers[$i];
+
+      if($voucher->voucher_number == $voucher_number) {
+
+        $voucher->vehicule_type = $this->input->post('vehicule_type');
+        $voucher->vehicule_licenceplate = $this->input->post('vehicule_licenceplate');
+        $voucher->vehicule_country = $this->input->post('licence_plate_country');
+
+        $voucher->additional_info = $this->input->post('additional_info');
+
+        $voucher->insurance_id = $this->input->post('insurance_id');
+        $voucher->insurance_dossiernr = $this->input->post('insurance_dossiernr');
+
+        $voucher->collector_id = toIntegerValue($this->input->post('collector_id'));
+        $voucher->vehicule_collected = toMySQLDate($this->input->post('vehicule_collected'));
+
+        $dossier->dossier->towing_vouchers[$i] = $voucher;
+      }
+    }
   }
 }

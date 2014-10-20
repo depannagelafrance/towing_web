@@ -1,3 +1,9 @@
+<div class="layout-actions">
+  <div class="btn--icon--highlighted bright">
+    <a class="icon--add" href="/admin/collector/create">Create new collector</a>
+  </div>
+</div>
+
 <?php
 //set table headers
 $this->table->set_heading('Id', 'Naam');
@@ -19,6 +25,3 @@ foreach ($collectors as $collector){
 //render table
 echo $this->table->generate();
 ?>
-
-<a href="/admin/collector/create">Create new collector</a>
-

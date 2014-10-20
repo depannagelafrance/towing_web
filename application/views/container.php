@@ -1,6 +1,8 @@
 <?php
 	echo doctype('html5');
 	header("Content-type: text/html; charset=utf-8");
+
+	$this->load->library('session');
 ?>
 <html>
 
@@ -16,6 +18,7 @@
       $('select').chosen();
     });
   </script>
+  <script src="/public/assets/js/towing/towing.js"></script>
 
 
   <title><?php print $title ?></title>
@@ -43,9 +46,17 @@
         <nav class="main-navigation">
           <?php if(isset($available_modules) && !empty($available_modules)) : ?>
             <ul>
-              <?php foreach($available_modules as $module) : ?>
-                <?php print sprintf('<li><a href="/%s/index">%s</a></li>', strtolower($module->code), $module->name); ?>
-              <?php endforeach; ?>
+              <?php
+							 	$urlid = $this->uri->segment(1);
+
+               	foreach($available_modules as $module) {
+									if(strtoupper($urlid) === $module->code){
+										printf('<li><a class="active" href="/%s/index">%s</a></li>', strtolower($module->code), $module->name);
+									} else {
+										printf('<li><a href="/%s/index">%s</a></li>', strtolower($module->code), $module->name);
+									}
+							 	}
+							?>
             </ul>
           <?php endif; ?>
         </nav>
@@ -62,10 +73,20 @@
   <div class="container">
     <div class="layout-full">
       <div class="layout-center">
-        <?php print $content; ?>
+				<?php
+					if(isset($error) && $error !== "")
+					{
+						printf('<div class="login_messages"><div class="msg msg__error">%s</div></div>', $error);
+					}
+
+					if($this->session->flashdata('_INFO_MSG'))
+					{
+						printf('<div class="login_messages"><div class="msg msg__error">%s</div></div>', $this->session->flashdata('_INFO_MSG'));
+					}
+
+					print $content;
+				?>
       </div>
     </div>
   </div>
-
-</body>
-</html>
+</body></html>

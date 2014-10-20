@@ -17,7 +17,25 @@ table{
 
     padding-top: 10px;
     padding-bottom: 10px;
+    cursor: pointer !important;
 
+    &.active{
+
+      background-color: $table_row_active_bg_color;
+      color: $table_row_active_color;
+
+      a{
+
+        color: $table_row_active_color;
+
+      }
+
+    }
+  }
+
+  th{
+    padding-top: 20px;
+    padding-bottom: 20px;
   }
 
   tbody{
@@ -30,6 +48,24 @@ table{
 
         color: $table_row_hover_color;
         background-color: $table_row_hover_bg_color;
+
+        a{
+
+          color: $table_row_hover_color;
+
+        }
+
+        .icon--ticket{
+
+            background-position: -337px -342px;
+
+        }
+
+        .icon--map{
+
+            background-position: -274px -341px;
+
+        }
 
       }
 
@@ -79,10 +115,155 @@ table{
 
     tr{
 
-      border-bottom: 2px solid #f5f5f5;
+      border-bottom: 1px solid #E8E8E8;
 
     }
 
   }
 
+}
+
+.table_list_large table{
+  .id__cell__icon{
+    margin-top: -5px;
+    margin-bottom: -5px;
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+}
+.table_list_small table{
+
+  th,
+  td{
+    &.active{
+
+      background-color: $table_small_row_active_bg_color;
+      color: $table_small_row_active_color;
+
+      a{
+
+        color: $table_small_row_active_color;
+
+      }
+
+    }
+  }
+
+  th{
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  tbody{
+
+    tr{
+
+      &:hover{
+
+        color: $table_small_row_hover_color;
+        background-color: $table_small_row_hover_bg_color;
+
+        a{
+
+          color: $table_small_row_hover_color;
+
+        }
+
+        .icon--ticket{
+
+          background-position: -338px -276px;
+
+        }
+
+        .icon--map{
+
+          background-position: -274px -275px;
+
+        }
+
+        td{
+          &.active{
+            color: #FFF;
+
+            a{
+
+              color: #FFF!important;
+
+            }
+
+            .icon--map{
+
+              background-position: -274px -341px;
+
+            }
+            .icon--ticket{
+
+              background-position: -337px -342px;
+
+            }
+          }
+        }
+
+      }
+
+    }
+
+    tr:nth-child(even),
+    tr.even{
+
+      &:hover{
+
+        color: $table_small_row_hover_color;
+        background-color: $table_small_row_hover_bg_color;
+
+        a{
+          color: $table_small_row_hover_color;
+        }
+
+      }
+
+    }
+
+    tr:nth-child(odd),
+    tr.odd{
+
+      &:hover{
+
+        color: $table_small_row_hover_color;
+        background-color: $table_small_row_hover_bg_color;
+
+        a{
+          color: $table_small_row_hover_color;
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+table a{
+  text-decoration: none;
+  color: #868685;
+}
+
+.id__cell{
+  @include clearfix;
+}
+
+.id__cell__icon{
+  float: left;
+  display: block;
+  margin-top: -5px;
+  margin-bottom: -5px;
+  margin-right: 40px;
+  margin-left: 10px;
+}
+
+.id__cell__text{
+  float: left;
+  display: block;
+  margin-top: 5px;
 }

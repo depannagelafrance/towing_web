@@ -396,3 +396,41 @@
   }
 
 }
+
+// .icon--map
+//
+// Markup:
+// <div class="icon--map"></div>
+//
+// Styleguide 1.0.20
+
+.icon--map{
+  @extend .icon--small;
+  background-position: -274px -275px;
+
+  .bright & {
+
+    background-position: -274px -341px;
+
+  }
+
+}
+
+// .icon--ticket
+//
+// Markup:
+// <div class="icon--ticket"></div>
+//
+// Styleguide 1.0.21
+
+.icon--ticket{
+  @extend .icon--small;
+  background-position: -338px -276px;
+
+  .bright & {
+
+    background-position: -337px -342px;
+
+  }
+
+}

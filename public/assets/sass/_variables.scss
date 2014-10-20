@@ -20,6 +20,7 @@ $gray_light : #efefef;
 $gray : #e5e5e5;
 $gray_dark : #868685;
 $gray_darkest : #6b6b6b;
+$gray_darkdark: #666666;
 
 $black : #171717;
 
@@ -48,9 +49,17 @@ $link_color_hover : lighten($blue, 5%);
 $table_heading_color : $black;
 $table_row_even : $gray_light;
 $table_row_odd : $gray_lighter;
+$table_row_active_color : $white;
+$table_row_active_bg_color : $light_blue;
 $table_row_hover_color : $white;
-$table_row_hover_bg_color : $light_blue;
+$table_row_hover_bg_color : darken($light_blue, 5%);
 $table_row_border_color : $white;
+
+$table_small_row_active_color : $white;
+$table_small_row_active_bg_color : $light_blue;
+$table_small_row_hover_color : $gray_dark;
+$table_small_row_hover_bg_color : darken($gray_light, 5%);
+$table_small_row_border_color : $white;
 
 //NAV MAIN
 $nav_main_link_color : $gray_darkest;
@@ -88,3 +97,10 @@ $chosen_highlight_color : $white;
 //IDBAR
 $idbar_bg_color : $light_blue;
 $idbar_color : $white;
+
+//DOSSIERBAR
+$dossierbar_active_bg_color : $gray_darkdark;
+$dossierbar_active_color : $white;
+$dossierbar_hover_bg_color : darken($gray_light, 5%);
+$dossierbar_hover_color : $gray_dark;
+$dossierbar_link_color : $gray_dark;

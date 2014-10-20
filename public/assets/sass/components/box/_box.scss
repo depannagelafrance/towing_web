@@ -9,13 +9,13 @@
 
 .box{
 
-  @include border-radius(3px);
+  @include border-radius(1px);
   background: $block_bg_color;
-  border: 1px solid $block_border_color_fallback;
-  border: 1px solid $block_border_color;
-  border-bottom-width: 2px;
-  padding: 10px;
-
+ // border: 1px solid $block_border_color_fallback;
+ // border: 1px solid $block_border_color;
+ // border-bottom-width: 2px;
+  // padding: 10px;
+  @include box-shadow(0 1px 2px rgba(0,0,0,.1));
 }
 
 .box--unpadded{

@@ -3,7 +3,7 @@
     <a class="icon--add" href="/fast_dispatch/create">New Voucher</a>
   </div>
 </div>
-<div class="box">
+<div class="box table_list table_list_large">
   <?php
 
   $this->load->helper('date');
@@ -13,7 +13,7 @@
   if($vouchers && sizeof($vouchers) > 0) {
     foreach($vouchers as $voucher) {
       $this->table->add_row(
-        sprintf('<a href="/fast_dispatch/dossier/%s">%s</a>', $voucher->dossier_number, $voucher->voucher_number),
+        sprintf('<a class="id__cell" href="/fast_dispatch/dossier/%s"><span class="id__cell__icon icon--ticket"></span><span class="id__cell__text">%s</span></a>', $voucher->dossier_number, $voucher->voucher_number),
         $voucher->call_number,
         mdate('%d/%m/%Y %H:%i',strtotime($voucher->call_date)),
         $voucher->direction_name,
