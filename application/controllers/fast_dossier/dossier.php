@@ -106,6 +106,9 @@ class Dossier extends Page {
   }
 
   private function _setDossierValuesFromPostRequest($dossier, $voucher_number) {
+
+    $dossier->dossier->police_traffic_post_id = toIntegerValue($this->input->post('traffic_post_id'));
+
     for($i = 0; $i < sizeof($dossier->dossier->towing_vouchers); $i++) {
 
       $voucher = $dossier->dossier->towing_vouchers[$i];
