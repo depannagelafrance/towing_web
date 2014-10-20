@@ -8,7 +8,8 @@ if ( ! function_exists('toMySQLDate')) {
     {
       return null;
     } else {
-      return $date;
+      $_date = strtotime($date);
+      return date("Y-m-d h:i:s",$_date);
     }
   }
 }
