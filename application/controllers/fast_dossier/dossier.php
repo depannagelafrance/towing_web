@@ -77,7 +77,7 @@ class Dossier extends Page {
 
     if($dossier) {
       //for performance improvements, put the dossier in the flash data cache
-      $this->session->set_user_data('dossier_cache', $dossier);
+      $this->_cache_Dossier($dossier);
 
       //redirect to the view
       redirect(sprintf("/fast_dossier/dossier/%s", $dossier->dossier->dossier_number));
@@ -121,7 +121,7 @@ class Dossier extends Page {
 
         $voucher->additional_info = $this->input->post('additional_info');
 
-        $voucher->insurance_id                = $this->input->post('insurance_id');
+        $voucher->insurance_id                = toIntegerValue($this->input->post('insurance_id'));
         $voucher->insurance_dossiernr         = $this->input->post('insurance_dossiernr');
         $voucher->insurance_warranty_held_by  = $this->input->post('insurance_warranty_held_by');
 
@@ -140,6 +140,23 @@ class Dossier extends Page {
         $voucher->towing_completed    = toTimeValue($this->input->post('towing_completed'));
 
         $voucher->police_signature_dt = toTimeValue($this->input->post('police_signature_dt'));
+
+        $activity_ids = $this->input->post('activity_id');
+        $activity_amounts = $this->input->post('amount');
+
+        if(is_array($activity_ids)) {
+          $j = 0;
+
+          foreach($activity_ids as $activity_id) {
+            foreach($voucher->towing_activities as $towing_activity) {
+              if($towing_activity->activity_id == $activity_id) {
+                $towing_activity->amount = $activity_amounts[$j];
+              }
+            }
+
+            $j++;
+          }
+        }
 
 
         $dossier->dossier->towing_vouchers[$i] = $voucher;

@@ -1,6 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 require_once(APPPATH . '/models/Depot_model.php');
+require_once(APPPATH . '/models/TowingActivity_model.php');
 
 class Voucher_model  {
   public $id                          = null;
@@ -28,6 +29,8 @@ class Voucher_model  {
   public $additional_info      = null;
 
   public $depot = null; //instance of Depot_model
+
+  public $towing_activities     = array(); //array of TowingActivy_model
 
 
   public function __construct($data = null) {
@@ -58,6 +61,12 @@ class Voucher_model  {
 
       if($data->depot) {
         $this->depot = new Depot_model($data->depot);
+      }
+
+      if($data->towing_activities && is_array($data->towing_activities)) {
+        foreach($data->towing_activities as $activity) {
+          $this->towing_activities[] = new TowingActivity_model($activity);
+        }
       }
 
     }

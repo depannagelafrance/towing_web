@@ -397,7 +397,15 @@ $_dossier = $dossier->dossier;
           <label>Werkzaamheden:</label>
           <?php
             foreach($_voucher->towing_activities as $_activity) {
-              print form_input('name', $_activity->name);
+              $data = array(
+                'name'        => 'name[]',
+                'value'       => $_activity->name,
+                'readonly'    => 'readonly',
+                'style'       => 'background: #F0F0F0'
+              );
+
+              print form_input($data);
+              print form_hidden('activity_id[]', $_activity->activity_id);
             }
           ?>
         </div>
@@ -406,7 +414,7 @@ $_dossier = $dossier->dossier;
           <label>Aantal:</label>
           <?php
           foreach($_voucher->towing_activities as $_activity) {
-            print form_input('amount', $_activity->amount);
+            print form_input('amount[]', $_activity->amount);
           }
           ?>
         </div>
@@ -415,7 +423,14 @@ $_dossier = $dossier->dossier;
           <label>EHP:</label>
           <?php
           foreach($_voucher->towing_activities as $_activity) {
-            print form_input('fee_incl_vat', $_activity->fee_incl_vat);
+            $data = array(
+              'name'        => 'fee_incl_vat[]',
+              'value'       => $_activity->fee_incl_vat,
+              'readonly'    => 'readonly',
+              'style'       => 'background: #F0F0F0'
+            );
+
+            print form_input($data);
           }
           ?>
         </div>
@@ -424,7 +439,14 @@ $_dossier = $dossier->dossier;
           <label>Excl:</label>
           <?php
           foreach($_voucher->towing_activities as $_activity) {
-            print form_input('fee_incl_vat', $_activity->cal_fee_excl_vat);
+            $data = array(
+              'name'        => 'cal_fee_excl_vat[]',
+              'value'       => $_activity->cal_fee_excl_vat,
+              'readonly'    => 'readonly',
+              'style'       => 'background: #F0F0F0'
+            );
+
+            print form_input($data);
           }
           ?>
         </div>
@@ -433,7 +455,14 @@ $_dossier = $dossier->dossier;
           <label>Incl:</label>
           <?php
           foreach($_voucher->towing_activities as $_activity) {
-            print form_input('fee_incl_vat', $_activity->cal_fee_incl_vat);
+            $data = array(
+              'name'        => 'cal_fee_incl_vat[]',
+              'value'       => $_activity->cal_fee_incl_vat,
+              'readonly'    => 'readonly',
+              'style'       => 'background: #F0F0F0'
+            );
+
+            print form_input($data);
           }
           ?>
         </div>
