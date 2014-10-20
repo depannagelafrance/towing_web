@@ -22,7 +22,7 @@ class Voucher_model  {
   public $towing_completed     = null;
   public $towing_depot         = null;
   public $signa_by             = null;
-  public $signa_by_vehicule    = null;
+  public $signa_by_vehicle     = null;
   public $signa_arrival        = null;
   public $cic                  = null;
   public $additional_info      = null;
@@ -52,6 +52,7 @@ class Voucher_model  {
       //$this->towing_depot                 = $data->towing_depot;
       $this->signa_by                     = $data->signa_by;
       $this->signa_arrival                = $data->signa_arrival;
+      $this->signa_by_vehicle             = $data->signa_by_vehicle;
       $this->cic                          = $data->cic;
       $this->additional_info              = $data->additional_info;
 

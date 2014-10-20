@@ -115,17 +115,32 @@ class Dossier extends Page {
 
       if($voucher->voucher_number == $voucher_number) {
 
-        $voucher->vehicule_type = $this->input->post('vehicule_type');
+        $voucher->vehicule_type         = $this->input->post('vehicule_type');
         $voucher->vehicule_licenceplate = $this->input->post('vehicule_licenceplate');
-        $voucher->vehicule_country = $this->input->post('licence_plate_country');
+        $voucher->vehicule_country      = $this->input->post('licence_plate_country');
 
         $voucher->additional_info = $this->input->post('additional_info');
 
-        $voucher->insurance_id = $this->input->post('insurance_id');
-        $voucher->insurance_dossiernr = $this->input->post('insurance_dossiernr');
+        $voucher->insurance_id                = $this->input->post('insurance_id');
+        $voucher->insurance_dossiernr         = $this->input->post('insurance_dossiernr');
+        $voucher->insurance_warranty_held_by  = $this->input->post('insurance_warranty_held_by');
 
-        $voucher->collector_id = toIntegerValue($this->input->post('collector_id'));
-        $voucher->vehicule_collected = toMySQLDate($this->input->post('vehicule_collected'));
+        $voucher->collector_id        = toIntegerValue($this->input->post('collector_id'));
+        $voucher->vehicule_collected  = toMySQLDate($this->input->post('vehicule_collected'));
+
+        $voucher->signa_by          = $this->input->post('signa_by');
+        $voucher->signa_by_vehicle  = $this->input->post('signa_by_vehicle');
+        $voucher->signa_arrival     = toTimeValue($this->input->post('signa_arrival'));
+
+        $voucher->towed_by            = $this->input->post('towed_by');
+        $voucher->towed_by_vehicle    = $this->input->post('towed_by_vehicle');
+        $voucher->towing_called       = toTimeValue($this->input->post('towing_called'));
+        $voucher->towing_arrival      = toTimeValue($this->input->post('towing_arrival'));
+        $voucher->towing_start        = toTimeValue($this->input->post('towing_start'));
+        $voucher->towing_completed    = toTimeValue($this->input->post('towing_completed'));
+
+        $voucher->police_signature_dt = toTimeValue($this->input->post('police_signature_dt'));
+
 
         $dossier->dossier->towing_vouchers[$i] = $voucher;
       }

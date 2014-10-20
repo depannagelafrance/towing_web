@@ -26,4 +26,17 @@ if ( ! function_exists('toIntegerValue')) {
     }
   }
 }
+
+if ( ! function_exists('toTimeValue')) {
+  function toTimeValue($time)
+  {
+    if(!$time || $time == "" || $time === "") {
+      return null;
+    }
+    else
+    {
+      return "2014-10-04T22:00:00.000Z";
+    }
+  }
+}
 ?>

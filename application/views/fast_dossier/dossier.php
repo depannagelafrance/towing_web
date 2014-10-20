@@ -173,7 +173,7 @@ $_dossier = $dossier->dossier;
     <div class="dossierbar__vouchers">
       <?php
         foreach($_dossier->towing_vouchers as $_v) :
-          $_is_selected = ($_v->voucher_number == $_voucher->voucher_number); 
+          $_is_selected = ($_v->voucher_number == $_voucher->voucher_number);
       ?>
           <div class="dossierbar__id box has_icon <?php print ($_is_selected || sizeof($_dossier->towing_vouchers) == 1) ? 'active bright' : 'inactive'; ?>">
             <div class="dossierbar__icon icon--ticket"></div>
@@ -257,7 +257,7 @@ $_dossier = $dossier->dossier;
       <div class="signa-container__right">
         <div class="form-item-horizontal signa-container__arrival">
           <label>Aankomst:</label>
-          <?php print form_input('signa_arrival', $_voucher->signa_arrival); ?>
+          <?php print form_input('signa_arrival', mdate('%H:%i',strtotime($_voucher->signa_arrival))); ?>
         </div>
       </div>
     </div>
@@ -280,22 +280,22 @@ $_dossier = $dossier->dossier;
       <div class="towedby-container__right">
         <div class="form-item-horizontal towedby-container__call">
           <label>Oproep:</label>
-          <?php print form_input('towing_called', $_voucher->towing_called); ?>
+          <?php print form_input('towing_called', mdate('%H:%i',strtotime($_voucher->towing_called))); ?>
         </div>
 
         <div class="form-item-horizontal towedby-container__arival">
           <label>Aankomst:</label>
-          <?php print form_input('towing_arrival', $_voucher->towing_arrival); ?>
+          <?php print form_input('towing_arrival', mdate('%H:%i',strtotime($_voucher->towing_arrival))); ?>
         </div>
 
         <div class="form-item-horizontal towedby-container__start">
           <label>Start:</label>
-          <?php print form_input('towing_start', $_voucher->towing_start); ?>
+          <?php print form_input('towing_start', mdate('%H:%i',strtotime($_voucher->towing_start))); ?>
         </div>
 
         <div class="form-item-horizontal towedby-container__completed">
           <label>Stop:</label>
-          <?php print form_input('towing_completed', $_voucher->towing_completed); ?>
+          <?php print form_input('towing_completed', mdate('%H:%i',strtotime($_voucher->towing_completed))); ?>
         </div>
 
       </div>
@@ -382,7 +382,7 @@ $_dossier = $dossier->dossier;
         <!--WARENTY-->
         <div class="form-item-horizontal warrenty-container">
           <label>Garantie:</label>
-          <?= form_input('insurance_warranty_held_by', $_voucher->insurance_dossiernr); ?>
+          <?= form_input('insurance_warranty_held_by', $_voucher->insurance_warranty_held_by); ?>
         </div>
         <!--END WARENTY-->
 
@@ -460,7 +460,7 @@ $_dossier = $dossier->dossier;
 
         <div class="form-item-horizontal  autograph-container__police__timestamp">
           <label class="notbold">Tijdstip:</label>
-          <?php print form_input('police-timestamp'); ?>
+          <?php print form_input('police_signature_dt', mdate('%H:%i',strtotime($_voucher->police_signature_dt))); ?>
         </div>
 
         <div class="autograph-container__police__autograph">
@@ -486,7 +486,7 @@ $_dossier = $dossier->dossier;
 
         <div class="form-item-horizontal  autograph-container__collecting__date">
           <label class="notbold">Datum:</label>
-          <?php print form_input('vehicule_collected'); ?>
+          <?php print form_input('vehicule_collected', mdate('%d/%m/%Y %H:%i',strtotime($_voucher->vehicule_collected))); ?>
         </div>
 
         <div class="autograph-container__collecting__autograph">
