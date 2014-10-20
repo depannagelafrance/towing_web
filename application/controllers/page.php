@@ -96,6 +96,18 @@ class Page extends CI_Controller {
 		return $this->session->userdata('current_user');
 	}
 
+	protected function _cache_Dossier($dossier) {
+		$this->session->set_userdata('dossier_cache', $dossier);
+	}
+
+	protected function _pop_Dossier_cache() {
+		$val = $this->session->userdata('dossier_cache');
+
+		$this->session->unset_userdata("dossier_cache");
+
+		return $val;
+	}
+
 	protected function _get_available_modules() {
 		$data = $this->_get_authenticated_user();
 

@@ -149,21 +149,31 @@ $_dossier = $dossier->dossier;
 
     </div>
 
-  <?= validation_errors(); ?>
-  <?= form_open('fast_dossier/dossier/save/' . $_dossier->dossier_number) ?>
+  <?php
+  print validation_errors();
+
+  $_voucher = null;
+
+  foreach($_dossier->towing_vouchers as $_v) {
+    if($_v->voucher_number == $voucher_number) {
+      $_voucher = $_v;
+    }
+  }
+
+  if(!$_voucher)
+    $_voucher = $_dossier->towing_vouchers[0];
+
+
+  print form_open('fast_dossier/dossier/save/' . $_dossier->dossier_number . '/' . $_voucher->voucher_number);
+
+  ?>
 
   <div class="dossierbar">
 
     <div class="dossierbar__vouchers">
       <?php
-        $_voucher = null;
-
         foreach($_dossier->towing_vouchers as $_v) :
-          $_is_selected = false;
-
-          if($_is_selected = ($_v->voucher_number == $voucher_number)) {
-            $_voucher = $_v;
-          }
+          $_is_selected = ($_v->voucher_number == $_voucher->voucher_number); 
       ?>
           <div class="dossierbar__id box has_icon <?php print ($_is_selected || sizeof($_dossier->towing_vouchers) == 1) ? 'active bright' : 'inactive'; ?>">
             <div class="dossierbar__icon icon--ticket"></div>
@@ -182,11 +192,6 @@ $_dossier = $dossier->dossier;
         endforeach;
       ?>
     </div>
-
-<?php
-if(!$_voucher)
-  $_voucher = $_dossier->towing_vouchers[0];
-?>
 
     <div class="dossierbar__mainactions">
       <!--
@@ -396,7 +401,7 @@ if(!$_voucher)
         <!--ASSI-->
         <div class="form-item-horizontal  assistance-container">
           <label>Assistance:</label>
-          <?php print listbox('insurances', $insurances, $_voucher->insurance_id); ?>
+          <?php print listbox('insurance_id', $insurances, $_voucher->insurance_id); ?>
         </div>
         <!--END ASSI-->
 
@@ -514,7 +519,7 @@ if(!$_voucher)
 
         <div class="form-item-horizontal  autograph-container__collecting__date">
           <label class="notbold">Datum:</label>
-          <?php print form_input('police-timestamp'); ?>
+          <?php print form_input('vehicule_collected'); ?>
         </div>
 
         <div class="autograph-container__collecting__autograph">
