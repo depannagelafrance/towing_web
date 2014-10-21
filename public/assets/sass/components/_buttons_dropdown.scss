@@ -1,0 +1,42 @@
+.btn--dropdown{
+
+  position: relative;
+
+}
+
+.btn--dropdown--btn{
+
+
+}
+
+.btn--dropdown--drop{
+
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 999;
+  display: none; // none by default, but block on "open" of the menu
+  float: left;
+  min-width: 220px;
+  padding: 5px 0;
+  margin: 2px 0 0; // override default ul
+  list-style: none;
+  font-size: 12px;
+  text-align: right; // Ensures proper alignment if parent has it changed (e.g., modal footer)
+  background-color: darken(#efefef, 5%);
+  @include box-shadow(0 6px 12px rgba(0,0,0,.175));
+  @include border-radius(1px);
+  background-clip: padding-box;
+
+  > li > a {
+    display: block;
+    padding: 8px 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: 20px;
+    color: #868685;
+    white-space: nowrap; // prevent links from randomly breaking onto new lines
+    text-decoration: none;
+  }
+
+}

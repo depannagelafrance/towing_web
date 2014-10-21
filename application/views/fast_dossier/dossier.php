@@ -229,11 +229,21 @@ $_dossier = $dossier->dossier;
           <a class="icon--print--preview" href="/fast_dossier/report/voucher/<?=$_dossier->id?>/<?=$_voucher->id?>">Print Preview</a>
         </div>
       </div>
+
       <div class="dossierbar__action__item">
-        <div class="btn--icon">
-          <a class="icon--print" href="">Print</a>
+        <div class="btn--dropdown">
+          <div class="btn--dropdown--btn btn--icon">
+            <a class="icon--print" href="">Print</a>
+          </div>
+          <ul class="btn--dropdown--drop">
+            <li><a href="#">Exemplaar Takeldienst</a></li>
+            <li><a href="#">Exemplaar Afhaler</a></li>
+            <li><a href="#">Exemplaar Klant</a></li>
+            <li><a href="#">Exemplaar op Aanvraag</a></li>
+          </ul>
         </div>
       </div>
+
     </div>
 
   </div>

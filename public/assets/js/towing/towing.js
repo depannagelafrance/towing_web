@@ -5,4 +5,8 @@ $(document).ready(function() {
     $('.dossierbar__id').click(function(){
         window.location.href = $(this).find('a').attr('href');
     });
+
+    $('.btn--dropdown').click(function(){
+        $(this).find('.btn--dropdown--drop').toggle();
+    });
 });
