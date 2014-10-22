@@ -508,10 +508,14 @@ $_dossier = $dossier->dossier;
 
       </div>
       <div class="autograph-container__nuisance">
-        <label>Bevestiging hinderverwerker:</label>
+        <label>Bevestiging hinderverwekker:</label>
 
         <div class="autograph-container__nuisance__autograph">
-
+          <?php
+          if($_voucher->signature_causer) {
+            printf('<img src="/fast_dossier/image/view/%s" />', $_voucher->signature_causer->document_blob_id);
+          }
+          ?>
         </div>
 
       </div>
