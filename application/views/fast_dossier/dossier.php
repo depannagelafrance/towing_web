@@ -503,7 +503,11 @@ $_dossier = $dossier->dossier;
         </div>
 
         <div class="autograph-container__police__autograph">
-
+        <?php
+        if(property_exists($_voucher, 'signature_traffic_post') && $_voucher->signature_traffic_post) {
+          printf('<img src="/fast_dossier/image/view/%s" />', $_voucher->signature_traffic_post->document_blob_id);
+        }
+        ?>
         </div>
 
       </div>
@@ -512,7 +516,7 @@ $_dossier = $dossier->dossier;
 
         <div class="autograph-container__nuisance__autograph">
           <?php
-          if($_voucher->signature_causer) {
+          if(property_exists($_voucher, 'signature_causer') && $_voucher->signature_causer) {
             printf('<img src="/fast_dossier/image/view/%s" />', $_voucher->signature_causer->document_blob_id);
           }
           ?>
@@ -533,7 +537,11 @@ $_dossier = $dossier->dossier;
         </div>
 
         <div class="autograph-container__collecting__autograph">
-
+        <?php
+        if(property_exists($_voucher, 'signature_collector') && $_voucher->signature_collector) {
+          printf('<img src="/fast_dossier/image/view/%s" />', $_voucher->signature_collector->document_blob_id);
+        }
+        ?>
         </div>
 
       </div>
