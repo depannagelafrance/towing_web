@@ -97,15 +97,35 @@ class Page extends CI_Controller {
 	}
 
 	protected function _cache_Dossier($dossier) {
-		$this->session->set_userdata('dossier_cache', $dossier);
+		if(!isset($_SESSION)) {
+			session_start();
+		}
+
+		$_SESSION['dossier_cache'] = $dossier;
+
+		//$this->session->set_userdata('dossier_cache', $dossier);
 	}
 
 	protected function _pop_Dossier_cache() {
-		$val = $this->session->userdata('dossier_cache');
+		if(!isset($_SESSION)) {
+			session_start();
+		}
 
-		$this->session->unset_userdata("dossier_cache");
+		if(array_key_exists('dossier_cache', $_SESSION)) {
+			$val = $_SESSION['dossier_cache'];
 
-		return $val;
+			unset($_SESSION['dossier_cache']);
+
+			return $val;
+		} else {
+			return null;
+		}
+
+		// $val = $this->session->userdata('dossier_cache');
+		//
+		// $this->session->unset_userdata("dossier_cache");
+		//
+		// return $val;
 	}
 
 	protected function _get_available_modules() {

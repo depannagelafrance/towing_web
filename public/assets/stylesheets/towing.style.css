@@ -651,6 +651,43 @@ table a {
   background-color: #2a75f3;
 }
 
+.btn--dropdown {
+  position: relative;
+}
+
+.btn--dropdown--drop {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 999;
+  display: none;
+  float: left;
+  min-width: 220px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  list-style: none;
+  font-size: 12px;
+  text-align: right;
+  background-color: #e2e2e2;
+  -moz-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  -moz-border-radius: 1px;
+  -webkit-border-radius: 1px;
+  border-radius: 1px;
+  background-clip: padding-box;
+}
+.btn--dropdown--drop > li > a {
+  display: block;
+  padding: 8px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 20px;
+  color: #868685;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
 .detailbar {
   margin-bottom: 15px;
 }
