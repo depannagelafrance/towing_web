@@ -1,6 +1,9 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 require_once(APPPATH . '/models/Dossier_model.php');
+require_once(APPPATH . '/models/File_model.php');
+require_once(APPPATH . '/models/Communication_model.php');
+
 require_once(APPPATH . '/libraries/towing/Rest_service.php');
 
 class Dossier_service extends Rest_service {
@@ -69,13 +72,48 @@ class Dossier_service extends Rest_service {
     }
 
     public function updateDossier(Dossier_model $dossier, $token) {
-
       $_dossier = new stdClass();
       $_dossier->dossier = $dossier;
 
       return $this->CI->rest->put(
           sprintf('/dossier/%s/%s', $dossier->id, $token),
           json_encode($_dossier),
-          'application/json');
+          'application/json'
+      );
+    }
+
+    //TODO: remove $voucher_id from query string and place into file_model
+    public function addInsuranceDocumentToVoucher($voucher_id, File_model $file, $token) {
+      return $this->CI->rest->post(
+          sprintf('/voucher/attachment/insurance_document/%s/%s', $voucher_id, $token),
+          json_encode($file),
+          'application/json'
+      );
+    }
+
+    public function fetchAllInternalCommunications($dossier_id, $voucher_id, $token) {
+      return $this->CI->rest->get(sprintf('/dossier/communication/internal/%s/%s/%s', $dossier_id, $voucher_id, $token));
+    }
+
+    public function fetchAllEmailCommunications($dossier_id, $voucher_id, $token) {
+      return $this->CI->rest->get(sprintf('/dossier/communication/email/%s/%s/%s', $dossier_id, $voucher_id, $token));
+    }
+
+    public function addInternalCommunication(Communication_model $model, $token) {
+      return $this->CI->rest->post(
+          sprintf('/dossier/communication/internal/%s', $token),
+          json_encode($model),
+          'application/json'
+      );
+    }
+
+    public function addEmailCommunication(Communication_model $model, $token) {
+      $result = $this->CI->rest->post(
+          sprintf('/dossier/communication/email/%s', $token),
+          json_encode($model),
+          'application/json'
+      );
+
+      return $result;
     }
 }
