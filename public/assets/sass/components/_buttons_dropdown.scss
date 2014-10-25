@@ -5,8 +5,16 @@
 }
 
 .btn--dropdown--btn{
+  background-image: image-url('icons/icons.png', false, false);
+  background-repeat: no-repeat;
+  background-position: -496px -67px;
+  display: block;
+  width: 73px;
+  cursor: pointer;
 
-
+  .active &{
+    background-color: darken(#FFF, 5%);
+  }
 }
 
 .btn--dropdown--drop{
@@ -18,25 +26,35 @@
   display: none; // none by default, but block on "open" of the menu
   float: left;
   min-width: 220px;
-  padding: 5px 0;
+  padding: 0;
   margin: 2px 0 0; // override default ul
   list-style: none;
   font-size: 12px;
   text-align: right; // Ensures proper alignment if parent has it changed (e.g., modal footer)
-  background-color: darken(#efefef, 5%);
+  background-color: #FFF;
   @include box-shadow(0 6px 12px rgba(0,0,0,.175));
   @include border-radius(1px);
   background-clip: padding-box;
 
   > li > a {
     display: block;
-    padding: 8px 20px;
+    padding: 12px 20px;
     clear: both;
     font-weight: normal;
     line-height: 20px;
     color: #868685;
     white-space: nowrap; // prevent links from randomly breaking onto new lines
     text-decoration: none;
+
+    &:hover{
+
+      background-color: darken(#FFF, 10%);
+
+    }
+  }
+
+  .active &{
+    background-color: darken(#FFF, 5%);
   }
 
 }
