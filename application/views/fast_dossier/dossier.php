@@ -224,11 +224,6 @@ $_dossier = $dossier->dossier;
           <a id="add-email-link" class="icon--email" href="#add-email-form">Email</a>
         </div>
       </div>
-      <div class="dossierbar__action__item">
-        <div class="btn--icon">
-          <a class="icon--print--preview" href="/fast_dossier/report/voucher/<?=$_dossier->id?>/<?=$_voucher->id?>">Print Preview</a>
-        </div>
-      </div>
 
       <div class="dossierbar__action__item">
         <div class="btn--dropdown">
@@ -239,7 +234,7 @@ $_dossier = $dossier->dossier;
             <li><a href="#">Exemplaar Takeldienst</a></li>
             <li><a href="#">Exemplaar Afhaler</a></li>
             <li><a href="#">Exemplaar Klant</a></li>
-            <li><a href="#">Exemplaar op Aanvraag</a></li>
+            <li><a href="/fast_dossier/report/voucher/<?=$_dossier->id?>/<?=$_voucher->id?>">Exemplaar op Aanvraag</a></li>
           </ul>
         </div>
       </div>

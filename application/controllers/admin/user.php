@@ -38,13 +38,9 @@ class User extends Page {
   public function create(){
 
       if($this->input->post('submit')){
-
-          $this->load->library("form_validation");
-          $this->form_validation->set_rules('login', 'login', 'required');
-          $this->form_validation->set_rules('firstname', 'firstname', 'required');
-          $this->form_validation->set_rules('lastname', 'lastname', 'required');
-          $this->form_validation->set_rules('email', 'email', 'required');
-
+            
+          $this->_setFormValidationRules();
+          
           if (!$this->form_validation->run())
           {
               $this->_add_content(
@@ -143,14 +139,21 @@ class User extends Page {
    * @param int $id
    */
   public function delete($id){
+      
       $result = $this->admin_service->deleteUser($id, $this->_get_user_token());
-
-      if($result->result != 'ok'){
-          die('To do: add correct failure message, see ' . __CLASS__ . ' -> ' . __METHOD__);
+      
+      if($result && property_exists($result, 'statusCode'))
+      {
+          $this->_add_error(sprintf('Fout bij het verwijderen van een gebruiker (%d - %s)', $result->statusCode, $result->message));
+      
+          $this->_displayOverviewPage();
       }
-
-      //TODO: pass a message to the overview that the delete was either succesfull or not
-      redirect("/admin/user");
+      else
+      {
+          $this->session->set_flashdata('_INFO_MSG', "Gebruiker werd verwijderd");
+      
+          redirect('/admin/user', 'refresh');
+      }
   }
 
   /**
@@ -159,27 +162,91 @@ class User extends Page {
    * @param int $id
    */
   public function edit($id){
+      
+      if($this->input->post('submit'))
+      {
+          $this->_setFormValidationRules();
+      
+          //return to form if validation failed
+          if (!$this->form_validation->run())
+          {
+              $this->_add_content(
+                      $this->load->view(
+                              'admin/users/edit',
+                              array(
+                                  "login" => $this->input->post('login'),
+                                  "firstname" => $this->input->post('firstname'),
+                                  "lastname" => $this->input->post('lasname'),
+                                  "email" => $this->input->post('email')
+                              ),
+                              true
+                      )
+              );
+          }
+          //form is valid, send the data
+          else
+          {
+              //load the model
+              $this->load->model('user_model');
+      
+              $model=$this->user_model->initialise($this->input->post());
+              $model->id = $id;
+      
+              $result = $this->admin_service->updateUser($model, $this->_get_user_token());
+      
+              if($result && property_exists($result, 'statusCode')) {
+                  if($result->statusCode == 409) {
+                      $this->_add_error(sprintf("Er bestaat reeds een gebruiker met de naam: '%s'", $this->input->post('name')));
+                  } else {
+                      $this->_add_error(sprintf('Fout bij het wijzigen van een gebruiker (%d - %s)', $result->statusCode, $result->message));
+                  }
 
-      $this->_add_content(
-              $this->load->view(
-                      'admin/users/edit',
-                      array(
+                  $this->_add_content(
+                          $this->load->view(
+                                  'admin/users/edit',
+                                  array(
+                                      "login" => $this->input->post('login'),
+                                      "firstname" => $this->input->post('firstname'),
+                                      "lastname" => $this->input->post('lasname'),
+                                      "email" => $this->input->post('email')
+                                  ),
+                                  true
+                          )
+                  );
+              } else {
+                  //yes, nicely done!
+                  $this->session->set_flashdata('_INFO_MSG', "Gebruiker aangepast: " . $this->input->post('firstname') . ' ' . $this->input->post('lastname'));
+      
+                  redirect("/admin/user");
+              }
+          }
+      }
+      else //not a post, so load default view
+      {
+          $result = $this->_getUserById($id);
+      
+          if($result && property_exists($result, 'statusCode'))
+          {
+              $this->_add_error(sprintf('Fout bij het ophalen van een maatschappij (%d - %s)', $result->statusCode, $result->message));
+      
+              $this->_displayOverviewPage();
+          }
+          else
+          {
+              $this->_add_content(
+                      $this->load->view(
+                          'admin/users/edit',
+                          array(
                               'users' => $this->_getUserById($id),
                               'roles' => $this->_getRoles()
-                      ),
-                      true
-              )
-      );
-      $this->_render_page();
-  }
-
-  /**
-   * Update user
-   * (save changes from edit-form)
-   * @param unknown $id
-   */
-  public function update($id){
-      $result = $this->admin_service->update($this->_getUserById($id), $this->_get_user_token());
+                          ),
+                          true
+                      )
+              );
+      
+              $this->_render_page();
+          }
+      }
   }
 
   /**
@@ -197,5 +264,42 @@ class User extends Page {
    */
   private function _getRoles(){
       return $this->admin_service->fetchAvailableRoles($this->_get_user_token());
+  }
+  
+  /**
+   * Form validation rules
+   */
+  private function _setFormValidationRules(){
+      $this->load->library("form_validation");
+      
+      $this->form_validation->set_rules('login', 'login', 'required');
+      $this->form_validation->set_rules('firstname', 'firstname', 'required');
+      $this->form_validation->set_rules('lastname', 'lastname', 'required');
+      $this->form_validation->set_rules('email', 'email', 'required');
+  }
+  
+  /**
+   * Render overview
+   */
+  private function _displayOverviewPage() {
+      $users = $this->admin_service->fetchAllUsers($this->_get_user_token());
+  
+      if(!$users){
+          $this->_add_content('Geen gebruikers gevonden!');
+      } else if (!is_array($users) && property_exists($users, 'statusCode')) {
+          $this->_add_error(sprintf('Fout bij het ophalen van gebruikers (%d - %s)', $result->statusCode, $result->message));
+      } else {
+          $this->_add_content(
+                  $this->load->view(
+                          'admin/users/overview',
+                          array(
+                                  'users' => $users
+                          ),
+                          true
+                  )
+          );
+      }
+  
+      $this->_render_page();
   }
 }
