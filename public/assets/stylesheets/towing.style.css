@@ -616,12 +616,12 @@ table a {
   -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-  background-color: #efefef;
+  background-color: #FFFFFF;
   color: #868685;
   padding: 15px;
 }
 .btn:hover, .btn--highlighted:hover, .btn--icon:hover, .btn--icon--highlighted:hover, .btn--icon--small:hover {
-  background-color: #e2e2e2;
+  background-color: #f2f2f2;
 }
 
 .btn--highlighted {
@@ -655,6 +655,18 @@ table a {
   position: relative;
 }
 
+.btn--dropdown--btn {
+  background-image: url('../images/icons/icons.png');
+  background-repeat: no-repeat;
+  background-position: -496px -67px;
+  display: block;
+  width: 73px;
+  cursor: pointer;
+}
+.active .btn--dropdown--btn {
+  background-color: #f2f2f2;
+}
+
 .btn--dropdown--drop {
   position: absolute;
   top: 100%;
@@ -663,12 +675,12 @@ table a {
   display: none;
   float: left;
   min-width: 220px;
-  padding: 5px 0;
+  padding: 0;
   margin: 2px 0 0;
   list-style: none;
   font-size: 12px;
   text-align: right;
-  background-color: #e2e2e2;
+  background-color: #FFF;
   -moz-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
@@ -679,13 +691,19 @@ table a {
 }
 .btn--dropdown--drop > li > a {
   display: block;
-  padding: 8px 20px;
+  padding: 12px 20px;
   clear: both;
   font-weight: normal;
   line-height: 20px;
   color: #868685;
   white-space: nowrap;
   text-decoration: none;
+}
+.btn--dropdown--drop > li > a:hover {
+  background-color: #e6e6e6;
+}
+.active .btn--dropdown--drop {
+  background-color: #f2f2f2;
 }
 
 .detailbar {

@@ -8,5 +8,6 @@ $(document).ready(function() {
 
     $('.btn--dropdown').click(function(){
         $(this).find('.btn--dropdown--drop').toggle();
+        $(this).toggleClass('active');
     });
 });
