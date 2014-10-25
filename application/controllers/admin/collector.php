@@ -2,7 +2,7 @@
 require_once(APPPATH . '/controllers/page.php');
 
 class Collector extends Page {
-    
+
     public function __construct(){
       parent::__construct();
 
@@ -18,19 +18,19 @@ class Collector extends Page {
   {
       $this->_displayOverviewPage();
   }
-  
+
   /**
    * create new collector
    */
   public function create(){
 
       $this->load->helper('form');
-      
+
       if($this->input->post('submit'))
       {
           $this->load->library("form_validation");
           $this->form_validation->set_rules('name', 'name', 'required');
-      
+
           //return to form if validation failed
           if (!$this->form_validation->run())
           {
@@ -47,17 +47,17 @@ class Collector extends Page {
           {
               //load the model
               $this->load->model('vocabulary_model');
-      
+
               $result = $this->admin_service->createCollector($this->vocabulary_model->initialise($this->input->post()), $this->_get_user_token());
-      
+
               if($result && property_exists($result, 'statusCode')) {
                   if($result->statusCode == 409) {
-                      $this->_add_error(sprintf("Er bestaat reeds een maatschappij met als naam: '%s'", $this->input->post('name')));
+                      $this->_add_error(sprintf("Er bestaat reeds een item met als naam: '%s'", $this->input->post('name')));
                   } else {
-                      $this->_add_error(sprintf('Fout bij het aanmaken van een maatschappij (%d - %s)', $result->statusCode, $result->message));
+                      $this->_add_error(sprintf('Fout bij het aanmaken van item (%d - %s)', $result->statusCode, $result->message));
                   }
-      
-      
+
+
                   $this->_add_content(
                           $this->load->view(
                                   'admin/collectors/create',
@@ -68,7 +68,7 @@ class Collector extends Page {
               } else {
                   //yes, nicely done!
                   $this->session->set_flashdata('_INFO_MSG', "Nieuw item: " . $this->input->post('name'));
-      
+
                   redirect("/admin/collector");
               }
           }
@@ -85,20 +85,20 @@ class Collector extends Page {
       }
       $this->_render_page();
   }
-  
+
   /**
    * Edit collector (create form to edit)
    * @param int $id
    */
   public function edit($id){
-      
+
       $this->load->helper('form');
-      
+
       if($this->input->post('submit'))
       {
           $this->load->library("form_validation");
           $this->form_validation->set_rules('name', 'name', 'required');
-      
+
           //return to form if validation failed
           if (!$this->form_validation->run())
           {
@@ -115,20 +115,20 @@ class Collector extends Page {
           {
               //load the model
               $this->load->model('vocabulary_model');
-      
+
               $model=$this->vocabulary_model->initialise($this->input->post());
               $model->id = $id;
-      
+
               $result = $this->admin_service->updateCollector($model, $this->_get_user_token());
-      
+
               if($result && property_exists($result, 'statusCode')) {
                   if($result->statusCode == 409) {
-                      $this->_add_error(sprintf("Er bestaat reeds een maatschappij met als naam: '%s'", $this->input->post('name')));
+                      $this->_add_error(sprintf("Er bestaat reeds een item met als naam: '%s'", $this->input->post('name')));
                   } else {
-                      $this->_add_error(sprintf('Fout bij het wijzigen van een maatschappij (%d - %s)', $result->statusCode, $result->message));
+                      $this->_add_error(sprintf('Fout bij het wijzigen van een item (%d - %s)', $result->statusCode, $result->message));
                   }
-      
-      
+
+
                   $this->_add_content(
                           $this->load->view(
                                   'admin/collectors/edit',
@@ -139,7 +139,7 @@ class Collector extends Page {
               } else {
                   //yes, nicely done!
                   $this->session->set_flashdata('_INFO_MSG', "Item aangepast: " . $this->input->post('name'));
-      
+
                   redirect("/admin/collector");
               }
           }
@@ -150,8 +150,8 @@ class Collector extends Page {
 
           if($result && property_exists($result, 'statusCode'))
           {
-              $this->_add_error(sprintf('Fout bij het ophalen van een maatschappij (%d - %s)', $result->statusCode, $result->message));
-      
+              $this->_add_error(sprintf('Fout bij het ophalen van een item (%d - %s)', $result->statusCode, $result->message));
+
               $this->_displayOverviewPage();
           }
           else
@@ -166,22 +166,22 @@ class Collector extends Page {
                               true
                       )
               );
-      
+
               $this->_render_page();
           }
       }
   }
-  
+
   /**
    * Delete collector
    * @param int $id
    */
   public function delete($id){
       $result = $this->admin_service->deleteCollector($id, $this->_get_user_token());
-      
+
       if($result && property_exists($result, 'statusCode'))
       {
-        $this->_add_error(sprintf('Fout bij het verwijderen van een maatschappij (%d - %s)', $result->statusCode, $result->message));
+        $this->_add_error(sprintf('Fout bij het verwijderen van een item (%d - %s)', $result->statusCode, $result->message));
 
         $this->_displayOverviewPage();
       }
@@ -192,17 +192,17 @@ class Collector extends Page {
         redirect('/admin/collector', 'refresh');
       }
   }
-  
+
   /**
    * Render overview
    */
   private function _displayOverviewPage() {
       $collectors = $this->admin_service->fetchAllCollectors($this->_get_user_token());
-  
+
       if(!$collectors){
-          $this->_add_content('Geen maatschappijen gevonden!');
+          $this->_add_content('Geen items gevonden!');
       } else if (!is_array($collectors) && property_exists($collectors, 'statusCode')) {
-          $this->_add_error(sprintf('Fout bij het ophalen van de maatschappijen (%d - %s)', $result->statusCode, $result->message));
+          $this->_add_error(sprintf('Fout bij het ophalen van de items (%d - %s)', $result->statusCode, $result->message));
       } else {
           $this->_add_content(
                   $this->load->view(
@@ -214,10 +214,10 @@ class Collector extends Page {
                   )
           );
       }
-  
+
       $this->_render_page();
   }
-  
+
   /**
    * Get collector data by id
    * @param int id
@@ -225,5 +225,5 @@ class Collector extends Page {
   private function _getCollectorById($id){
       return $this->admin_service->fetchCollectorById($id, $this->_get_user_token());
   }
-  
+
 }
