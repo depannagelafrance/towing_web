@@ -2,6 +2,7 @@
 
   .fancybox-skin{
     @extend .box;
+    padding: 0 !important;
   }
   .fancybox-inner{
     width: 100%!important;
@@ -18,7 +19,7 @@
 .fancybox-form{
 
   width: 100% !important;
-  padding: 15px;
+  padding: 25px;
 
   h3{
 
@@ -28,4 +29,28 @@
 
   }
 
+}
+
+.fancybox-form__actions{
+
+  @include clearfix;
+  background-color: #EEE;
+  padding: 0 25px;
+
+}
+
+.fancybox-form__actions__cancel{
+  float: left;
+  a{
+    color: $gray_dark;
+    margin-top: 10px;
+    display: block;
+    &:hover{
+      color: lighten($gray_dark, 5%);
+    }
+  }
+}
+
+.fancybox-form__actions__save{
+  float: right;
 }
