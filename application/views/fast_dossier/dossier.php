@@ -211,7 +211,7 @@ $_dossier = $dossier->dossier;
     <div class="dossierbar__actions">
       <div class="dossierbar__action__item">
         <div class="btn--icon">
-          <a class="icon--nota" href="">Nota</a>
+          <a id="add-nota-link" class="icon--nota" href="#add-nota-form">Nota</a>
         </div>
       </div>
       <div class="dossierbar__action__item">
@@ -221,7 +221,7 @@ $_dossier = $dossier->dossier;
       </div>
       <div class="dossierbar__action__item">
         <div class="btn--icon">
-          <a class="icon--email" href="">Email</a>
+          <a id="add-email-link" class="icon--email" href="#add-email-form">Email</a>
         </div>
       </div>
 
@@ -361,12 +361,11 @@ $_dossier = $dossier->dossier;
 
       </div>
       <div class="dsform__right">
-
         <!--DEPOT-->
         <div class="form-item-horizontal depot-container">
           <label>Depot:</label>
           <?php print $_voucher->depot->display_name; ?>
-          <a id="edit-depot-link" href="#edit-depot-form">Bewerken</a>
+          <a id="edit-depot-link" class="edit-link" href="#edit-depot-form">Bewerken</a>
         </div>
         <!-- END DEPOT-->
 
@@ -471,19 +470,26 @@ $_dossier = $dossier->dossier;
           }
           ?>
         </div>
+        <div class="form-item-vertical work-container__remove">
+          <?php foreach($_voucher->towing_activities as $_activity){ ?>
+            <div class="work-container__remove__btn">
+              <div class="btn--icon--small">
+                <a class="icon--remove" href="#">Remove</a>
+              </div>
+            </div>
+          <?php } ?>
+        </div>
       </div>
       <div class="work-container__actions">
         <div class="work-container__add">
-          <div class="btn--icon--small">
-            <a class="icon--add--small" href="#">Add</a>
-          </div>
+          <a id="add-work-link" class="" href="#add-work-form">Werkzaamheid toevoegen</a>
         </div>
       </div>
     </div>
     <!-- END WORK-->
 
     <!--AUTOGRAPHS-->
-    <div class="form-item-vertical autograph-container">
+    <div class="autograph-container">
       <div class="autograph-container__police">
         <label>Bevestiging politie:</label>
 
@@ -496,27 +502,21 @@ $_dossier = $dossier->dossier;
           <label class="notbold">Tijdstip:</label>
           <?php print form_input('police_signature_dt', mdate('%H:%i',strtotime($_voucher->police_signature_dt))); ?>
         </div>
-
-        <div class="autograph-container__police__autograph">
-        <?php
-        if(property_exists($_voucher, 'signature_traffic_post') && $_voucher->signature_traffic_post) {
-          printf('<img src="/fast_dossier/image/view/%s" />', $_voucher->signature_traffic_post->document_blob_id);
-        }
-        ?>
-        </div>
-
       </div>
       <div class="autograph-container__nuisance">
         <label>Bevestiging hinderverwekker:</label>
 
-        <div class="autograph-container__nuisance__autograph">
-          <?php
-          if(property_exists($_voucher, 'signature_causer') && $_voucher->signature_causer) {
-            printf('<img src="/fast_dossier/image/view/%s" />', $_voucher->signature_causer->document_blob_id);
-          }
-          ?>
+        <div class="form-item-horizontal">
+          <div class="nuisance_value">
+            <?php print $_voucher->causer->first_name . ' ' . $_voucher->causer->last_name; ?>
+          </div>
+          <div class="nuisance_value">
+            <?php print $_voucher->causer->street . ' ' . $_voucher->causer->street_number . ' ' . $_voucher->causer->street_pobox; ?>
+          </div>
+          <div class="nuisance_value">
+            <?php print $_voucher->causer->zip . ' ' . $_voucher->causer->city; ?>
+          </div>
         </div>
-
       </div>
       <div class="autograph-container__collecting">
         <label>Bevestiging afhaler:</label>
@@ -530,22 +530,42 @@ $_dossier = $dossier->dossier;
           <label class="notbold">Datum:</label>
           <?php print form_input('vehicule_collected', mdate('%d/%m/%Y %H:%i',strtotime($_voucher->vehicule_collected))); ?>
         </div>
-
-        <div class="autograph-container__collecting__autograph">
-        <?php
-        if(property_exists($_voucher, 'signature_collector') && $_voucher->signature_collector) {
-          printf('<img src="/fast_dossier/image/view/%s" />', $_voucher->signature_collector->document_blob_id);
-        }
-        ?>
-        </div>
-
       </div>
     </div>
+    <!-- AUTHOGRAPH BUTTONS -->
+    <div class="autograph-container-buttons">
+      <div class="autograph-container__police">
+        <?php
+        $police_collecting_url = 'none';
+        if(property_exists($_voucher, 'signature_traffic_post') && $_voucher->signature_traffic_post) {
+          $police_collecting_url = "/fast_dossier/image/view/" . $_voucher->signature_traffic_post->document_blob_id;
+        }
+        ?>
+        <div class="autograph-block autograph-container__police__autograph" style="background-image: url(<?php print $police_collecting_url; ?>);"></div>
+      </div>
 
+      <div class="autograph-container__nuisance">
+        <?php
+        $nuisance_collecting_url = 'none';
+        if(property_exists($_voucher, 'signature_causer') && $_voucher->signature_causer) {
+          $nuisance_collecting_url = "/fast_dossier/image/view/" . $_voucher->signature_causer->document_blob_id;
+        }
+        ?>
+        <div class="autograph-block autograph-container__nuisance__autograph" style="background-image: url(<?php print $nuisance_collecting_url; ?>);"></div>
+      </div>
 
-
+      <div class="autograph-container__collecting">
+        <?php
+        $autograph_collecting_url = 'none';
+        if(property_exists($_voucher, 'signature_collector') && $_voucher->signature_collector) {
+          $autograph_collecting_url = "/fast_dossier/image/view/" . $_voucher->signature_collector->document_blob_id;
+        }
+        ?>
+        <div class="autograph-block autograph-container__collecting__autograph" style="background-image: url(<?php print $autograph_collecting_url; ?>);"></div>
+      </div>
+    </div>
+    <!-- END AUTOGRAPH BUTTONS -->
     <!-- END AUTOGRAPHS-->
-
   </div>
 
   <div class="form-item">
@@ -565,47 +585,48 @@ $_dossier = $dossier->dossier;
         <div class="depot-full-container__left">
           <div class="form-item-horizontal depot-full-container__depot">
             <label>Depot:</label>
-            <?php print form_input('depot-name'); ?>
+            <?php print form_input('depot-name', $_voucher->depot->name); ?>
           </div>
 
           <div class="form-item-horizontal depot-full-container__street">
             <label>Straat:</label>
-            <?php print form_input('depot-street'); ?>
+            <?php print form_input('depot-street', $_voucher->depot->street); ?>
           </div>
         </div>
         <div class="depot-full-container__right">
 
           <div class="form-item-horizontal depot-full-container__streetnr">
             <label>Nr:</label>
-            <?php print form_input('depot-nr'); ?>
+            <?php print form_input('depot-nr', $_voucher->depot->street_number); ?>
           </div>
 
           <div class="form-item-horizontal depot-full-container__streetbox">
             <label>Box:</label>
-            <?php print form_input('depot-box'); ?>
+            <?php print form_input('depot-box', $_voucher->depot->street_pobox); ?>
           </div>
 
           <div class="form-item-horizontal depot-full-container__postal">
             <label>Zip:</label>
-            <?php print form_input('depot-zip'); ?>
+            <?php print form_input('depot-zip', $_voucher->depot->zip); ?>
           </div>
 
           <div class="form-item-horizontal depot-full-container__city">
             <label>City:</label>
-            <?php print form_input('depot-city'); ?>
+            <?php print form_input('depot-city', $_voucher->depot->city); ?>
           </div>
         </div>
       </div>
-
-      <div class="form-item">
+    </div>
+    <div class="fancybox-form__actions">
+      <div class="form-item fancybox-form__actions__cancel">
         <a class="close_overlay" href="#">Annuleren</a>
       </div>
 
-      <div class="form-item">
+      <div class="form-item fancybox-form__actions__save">
         <input type="submit" value="Bewaren" name="btnDepotSave" />
       </div>
-      <?= form_close(); ?>
     </div>
+    <?= form_close(); ?>
   </div>
 
   <!-- INVOICE -->
@@ -616,16 +637,17 @@ $_dossier = $dossier->dossier;
         <div class="invoice-full-container">
             facturatie
         </div>
-
-        <div class="form-item">
-          <a class="close_overlay" href="#">Annuleren</a>
-        </div>
-
-        <div class="form-item">
-          <input type="submit" value="Bewaren" name="btnInvoiceSave" />
-        </div>
-        <?= form_close(); ?>
     </div>
+    <div class="fancybox-form__actions">
+      <div class="form-item fancybox-form__actions__cancel">
+        <a class="close_overlay" href="#">Annuleren</a>
+      </div>
+
+      <div class="form-item fancybox-form__actions__save">
+        <input type="submit" value="Bewaren" name="btnInvoiceSave" />
+      </div>
+    </div>
+    <?= form_close(); ?>
   </div>
 
   <!-- NUISANCE -->
@@ -637,17 +659,97 @@ $_dossier = $dossier->dossier;
       <div class="nuisance-full-container">
         Hinder
       </div>
-
-      <div class="form-item">
+    </div>
+    <div class="fancybox-form__actions">
+      <div class="form-item fancybox-form__actions__cancel">
         <a class="close_overlay" href="#">Annuleren</a>
       </div>
 
-      <div class="form-item">
+      <div class="form-item fancybox-form__actions__save">
         <input type="submit" value="Bewaren" name="btnNuisanceSave" />
       </div>
-      <?= form_close(); ?>
     </div>
+    <?= form_close(); ?>
   </div>
+
+
+  <!-- EMAIL -->
+  <div id="add-email-form" style="display: none;">
+    <div class="fancybox-form">
+      <h3>Email versturen</h3>
+      <?= form_open(); ?>
+
+      <div class="form-item-horizontal">
+        <label>Email:</label>
+        <?php print form_input('email'); ?>
+      </div>
+
+      <div class="form-item-horizontal">
+        <label>Onderwerp:</label>
+        <?php print form_input('email-subject'); ?>
+      </div>
+
+      <div class="form-item-horizontal">
+        <label>Bericht:</label>
+        <?php print form_textarea('email-message'); ?>
+      </div>
+
+    </div>
+    <div class="fancybox-form__actions">
+      <div class="form-item fancybox-form__actions__cancel">
+        <a class="close_overlay" href="#">Annuleren</a>
+      </div>
+
+      <div class="form-item fancybox-form__actions__save">
+        <input type="submit" value="Bewaren" name="btnEmailSave" />
+      </div>
+    </div>
+    <?= form_close(); ?>
+  </div>
+
+  <!-- NOTA -->
+  <div id="add-nota-form" style="display: none;">
+    <div class="fancybox-form">
+      <h3>Nota toevoegen</h3>
+      <?= form_open(); ?>
+
+      <div class="form-item-horizontal">
+        <label>Nota:</label>
+        <?php print form_textarea('nota'); ?>
+      </div>
+
+    </div>
+    <div class="fancybox-form__actions">
+      <div class="form-item fancybox-form__actions__cancel">
+        <a class="close_overlay" href="#">Annuleren</a>
+      </div>
+
+      <div class="form-item fancybox-form__actions__save">
+        <input type="submit" value="Bewaren" name="btnNotaSave" />
+      </div>
+    </div>
+    <?= form_close(); ?>
+  </div>
+
+  <!-- WORK -->
+  <div id="add-work-form" style="display: none;">
+    <div class="fancybox-form">
+      <h3>Werkzaamheid toevoegen</h3>
+      <?= form_open(); ?>
+
+    </div>
+    <div class="fancybox-form__actions">
+      <div class="form-item fancybox-form__actions__cancel">
+        <a class="close_overlay" href="#">Annuleren</a>
+      </div>
+
+      <div class="form-item fancybox-form__actions__save">
+        <input type="submit" value="Bewaren" name="btnWorkSave" />
+      </div>
+    </div>
+    <?= form_close(); ?>
+  </div>
+
 
 </div>
 
@@ -692,6 +794,21 @@ $(document).ready(function() {
   });
 
   $('#edit-nuisance-data-link').fancybox({
+    'scrolling'		: 'no',
+    'titleShow'		: false
+  });
+
+  $('#add-email-link').fancybox({
+    'scrolling'		: 'no',
+    'titleShow'		: false
+  });
+
+  $('#add-nota-link').fancybox({
+    'scrolling'		: 'no',
+    'titleShow'		: false
+  });
+
+  $('#add-work-link').fancybox({
     'scrolling'		: 'no',
     'titleShow'		: false
   });
