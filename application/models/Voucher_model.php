@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 require_once(APPPATH . '/models/Depot_model.php');
-//require_once(APPPATH . '/models/TowingActivity_model.php');
+require_once(APPPATH . '/models/TowingActivity_model.php');
 
 class Voucher_model  {
   public $id                          = null;
