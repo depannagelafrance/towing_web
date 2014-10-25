@@ -735,8 +735,27 @@ $_dossier = $dossier->dossier;
   <div id="add-work-form" style="display: none;">
     <div class="fancybox-form">
       <h3>Werkzaamheid toevoegen</h3>
-      <?= form_open(); ?>
+      <?php
 
+      print form_open();
+
+
+      $this->table->set_heading('Activiteit', 'Code', 'Prijs (excl. BTW)', 'Prijs (incl. BTW)');
+
+      if($available_activities && sizeof($available_activities) > 0) {
+        foreach($available_activities as $activity) {
+            $this->table->add_row(
+              sprintf('<a class="id__cell" href="#activity_%s">%s</a>', $activity->id, $activity->name),
+              $activity->code,
+              $activity->fee_excl_vat,
+              $activity->fee_incl_vat
+            );
+        }
+      }
+
+      echo $this->table->generate();
+
+      ?>
     </div>
     <div class="fancybox-form__actions">
       <div class="form-item fancybox-form__actions__cancel">

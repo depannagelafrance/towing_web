@@ -86,6 +86,21 @@ class Dossier extends Page {
 
 
   private function _loadDossierView($token, $dossier, $voucher_number = null) {
+    $_voucher = null;
+
+    if($voucher_number) {
+      for($i = 0; $i < sizeof($dossier->dossier->towing_vouchers) && !$_voucher; $i++) {
+
+        $voucher = $dossier->dossier->towing_vouchers[$i];
+
+        if($voucher->voucher_number == $voucher_number) {
+          $_voucher = $voucher;
+        }
+      }
+    } else {
+      $_voucher = $dossier->dossier->towing_vouchers[0];
+    }
+
     $this->_add_content(
       $this->load->view(
         'fast_dossier/dossier',
@@ -94,6 +109,7 @@ class Dossier extends Page {
             'voucher_number'          => $voucher_number,
             'vouchers'                => $this->dossier_service->fetchAllNewVouchers($token),
             'traffic_posts'           => $this->dossier_service->fetchAllTrafficPostsByAllotment($dossier->dossier->allotment_id, $token),
+            'available_activities'    => $this->dossier_service->fetchAllAvailableActivitiesForVoucher($dossier->dossier->id, $_voucher->id, $token),
             'insurances'              => $this->vocabulary_service->fetchAllInsurances($token),
             'collectors'              => $this->vocabulary_service->fetchAllCollectors($token),
             'licence_plate_countries' => $this->vocabulary_service->fetchAllCountryLicencePlates($token)
