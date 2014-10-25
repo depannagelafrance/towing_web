@@ -224,22 +224,17 @@ $_dossier = $dossier->dossier;
           <a class="icon--email" href="">Email</a>
         </div>
       </div>
-      <div class="dossierbar__action__item">
-        <div class="btn--icon">
-          <a class="icon--print--preview" href="/fast_dossier/report/voucher/<?=$_dossier->id?>/<?=$_voucher->id?>">Print Preview</a>
-        </div>
-      </div>
 
       <div class="dossierbar__action__item">
         <div class="btn--dropdown">
           <div class="btn--dropdown--btn btn--icon">
-            <a class="icon--print" href="">Print</a>
+            <span class="icon--print">Print</span>
           </div>
           <ul class="btn--dropdown--drop">
             <li><a href="#">Exemplaar Takeldienst</a></li>
             <li><a href="#">Exemplaar Afhaler</a></li>
             <li><a href="#">Exemplaar Klant</a></li>
-            <li><a href="#">Exemplaar op Aanvraag</a></li>
+            <li><a href="/fast_dossier/report/voucher/<?=$_dossier->id?>/<?=$_voucher->id?>">Exemplaar op Aanvraag</a></li>
           </ul>
         </div>
       </div>
@@ -503,15 +498,23 @@ $_dossier = $dossier->dossier;
         </div>
 
         <div class="autograph-container__police__autograph">
-
+        <?php
+        if(property_exists($_voucher, 'signature_traffic_post') && $_voucher->signature_traffic_post) {
+          printf('<img src="/fast_dossier/image/view/%s" />', $_voucher->signature_traffic_post->document_blob_id);
+        }
+        ?>
         </div>
 
       </div>
       <div class="autograph-container__nuisance">
-        <label>Bevestiging hinderverwerker:</label>
+        <label>Bevestiging hinderverwekker:</label>
 
         <div class="autograph-container__nuisance__autograph">
-
+          <?php
+          if(property_exists($_voucher, 'signature_causer') && $_voucher->signature_causer) {
+            printf('<img src="/fast_dossier/image/view/%s" />', $_voucher->signature_causer->document_blob_id);
+          }
+          ?>
         </div>
 
       </div>
@@ -529,7 +532,11 @@ $_dossier = $dossier->dossier;
         </div>
 
         <div class="autograph-container__collecting__autograph">
-
+        <?php
+        if(property_exists($_voucher, 'signature_collector') && $_voucher->signature_collector) {
+          printf('<img src="/fast_dossier/image/view/%s" />', $_voucher->signature_collector->document_blob_id);
+        }
+        ?>
         </div>
 
       </div>
