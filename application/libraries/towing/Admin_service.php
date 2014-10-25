@@ -37,7 +37,7 @@ class Admin_service extends Rest_service {
   }
 
   public function fetchAvailableRoles($token) {
-    return $this->CI->rest->get(sprintf('/admin/roles/%s', $token));  
+    return $this->CI->rest->get(sprintf('/admin/roles/%s', $token));
   }
 
 // -- -------------------------------------------------
@@ -109,5 +109,17 @@ class Admin_service extends Rest_service {
 
   public function deleteCollector($id, $token) {
     return $this->CI->rest->delete(sprintf('/admin/collector/%s/%s', $id, $token));
+  }
+
+
+// -- -------------------------------------------------
+// -- TIMEFRAME ACTIVITY MANAGEMENT
+// -- -------------------------------------------------
+  public function fetchAllTimeframes($token) {
+    return $this->CI->rest->get(sprintf('/admin/timeframe/%s', $token));
+  }
+
+  public function fetchAllTimeframeActivities($token) {
+    return $this->CI->rest->get(sprintf('/admin/timeframe/activities/%s', $token));
   }
 }
