@@ -122,4 +122,8 @@ class Admin_service extends Rest_service {
   public function fetchAllTimeframeActivities($token) {
     return $this->CI->rest->get(sprintf('/admin/timeframe/activities/%s', $token));
   }
+
+  public function fetchAllTimeframeActivityFees($timeframe_id, $token) {
+    return $this->CI->rest->get(sprintf('/admin/timeframe/activity/%s/fees/%s', $timeframe_id, $token));
+  }
 }
