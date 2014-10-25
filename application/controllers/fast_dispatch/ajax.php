@@ -1,9 +1,9 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-require_once(APPPATH . '/controllers/page.php');
+require_once(APPPATH . '/controllers/ajaxpage.php');
 require_once(APPPATH . '/models/Dossier_model.php');
 
-class Ajax extends Page {
+class Ajax extends AjaxPage {
     public function __construct(){
       parent::__construct();
 
@@ -27,11 +27,5 @@ class Ajax extends Page {
     $list = $this->dossier_service->fetchAvailableAllotments($direction_id, $indicator_id, $token);
 
     $this->_sendJson($list);
-  }
-
-  private function _sendJson($list) {
-    $this->output
-        ->set_content_type('application/json')
-        ->set_output(json_encode($list));
   }
 }
