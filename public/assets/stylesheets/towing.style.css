@@ -1267,6 +1267,10 @@ table a {
   float: left;
   margin-right: 5%;
 }
+.autograph-container__nuisance .nuisance_value {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
 
 .autograph-container__collecting {
   width: 30%;

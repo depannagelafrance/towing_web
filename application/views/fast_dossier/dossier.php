@@ -474,7 +474,7 @@ $_dossier = $dossier->dossier;
           <?php foreach($_voucher->towing_activities as $_activity){ ?>
             <div class="work-container__remove__btn">
               <div class="btn--icon--small">
-                <a class="icon--add--small" href="#">Remove</a>
+                <a class="icon--remove" href="#">Remove</a>
               </div>
             </div>
           <?php } ?>
@@ -507,13 +507,13 @@ $_dossier = $dossier->dossier;
         <label>Bevestiging hinderverwekker:</label>
 
         <div class="form-item-horizontal">
-          <div>
+          <div class="nuisance_value">
             <?php print $_voucher->causer->first_name . ' ' . $_voucher->causer->last_name; ?>
           </div>
-          <div>
+          <div class="nuisance_value">
             <?php print $_voucher->causer->street . ' ' . $_voucher->causer->street_number . ' ' . $_voucher->causer->street_pobox; ?>
           </div>
-          <div>
+          <div class="nuisance_value">
             <?php print $_voucher->causer->zip . ' ' . $_voucher->causer->city; ?>
           </div>
         </div>
