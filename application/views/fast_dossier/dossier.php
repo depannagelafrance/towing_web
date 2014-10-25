@@ -231,10 +231,10 @@ $_dossier = $dossier->dossier;
             <span class="icon--print">Print</span>
           </div>
           <ul class="btn--dropdown--drop">
-            <li><a href="#">Exemplaar Takeldienst</a></li>
-            <li><a href="#">Exemplaar Afhaler</a></li>
-            <li><a href="#">Exemplaar Klant</a></li>
-            <li><a href="/fast_dossier/report/voucher/<?=$_dossier->id?>/<?=$_voucher->id?>">Exemplaar op Aanvraag</a></li>
+            <li><a href="/fast_dossier/report/voucher/towing/<?=$_dossier->id?>/<?=$_voucher->id?>">Exemplaar Takeldienst</a></li>
+            <li><a href="/fast_dossier/report/voucher/collector/<?=$_dossier->id?>/<?=$_voucher->id?>">Exemplaar Afhaler</a></li>
+            <li><a href="/fast_dossier/report/voucher/customer/<?=$_dossier->id?>/<?=$_voucher->id?>">Exemplaar Klant</a></li>
+            <li><a href="/fast_dossier/report/voucher/other/<?=$_dossier->id?>/<?=$_voucher->id?>">Exemplaar op Aanvraag</a></li>
           </ul>
         </div>
       </div>

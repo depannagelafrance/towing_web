@@ -7,7 +7,7 @@ class Report_service extends Rest_service {
       parent::__construct();
     }
 
-    public function generateVoucher($dossier_id, $voucher_id, $token) {
-      return $this->CI->rest->get(sprintf('/report/towing_voucher/%s/%s', $dossier_id, $token));
+    public function generateVoucher($dossier_id, $voucher_id, $type, $token) {
+      return $this->CI->rest->get(sprintf('/report/towing_voucher/%s/%s/%s', $type, $dossier_id, $token));
     }
 }

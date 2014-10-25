@@ -12,11 +12,11 @@ class Report extends Page {
   /**
    * Index Page for this controller.
    */
-  public function voucher($dossier_id, $voucher_id)
+  public function voucher($type, $dossier_id, $voucher_id)
   {
     $token = $this->_get_user_token();
 
-    $report = $this->report_service->generateVoucher($dossier_id, $voucher_id, $token);
+    $report = $this->report_service->generateVoucher($dossier_id, $voucher_id, $type, $token);
 
     header('Pragma: public');     // required
     header('Expires: 0');         // no cache
