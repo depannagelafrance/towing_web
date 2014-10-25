@@ -233,7 +233,7 @@ $_dossier = $dossier->dossier;
       <div class="dossierbar__action__item">
         <div class="btn--dropdown">
           <div class="btn--dropdown--btn btn--icon">
-            <a class="icon--print" href="">Print</a>
+            <span class="icon--print">Print</span>
           </div>
           <ul class="btn--dropdown--drop">
             <li><a href="#">Exemplaar Takeldienst</a></li>
