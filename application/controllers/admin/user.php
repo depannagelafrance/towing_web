@@ -286,7 +286,7 @@ class User extends Page {
   
       if(!$users){
           $this->_add_content('Geen gebruikers gevonden!');
-      } else if (!is_array($user) && property_exists($users, 'statusCode')) {
+      } else if (!is_array($users) && property_exists($users, 'statusCode')) {
           $this->_add_error(sprintf('Fout bij het ophalen van gebruikers (%d - %s)', $result->statusCode, $result->message));
       } else {
           $this->_add_content(
