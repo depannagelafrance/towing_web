@@ -1,6 +1,6 @@
 <div style="width: 800px; margin: auto;">
 
-  <?php echo form_open('admin/user/update')?>
+  <?php echo form_open('admin/user/edit')?>
     <div class="form-item">
 	<input type="text" placeholder="Login"
 		value="<?php print set_value('login', $users->login); ?>" name="login" />

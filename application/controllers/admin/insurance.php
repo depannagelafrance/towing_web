@@ -174,52 +174,6 @@ class Insurance extends Page {
   }
 
   /**
-   * Save edited insurance
-   */
-  public function updateInsurance(){
-      // edit-form  was posted
-      if($this->input->post('submit')){
-
-          $this->load->library("form_validation");
-          $this->form_validation->set_rules('name', 'name', 'required');
-          // validate form
-          if (!$this->form_validation->run())
-          {
-              $this->_add_content(
-                      $this->load->view(
-                              'admin/insurance/edit',
-                              array(
-
-                              ),
-                              true
-                      )
-              );
-          }
-          else
-          {
-              //form is valid -> save new data
-              $this->load->model('vocabulary_model');
-              $result = $this->admin_service->updateInsurance($this->vocabulary_model->initialise($this->input->post()), $this->_get_user_token());
-              // redirect to insurance overview
-              redirect('/admin/insurance', 'refresh');
-          }
-      }
-      // GET, so display edit-form
-      else
-      {
-          $this->_add_content(
-                  $this->load->view(
-                          'admin/insurances/edit',
-                          array(
-                          ),
-                          true
-                  )
-          );
-      }
-      $this->_render_page();
-  }
-
-  /**
    * Delete an insurance
    * @param string $id
    */
@@ -234,7 +188,7 @@ class Insurance extends Page {
       }
       else
       {
-        $this->session->set_flashdata('_INFO_MSG', "Item werd verwijdert");
+        $this->session->set_flashdata('_INFO_MSG', "Item werd verwijderd");
 
         redirect("/admin/insurance");
       }
