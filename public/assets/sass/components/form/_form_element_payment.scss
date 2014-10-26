@@ -1,0 +1,18 @@
+.payment-container{
+  border-top: 1px solid #EEE;
+  margin-top: 30px;
+  padding-top: 10px;
+}
+
+.payment-container__insurance,
+.payment-container__amount_customer,
+.payment-container__paid_in_cash,
+.payment-container__paid_by_bank_deposit,
+.payment-container__paid_by_debit_card,
+.payment-container__paid_by_credit_card,
+.payment-container__cal_amount_paid,
+.payment-container__cal_amount_unpaid{
+  width: 10%;
+  float: left;
+  margin-right: 2%;
+}

@@ -482,8 +482,56 @@ $_dossier = $dossier->dossier;
             <a id="add-work-link" class="inform-link" href="#add-work-form">Werkzaamheid toevoegen</a>
           </div>
         </div>
+
+        <!--PAYMENT-->
+        <div class="form-item-vertical payment-container">
+          <div class="form-item-vertical payment-container__insurance">
+            <label class="notbold">Garantie:</label>
+            <?php print form_input('amount_guaranteed_by_insurance', $_voucher->towing_payments->amount_guaranteed_by_insurance); ?>
+          </div>
+
+          <div class="form-item-vertical payment-container__amount_customer">
+            <label class="notbold">Te betalen:</label>
+            <?php print form_input('amount_customer', $_voucher->towing_payments->amount_customer); ?>
+          </div>
+
+          <div class="form-item-vertical payment-container__paid_in_cash">
+            <label class="notbold">Contant:</label>
+            <?php print form_input('paid_in_cash', $_voucher->towing_payments->paid_in_cash); ?>
+          </div>
+
+          <div class="form-item-vertical payment-container__paid_by_bank_deposit">
+            <label class="notbold">Overschrijving:</label>
+            <?php print form_input('paid_by_bank_deposit', $_voucher->towing_payments->paid_by_bank_deposit); ?>
+          </div>
+
+          <div class="form-item-vertical payment-container__paid_by_debit_card">
+            <label class="notbold">Maestro:</label>
+            <?php print form_input('paid_by_debit_card', $_voucher->towing_payments->paid_by_debit_card); ?>
+          </div>
+
+          <div class="form-item-vertical payment-container__paid_by_credit_card">
+            <label class="notbold">Creditcard:</label>
+            <?php print form_input('paid_by_credit_card', $_voucher->towing_payments->paid_by_credit_card); ?>
+          </div>
+
+          <div class="form-item-vertical payment-container__cal_amount_paid">
+            <label class="notbold">Betaald:</label>
+            <?php print form_input('cal_amount_paid', $_voucher->towing_payments->cal_amount_paid); ?>
+          </div>
+
+          <div class="form-item-vertical payment-container__cal_amount_unpaid">
+            <label class="notbold">Openstaand:</label>
+            <?php print form_input('cal_amount_unpaid', $_voucher->towing_payments->cal_amount_unpaid); ?>
+          </div>
+
+        </div>
+
+
       </div>
       <!-- END WORK-->
+
+
 
       <!--AUTOGRAPHS-->
       <div class="autograph-container">
@@ -617,40 +665,41 @@ $_dossier = $dossier->dossier;
   <div id="edit-depot-form" style="display: none;">
     <div class="fancybox-form">
       <h3>Depot Bewerken</h3>
-      <?= form_open(); ?>
+      <?php $depot_hidden = array('id' => $_voucher->depot->id, 'vid' => $_voucher->id, 'did' => $_dossier->id); ?>
+      <?php print form_open('','',$depot_hidden); ?>
       <!-- DEPOT -->
       <div class="depot-full-container">
         <div class="depot-full-container__left">
           <div class="form-item-horizontal depot-full-container__depot">
             <label>Depot:</label>
-            <?php print form_input('depot-name', $_voucher->depot->name); ?>
+            <?php print form_input('name', $_voucher->depot->name); ?>
           </div>
 
           <div class="form-item-horizontal depot-full-container__street">
             <label>Straat:</label>
-            <?php print form_input('depot-street', $_voucher->depot->street); ?>
+            <?php print form_input('street', $_voucher->depot->street); ?>
           </div>
         </div>
         <div class="depot-full-container__right">
 
           <div class="form-item-horizontal depot-full-container__streetnr">
             <label>Nr:</label>
-            <?php print form_input('depot-nr', $_voucher->depot->street_number); ?>
+            <?php print form_input('street_number', $_voucher->depot->street_number); ?>
           </div>
 
           <div class="form-item-horizontal depot-full-container__streetbox">
             <label>Box:</label>
-            <?php print form_input('depot-box', $_voucher->depot->street_pobox); ?>
+            <?php print form_input('street_pobox', $_voucher->depot->street_pobox); ?>
           </div>
 
           <div class="form-item-horizontal depot-full-container__postal">
             <label>Zip:</label>
-            <?php print form_input('depot-zip', $_voucher->depot->zip); ?>
+            <?php print form_input('zip', $_voucher->depot->zip); ?>
           </div>
 
           <div class="form-item-horizontal depot-full-container__city">
             <label>City:</label>
-            <?php print form_input('depot-city', $_voucher->depot->city); ?>
+            <?php print form_input('city', $_voucher->depot->city); ?>
           </div>
         </div>
       </div>
@@ -664,7 +713,7 @@ $_dossier = $dossier->dossier;
         <input type="submit" value="Bewaren" name="btnDepotSave" />
       </div>
     </div>
-    <?= form_close(); ?>
+    <?php print form_close(); ?>
   </div>
 
 
@@ -794,7 +843,7 @@ $_dossier = $dossier->dossier;
           <?php print form_input('causer-street_number', $_voucher->causer->street_number); ?>
         </div>
         <div class="form-item-horizontal nuisance-full-container__street_pobox">
-          <label>Po box:</label>
+          <label>Bus:</label>
           <?php print form_input('causer-street_pobox', $_voucher->causer->street_pobox); ?>
         </div>
       </div>
@@ -1004,6 +1053,49 @@ $(document).ready(function() {
 
   $('.close_overlay').click(function(){
     parent.$.fancybox.close();
+    return false;
+  });
+
+
+  $('#edit-depot-form form').bind('submit', function() {
+
+    /* /depot/:dossier/:voucher/:token */
+
+
+    var values = {};
+    var vid = '';
+    var did = '';
+    $.each($(this).serializeArray(), function(i, field) {
+      if(field.name == 'vid'){
+        vid = parseInt(field.value);
+      }else if(field.name == 'did'){
+        did = parseInt(field.value);
+      }else if(field.name == 'id' || field.name == 'street_number' || field.name == 'street_pobox' || field.name == 'zip'){
+        values[field.name] = parseInt(field.value);
+      }else{
+        values[field.name] = field.value;
+      }
+    });
+
+    var depot = {'depot' : values};
+    console.log(depot);
+
+    if(vid != '' && did != ''){
+
+      $.ajax({
+        type		: "POST",
+        cache	: false,
+        url		: "/fast_dossier/ajax/updatedepot/" + did + '/' + vid,
+        data		: {'depot' : values},
+        success: function(data) {
+          console.log(data);
+        }
+      });
+
+    }
+
+
+
     return false;
   });
 

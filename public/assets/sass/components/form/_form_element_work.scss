@@ -1,8 +1,9 @@
 .work-container{
   @include clearfix;
+
   position: relative;
   padding-top: 10px;
-  padding-bottom: 30px;
+  padding-bottom: 0px;
   border-top: 1px solid #EEE;
   border-bottom: 1px solid #EEE;
   margin-bottom: 30px;
@@ -90,5 +91,5 @@
   float: left;
 }
 .work-container__actions{
-
+  @include clearfix;
 }

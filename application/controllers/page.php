@@ -150,6 +150,7 @@ class Page extends CI_Controller {
 				return $data->token;
 			}
 
+
 			return null;
 		}
 
