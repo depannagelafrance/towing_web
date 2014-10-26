@@ -1,0 +1,86 @@
+.nuisance-full-container{
+
+  label{
+    width: 25%;
+  }
+
+  input{
+    width: 75%;
+  }
+
+}
+
+.nuisance-full-container__name,
+.nuisance-full-container__company,
+.nuisance-full-container__address__street,
+.nuisance-full-container__address__city,
+.nuisance-full-container__contact{
+  @include clearfix;
+}
+
+.nuisance-full-container__first_name,
+.nuisance-full-container__last_name{
+  float: left;
+  width: 47.5%;
+}
+.nuisance-full-container__first_name{
+  margin-right: 5%;
+}
+
+.nuisance-full-container__company_name,
+.nuisance-full-container__company_vat{
+  float: left;
+  width: 47.5%;
+}
+.nuisance-full-container__company_name{
+  margin-right: 5%;
+}
+
+.nuisance-full-container__street{
+  float: left;
+  width: 47.5%;
+  margin-right: 5%;
+}
+
+.nuisance-full-container__street_number{
+  float: left;
+  width: 25%;
+  input{
+    width: 53%;
+  }
+}
+
+.nuisance-full-container__street_pobox{
+  float: right;
+  width: 20%;
+}
+
+.nuisance-full-container__zip,
+.nuisance-full-container__city{
+  float: left;
+  width: 47.5%;
+}
+.nuisance-full-container__zip{
+  margin-right: 5%;
+}
+
+.nuisance-full-container__country{
+
+  label{
+    width: 12%;
+  }
+
+  input{
+    width: 88%;
+  }
+
+}
+
+.nuisance-full-container__phone,
+.nuisance-full-container__email{
+  float: left;
+  width: 47.5%;
+}
+.nuisance-full-container__phone{
+  margin-right: 5%;
+}

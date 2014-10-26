@@ -1,6 +1,6 @@
 .dsform{
 
-  padding: 0px 15px;
+  @include clearfix;
 
 }
 
@@ -34,5 +34,14 @@
     width: 45%;
 
   }
+
+}
+
+
+.dsform_seperation{
+
+  border-top: 1px solid #EEE;
+  padding-top: 20px;
+  margin-top: 20px;
 
 }

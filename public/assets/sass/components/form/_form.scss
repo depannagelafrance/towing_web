@@ -71,3 +71,33 @@
   }
 
 }
+
+.form__actions{
+
+  width: 100%;
+  background-color: #EEE;
+  border-top: 1px solid #E9E9E9;
+  padding: 0 25px;
+  @include clearfix;
+
+}
+
+.form__actions__cancel{
+
+  float: float;
+  width: 50%;
+
+}
+
+.form__actions__save{
+
+  float: right;
+  width: 20%;
+
+}
+
+.inner_padding{
+
+  padding: 20px;
+
+}

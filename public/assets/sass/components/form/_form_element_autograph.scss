@@ -71,16 +71,52 @@
 }
 
 .autograph-block{
+  position: relative;
   background-repeat: no-repeat;
   background-position: center center;
-  background-attachment: scroll;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+  background-color: #EEE;
   border: 1px solid #EEE;
   height: 160px;
   margin-bottom: 15px;
   margin-top: 15px;
-  @include border-radius(7px);
+  @include border-radius(2px);
+
+  .inform-link{
+    display: block;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #F4F4F4;
+    @include border-radius(50%);
+    width: 40px;
+    height: 40px;
+    background-position: -599px -76px;
+    border: 1px solid #EEE;
+
+    &:hover{
+      border: 1px dotted #CCC;
+    }
+  }
+
+  &.active{
+    background-color: #FFF;
+  }
+}
+
+.add_autograph{
+  position: absolute;
+  top: 61px;
+  text-align: center;
+  width: 75%;
+  display: block;
+  background: #6f6f6f;
+  padding: 16px 15px;
+  left: 13%;
+  color: #FFF;
+  border-radius: 3px;
+  text-decoration: none;
+  &:hover{
+    color: #FFF;
+    background: darken(#6f6f6f, 5%);
+  }
 }

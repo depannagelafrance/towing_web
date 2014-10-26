@@ -57,7 +57,7 @@ input[type="button"]{
   height: 34px;
   display: block;
   border: none;
-  background-color: $form_submit_bg_color;
+  background-color: #4285f4;
   color: $form_submit_color;
 
   &:hover{
@@ -73,7 +73,6 @@ input[type="button"]{
 .edit-view input[type="button"]{
 
   width: 100%;
-  font-size: 15px;
   height: 45px;
 
 

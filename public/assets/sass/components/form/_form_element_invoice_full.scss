@@ -1,0 +1,86 @@
+.invoice-full-container{
+
+  label{
+    width: 25%;
+  }
+
+  input{
+    width: 75%;
+  }
+
+}
+
+.invoice-full-container__name,
+.invoice-full-container__company,
+.invoice-full-container__address__street,
+.invoice-full-container__address__city,
+.invoice-full-container__contact{
+  @include clearfix;
+}
+
+.invoice-full-container__first_name,
+.invoice-full-container__last_name{
+  float: left;
+  width: 47.5%;
+}
+.invoice-full-container__first_name{
+  margin-right: 5%;
+}
+
+.invoice-full-container__company_name,
+.invoice-full-container__company_vat{
+  float: left;
+  width: 47.5%;
+}
+.invoice-full-container__company_name{
+  margin-right: 5%;
+}
+
+.invoice-full-container__street{
+  float: left;
+  width: 47.5%;
+  margin-right: 5%;
+}
+
+.invoice-full-container__street_number{
+  float: left;
+  width: 25%;
+  input{
+    width: 53%;
+  }
+}
+
+.invoice-full-container__street_pobox{
+  float: right;
+  width: 20%;
+}
+
+.invoice-full-container__zip,
+.invoice-full-container__city{
+  float: left;
+  width: 47.5%;
+}
+.invoice-full-container__zip{
+  margin-right: 5%;
+}
+
+.invoice-full-container__country{
+
+  label{
+    width: 12%;
+  }
+
+  input{
+    width: 88%;
+  }
+
+}
+
+.invoice-full-container__phone,
+.invoice-full-container__email{
+  float: left;
+  width: 47.5%;
+}
+.invoice-full-container__phone{
+  margin-right: 5%;
+}

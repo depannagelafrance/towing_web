@@ -10,6 +10,22 @@
   input{
     margin-bottom: 5px;
   }
+
+  .inform-link{
+
+    background: #6f6f6f;
+    padding: 16px 25px;
+    display: block;
+    color: $white;
+    border-radius: 4px;
+    text-decoration: none;
+
+    &:hover{
+      background: darken(#6f6f6f, 5%);
+    }
+
+  }
+
 }
 
 .work-container__task{

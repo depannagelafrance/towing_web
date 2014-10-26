@@ -2,14 +2,23 @@
 
   @include clearfix;
   margin-bottom: 15px;
+  padding: 10px 20px;
 
 }
 
 .detailbar__row{
 
-  width: 33.33%;
+  width: 50%;
   float: left;
-  padding: 10px;
-  padding-left: 35px;
+  @include clearfix;
 
+  label{
+    width: 30%;
+    float: left;
+  }
+
+  .value{
+    width: 70%;
+    float: left;
+  }
 }

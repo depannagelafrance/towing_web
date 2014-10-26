@@ -385,7 +385,6 @@ input[type="button"]:hover {
 .edit-view input[type="submit"],
 .edit-view input[type="button"] {
   width: 100%;
-  font-size: 15px;
   height: 45px;
 }
 
@@ -714,6 +713,7 @@ table a {
 
 .detailbar {
   margin-bottom: 15px;
+  padding: 10px 20px;
 }
 .detailbar:after {
   content: "";
@@ -722,10 +722,21 @@ table a {
 }
 
 .detailbar__row {
-  width: 33.33%;
+  width: 50%;
   float: left;
-  padding: 10px;
-  padding-left: 35px;
+}
+.detailbar__row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.detailbar__row label {
+  width: 30%;
+  float: left;
+}
+.detailbar__row .value {
+  width: 70%;
+  float: left;
 }
 
 .dossierbar {
@@ -748,7 +759,7 @@ table a {
 
 .dossierbar__id {
   float: left;
-  padding: 20px 40px;
+  padding: 20px 37px;
   height: 53px;
   background: #F5F5F5 !important;
   -moz-border-radius: 1px;
@@ -788,7 +799,7 @@ table a {
   color: #868685;
 }
 .dossierbar__id.has_icon {
-  padding-left: 50px;
+  padding-left: 58px;
 }
 
 .dossierbar__mainactions {
@@ -886,6 +897,7 @@ table a {
 
 .idbar {
   margin-bottom: 15px;
+  position: relative;
 }
 .idbar:after {
   content: "";
@@ -933,6 +945,17 @@ table a {
 
 .idbar__id__value {
   float: left;
+}
+
+.idbar__incident {
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: #EEE;
+  padding: 12px 50px;
+  position: absolute;
+  top: 8px;
+  right: 8px;
 }
 
 .l-topbar .l-topbar-content {
@@ -1140,8 +1163,10 @@ table a {
   background-position: 0 7px;
 }
 
-.dsform {
-  padding: 0px 15px;
+.dsform:after {
+  content: "";
+  display: table;
+  clear: both;
 }
 
 .dsform__clearfix:after {
@@ -1165,6 +1190,12 @@ table a {
 }
 .dsform__right label {
   width: 45%;
+}
+
+.dsform_seperation {
+  border-top: 1px solid #EEE;
+  padding-top: 20px;
+  margin-top: 20px;
 }
 
 .form-item, .form-item-horizontal, .form-item-vertical {
@@ -1225,6 +1256,32 @@ table a {
   padding: 8px 2px 8px 2px;
 }
 
+.form__actions {
+  width: 100%;
+  background-color: #EEE;
+  border-top: 1px solid #E9E9E9;
+  padding: 0 25px;
+}
+.form__actions:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.form__actions__cancel {
+  float: float;
+  width: 50%;
+}
+
+.form__actions__save {
+  float: right;
+  width: 20%;
+}
+
+.inner_padding {
+  padding: 20px;
+}
+
 .assistance-container:after {
   content: "";
   display: table;
@@ -1234,6 +1291,9 @@ table a {
   width: 75% !important;
   float: left;
   margin-right: 0;
+}
+.assistance-container input input, .assistance-container .chosen-container input {
+  width: 100% !important;
 }
 .assistance-container label {
   width: 22%;
@@ -1287,20 +1347,55 @@ table a {
 }
 
 .autograph-block {
+  position: relative;
   background-repeat: no-repeat;
   background-position: center center;
-  background-attachment: scroll;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+  background-color: #EEE;
   border: 1px solid #EEE;
   height: 160px;
   margin-bottom: 15px;
   margin-top: 15px;
-  -moz-border-radius: 7px;
-  -webkit-border-radius: 7px;
-  border-radius: 7px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+}
+.autograph-block .inform-link {
+  display: block;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #F4F4F4;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  background-position: -599px -76px;
+  border: 1px solid #EEE;
+}
+.autograph-block .inform-link:hover {
+  border: 1px dotted #CCC;
+}
+.autograph-block.active {
+  background-color: #FFF;
+}
+
+.add_autograph {
+  position: absolute;
+  top: 61px;
+  text-align: center;
+  width: 75%;
+  display: block;
+  background: #6f6f6f;
+  padding: 16px 15px;
+  left: 13%;
+  color: #FFF;
+  border-radius: 3px;
+  text-decoration: none;
+}
+.add_autograph:hover {
+  color: #FFF;
+  background: #626262;
 }
 
 .depot-full-container {
@@ -1366,10 +1461,43 @@ table a {
   width: 50%;
 }
 
+.depot-container {
+  margin-top: 15px;
+  position: relative;
+  padding: 15px 25px;
+  border: 1px solid #EEE;
+  margin-right: 3%;
+  background: #EEE;
+}
 .depot-container:after {
   content: "";
   display: table;
   clear: both;
+}
+.depot-container .inform-link {
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  background-color: #F4F4F4;
+  border: 1px solid #EEE;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  background-position: -599px -76px;
+}
+.depot-container .inform-link:hover {
+  border: 1px dotted #CCC;
+}
+.depot-container label {
+  float: left;
+  width: 22%;
+}
+.depot-container .depot-container__name {
+  float: left;
+  width: 55%;
+  margin-left: 3%;
 }
 
 .dossiernr-container:after {
@@ -1388,8 +1516,35 @@ table a {
 }
 
 .facturation-container {
-  width: 50%;
+  width: 45%;
   float: left;
+  padding: 15px 25px;
+  border: 1px solid #EEE;
+  margin-right: 5%;
+  background: #EEE;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  text-align: center;
+  padding-bottom: 30px;
+  position: relative;
+}
+.facturation-container .inform-link {
+  display: block;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #F4F4F4;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  background-position: -599px -76px;
+  border: 1px solid #EEE;
+}
+.facturation-container .inform-link:hover {
+  border: 1px dotted #CCC;
 }
 
 .facturation-container__info {
@@ -1401,9 +1556,121 @@ table a {
   padding-bottom: 3px;
 }
 
-.nuisance-container {
-  width: 50%;
+.invoice-full-container label {
+  width: 25%;
+}
+.invoice-full-container input {
+  width: 75%;
+}
+
+.invoice-full-container__name:after,
+.invoice-full-container__company:after,
+.invoice-full-container__address__street:after,
+.invoice-full-container__address__city:after,
+.invoice-full-container__contact:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.invoice-full-container__first_name,
+.invoice-full-container__last_name {
   float: left;
+  width: 47.5%;
+}
+
+.invoice-full-container__first_name {
+  margin-right: 5%;
+}
+
+.invoice-full-container__company_name,
+.invoice-full-container__company_vat {
+  float: left;
+  width: 47.5%;
+}
+
+.invoice-full-container__company_name {
+  margin-right: 5%;
+}
+
+.invoice-full-container__street {
+  float: left;
+  width: 47.5%;
+  margin-right: 5%;
+}
+
+.invoice-full-container__street_number {
+  float: left;
+  width: 25%;
+}
+.invoice-full-container__street_number input {
+  width: 53%;
+}
+
+.invoice-full-container__street_pobox {
+  float: right;
+  width: 20%;
+}
+
+.invoice-full-container__zip,
+.invoice-full-container__city {
+  float: left;
+  width: 47.5%;
+}
+
+.invoice-full-container__zip {
+  margin-right: 5%;
+}
+
+.invoice-full-container__country label {
+  width: 12%;
+}
+.invoice-full-container__country input {
+  width: 88%;
+}
+
+.invoice-full-container__phone,
+.invoice-full-container__email {
+  float: left;
+  width: 47.5%;
+}
+
+.invoice-full-container__phone {
+  margin-right: 5%;
+}
+
+.nuisance-container {
+  width: 45%;
+  float: left;
+  padding: 15px 25px;
+  border: 1px solid #EEE;
+  margin-right: 3%;
+  background: #EEE;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  text-align: center;
+  padding-bottom: 30px;
+  position: relative;
+}
+.nuisance-container .inform-link {
+  width: 40px;
+  height: 40px;
+  display: block;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #F4F4F4;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  background-position: -599px -76px;
+  border: 1px solid #EEE;
+}
+.nuisance-container .inform-link:hover {
+  border: 1px dotted #CCC;
 }
 
 .nuisance-container__info {
@@ -1413,6 +1680,89 @@ table a {
 .nuisance-container__info div {
   padding-top: 6px;
   padding-bottom: 3px;
+}
+
+.nuisance-full-container label {
+  width: 25%;
+}
+.nuisance-full-container input {
+  width: 75%;
+}
+
+.nuisance-full-container__name:after,
+.nuisance-full-container__company:after,
+.nuisance-full-container__address__street:after,
+.nuisance-full-container__address__city:after,
+.nuisance-full-container__contact:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.nuisance-full-container__first_name,
+.nuisance-full-container__last_name {
+  float: left;
+  width: 47.5%;
+}
+
+.nuisance-full-container__first_name {
+  margin-right: 5%;
+}
+
+.nuisance-full-container__company_name,
+.nuisance-full-container__company_vat {
+  float: left;
+  width: 47.5%;
+}
+
+.nuisance-full-container__company_name {
+  margin-right: 5%;
+}
+
+.nuisance-full-container__street {
+  float: left;
+  width: 47.5%;
+  margin-right: 5%;
+}
+
+.nuisance-full-container__street_number {
+  float: left;
+  width: 25%;
+}
+.nuisance-full-container__street_number input {
+  width: 53%;
+}
+
+.nuisance-full-container__street_pobox {
+  float: right;
+  width: 20%;
+}
+
+.nuisance-full-container__zip,
+.nuisance-full-container__city {
+  float: left;
+  width: 47.5%;
+}
+
+.nuisance-full-container__zip {
+  margin-right: 5%;
+}
+
+.nuisance-full-container__country label {
+  width: 12%;
+}
+.nuisance-full-container__country input {
+  width: 88%;
+}
+
+.nuisance-full-container__phone,
+.nuisance-full-container__email {
+  float: left;
+  width: 47.5%;
+}
+
+.nuisance-full-container__phone {
+  margin-right: 5%;
 }
 
 .signa-container:after {
@@ -1520,6 +1870,11 @@ table a {
   width: 50%;
 }
 
+.vehicule-container {
+  border-top: 1px solid #EEE;
+  padding-top: 20px;
+  margin-top: 10px;
+}
 .vehicule-container:after {
   content: "";
   display: table;
@@ -1598,6 +1953,17 @@ table a {
 }
 .work-container input {
   margin-bottom: 5px;
+}
+.work-container .inform-link {
+  background: #6f6f6f;
+  padding: 16px 25px;
+  display: block;
+  color: #FFFFFF;
+  border-radius: 4px;
+  text-decoration: none;
+}
+.work-container .inform-link:hover {
+  background: #626262;
 }
 
 .work-container__task {

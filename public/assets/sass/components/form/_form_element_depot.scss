@@ -1,3 +1,42 @@
 .depot-container{
   @include clearfix;
+  margin-top: 15px;
+  position: relative;
+
+  padding: 15px 25px;
+  border: 1px solid #EEE;
+  margin-right: 3%;
+  background: #EEE;
+
+
+  .inform-link{
+
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    background-color: #F4F4F4;
+    border: 1px solid #EEE;
+    @include border-radius(50%);
+    width: 40px;
+    height: 40px;
+    background-position: -599px -76px;
+
+    &:hover{
+      border: 1px dotted #CCC;
+    }
+
+  }
+
+  label{
+    float: left;
+    width: 22%;
+  }
+
+  .depot-container__name{
+    float: left;
+    width: 55%;
+    margin-left: 3%;
+  }
+
 }
+
