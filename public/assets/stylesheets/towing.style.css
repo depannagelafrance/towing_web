@@ -1585,6 +1585,11 @@ table a {
 
 .work-container {
   position: relative;
+  padding-top: 10px;
+  padding-bottom: 30px;
+  border-top: 1px solid #EEE;
+  border-bottom: 1px solid #EEE;
+  margin-bottom: 30px;
 }
 .work-container:after {
   content: "";
@@ -1670,7 +1675,7 @@ table a {
   float: right;
 }
 
-.icon, .icon--user, .icon--settings, .icon--off, .icon--edit, .icon--edit--small, .icon--add, .icon--clock, .icon--date, .icon--arrow--down, .icon--arrow--left, .icon--arrow--right, .icon--phone, .icon--remove, .icon--attachement, .icon--nota, .icon--email, .icon--print--preview, .icon--print, .icon--plus {
+.icon, .icon--user, .icon--settings, .icon--off, .icon--edit, .icon--edit--small, .icon--add, .icon--clock, .icon--date, .icon--arrow--down, .icon--arrow--left, .icon--arrow--right, .icon--phone, .icon--remove, .icon--attachement, .icon--nota, .icon--email, .icon--print--preview, .icon--print, .icon--plus, .icon--remove--small {
   width: 55px;
   height: 50px;
   background-image: url('../images/icons/icons.png');
@@ -1846,6 +1851,13 @@ table a {
 }
 .bright .icon--ticket {
   background-position: -337px -342px;
+}
+
+.icon--remove--small {
+  background-position: -404px -276px;
+}
+.bright .icon--remove--small {
+  background-position: -404px -340px;
 }
 
 .msg {

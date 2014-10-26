@@ -474,7 +474,7 @@ $_dossier = $dossier->dossier;
           <?php foreach($_voucher->towing_activities as $_activity){ ?>
             <div class="work-container__remove__btn">
               <div class="btn--icon--small">
-                <a class="icon--remove" href="#">Remove</a>
+                <a class="icon--remove--small" href="#">Remove</a>
               </div>
             </div>
           <?php } ?>

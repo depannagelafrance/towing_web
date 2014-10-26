@@ -434,3 +434,22 @@
   }
 
 }
+
+// .icon--remove--small
+//
+// Markup:
+// <div class="icon--remove--small"></div>
+//
+// Styleguide 1.0.22
+
+.icon--remove--small{
+  @extend .icon;
+  background-position: -404px -276px;
+
+  .bright & {
+
+    background-position: -404px -340px;
+
+  }
+
+}
