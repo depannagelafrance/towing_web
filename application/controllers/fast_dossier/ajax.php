@@ -14,6 +14,7 @@ class Ajax extends AjaxPage {
 
   public function updateDepot($dossier_id, $voucher_id)
   {
+
     $token = $this->_get_user_token();
 
     $depot = new Depot_model($this->input->post('depot'));

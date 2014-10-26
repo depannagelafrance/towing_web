@@ -1061,43 +1061,38 @@ $(document).ready(function() {
 
     /* /depot/:dossier/:voucher/:token */
 
+    var vid;
+    var did;
 
-    var values = {};
-    var vid = '';
-    var did = '';
-    $.each($(this).serializeArray(), function(i, field) {
-      if(field.name == 'vid'){
-        vid = parseInt(field.value);
-      }else if(field.name == 'did'){
-        did = parseInt(field.value);
-      }else if(field.name == 'id' || field.name == 'street_number' || field.name == 'street_pobox' || field.name == 'zip'){
-        values[field.name] = parseInt(field.value);
+    var formObj = {};
+    var inputs = $(this).serializeArray();
+    $.each(inputs, function (i, input) {
+      if(input.name == 'vid'){
+        vid = parseInt(input.value);
+      }else if(input.name == 'did'){
+        did = parseInt(input.value);
       }else{
-        values[field.name] = field.value;
+        formObj[input.name] = input.value;
       }
     });
 
-    var depot = {'depot' : values};
-    console.log(depot);
+    $.ajax({
+      type		: "POST",
+      cache	: false,
+      url		: "/fast_dossier/ajax/updatedepot/" + did + '/' + vid,
+      data		: {'depot' : formObj},
+      success: function(data) {
+        console.log(data);
+      }
+    });
 
-    if(vid != '' && did != ''){
-
-      $.ajax({
-        type		: "POST",
-        cache	: false,
-        url		: "/fast_dossier/ajax/updatedepot/" + did + '/' + vid,
-        data		: {'depot' : values},
-        success: function(data) {
-          console.log(data);
-        }
-      });
-
-    }
 
 
 
     return false;
   });
+
+
 
 });
 

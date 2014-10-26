@@ -13,13 +13,26 @@ class Depot_model  {
 
   public function __construct($data = null) {
     if($data) {
-      $this->id             = $data->id;
-      $this->name           = $data->name;
-      $this->street         = $data->street;
-      $this->street_number  = $data->street_number;
-      $this->street_pobox   = $data->street_pobox;
-      $this->zip            = $data->zip;
-      $this->city           = $data->city;
+
+      if(is_array ($data)){
+        $this->id             = $data['id'];
+        $this->name           = $data['name'];
+        $this->street         = $data['street'];
+        $this->street_number  = $data['street_number'];
+        $this->street_pobox   = $data['street_pobox'];
+        $this->zip            = $data['zip'];
+        $this->city           = $data['city'];
+      }else{
+        $this->id             = $data->id;
+        $this->name           = $data->name;
+        $this->street         = $data->street;
+        $this->street_number  = $data->street_number;
+        $this->street_pobox   = $data->street_pobox;
+        $this->zip            = $data->zip;
+        $this->city           = $data->city;
+      }
+
+
     }
   }
 }

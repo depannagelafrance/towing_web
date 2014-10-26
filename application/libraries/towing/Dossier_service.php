@@ -105,8 +105,10 @@ class Dossier_service extends Rest_service {
       $_depot = new stdClass();
       $_depot->depot = $depot;
 
+      print_r(json_encode($_depot));
+
       return $this->CI->rest->put(
-          sprintf('/dossier/depot/:dossier/:voucher/:token', $dossier_id, $voucher_id, $token),
+          sprintf('/dossier/depot/%s/%s/%s', $dossier_id, $voucher_id, $token),
           json_encode($_depot),
           'application/json'
       );
@@ -118,7 +120,7 @@ class Dossier_service extends Rest_service {
       $_value->customer = $data;
 
       return $this->CI->rest->put(
-          sprintf('/dossier/customer/:dossier/:voucher/:token', $dossier_id, $voucher_id, $token),
+          sprintf('/dossier/customer/%s/%s/%s', $dossier_id, $voucher_id, $token),
           json_encode($_value),
           'application/json'
       );
@@ -130,7 +132,7 @@ class Dossier_service extends Rest_service {
       $_value->causer = $data;
 
       return $this->CI->rest->put(
-          sprintf('/dossier/causer/:dossier/:voucher/:token', $dossier_id, $voucher_id, $token),
+          sprintf('/dossier/causer/%s/%s/%s', $dossier_id, $voucher_id, $token),
           json_encode($_value),
           'application/json'
       );
