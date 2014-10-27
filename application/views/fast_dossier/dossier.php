@@ -361,7 +361,7 @@ $_dossier = $dossier->dossier;
           <!--DEPOT-->
           <div class="form-item-horizontal depot-container">
             <label>Depot:</label>
-            <div class="depot-container__name"><?php print $_voucher->depot->display_name; ?></div>
+            <div id="edit-depot-data" class="depot-container__name"><?php print $_voucher->depot->display_name; ?></div>
             <a id="edit-depot-link" class="inform-link icon--edit--small" href="#edit-depot-form">Bewerken</a>
           </div>
           <!-- END DEPOT-->
@@ -665,7 +665,7 @@ $_dossier = $dossier->dossier;
   <div id="edit-depot-form" style="display: none;">
     <div class="fancybox-form">
       <h3>Depot Bewerken</h3>
-      <?php $depot_hidden = array('id' => $_voucher->depot->id, 'vid' => $_voucher->id, 'did' => $_dossier->id); ?>
+      <?php $depot_hidden = array('id' => $_voucher->depot->id, 'vid' => $_voucher->id, 'did' => $_dossier->id, 'cid' => '#edit-depot-data'); ?>
       <?php print form_open('','',$depot_hidden); ?>
       <!-- DEPOT -->
       <div class="depot-full-container">
@@ -721,72 +721,72 @@ $_dossier = $dossier->dossier;
   <div id="edit-invoice-data-form" style="display: none;">
     <div class="fancybox-form">
         <h3>Facturatie gegevens Bewerken</h3>
-        <?php $fact_hidden = array('customer-id' => $_voucher->customer->id, 'customer-voucher_id' => $_voucher->customer->voucher_id); ?>
-        <?php form_open('','',$fact_hidden); ?>
+        <?php $fact_hidden = array('id' => $_voucher->customer->id, 'vid' => $_voucher->id, 'did' => $_dossier->id); ?>
+        <?php print form_open('','',$fact_hidden); ?>
         <div class="invoice-full-container">
 
         <div class="invoice-full-container__name">
           <div class="form-item-horizontal invoice-full-container__first_name">
             <label>Voornaam:</label>
-            <?php print form_input('customer-first_name', $_voucher->customer->first_name); ?>
+            <?php print form_input('first_name', $_voucher->customer->first_name); ?>
           </div>
           <div class="form-item-horizontal invoice-full-container__last_name">
             <label>Achternaam:</label>
-            <?php print form_input('customer-last_name', $_voucher->customer->last_name); ?>
+            <?php print form_input('last_name', $_voucher->customer->last_name); ?>
           </div>
         </div>
 
         <div class="invoice-full-container__company">
           <div class="form-item-horizontal invoice-full-container__company_name">
             <label>Bedrijf:</label>
-            <?php print form_input('customer-company_name', $_voucher->customer->company_name); ?>
+            <?php print form_input('company_name', $_voucher->customer->company_name); ?>
           </div>
           <div class="form-item-horizontal invoice-full-container__company_vat">
             <label>VAT:</label>
-            <?php print form_input('customer-company_vat', $_voucher->customer->company_vat); ?>
+            <?php print form_input('company_vat', $_voucher->customer->company_vat); ?>
           </div>
         </div>
 
         <div class="invoice-full-container__address__street">
           <div class="form-item-horizontal invoice-full-container__street">
             <label>Straat:</label>
-            <?php print form_input('customer-street', $_voucher->customer->street); ?>
+            <?php print form_input('street', $_voucher->customer->street); ?>
           </div>
           <div class="form-item-horizontal invoice-full-container__street_number">
             <label>Nr:</label>
-            <?php print form_input('customer-street_number', $_voucher->customer->street_number); ?>
+            <?php print form_input('street_number', $_voucher->customer->street_number); ?>
           </div>
           <div class="form-item-horizontal invoice-full-container__street_pobox">
             <label>Bus:</label>
-            <?php print form_input('customer-street_pobox', $_voucher->customer->street_pobox); ?>
+            <?php print form_input('street_pobox', $_voucher->customer->street_pobox); ?>
           </div>
         </div>
 
         <div class="invoice-full-container__address__city">
           <div class="form-item-horizontal invoice-full-container__zip">
             <label>Postcode:</label>
-            <?php print form_input('customer-zip', $_voucher->customer->zip); ?>
+            <?php print form_input('zip', $_voucher->customer->zip); ?>
           </div>
           <div class="form-item-horizontal invoice-full-container__city">
             <label>Gemeente:</label>
-            <?php print form_input('customer-city', $_voucher->customer->city); ?>
+            <?php print form_input('city', $_voucher->customer->city); ?>
           </div>
         </div>
 
         <div class="form-item-horizontal invoice-full-container__country">
           <label>Land:</label>
-          <?php print form_input('customer-country', $_voucher->customer->country); ?>
+          <?php print form_input('country', $_voucher->customer->country); ?>
         </div>
 
         <div class="invoice-full-container__contact">
           <div class="form-item-horizontal invoice-full-container__phone">
             <label>Telefoon:</label>
-            <?php print form_input('customer-phone', $_voucher->customer->phone); ?>
+            <?php print form_input('phone', $_voucher->customer->phone); ?>
           </div>
 
           <div class="form-item-horizontal invoice-full-container__email">
             <label>Email:</label>
-            <?php print form_input('customer-email', $_voucher->customer->email); ?>
+            <?php print form_input('email', $_voucher->customer->email); ?>
           </div>
         </div>
 
@@ -801,78 +801,79 @@ $_dossier = $dossier->dossier;
         <input type="submit" value="Bewaren" name="btnInvoiceSave" />
       </div>
     </div>
-    <?= form_close(); ?>
+    <?php print form_close(); ?>
   </div>
 
   <!-- NUISANCE -->
   <div id="edit-nuisance-data-form" style="display: none;">
     <div class="fancybox-form">
       <h3>Hinderverwerker gegevens Bewerken</h3>
-      <?= form_open(); ?>
+      <?php $nuisance_hidden = array('id' => $_voucher->causer->id, 'vid' => $_voucher->id, 'did' => $_dossier->id); ?>
+      <?php print form_open('','',$nuisance_hidden); ?>
       <!-- DEPOT -->
       <div class="nuisance-full-container">
       <div class="nuisance-full-container__name">
         <div class="form-item-horizontal nuisance-full-container__first_name">
           <label>Voornaam:</label>
-          <?php print form_input('causer-first_name', $_voucher->causer->first_name); ?>
+          <?php print form_input('first_name', $_voucher->causer->first_name); ?>
         </div>
         <div class="form-item-horizontal nuisance-full-container__last_name">
           <label>Achternaam:</label>
-          <?php print form_input('causer-last_name', $_voucher->causer->last_name); ?>
+          <?php print form_input('last_name', $_voucher->causer->last_name); ?>
         </div>
       </div>
 
       <div class="nuisance-full-container__company">
         <div class="form-item-horizontal nuisance-full-container__company_name">
           <label>Bedrijf:</label>
-          <?php print form_input('causer-company_name', $_voucher->causer->company_name); ?>
+          <?php print form_input('company_name', $_voucher->causer->company_name); ?>
         </div>
         <div class="form-item-horizontal nuisance-full-container__company_vat">
           <label>Bedrijf VAT:</label>
-          <?php print form_input('causer-company_vat', $_voucher->causer->company_vat); ?>
+          <?php print form_input('company_vat', $_voucher->causer->company_vat); ?>
         </div>
       </div>
 
       <div class="nuisance-full-container__address__street">
         <div class="form-item-horizontal nuisance-full-container__street">
           <label>Straat:</label>
-          <?php print form_input('causer-street', $_voucher->causer->street); ?>
+          <?php print form_input('street', $_voucher->causer->street); ?>
         </div>
         <div class="form-item-horizontal nuisance-full-container__street_number">
           <label>Nummer:</label>
-          <?php print form_input('causer-street_number', $_voucher->causer->street_number); ?>
+          <?php print form_input('street_number', $_voucher->causer->street_number); ?>
         </div>
         <div class="form-item-horizontal nuisance-full-container__street_pobox">
           <label>Bus:</label>
-          <?php print form_input('causer-street_pobox', $_voucher->causer->street_pobox); ?>
+          <?php print form_input('street_pobox', $_voucher->causer->street_pobox); ?>
         </div>
       </div>
 
       <div class="nuisance-full-container__address__city">
         <div class="form-item-horizontal nuisance-full-container__zip">
           <label>Postcode:</label>
-          <?php print form_input('causer-zip', $_voucher->causer->zip); ?>
+          <?php print form_input('zip', $_voucher->causer->zip); ?>
         </div>
         <div class="form-item-horizontal nuisance-full-container__city">
           <label>Gemeente:</label>
-          <?php print form_input('causer-city', $_voucher->causer->city); ?>
+          <?php print form_input('city', $_voucher->causer->city); ?>
         </div>
       </div>
 
       <div class="form-item-horizontal nuisance-full-container__country">
         <label>Land:</label>
-        <?php print form_input('causer-country', $_voucher->causer->country); ?>
+        <?php print form_input('country', $_voucher->causer->country); ?>
       </div>
 
       <div class="nuisance-full-container__contact">
         <div class="form-item-horizontal nuisance-full-container__phone">
           <label>Telefoon:</label>
-          <?php print form_input('causer-phone', $_voucher->causer->phone); ?>
+          <?php print form_input('phone', $_voucher->causer->phone); ?>
         </div>
 
         <div class="form-item-horizontal nuisance-full-container__email">
           <label>Email:</label>
-          <?php print form_input('causer-email', $_voucher->causer->email); ?>
+          <?php print form_input('email', $_voucher->causer->email); ?>
         </div>
       </div>
 
@@ -888,7 +889,7 @@ $_dossier = $dossier->dossier;
         <input type="submit" value="Bewaren" name="btnNuisanceSave" />
       </div>
     </div>
-    <?= form_close(); ?>
+    <?php print form_close(); ?>
   </div>
 
 
@@ -1057,12 +1058,14 @@ $(document).ready(function() {
   });
 
 
+  //DEPOT
   $('#edit-depot-form form').bind('submit', function() {
 
     /* /depot/:dossier/:voucher/:token */
 
     var vid;
     var did;
+    var cid;
 
     var formObj = {};
     var inputs = $(this).serializeArray();
@@ -1082,15 +1085,75 @@ $(document).ready(function() {
       url		: "/fast_dossier/ajax/updatedepot/" + did + '/' + vid,
       data		: {'depot' : formObj},
       success: function(data) {
-        console.log(data);
+        $(cid).html('yepppaaaa');
+        parent.$.fancybox.close();
+      }
+    });
+
+    return false;
+  });
+
+  //INVOICE
+  $('#edit-invoice-data-form form').bind('submit', function() {
+    var vid;
+    var did;
+
+    var formObj = {};
+    var inputs = $(this).serializeArray();
+    $.each(inputs, function (i, input) {
+      if(input.name == 'vid'){
+        vid = parseInt(input.value);
+      }else if(input.name == 'did'){
+        did = parseInt(input.value);
+      }else{
+        formObj[input.name] = input.value;
       }
     });
 
 
+    $.ajax({
+      type		: "POST",
+      cache	: false,
+      url		: "/fast_dossier/ajax/updatecustomer/" + did + '/' + vid,
+      data		: {'customer' : formObj},
+      success: function(data) {
+        parent.$.fancybox.close();
+      }
+    });
+    return false;
+  });
 
+  //NUISANCE
+  $('#edit-nuisance-data-form form').bind('submit', function() {
+    var vid;
+    var did;
+
+    var formObj = {};
+    var inputs = $(this).serializeArray();
+    $.each(inputs, function (i, input) {
+      if(input.name == 'vid'){
+        vid = parseInt(input.value);
+      }else if(input.name == 'did'){
+        did = parseInt(input.value);
+      }else{
+        formObj[input.name] = input.value;
+      }
+    });
+
+
+    $.ajax({
+      type		: "POST",
+      cache	: false,
+      url		: "/fast_dossier/ajax/updatecauser/" + did + '/' + vid,
+      data		: {'causer' : formObj},
+      success: function(data) {
+        parent.$.fancybox.close();
+      }
+    });
 
     return false;
   });
+
 
 
 

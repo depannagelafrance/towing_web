@@ -16,18 +16,33 @@ class Causer_model  {
 
   public function __construct($data = null) {
     if($data) {
-      $this->id             = $data->id;
-      $this->first_name     = $data->first_name;
-      $this->last_name      = $data->last_name;
-      $this->company_name   = $data->company_name;
-      $this->company_vat    = $data->company_vat;
-      $this->street         = $data->street;
-      $this->street_number  = $data->street_number;
-      $this->street_pobox   = $data->street_pobox;
-      $this->zip            = $data->zip;
-      $this->city           = $data->city;
-      $this->email          = $data->email;
-      $this->phone          = $data->phone;
+      if(is_array ($data)){
+        $this->id             = $data['id'];
+        $this->first_name     = $data['first_name'];
+        $this->last_name      = $data['last_name'];
+        $this->company_name   = $data['company_name'];
+        $this->company_vat    = $data['company_vat'];
+        $this->street         = $data['street'];
+        $this->street_number  = $data['street_number'];
+        $this->street_pobox   = $data['street_pobox'];
+        $this->zip            = $data['zip'];
+        $this->city           = $data['city'];
+        $this->email          = $data['email'];
+        $this->phone          = $data['phone'];
+      }else{
+        $this->id             = $data->id;
+        $this->first_name     = $data->first_name;
+        $this->last_name      = $data->last_name;
+        $this->company_name   = $data->company_name;
+        $this->company_vat    = $data->company_vat;
+        $this->street         = $data->street;
+        $this->street_number  = $data->street_number;
+        $this->street_pobox   = $data->street_pobox;
+        $this->zip            = $data->zip;
+        $this->city           = $data->city;
+        $this->email          = $data->email;
+        $this->phone          = $data->phone;
+      }
     }
   }
 }
