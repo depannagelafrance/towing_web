@@ -710,6 +710,10 @@ $_dossier = $dossier->dossier;
       </div>
 
       <div class="form-item fancybox-form__actions__save">
+        <input type="submit" value="Depot X" name="btnDepotCompany" />
+      </div>
+
+      <div class="form-item fancybox-form__actions__save">
         <input type="submit" value="Bewaren" name="btnDepotSave" />
       </div>
     </div>
@@ -1082,7 +1086,14 @@ $(document).ready(function() {
       url		: "/fast_dossier/ajax/updatedepot/" + did + '/' + vid,
       data		: {'depot' : formObj},
       success: function(data) {
-        console.log(data);
+        if(data.id) {
+          //data was save succesfully
+          alert("ok, and close overlay");
+
+        } else {
+          //could not save data for whatever reason
+          alert("Er is een fout opgetreden bij het bewaren van de gegevens!");
+        }
       }
     });
 
