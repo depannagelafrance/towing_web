@@ -32,7 +32,6 @@ class Depot_model  {
         $this->city           = $data->city;
       }
 
-
     }
   }
 }
