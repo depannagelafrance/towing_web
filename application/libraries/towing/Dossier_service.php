@@ -105,8 +105,6 @@ class Dossier_service extends Rest_service {
       $_depot = new stdClass();
       $_depot->depot = $depot;
 
-      print_r(json_encode($_depot));
-
       return $this->CI->rest->put(
           sprintf('/dossier/depot/%s/%s/%s', $dossier_id, $voucher_id, $token),
           json_encode($_depot),

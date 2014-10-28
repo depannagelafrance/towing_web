@@ -338,7 +338,7 @@ $_dossier = $dossier->dossier;
           <!--FACTURATION-->
           <div class="form-item-vertical facturation-container">
             <label>Facturatiegegevens:</label>
-            <div class="facturation-container__info">
+            <div id="edit-invoice-data" class="facturation-container__info">
               <?php print(composeCustomerInformation($_voucher->customer)) ?>
             </div>
             <a id="edit-invoice-data-link" class="inform-link icon--edit--small" href="#edit-invoice-data-form">Bewerken</a>
@@ -348,7 +348,7 @@ $_dossier = $dossier->dossier;
           <!--NUISANCE-->
           <div class="form-item-vertical nuisance-container">
             <label>Hinderverwekker:</label>
-            <div class="nuisance-container__info">
+            <div id="edit-nuisance-data" class="nuisance-container__info">
               <?php print(composeCustomerInformation($_voucher->causer)) ?>
             </div>
             <a id="edit-nuisance-data-link" class="inform-link icon--edit--small" href="#edit-nuisance-data-form">Bewerken</a>
@@ -659,15 +659,26 @@ $_dossier = $dossier->dossier;
 
 
   </div>
-  <?= form_close(); ?>
+  <?php print form_close(); ?>
 
   <!-- DEPOT -->
   <div id="edit-depot-form" style="display: none;">
+    <?php
+      $depot_attr = array(
+        'data-cid' => '#edit-depot-data',
+        'data-vid' =>  $_voucher->id,
+        'data-did' => $_dossier->id
+      );
+
+      $depot_hidden = array(
+        'id' => $_voucher->depot->id
+      );
+
+      print form_open('', $depot_attr, $depot_hidden);
+    ?>
     <div class="fancybox-form">
-      <h3>Depot Bewerken</h3>
-      <?php $depot_hidden = array('id' => $_voucher->depot->id, 'vid' => $_voucher->id, 'did' => $_dossier->id, 'cid' => '#edit-depot-data'); ?>
-      <?php print form_open('','',$depot_hidden); ?>
-      <!-- DEPOT -->
+      <h3>Depot Bewerken</h3
+        <!-- DEPOT -->
       <div class="depot-full-container">
         <div class="depot-full-container__left">
           <div class="form-item-horizontal depot-full-container__depot">
@@ -719,11 +730,22 @@ $_dossier = $dossier->dossier;
 
   <!-- INVOICE -->
   <div id="edit-invoice-data-form" style="display: none;">
+    <?php
+      $fact_attr = array(
+        'data-cid' => '#edit-invoice-data',
+        'data-vid' => $_voucher->id,
+        'data-did' => $_dossier->id
+      );
+
+      $fact_hidden = array(
+        'id' => $_voucher->customer->id,
+      );
+
+      print form_open('',$fact_attr,$fact_hidden);
+    ?>
     <div class="fancybox-form">
-        <h3>Facturatie gegevens Bewerken</h3>
-        <?php $fact_hidden = array('id' => $_voucher->customer->id, 'vid' => $_voucher->id, 'did' => $_dossier->id); ?>
-        <?php print form_open('','',$fact_hidden); ?>
-        <div class="invoice-full-container">
+      <h3>Facturatie gegevens Bewerken</h3>
+      <div class="invoice-full-container">
 
         <div class="invoice-full-container__name">
           <div class="form-item-horizontal invoice-full-container__first_name">
@@ -789,7 +811,6 @@ $_dossier = $dossier->dossier;
             <?php print form_input('email', $_voucher->customer->email); ?>
           </div>
         </div>
-
       </div>
     </div>
     <div class="fancybox-form__actions">
@@ -806,10 +827,23 @@ $_dossier = $dossier->dossier;
 
   <!-- NUISANCE -->
   <div id="edit-nuisance-data-form" style="display: none;">
+    <?php
+
+      $nuisance_attr = array(
+        'data-cid' => '#edit-nuisance-data',
+        'data-vid' => $_voucher->id,
+        'data-did' => $_dossier->id
+      );
+
+      $nuisance_hidden = array(
+        'id' => $_voucher->causer->id,
+      );
+
+      print form_open('',$nuisance_attr,$nuisance_hidden);
+
+    ?>
     <div class="fancybox-form">
       <h3>Hinderverwerker gegevens Bewerken</h3>
-      <?php $nuisance_hidden = array('id' => $_voucher->causer->id, 'vid' => $_voucher->id, 'did' => $_dossier->id); ?>
-      <?php print form_open('','',$nuisance_hidden); ?>
       <!-- DEPOT -->
       <div class="nuisance-full-container">
       <div class="nuisance-full-container__name">
@@ -895,9 +929,9 @@ $_dossier = $dossier->dossier;
 
   <!-- EMAIL -->
   <div id="add-email-form" style="display: none;">
+    <?= form_open(); ?>
     <div class="fancybox-form">
       <h3>Email versturen</h3>
-      <?= form_open(); ?>
 
       <div class="form-item-horizontal">
         <label>Email:</label>
@@ -929,9 +963,9 @@ $_dossier = $dossier->dossier;
 
   <!-- NOTA -->
   <div id="add-nota-form" style="display: none;">
+    <?= form_open(); ?>
     <div class="fancybox-form">
       <h3>Nota toevoegen</h3>
-      <?= form_open(); ?>
 
       <div class="form-item-horizontal">
         <label>Nota:</label>
@@ -953,11 +987,10 @@ $_dossier = $dossier->dossier;
 
   <!-- WORK -->
   <div id="add-work-form" style="display: none;">
+    <?php print form_open(); ?>
     <div class="fancybox-form">
       <h3>Werkzaamheid toevoegen</h3>
       <?php
-
-      print form_open();
 
 
       $this->table->set_heading('Activiteit', 'Code', 'Prijs (excl. BTW)', 'Prijs (incl. BTW)');
@@ -1063,20 +1096,14 @@ $(document).ready(function() {
 
     /* /depot/:dossier/:voucher/:token */
 
-    var vid;
-    var did;
-    var cid;
+    var cid = $(this).data('cid');
+    var did = $(this).data('did');
+    var vid = $(this).data('vid');
 
     var formObj = {};
     var inputs = $(this).serializeArray();
     $.each(inputs, function (i, input) {
-      if(input.name == 'vid'){
-        vid = parseInt(input.value);
-      }else if(input.name == 'did'){
-        did = parseInt(input.value);
-      }else{
-        formObj[input.name] = input.value;
-      }
+      formObj[input.name] = input.value;
     });
 
     $.ajax({
@@ -1085,7 +1112,13 @@ $(document).ready(function() {
       url		: "/fast_dossier/ajax/updatedepot/" + did + '/' + vid,
       data		: {'depot' : formObj},
       success: function(data) {
-        $(cid).html('yepppaaaa');
+        var po = '';
+        if(data.street_pobox){
+          po = '/'+ data.street_pobox
+        }
+
+        var html = data.name + ', ' + data.street + ' ' + data.street_number + po + ', ' + data.zip + ' ' + data.city;
+        $(cid).html(html);
         parent.$.fancybox.close();
       }
     });
@@ -1095,21 +1128,16 @@ $(document).ready(function() {
 
   //INVOICE
   $('#edit-invoice-data-form form').bind('submit', function() {
-    var vid;
-    var did;
+
+    var cid = $(this).data('cid');
+    var did = $(this).data('did');
+    var vid = $(this).data('vid');
 
     var formObj = {};
     var inputs = $(this).serializeArray();
     $.each(inputs, function (i, input) {
-      if(input.name == 'vid'){
-        vid = parseInt(input.value);
-      }else if(input.name == 'did'){
-        did = parseInt(input.value);
-      }else{
-        formObj[input.name] = input.value;
-      }
+      formObj[input.name] = input.value;
     });
-
 
     $.ajax({
       type		: "POST",
@@ -1117,6 +1145,7 @@ $(document).ready(function() {
       url		: "/fast_dossier/ajax/updatecustomer/" + did + '/' + vid,
       data		: {'customer' : formObj},
       success: function(data) {
+        console.log(data);
         parent.$.fancybox.close();
       }
     });
@@ -1125,19 +1154,14 @@ $(document).ready(function() {
 
   //NUISANCE
   $('#edit-nuisance-data-form form').bind('submit', function() {
-    var vid;
-    var did;
+    var cid = $(this).data('cid');
+    var did = $(this).data('did');
+    var vid = $(this).data('vid');
 
     var formObj = {};
     var inputs = $(this).serializeArray();
     $.each(inputs, function (i, input) {
-      if(input.name == 'vid'){
-        vid = parseInt(input.value);
-      }else if(input.name == 'did'){
-        did = parseInt(input.value);
-      }else{
-        formObj[input.name] = input.value;
-      }
+      formObj[input.name] = input.value;
     });
 
 
@@ -1147,6 +1171,7 @@ $(document).ready(function() {
       url		: "/fast_dossier/ajax/updatecauser/" + did + '/' + vid,
       data		: {'causer' : formObj},
       success: function(data) {
+        console.log(data);
         parent.$.fancybox.close();
       }
     });
