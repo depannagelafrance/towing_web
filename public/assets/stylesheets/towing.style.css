@@ -895,6 +895,12 @@ table a {
   float: right;
 }
 
+.fancybox-form__actions__twobuttons input,
+.fancybox-form__actions__twobuttons button {
+  float: left;
+  margin-left: 10px;
+}
+
 .idbar {
   margin-bottom: 15px;
   position: relative;
@@ -2273,4 +2279,9 @@ table a {
   background-color: #ccfe8b;
   color: #477f10;
   background-position: -5px -119px;
+}
+
+.msg__hidden {
+  display: none;
+  margin-bottom: 40px;
 }

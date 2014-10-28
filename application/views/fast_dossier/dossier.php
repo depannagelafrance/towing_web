@@ -680,6 +680,8 @@ $_dossier = $dossier->dossier;
       <h3>Depot Bewerken</h3
         <!-- DEPOT -->
       <div class="depot-full-container">
+        <div class="msg msg__error msg__hidden">Er is een fout opgetreden bij het bewaren van de gegevens</div>
+
         <div class="depot-full-container__left">
           <div class="form-item-horizontal depot-full-container__depot">
             <label>Depot:</label>
@@ -720,11 +722,8 @@ $_dossier = $dossier->dossier;
         <a class="close_overlay" href="#">Annuleren</a>
       </div>
 
-      <div class="form-item fancybox-form__actions__save">
-        <input type="submit" value="Depot X" name="btnDepotCompany" />
-      </div>
-
-      <div class="form-item fancybox-form__actions__save">
+      <div class="form-item fancybox-form__actions__save fancybox-form__actions__twobuttons">
+        <?php print form_button('use_default','Depot Lafrance gebruiken'); ?>
         <input type="submit" value="Bewaren" name="btnDepotSave" />
       </div>
     </div>
@@ -750,7 +749,7 @@ $_dossier = $dossier->dossier;
     <div class="fancybox-form">
       <h3>Facturatie gegevens Bewerken</h3>
       <div class="invoice-full-container">
-
+        <div class="msg msg__error msg__hidden">Er is een fout opgetreden bij het bewaren van de gegevens</div>
         <div class="invoice-full-container__name">
           <div class="form-item-horizontal invoice-full-container__first_name">
             <label>Voornaam:</label>
@@ -848,9 +847,10 @@ $_dossier = $dossier->dossier;
     ?>
     <div class="fancybox-form">
       <h3>Hinderverwerker gegevens Bewerken</h3>
-      <!-- DEPOT -->
+
       <div class="nuisance-full-container">
-      <div class="nuisance-full-container__name">
+        <div class="msg msg__error msg__hidden">Er is een fout opgetreden bij het bewaren van de gegevens</div>
+        <div class="nuisance-full-container__name">
         <div class="form-item-horizontal nuisance-full-container__first_name">
           <label>Voornaam:</label>
           <?php print form_input('first_name', $_voucher->causer->first_name); ?>
@@ -1061,7 +1061,10 @@ $(document).ready(function() {
 
   $('#edit-depot-link').fancybox({
     'scrolling'		: 'no',
-    'titleShow'		: false
+    'titleShow'		: false,
+    'onClosed'		: function() {
+      $('#edit-depot-form .msg__error').hide();
+    }
   });
 
   $('#edit-invoice-data-link').fancybox({
@@ -1096,9 +1099,19 @@ $(document).ready(function() {
 
 
   //DEPOT
+  $('#edit-depot-form form button').click(function() {
+    $('#edit-depot-form form').find('input[name="name"]').val('LAFRA');
+    $('#edit-depot-form form').find('input[name="street"]').val('LAFRA');
+    $('#edit-depot-form form').find('input[name="street_number"]').val('LAFRA');
+    $('#edit-depot-form form').find('input[name="street_pobox"]').val('LAFRA');
+    $('#edit-depot-form form').find('input[name="zip"]').val('LAFRA');
+    $('#edit-depot-form form').find('input[name="city"]').val('LAFRA');
+  });
+
   $('#edit-depot-form form').bind('submit', function() {
 
     /* /depot/:dossier/:voucher/:token */
+    $('#edit-depot-form').find('.msg__error').hide();
 
     var cid = $(this).data('cid');
     var did = $(this).data('did');
@@ -1121,12 +1134,12 @@ $(document).ready(function() {
           if(data.street_pobox){
             po = '/'+ data.street_pobox
           }
-
           var html = data.name + ', ' + data.street + ' ' + data.street_number + po + ', ' + data.zip + ' ' + data.city;
           $(cid).html(html);
           parent.$.fancybox.close();
         } else {
-          alert("Er is een fout opgetreden bij het bewaren van de gegevens!");
+          $('#edit-depot-form').find('.msg__error').show();
+          $.fancybox.resize();
         }
       }
     });
@@ -1137,6 +1150,7 @@ $(document).ready(function() {
   //INVOICE
   $('#edit-invoice-data-form form').bind('submit', function() {
 
+    $('#edit-invoice-data-form').find('.msg__error').hide();
     var cid = $(this).data('cid');
     var did = $(this).data('did');
     var vid = $(this).data('vid');
@@ -1153,15 +1167,27 @@ $(document).ready(function() {
       url		: "/fast_dossier/ajax/updatecustomer/" + did + '/' + vid,
       data		: {'customer' : formObj},
       success: function(data) {
-
         if(data.id) {
-          //data was save succesfully
+          var html;
           console.log(data);
+
+          if(data.company_name){
+            html += '<div>' + data.company_name + '</div>';
+          }else{
+            html += '<div>' + data.first_name + ' ' + data.last_name + '</div>';
+          }
+
+          html += '<div>' + data.street + ' ' + data.street_number + ' ' + data.street_pobox + '</div>';
+          html += '<div>' + data.zip + ' ' + data.city + '</div>';
+          html += '<div>' + data.country + '</div>';
+          html += '<div>T: ' + data.phone + '</div>';
+          html += '<div>E: ' + data.email + '</div>';
+          $(cid).html(html);
           parent.$.fancybox.close();
-          alert("ok, and close overlay");
         } else {
           //could not save data for whatever reason
-          alert("Er is een fout opgetreden bij het bewaren van de gegevens!");
+          $('#edit-invoice-data-form').find('.msg__error').show();
+          $.fancybox.resize();
         }
       }
     });
@@ -1170,6 +1196,9 @@ $(document).ready(function() {
 
   //NUISANCE
   $('#edit-nuisance-data-form form').bind('submit', function() {
+
+    $('#edit-nuisance-data-form').find('.msg__error').hide();
+
     var cid = $(this).data('cid');
     var did = $(this).data('did');
     var vid = $(this).data('vid');
@@ -1187,8 +1216,27 @@ $(document).ready(function() {
       url		: "/fast_dossier/ajax/updatecauser/" + did + '/' + vid,
       data		: {'causer' : formObj},
       success: function(data) {
-        console.log(data);
-        parent.$.fancybox.close();
+        if(data.id){
+          var html;
+
+          if(data.company_name){
+            html += '<div>' + data.company_name + '</div>';
+          }else{
+            html += '<div>' + data.first_name + ' ' + data.last_name + '</div>';
+          }
+
+          html += '<div>' + data.street + ' ' + data.street_number + ' ' + data.street_pobox + '</div>';
+          html += '<div>' + data.zip + ' ' + data.city + '</div>';
+          html += '<div>' + data.country + '</div>';
+          html += '<div>T: ' + data.phone + '</div>';
+          html += '<div>E: ' + data.email + '</div>';
+          $(cid).html(html);
+          parent.$.fancybox.close();
+        }else{
+          //could not save data for whatever reason
+          $('#edit-nuisance-data-form').find('.msg__error').show();
+          $.fancybox.resize();
+        }
       }
     });
 
