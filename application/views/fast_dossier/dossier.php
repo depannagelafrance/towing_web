@@ -721,6 +721,10 @@ $_dossier = $dossier->dossier;
       </div>
 
       <div class="form-item fancybox-form__actions__save">
+        <input type="submit" value="Depot X" name="btnDepotCompany" />
+      </div>
+
+      <div class="form-item fancybox-form__actions__save">
         <input type="submit" value="Bewaren" name="btnDepotSave" />
       </div>
     </div>
@@ -1112,14 +1116,18 @@ $(document).ready(function() {
       url		: "/fast_dossier/ajax/updatedepot/" + did + '/' + vid,
       data		: {'depot' : formObj},
       success: function(data) {
-        var po = '';
-        if(data.street_pobox){
-          po = '/'+ data.street_pobox
-        }
+        if(data.id) {
+          var po = '';
+          if(data.street_pobox){
+            po = '/'+ data.street_pobox
+          }
 
-        var html = data.name + ', ' + data.street + ' ' + data.street_number + po + ', ' + data.zip + ' ' + data.city;
-        $(cid).html(html);
-        parent.$.fancybox.close();
+          var html = data.name + ', ' + data.street + ' ' + data.street_number + po + ', ' + data.zip + ' ' + data.city;
+          $(cid).html(html);
+          parent.$.fancybox.close();
+        } else {
+          alert("Er is een fout opgetreden bij het bewaren van de gegevens!");
+        }
       }
     });
 
@@ -1145,8 +1153,16 @@ $(document).ready(function() {
       url		: "/fast_dossier/ajax/updatecustomer/" + did + '/' + vid,
       data		: {'customer' : formObj},
       success: function(data) {
-        console.log(data);
-        parent.$.fancybox.close();
+
+        if(data.id) {
+          //data was save succesfully
+          console.log(data);
+          parent.$.fancybox.close();
+          alert("ok, and close overlay");
+        } else {
+          //could not save data for whatever reason
+          alert("Er is een fout opgetreden bij het bewaren van de gegevens!");
+        }
       }
     });
     return false;
