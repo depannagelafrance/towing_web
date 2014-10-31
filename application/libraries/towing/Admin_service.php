@@ -16,8 +16,10 @@ class Admin_service extends Rest_service {
   }
 
   public function createUser(User_model $user, $token) {
-    return $this->CI->rest->post(sprintf('/admin/users/%s', $token), json_encode($user),
-          'application/json');
+    return $this->CI->rest->post(
+                  sprintf('/admin/users/%s', $token),
+                  json_encode($user),
+                  'application/json');
   }
 
   public function updateUser(User_model $user, $token) {
@@ -126,4 +128,13 @@ class Admin_service extends Rest_service {
   public function fetchAllTimeframeActivityFees($timeframe_id, $token) {
     return $this->CI->rest->get(sprintf('/admin/timeframe/activity/%s/fees/%s', $timeframe_id, $token));
   }
+
+  public function updateTimeframeActivityFees($timeframe_id, $data, $token) {
+    return $this->CI->rest->put(
+                    sprintf('/admin/timeframe/activity/%s/fees/%s', $timeframe_id, $token)
+                    json_encode($data),
+                    'application/json');
+  }
+
+
 }
