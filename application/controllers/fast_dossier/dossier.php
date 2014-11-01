@@ -112,7 +112,8 @@ class Dossier extends Page {
             'available_activities'    => $this->dossier_service->fetchAllAvailableActivitiesForVoucher($dossier->dossier->id, $_voucher->id, $token),
             'insurances'              => $this->vocabulary_service->fetchAllInsurances($token),
             'collectors'              => $this->vocabulary_service->fetchAllCollectors($token),
-            'licence_plate_countries' => $this->vocabulary_service->fetchAllCountryLicencePlates($token)
+            'licence_plate_countries' => $this->vocabulary_service->fetchAllCountryLicencePlates($token),
+            'company_depot'           => $this->_get_authenticated_user()->company_depot
           ),
           true
       )

@@ -1094,12 +1094,12 @@ $(document).ready(function() {
 
   //DEPOT
   $('#edit-depot-form form button').click(function() {
-    $('#edit-depot-form form').find('input[name="name"]').val('LAFRA');
-    $('#edit-depot-form form').find('input[name="street"]').val('LAFRA');
-    $('#edit-depot-form form').find('input[name="street_number"]').val('LAFRA');
-    $('#edit-depot-form form').find('input[name="street_pobox"]').val('LAFRA');
-    $('#edit-depot-form form').find('input[name="zip"]').val('LAFRA');
-    $('#edit-depot-form form').find('input[name="city"]').val('LAFRA');
+    $('#edit-depot-form form').find('input[name="name"]').val('<?=addslashes($company_depot->name)?>');
+    $('#edit-depot-form form').find('input[name="street"]').val('<?=addslashes($company_depot->street)?>');
+    $('#edit-depot-form form').find('input[name="street_number"]').val('<?=addslashes($company_depot->street_number)?>');
+    $('#edit-depot-form form').find('input[name="street_pobox"]').val('<?=addslashes($company_depot->street_pobox)?>');
+    $('#edit-depot-form form').find('input[name="zip"]').val('<?=addslashes($company_depot->zip)?>');
+    $('#edit-depot-form form').find('input[name="city"]').val('<?=addslashes($company_depot->city)?>');
   });
 
   $('#edit-depot-form form').bind('submit', function() {
