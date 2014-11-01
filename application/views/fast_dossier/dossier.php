@@ -393,95 +393,89 @@ $_dossier = $dossier->dossier;
 
       <!--WORK-->
       <div class="form-item-vertical work-container">
+        <div class="work-container__header">
+          <div class="work-container__task__label"><label>Activiteiten:</label></div>
+          <div class="work-container__number__label"><label>Aantal:</label></div>
+          <div class="work-container__unitprice__label"><label>EHP:</label></div>
+          <div class="work-container__excl__label"><label>Excl:</label></div>
+          <div class="work-container__incl__label"><label>Incl:</label></div>
+        </div>
         <div class="work-container__fields">
-          <div class="form-item-vertical work-container__task">
-            <label>Werkzaamheden:</label>
-            <?php
-              foreach($_voucher->towing_activities as $_activity) {
+          <?php foreach($_voucher->towing_activities as $_activity) : ?>
+          <div class="work-container__field" data-id="<?php print $_activity->activity_id;?>" data-incl="<?php print $_activity->fee_incl_vat;?>" data-excl="<?php print $_activity->fee_excl_vat;?>">
+            <div class="form-item-vertical work-container__task">
+              <?php
+                  $data = array(
+                    'name'        => 'name[]',
+                    'value'       => $_activity->name,
+                    'readonly'    => 'readonly',
+                    'style'       => 'background: #F0F0F0'
+                  );
+                  print form_input($data);
+                  print form_hidden('activity_id[]', $_activity->activity_id);
+              ?>
+            </div>
+
+            <div class="form-item-vertical work-container__number">
+              <?php
+                print form_input('amount[]', $_activity->amount);
+              ?>
+            </div>
+
+            <div class="form-item-vertical work-container__unitprice">
+              <?php
                 $data = array(
-                  'name'        => 'name[]',
-                  'value'       => $_activity->name,
+                  'name'        => 'fee_incl_vat[]',
+                  'value'       => $_activity->fee_incl_vat,
                   'readonly'    => 'readonly',
                   'style'       => 'background: #F0F0F0'
                 );
 
                 print form_input($data);
-                print form_hidden('activity_id[]', $_activity->activity_id);
-              }
-            ?>
-          </div>
+              ?>
+            </div>
 
-          <div class="form-item-vertical work-container__number">
-            <label>Aantal:</label>
-            <?php
-            foreach($_voucher->towing_activities as $_activity) {
-              print form_input('amount[]', $_activity->amount);
-            }
-            ?>
-          </div>
+            <div class="form-item-vertical work-container__excl">
+              <?php
+                $data = array(
+                  'name'        => 'cal_fee_excl_vat[]',
+                  'value'       => $_activity->cal_fee_excl_vat,
+                  'readonly'    => 'readonly',
+                  'style'       => 'background: #F0F0F0'
+                );
 
-          <div class="form-item-vertical work-container__unitprice">
-            <label>EHP:</label>
-            <?php
-            foreach($_voucher->towing_activities as $_activity) {
-              $data = array(
-                'name'        => 'fee_incl_vat[]',
-                'value'       => $_activity->fee_incl_vat,
-                'readonly'    => 'readonly',
-                'style'       => 'background: #F0F0F0'
-              );
+                print form_input($data);
+              ?>
+            </div>
 
-              print form_input($data);
-            }
-            ?>
-          </div>
+            <div class="form-item-vertical work-container__incl">
+              <?php
+                $data = array(
+                  'name'        => 'cal_fee_incl_vat[]',
+                  'value'       => $_activity->cal_fee_incl_vat,
+                  'readonly'    => 'readonly',
+                  'style'       => 'background: #F0F0F0'
+                );
 
-          <div class="form-item-vertical work-container__excl">
-            <label>Excl:</label>
-            <?php
-            foreach($_voucher->towing_activities as $_activity) {
-              $data = array(
-                'name'        => 'cal_fee_excl_vat[]',
-                'value'       => $_activity->cal_fee_excl_vat,
-                'readonly'    => 'readonly',
-                'style'       => 'background: #F0F0F0'
-              );
-
-              print form_input($data);
-            }
-            ?>
-          </div>
-
-          <div class="form-item-vertical work-container__incl">
-            <label>Incl:</label>
-            <?php
-            foreach($_voucher->towing_activities as $_activity) {
-              $data = array(
-                'name'        => 'cal_fee_incl_vat[]',
-                'value'       => $_activity->cal_fee_incl_vat,
-                'readonly'    => 'readonly',
-                'style'       => 'background: #F0F0F0'
-              );
-
-              print form_input($data);
-            }
-            ?>
-          </div>
-          <div class="form-item-vertical work-container__remove">
-            <?php foreach($_voucher->towing_activities as $_activity){ ?>
-              <div class="work-container__remove__btn">
-                <div class="btn--icon--small">
-                  <a class="icon--remove--small" href="#">Remove</a>
+                print form_input($data);
+              ?>
+            </div>
+            <div class="form-item-vertical work-container__remove">
+                <div class="work-container__remove__btn">
+                  <div class="btn--icon--small">
+                    <a class="icon--remove--small" href="#">Remove</a>
+                  </div>
                 </div>
-              </div>
-            <?php } ?>
+            </div>
           </div>
+          <?php endforeach; ?>
+      </div>
+
+      <div class="work-container__actions">
+        <div class="work-container__add">
+          <a id="add-work-link" class="inform-link" href="#add-work-form">Activiteit toevoegen</a>
         </div>
-        <div class="work-container__actions">
-          <div class="work-container__add">
-            <a id="add-work-link" class="inform-link" href="#add-work-form">Werkzaamheid toevoegen</a>
-          </div>
-        </div>
+      </div>
 
         <!--PAYMENT-->
         <div class="form-item-vertical payment-container">
@@ -1218,6 +1212,7 @@ $(document).ready(function() {
       success: function(data) {
         if(data.id){
           var html;
+          console.log(data);
 
           if(data.company_name){
             html += '<div>' + data.company_name + '</div>';
@@ -1243,6 +1238,29 @@ $(document).ready(function() {
     return false;
   });
 
+  //LALA
+  //work-container__field
+
+  $('.work-container__field .work-container__number input').change(function(){
+    var unit_incl = $(this).parents('.work-container__field').data('incl');
+    var unit_excl = $(this).parents('.work-container__field').data('excl');
+    var new_incl = 0;
+    var new_excl = 0;
+
+    var number = $(this).val();
+
+    if (!$.isNumeric(number)) {
+      $(this).val(1);
+      new_incl = unit_incl.toFixed(2);
+      new_excl = unit_excl.toFixed(2);
+    } else {
+      new_incl = (unit_incl * number).toFixed(2);
+      new_excl = (unit_excl * number).toFixed(2);
+    }
+
+    $(this).parents('.work-container__field').find('.work-container__incl').find('input').val(new_incl);
+    $(this).parents('.work-container__field').find('.work-container__excl').find('input').val(new_excl);
+  });
 
 
 
