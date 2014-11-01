@@ -131,7 +131,7 @@ class Admin_service extends Rest_service {
 
   public function updateTimeframeActivityFees($timeframe_id, $data, $token) {
     return $this->CI->rest->put(
-                    sprintf('/admin/timeframe/activity/%s/fees/%s', $timeframe_id, $token)
+                    sprintf('/admin/timeframe/activity/%s/fees/%s', $timeframe_id, $token),
                     json_encode($data),
                     'application/json');
   }
