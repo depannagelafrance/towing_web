@@ -54,4 +54,24 @@ class Ajax extends AjaxPage {
 
     $this->_sendJson($result);
   }
+
+  public function addInternalCommunication(){
+    $token = $this->_get_user_token();
+
+    $model = new Communication_model($this->input->post('communication'));
+
+    $result = $this->dossier_service->addInternalCommunication($model, $token);
+
+    $this->_sendJson($result);
+  }
+
+  public function addEmailCommunication(){
+    $token = $this->_get_user_token();
+
+    $model = new Communication_model($this->input->post('communication'));
+
+    $result = $this->dossier_service->addEmailCommunication($model, $token);
+
+    $this->_sendJson($result);
+  }
 }

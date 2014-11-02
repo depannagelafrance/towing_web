@@ -1288,6 +1288,26 @@ table a {
   padding: 20px;
 }
 
+.form-item-checkbox {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.form-item-checkbox:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.form-item-checkbox label {
+  float: left;
+}
+.form-item-checkbox input {
+  margin-top: -3px;
+  margin-right: 0px;
+  float: left;
+  width: 30px;
+  height: 30px;
+}
+
 .assistance-container:after {
   content: "";
   display: table;

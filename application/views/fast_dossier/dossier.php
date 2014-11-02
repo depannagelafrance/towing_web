@@ -104,8 +104,7 @@ $_dossier = $dossier->dossier;
       <div class="idbar__incident">
         <?php print $_dossier->incident_type_name; ?>
       </div>
-
-    </div>
+  </div>
 
     <div class="box detailbar">
       <div class="detailbar__row">
@@ -951,23 +950,34 @@ $_dossier = $dossier->dossier;
 
   <!-- EMAIL -->
   <div id="add-email-form" style="display: none;">
-    <?= form_open(); ?>
+
+    <?php
+
+    $email_attr = array(
+      'data-vid' => $_voucher->id,
+      'data-did' => $_dossier->id
+    );
+
+    print form_open('',$email_attr,'');
+
+    ?>
+
     <div class="fancybox-form">
       <h3>Email versturen</h3>
-
+      <div class="msg msg__error msg__hidden">Er is een fout opgetreden bij het versturen van de email</div>
       <div class="form-item-horizontal">
         <label>Email:</label>
-        <?php print form_input('email'); ?>
+        <?php print form_input('recipients'); ?>
       </div>
 
       <div class="form-item-horizontal">
         <label>Onderwerp:</label>
-        <?php print form_input('email-subject'); ?>
+        <?php print form_input('subject'); ?>
       </div>
 
       <div class="form-item-horizontal">
         <label>Bericht:</label>
-        <?php print form_textarea('email-message'); ?>
+        <?php print form_textarea('message'); ?>
       </div>
 
     </div>
@@ -985,13 +995,22 @@ $_dossier = $dossier->dossier;
 
   <!-- NOTA -->
   <div id="add-nota-form" style="display: none;">
-    <?= form_open(); ?>
+    <?php
+
+    $nota_attr = array(
+      'data-vid' => $_voucher->id,
+      'data-did' => $_dossier->id
+    );
+
+    print form_open('',$nota_attr,'');
+
+    ?>
     <div class="fancybox-form">
       <h3>Nota toevoegen</h3>
-
+      <div class="msg msg__error msg__hidden">Er is een fout opgetreden bij het bewaren van de nota</div>
       <div class="form-item-horizontal">
         <label>Nota:</label>
-        <?php print form_textarea('nota'); ?>
+        <?php print form_textarea('message'); ?>
       </div>
 
     </div>
@@ -1011,37 +1030,26 @@ $_dossier = $dossier->dossier;
   <div id="add-work-form" style="display: none;">
     <?php print form_open(); ?>
     <div class="fancybox-form">
-      <h3>Werkzaamheid toevoegen</h3>
+      <h3>Activiteiten toevoegen</h3>
       <?php
-
-
-      $this->table->set_heading('Activiteit', 'Code', 'Prijs (excl. BTW)', 'Prijs (incl. BTW)');
 
       if($available_activities && sizeof($available_activities) > 0) {
         foreach($available_activities as $activity) {
 
           $data = array(
-            'name'        => $activity->name,
+            'name'        => 'activity',
             'value'       => $activity->id,
             'checked'     => FALSE,
           );
 
-          echo '<div>';
+          echo '<div class="form-item-checkbox">';
           echo form_checkbox($data);
           echo '<label>' . $activity->name . '</label>';
           echo '</div>';
-          /*
-            $this->table->add_row(
-              sprintf('<a class="id__cell" href="#activity_%s">%s</a>', $activity->id, $activity->name),
-              $activity->code,
-              $activity->fee_excl_vat,
-              $activity->fee_incl_vat
-            );
-          */
-        }
-      }
 
-      echo $this->table->generate();
+        }
+
+      }
 
       ?>
     </div>
@@ -1306,10 +1314,92 @@ $(document).ready(function() {
     return false;
   });
 
-  //LALA
-  //work-container__field
+  //NOTA
 
-  $('.work-container__field .work-container__number input').change(function(){
+  $('#add-nota-form form').bind('submit', function() {
+
+    var did = $(this).data('did');
+    var vid = $(this).data('vid');
+
+    var formObj = {};
+    var inputs = $(this).serializeArray();
+    $.each(inputs, function (i, input) {
+      formObj[input.name] = input.value;
+    });
+
+    formObj['dossier_id'] = did;
+    formObj['voucher_id'] = vid;
+
+    $.ajax({
+      type		: "POST",
+      cache	: false,
+      url		: "/fast_dossier/ajax/addinternalcommunication",
+      data		: {'communication' : formObj},
+      success: function(data) {
+        if(data.result == 'OK'){
+          parent.$.fancybox.close();
+        }else{
+          $('#add-nota-form').find('.msg__error').show();
+          $.fancybox.resize();
+        }
+      }
+    });
+    return false;
+  });
+
+  //NOTA
+
+  $('#add-email-form form').bind('submit', function() {
+
+    var did = $(this).data('did');
+    var vid = $(this).data('vid');
+
+    var formObj = {};
+    var inputs = $(this).serializeArray();
+    $.each(inputs, function (i, input) {
+      formObj[input.name] = input.value;
+    });
+
+    formObj['dossier_id'] = did;
+    formObj['voucher_id'] = vid;
+
+    $.ajax({
+      type		: "POST",
+      cache	: false,
+      url		: "/fast_dossier/ajax/addemailcommunication",
+      data		: {'communication' : formObj},
+      success: function(data) {
+        if(data.result == 'OK'){
+          parent.$.fancybox.close();
+        }else{
+          $('#add-email-form').find('.msg__error').show();
+          $.fancybox.resize();
+        }
+
+      }
+    });
+    return false;
+  });
+
+
+  //WORK
+
+  $('#add-work-form form').bind('submit', function() {
+      var formObj = {};
+      var inputs = $(this).serializeArray();
+      $.each(inputs, function (i, input) {
+        formObj[input.value] = input.value;
+        $('.work-container__fields').append('<div class="work-container__field" data-id="13" data-incl="329.12" data-excl="272"><div class="form-item-vertical work-container__task"><input type="text" name="name[]" value="Type III (Ongeval)" readonly="readonly" style="background: #F0F0F0"><input type="hidden" name="activity_id[]" value="13"></div><div class="form-item-vertical work-container__number"><input type="text" name="amount[]" value="3"></div><div class="form-item-vertical work-container__unitprice"><input type="text" name="fee_incl_vat[]" value="329.12" readonly="readonly" style="background: #F0F0F0"></div><div class="form-item-vertical work-container__excl"><input type="text" name="cal_fee_excl_vat[]" value="816" readonly="readonly" style="background: #F0F0F0"></div><div class="form-item-vertical work-container__incl"><input type="text" name="cal_fee_incl_vat[]" value="987.36" readonly="readonly" style="background: #F0F0F0"></div><div class="form-item-vertical work-container__remove"><div class="work-container__remove__btn"><div class="btn--icon--small"><a class="icon--remove--small" href="#">Remove</a></div></div></div></div>');
+      });
+
+      update_total_price();
+      recalculate_price();
+      parent.$.fancybox.close();
+      return false;
+  });
+
+
+  $(document).on('change','.work-container__field .work-container__number input', function(){
     var unit_incl = $(this).parents('.work-container__field').data('incl');
     var unit_excl = $(this).parents('.work-container__field').data('excl');
     var new_incl = 0;
@@ -1333,7 +1423,7 @@ $(document).ready(function() {
     recalculate_price();
   });
 
-  $('.work-container__remove').click(function(){
+  $(document).on('click','.work-container__remove', function(){
     $(this).parents('.work-container__field').remove();
     update_total_price();
     recalculate_price();

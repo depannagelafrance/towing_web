@@ -101,3 +101,27 @@
   padding: 20px;
 
 }
+
+.form-item-checkbox{
+  @include clearfix;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+  label{
+
+    float: left;
+
+  }
+
+  input{
+
+    margin-top: -3px;
+    margin-right: 0px;
+    float: left;
+    width: 30px;
+    height: 30px;
+
+  }
+
+
+}
