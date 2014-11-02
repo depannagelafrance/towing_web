@@ -181,9 +181,16 @@ if($errors) {
 
     </div>
 
-    <div class="form-item">
-      <input type="submit" value="Bewaren" name="btnSave" />
+    <!--SAVE-->
+    <div class="box form__actions">
+      <div class="form__actions__cancel"></div>
+      <div class="form__actions__save">
+        <div class="form-item">
+          <input type="submit" value="Bewaren" name="btnSave" />
+        </div>
+      </div>
     </div>
+    <!-- END SAVE -->
     <?php print form_close(); ?>
 
     <pre>

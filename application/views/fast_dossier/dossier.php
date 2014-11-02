@@ -479,44 +479,68 @@ $_dossier = $dossier->dossier;
 
         <!--PAYMENT-->
         <div class="form-item-vertical payment-container">
-          <div class="form-item-vertical payment-container__insurance">
+          <div id="payment_insurance"  class="form-item-vertical payment-container__insurance">
             <label class="notbold">Garantie:</label>
             <?php print form_input('amount_guaranteed_by_insurance', $_voucher->towing_payments->amount_guaranteed_by_insurance); ?>
           </div>
 
-          <div class="form-item-vertical payment-container__amount_customer">
+          <div id="payment_total" class="form-item-vertical payment-container__amount_customer">
             <label class="notbold">Te betalen:</label>
-            <?php print form_input('amount_customer', $_voucher->towing_payments->amount_customer); ?>
+            <?php
+            $data = array(
+            'name'        => 'amount_customer',
+            'value'       => $_voucher->towing_payments->amount_customer,
+            'readonly'    => 'readonly',
+            'style'       => 'background: #F0F0F0'
+            );
+            print form_input($data);
+            ?>
           </div>
 
-          <div class="form-item-vertical payment-container__paid_in_cash">
+          <div id="payment_cash" class="form-item-vertical payment-container__paid_in_cash">
             <label class="notbold">Contant:</label>
             <?php print form_input('paid_in_cash', $_voucher->towing_payments->paid_in_cash); ?>
           </div>
 
-          <div class="form-item-vertical payment-container__paid_by_bank_deposit">
+          <div id="payment_bank" class="form-item-vertical payment-container__paid_by_bank_deposit">
             <label class="notbold">Overschrijving:</label>
             <?php print form_input('paid_by_bank_deposit', $_voucher->towing_payments->paid_by_bank_deposit); ?>
           </div>
 
-          <div class="form-item-vertical payment-container__paid_by_debit_card">
+          <div id="payment_debit" class="form-item-vertical payment-container__paid_by_debit_card">
             <label class="notbold">Maestro:</label>
             <?php print form_input('paid_by_debit_card', $_voucher->towing_payments->paid_by_debit_card); ?>
           </div>
 
-          <div class="form-item-vertical payment-container__paid_by_credit_card">
+          <div id="payment_credit" class="form-item-vertical payment-container__paid_by_credit_card">
             <label class="notbold">Creditcard:</label>
             <?php print form_input('paid_by_credit_card', $_voucher->towing_payments->paid_by_credit_card); ?>
           </div>
 
-          <div class="form-item-vertical payment-container__cal_amount_paid">
+          <div id="payment_paid" class="form-item-vertical payment-container__cal_amount_paid">
             <label class="notbold">Betaald:</label>
-            <?php print form_input('cal_amount_paid', $_voucher->towing_payments->cal_amount_paid); ?>
+            <?php
+            $data = array(
+              'name'        => 'cal_amount_paid',
+              'value'       => $_voucher->towing_payments->cal_amount_paid,
+              'readonly'    => 'readonly',
+              'style'       => 'background: #F0F0F0'
+            );
+            print form_input($data);
+            ?>
           </div>
 
-          <div class="form-item-vertical payment-container__cal_amount_unpaid">
+          <div id="payment_unpaid" class="form-item-vertical payment-container__cal_amount_unpaid">
             <label class="notbold">Openstaand:</label>
-            <?php print form_input('cal_amount_unpaid', $_voucher->towing_payments->cal_amount_unpaid); ?>
+            <?php
+            $data = array(
+              'name'        => 'cal_amount_unpaid',
+              'value'       => $_voucher->towing_payments->cal_amount_unpaid,
+              'readonly'    => 'readonly',
+              'style'       => 'background: #F0F0F0'
+            );
+            print form_input($data);
+            ?>
           </div>
 
         </div>
@@ -995,12 +1019,25 @@ $_dossier = $dossier->dossier;
 
       if($available_activities && sizeof($available_activities) > 0) {
         foreach($available_activities as $activity) {
+
+          $data = array(
+            'name'        => $activity->name,
+            'value'       => $activity->id,
+            'checked'     => FALSE,
+          );
+
+          echo '<div>';
+          echo form_checkbox($data);
+          echo '<label>' . $activity->name . '</label>';
+          echo '</div>';
+          /*
             $this->table->add_row(
               sprintf('<a class="id__cell" href="#activity_%s">%s</a>', $activity->id, $activity->name),
               $activity->code,
               $activity->fee_excl_vat,
               $activity->fee_incl_vat
             );
+          */
         }
       }
 
@@ -1161,21 +1198,37 @@ $(document).ready(function() {
       url		: "/fast_dossier/ajax/updatecustomer/" + did + '/' + vid,
       data		: {'customer' : formObj},
       success: function(data) {
+        console.log(data);
         if(data.id) {
-          var html;
-          console.log(data);
+          var html = '';
 
-          if(data.company_name){
+          if(data.company_name !== ''){
             html += '<div>' + data.company_name + '</div>';
           }else{
-            html += '<div>' + data.first_name + ' ' + data.last_name + '</div>';
+            html += '<div>' + data.last_name + ' ' + data.first_name + '</div>';
           }
 
-          html += '<div>' + data.street + ' ' + data.street_number + ' ' + data.street_pobox + '</div>';
-          html += '<div>' + data.zip + ' ' + data.city + '</div>';
-          html += '<div>' + data.country + '</div>';
-          html += '<div>T: ' + data.phone + '</div>';
-          html += '<div>E: ' + data.email + '</div>';
+          if(data.street !== '' || data.street_number !== ''  ){
+            if(data.street_pobox !== ''){
+              html += '<div>' + data.street + ' ' + data.street_number + ' ' + data.street_pobox + '</div>';
+            } else {
+              html += '<div>' + data.street + ' ' + data.street_number + '</div>';
+            }
+          }
+
+          if(data.zip !== '' || data.city !== ''  ){
+            html += '<div>' + data.zip + ' ' + data.city + '</div>';
+          }
+          if(data.country !== ''){
+            html += '<div>' + data.country + '</div>';
+          }
+          if(data.phone !== ''){
+            html += '<div>T: ' + data.phone + '</div>';
+          }
+          if(data.email !== ''){
+            html += '<div>E: ' + data.email + '</div>';
+          }
+
           $(cid).html(html);
           parent.$.fancybox.close();
         } else {
@@ -1211,20 +1264,35 @@ $(document).ready(function() {
       data		: {'causer' : formObj},
       success: function(data) {
         if(data.id){
-          var html;
-          console.log(data);
+          var html = '';
 
-          if(data.company_name){
+          if(data.company_name !== ''){
             html += '<div>' + data.company_name + '</div>';
           }else{
-            html += '<div>' + data.first_name + ' ' + data.last_name + '</div>';
+            html += '<div>' + data.last_name + ' ' + data.first_name + '</div>';
           }
 
-          html += '<div>' + data.street + ' ' + data.street_number + ' ' + data.street_pobox + '</div>';
-          html += '<div>' + data.zip + ' ' + data.city + '</div>';
-          html += '<div>' + data.country + '</div>';
-          html += '<div>T: ' + data.phone + '</div>';
-          html += '<div>E: ' + data.email + '</div>';
+          if(data.street !== '' || data.street_number !== ''  ){
+            if(data.street_pobox !== ''){
+              html += '<div>' + data.street + ' ' + data.street_number + ' ' + data.street_pobox + '</div>';
+            } else {
+              html += '<div>' + data.street + ' ' + data.street_number + '</div>';
+            }
+          }
+
+          if(data.zip !== '' || data.city !== ''  ){
+            html += '<div>' + data.zip + ' ' + data.city + '</div>';
+          }
+          if(data.country !== ''){
+            html += '<div>' + data.country + '</div>';
+          }
+          if(data.phone !== ''){
+            html += '<div>T: ' + data.phone + '</div>';
+          }
+          if(data.email !== ''){
+            html += '<div>E: ' + data.email + '</div>';
+          }
+
           $(cid).html(html);
           parent.$.fancybox.close();
         }else{
@@ -1260,8 +1328,47 @@ $(document).ready(function() {
 
     $(this).parents('.work-container__field').find('.work-container__incl').find('input').val(new_incl);
     $(this).parents('.work-container__field').find('.work-container__excl').find('input').val(new_excl);
+
+    update_total_price();
+    recalculate_price();
   });
 
+  $('.work-container__remove').click(function(){
+    $(this).parents('.work-container__field').remove();
+    update_total_price();
+    recalculate_price();
+    return false;
+  });
+
+  $('#payment_insurance, #payment_credit, #payment_debit, #payment_cash, #payment_bank, #payment_total').change(function(){
+    recalculate_price();
+  });
+
+  function update_total_price(){
+    var total = 0;
+    $('.work-container__incl input').each(function() {
+      total += parseFloat($(this).val());
+    });
+    $('#payment_total input').val(total.toFixed(2));
+  }
+
+  function recalculate_price(){
+
+    var insurance = $('#payment_insurance input').val() || 0;
+    var cash = $('#payment_cash input').val() || 0;
+    var bank = $('#payment_bank input').val() || 0;
+    var debit = $('#payment_debit input').val() || 0;
+    var credit = $('#payment_credit input').val() || 0;
+    var total = $('#payment_total input').val() || 0;
+
+    var topay = total - insurance - cash - bank - debit - credit;
+    var paid = (total - topay).toFixed(2);
+    var unpaid = topay.toFixed(2);
+
+    $('#payment_paid input').val(paid);
+    $('#payment_unpaid input').val(unpaid);
+
+  }
 
 
 });
