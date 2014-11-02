@@ -1040,6 +1040,11 @@ $_dossier = $dossier->dossier;
             'name'        => 'activity',
             'value'       => $activity->id,
             'checked'     => FALSE,
+            'data-id'     => $activity->id,
+            'data-label'  => $activity->name,
+            'data-code'   => $activity->code,
+            'data-incl'   => round($activity->fee_incl_vat, 2),
+            'data-excl'   => round($activity->fee_excl_vat, 2)
           );
 
           echo '<div class="form-item-checkbox">';
@@ -1386,10 +1391,19 @@ $(document).ready(function() {
 
   $('#add-work-form form').bind('submit', function() {
       var formObj = {};
-      var inputs = $(this).serializeArray();
+      var inputs = $(this).find('input[type="checkbox"]');
+
       $.each(inputs, function (i, input) {
-        formObj[input.value] = input.value;
-        $('.work-container__fields').append('<div class="work-container__field" data-id="13" data-incl="329.12" data-excl="272"><div class="form-item-vertical work-container__task"><input type="text" name="name[]" value="Type III (Ongeval)" readonly="readonly" style="background: #F0F0F0"><input type="hidden" name="activity_id[]" value="13"></div><div class="form-item-vertical work-container__number"><input type="text" name="amount[]" value="3"></div><div class="form-item-vertical work-container__unitprice"><input type="text" name="fee_incl_vat[]" value="329.12" readonly="readonly" style="background: #F0F0F0"></div><div class="form-item-vertical work-container__excl"><input type="text" name="cal_fee_excl_vat[]" value="816" readonly="readonly" style="background: #F0F0F0"></div><div class="form-item-vertical work-container__incl"><input type="text" name="cal_fee_incl_vat[]" value="987.36" readonly="readonly" style="background: #F0F0F0"></div><div class="form-item-vertical work-container__remove"><div class="work-container__remove__btn"><div class="btn--icon--small"><a class="icon--remove--small" href="#">Remove</a></div></div></div></div>');
+        if($(this).is(':checked')){
+          console.log($(this));
+          var id = $(this).data('id');
+          var label = $(this).data('label');
+          var code = $(this).data('code');
+          var incl = $(this).data('incl');
+          var excl = $(this).data('excl');
+
+          $('.work-container__fields').append('<div class="work-container__field" data-id="'+ id + '" data-incl="'+ incl +'" data-excl="'+ excl +'"><div class="form-item-vertical work-container__task"><input type="text" name="name[]" value="'+ label +'" readonly="readonly" style="background: #F0F0F0"><input type="hidden" name="activity_id[]" value="'+ id +'"></div><div class="form-item-vertical work-container__number"><input type="text" name="amount[]" value="1"></div><div class="form-item-vertical work-container__unitprice"><input type="text" name="fee_incl_vat[]" value="'+ incl +'" readonly="readonly" style="background: #F0F0F0"></div><div class="form-item-vertical work-container__excl"><input type="text" name="cal_fee_excl_vat[]" value="'+ excl +'" readonly="readonly" style="background: #F0F0F0"></div><div class="form-item-vertical work-container__incl"><input type="text" name="cal_fee_incl_vat[]" value="'+ incl +'" readonly="readonly" style="background: #F0F0F0"></div><div class="form-item-vertical work-container__remove"><div class="work-container__remove__btn"><div class="btn--icon--small"><a class="icon--remove--small" href="#">Remove</a></div></div></div></div>');
+        }
       });
 
       update_total_price();
