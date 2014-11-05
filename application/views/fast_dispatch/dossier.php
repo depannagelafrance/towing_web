@@ -154,20 +154,38 @@ if($errors) {
   <!-- second column -->
 
       <div class="layout_2col_item">
-
-        <div class="form-item-horizontal">
-            <label>Perceel</label>
-            <?php print form_input('allotment_id', $_dossier->allotment_id); ?>
-        </div>
-
         <div class="form-item-horizontal">
             <label>Perceel:</label>
-            <div class="form-value"><?php print $_dossier->allotment_name; ?></div>
+            <div class="form-value">
+              <?php
+                  $data = array(
+                    'name'        => 'allotment_name',
+                    'value'       => $_dossier->allotment_name,
+                    'readonly'    => 'readonly',
+                    'style'       => 'background: #F0F0F0; width: 100%'
+                  );
+                  print form_input($data);
+              ?>
+
+              <?php print form_hidden('allotment_id', $_dossier->allotment_id); ?>
+            </div>
         </div>
 
         <div class="form-item-horizontal">
             <label>Takeldienst:</label>
-            <?php print listbox('company_id', array(), $_dossier->company_id); ?>
+            <?php
+              $data = array();
+
+              if($_dossier->company_id) {
+                $c = new stdClass();
+                $c->id = $_dossier->company_id;
+                $c->name = $_dossier->company_name;
+
+                $data[] = $c; 
+              }
+
+              print listbox('company_id', $data, $_dossier->company_id);
+            ?>
         </div>
 
 
@@ -211,10 +229,8 @@ function fetchAllotmentAndTowingServices()
       if(data && data.length == 1) {
         var allotment = data.shift();
 
-        console.log("allotment " + allotment.id);
         $("input[name*='allotment_id']").val(allotment.id);
         $("input[name*='allotment_name']").val(allotment.name);
-
 
         $('#list_company_id').empty();
 
@@ -244,10 +260,8 @@ $('#list_direction').change(function(){
       });
 
       $('#list_indicator').trigger('chosen:updated');
-
+      fetchAllotmentAndTowingServices();
   });
-
-  fetchAllotmentAndTowingServices();
 });
 
 $('#list_indicator').change(function(){

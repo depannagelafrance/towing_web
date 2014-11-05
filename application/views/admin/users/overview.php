@@ -4,6 +4,7 @@
   </div>
 </div>
 
+<div class="box table_list table_list_large">
 <?php
 
 //set table headers
@@ -33,3 +34,4 @@ foreach ($users as $user){
 echo $this->table->generate();
 
 ?>
+</div>

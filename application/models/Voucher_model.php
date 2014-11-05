@@ -59,8 +59,10 @@ class Voucher_model  {
       $this->cic                          = $data->cic;
       $this->additional_info              = $data->additional_info;
 
-      if($data->depot) {
+      if(property_exists($data, 'depot') && $data->depot) {
         $this->depot = new Depot_model($data->depot);
+      } else {
+        $this->depot = new Depot_model();
       }
 
       if($data->towing_activities && is_array($data->towing_activities)) {

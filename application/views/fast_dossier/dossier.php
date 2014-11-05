@@ -838,7 +838,9 @@ $_dossier = $dossier->dossier;
         <a class="close_overlay" href="#">Annuleren</a>
       </div>
 
-      <div class="form-item fancybox-form__actions__save">
+      <div class="form-item fancybox-form__actions__save fancybox-form__actions__twobuttons">
+        <input type="submit" value="Zelfde als hinderverwekker" name="btnSameAsCauser" id="btnSameAsCauser" />
+
         <input type="submit" value="Bewaren" name="btnInvoiceSave" />
       </div>
     </div>
@@ -940,7 +942,9 @@ $_dossier = $dossier->dossier;
         <a class="close_overlay" href="#">Annuleren</a>
       </div>
 
-      <div class="form-item fancybox-form__actions__save">
+      <div class="form-item fancybox-form__actions__save fancybox-form__actions__twobuttons">`
+        <input type="button" value="Zelfde als hinderverwekker" name="btnSameAsCustomer" id="btnSameAsCustomer"/>
+
         <input type="submit" value="Bewaren" name="btnNuisanceSave" />
       </div>
     </div>
@@ -1101,6 +1105,40 @@ $('#list_direction').change(function(){
   );
 });
 
+function composeAddressHtml(data) {
+  html = '';
+
+  if(data.company_name !== ''){
+    html += '<div>' + data.company_name + '</div>';
+  }else{
+    html += '<div>' + data.last_name + ' ' + data.first_name + '</div>';
+  }
+
+  if(data.street !== '' || data.street_number !== ''  ){
+    if(data.street_pobox !== ''){
+      html += '<div>' + data.street + ' ' + data.street_number + ' ' + data.street_pobox + '</div>';
+    } else {
+      html += '<div>' + data.street + ' ' + data.street_number + '</div>';
+    }
+  }
+
+  if(data.zip !== '' || data.city !== ''  ){
+    html += '<div>' + data.zip + ' ' + data.city + '</div>';
+  }
+  if(data.country !== ''){
+    html += '<div>' + data.country + '</div>';
+  }
+  if(data.phone !== ''){
+    html += '<div>T: ' + data.phone + '</div>';
+  }
+  if(data.email !== ''){
+    html += '<div>E: ' + data.email + '</div>';
+  }
+
+  return html;
+}
+
+
 $(document).ready(function() {
 
   $('#edit-depot-link').fancybox({
@@ -1211,37 +1249,8 @@ $(document).ready(function() {
       url		: "/fast_dossier/ajax/updatecustomer/" + did + '/' + vid,
       data		: {'customer' : formObj},
       success: function(data) {
-        console.log(data);
         if(data.id) {
-          var html = '';
-
-          if(data.company_name !== ''){
-            html += '<div>' + data.company_name + '</div>';
-          }else{
-            html += '<div>' + data.last_name + ' ' + data.first_name + '</div>';
-          }
-
-          if(data.street !== '' || data.street_number !== ''  ){
-            if(data.street_pobox !== ''){
-              html += '<div>' + data.street + ' ' + data.street_number + ' ' + data.street_pobox + '</div>';
-            } else {
-              html += '<div>' + data.street + ' ' + data.street_number + '</div>';
-            }
-          }
-
-          if(data.zip !== '' || data.city !== ''  ){
-            html += '<div>' + data.zip + ' ' + data.city + '</div>';
-          }
-          if(data.country !== ''){
-            html += '<div>' + data.country + '</div>';
-          }
-          if(data.phone !== ''){
-            html += '<div>T: ' + data.phone + '</div>';
-          }
-          if(data.email !== ''){
-            html += '<div>E: ' + data.email + '</div>';
-          }
-
+          var html = composeAddressHtml(data);
           $(cid).html(html);
           parent.$.fancybox.close();
         } else {
@@ -1277,34 +1286,7 @@ $(document).ready(function() {
       data		: {'causer' : formObj},
       success: function(data) {
         if(data.id){
-          var html = '';
-
-          if(data.company_name !== ''){
-            html += '<div>' + data.company_name + '</div>';
-          }else{
-            html += '<div>' + data.last_name + ' ' + data.first_name + '</div>';
-          }
-
-          if(data.street !== '' || data.street_number !== ''  ){
-            if(data.street_pobox !== ''){
-              html += '<div>' + data.street + ' ' + data.street_number + ' ' + data.street_pobox + '</div>';
-            } else {
-              html += '<div>' + data.street + ' ' + data.street_number + '</div>';
-            }
-          }
-
-          if(data.zip !== '' || data.city !== ''  ){
-            html += '<div>' + data.zip + ' ' + data.city + '</div>';
-          }
-          if(data.country !== ''){
-            html += '<div>' + data.country + '</div>';
-          }
-          if(data.phone !== ''){
-            html += '<div>T: ' + data.phone + '</div>';
-          }
-          if(data.email !== ''){
-            html += '<div>E: ' + data.email + '</div>';
-          }
+          var html = composeAddressHtml(data);
 
           $(cid).html(html);
           parent.$.fancybox.close();
@@ -1473,8 +1455,6 @@ $(document).ready(function() {
     $('#payment_unpaid input').val(unpaid);
 
   }
-
-
 });
 
 </script>

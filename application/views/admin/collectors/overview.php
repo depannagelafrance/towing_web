@@ -4,9 +4,11 @@
   </div>
 </div>
 
+
+<div class="box table_list table_list_large">
 <?php
 //set table headers
-$this->table->set_heading('Id', 'Naam');
+$this->table->set_heading('ID', 'Naam');
 
 // add table row(s)
 foreach ($collectors as $collector){
@@ -25,3 +27,4 @@ foreach ($collectors as $collector){
 //render table
 echo $this->table->generate();
 ?>
+</div>

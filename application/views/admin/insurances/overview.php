@@ -4,8 +4,9 @@
   </div>
 </div>
 
+<div class="box table_list table_list_large">
 <?php
-$this->table->set_heading('id', 'Name'/** TABLE HEADERS TO BE ADDED */);
+$this->table->set_heading('ID', 'Name');
 
 foreach ($insurances as $insurance){
     $this->table->add_row(
@@ -21,3 +22,4 @@ foreach ($insurances as $insurance){
 
 echo $this->table->generate();
 ?>
+</div>
