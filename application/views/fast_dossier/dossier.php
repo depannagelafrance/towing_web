@@ -59,9 +59,8 @@ $_dossier = $dossier->dossier;
             $prev = $voucher->dossier_number;
 
             $this->table->add_row(
-                  array('class' => $class, 'data' => sprintf('<a class="id__cell" href="/fast_dossier/dossier/%s/%s"><span class="id__cell__icon icon--map"></span><span class="id__cell__text">%s</span></a>', $voucher->dossier_number, $voucher->voucher_number, $voucher->dossier_number)) // $voucher->voucher_number),
-                  //array('class' => $class, 'data' => mdate('%d %M',strtotime($voucher->call_date))),
-                  //array('class' => $class, 'data' => mdate('%H:%i',strtotime($voucher->call_date)))
+                  array('class' => $class, 'data' => sprintf('<a class="id__cell" href="/fast_dossier/dossier/%s/%s"><span class="id__cell__icon icon--map"></span><span class="id__cell__text">%s</span></a>', $voucher->dossier_number, $voucher->voucher_number, $voucher->dossier_number)),
+                  array('class' => $class, 'data' => sprintf("%s<br />%s",$voucher->direction_name, $voucher->indicator_name))
             );
 
           }
@@ -660,6 +659,21 @@ $_dossier = $dossier->dossier;
       <!-- END AUTOGRAPHS-->
     </div>
 
+
+      <!-- ADDITIONAL INFORMATION -->
+      <div class="dsform__clearfix dsform_seperation">
+        <div class="dsform_left">
+          <div class="vehicule-container__left">
+            <div class="form-item-horizontal">
+                <label>Extra informatie:</label>
+                <?php print form_textarea('additional_info', $_voucher->additional_info); ?>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- END ADDITIONAL INFORMATION -->
+
     <!--SAVE-->
     <div class="form__actions">
       <div class="form__actions__cancel"></div>
@@ -1073,16 +1087,7 @@ $_dossier = $dossier->dossier;
     </div>
     <?= form_close(); ?>
   </div>
-
-
 </div>
-
-
-<pre>
-
-<? var_dump($_dossier); ?>
-</pre>
-
 
 <script>
 $('#list_direction').change(function(){

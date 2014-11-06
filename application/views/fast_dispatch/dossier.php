@@ -181,11 +181,25 @@ if($errors) {
                 $c->id = $_dossier->company_id;
                 $c->name = $_dossier->company_name;
 
-                $data[] = $c; 
+                $data[] = $c;
               }
 
               print listbox('company_id', $data, $_dossier->company_id);
             ?>
+        </div>
+
+        <div class="form-item-horizontal">
+            <label>Telefoonnummer:</label>
+
+            <div class="form-value" style="background-color: red; color: white; font-size: 1.2em; text-align: center" id="towing_service_phone">
+              <?php
+                if(property_exists($_dossier, 'towing_company')) {
+                  printf("%s", $_dossier->towing_company->phone);
+                } else {
+                  printf("&nbsp;");
+                }
+              ?>
+            </div>
         </div>
 
 
@@ -239,12 +253,17 @@ function fetchAllotmentAndTowingServices()
                     value: item.id,
                     text : item.name
                 }));
+
+            if(index == 0) {
+              $('#towing_service_phone').text(item.phone);
+            }
         });
 
         $('#list_company_id').trigger('chosen:updated');
       }
   });
 }
+
 
 $('#list_direction').change(function(){
   var id = $('#list_direction option:selected').val();
