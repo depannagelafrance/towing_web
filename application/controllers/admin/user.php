@@ -102,28 +102,16 @@ class User extends Page {
       $result = $this->admin_service->unlockUser($id, $this->_get_user_token());
 
       if(property_exists($result, 'statusCode')) {
-        //TODO: something went saur
-        die('todo');
+        $this->_add_error(sprintf('Fout bij het activeren van een gebruiker (%d - %s)', $result->statusCode, $result->message));
+
+        $this->_displayOverviewPage();
       } else {
         //TODO: pass a message to the overview that the delete was either succesfull or not
+        $this->session->set_flashdata('_INFO_MSG', "Gebruiker werd opnieuwe geactiveerd");
+
         redirect("/admin/user");
       }
 
-
-      // if($result->result != 'ok'){
-      //     die('To do: add correct failure message, see ' . __CLASS__ . ' -> ' . __METHOD__);
-      // }
-      // else {
-      //     $this->_add_content(
-      //         $this->load->view(
-      //             'admin/users/overview',
-      //             array(
-      //                 'roles' => $this->_getRoles()
-      //             ),
-      //             true
-      //         )
-      //     );
-      // }
   }
 
   /**
