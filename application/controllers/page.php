@@ -132,7 +132,7 @@ class Page extends CI_Controller {
 		$data = $this->_get_authenticated_user();
 
 		if($data) {
-			if($data->token) {
+			if(property_exists($data, 'token') && $data->token) {
 				return $data->user_modules;
 			}
 
@@ -146,10 +146,9 @@ class Page extends CI_Controller {
 		$data = $this->_get_authenticated_user();
 
 		if($data) {
-			if($data->token) {
+			if(property_exists($data, 'token') && $data->token) {
 				return $data->token;
 			}
-
 
 			return null;
 		}

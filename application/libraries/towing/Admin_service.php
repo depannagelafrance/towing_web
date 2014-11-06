@@ -23,7 +23,9 @@ class Admin_service extends Rest_service {
   }
 
   public function updateUser(User_model $user, $token) {
-    return $this->CI->rest->put(sprintf('/admin/users/%s/%s', $user->id, $token), get_object_vars($user));
+    return $this->CI->rest->put(sprintf('/admin/users/%s/%s', $user->id, $token),
+                  json_encode($user),
+                  'application/json');
   }
 
   public function deleteUser($user_id, $token) {

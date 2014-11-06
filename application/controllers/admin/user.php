@@ -38,9 +38,9 @@ class User extends Page {
   public function create(){
 
       if($this->input->post('submit')){
-            
+
           $this->_setFormValidationRules();
-          
+
           if (!$this->form_validation->run())
           {
               $this->_add_content(
@@ -139,19 +139,19 @@ class User extends Page {
    * @param int $id
    */
   public function delete($id){
-      
+
       $result = $this->admin_service->deleteUser($id, $this->_get_user_token());
-      
+
       if($result && property_exists($result, 'statusCode'))
       {
           $this->_add_error(sprintf('Fout bij het verwijderen van een gebruiker (%d - %s)', $result->statusCode, $result->message));
-      
+
           $this->_displayOverviewPage();
       }
       else
       {
           $this->session->set_flashdata('_INFO_MSG', "Gebruiker werd verwijderd");
-      
+
           redirect('/admin/user', 'refresh');
       }
   }
@@ -162,11 +162,11 @@ class User extends Page {
    * @param int $id
    */
   public function edit($id){
-      
+
       if($this->input->post('submit'))
       {
           $this->_setFormValidationRules();
-      
+
           //return to form if validation failed
           if (!$this->form_validation->run())
           {
@@ -188,12 +188,12 @@ class User extends Page {
           {
               //load the model
               $this->load->model('user_model');
-      
+
               $model=$this->user_model->initialise($this->input->post());
               $model->id = $id;
-      
+
               $result = $this->admin_service->updateUser($model, $this->_get_user_token());
-      
+
               if($result && property_exists($result, 'statusCode')) {
                   if($result->statusCode == 409) {
                       $this->_add_error(sprintf("Er bestaat reeds een gebruiker met de naam: '%s'", $this->input->post('name')));
@@ -216,7 +216,7 @@ class User extends Page {
               } else {
                   //yes, nicely done!
                   $this->session->set_flashdata('_INFO_MSG', "Gebruiker aangepast: " . $this->input->post('firstname') . ' ' . $this->input->post('lastname'));
-      
+
                   redirect("/admin/user");
               }
           }
@@ -224,11 +224,11 @@ class User extends Page {
       else //not a post, so load default view
       {
           $result = $this->_getUserById($id);
-      
+
           if($result && property_exists($result, 'statusCode'))
           {
               $this->_add_error(sprintf('Fout bij het ophalen van een maatschappij (%d - %s)', $result->statusCode, $result->message));
-      
+
               $this->_displayOverviewPage();
           }
           else
@@ -237,13 +237,13 @@ class User extends Page {
                       $this->load->view(
                           'admin/users/edit',
                           array(
-                              'users' => $this->_getUserById($id),
+                              'users' => $result,
                               'roles' => $this->_getRoles()
                           ),
                           true
                       )
               );
-      
+
               $this->_render_page();
           }
       }
@@ -265,25 +265,25 @@ class User extends Page {
   private function _getRoles(){
       return $this->admin_service->fetchAvailableRoles($this->_get_user_token());
   }
-  
+
   /**
    * Form validation rules
    */
   private function _setFormValidationRules(){
       $this->load->library("form_validation");
-      
+
       $this->form_validation->set_rules('login', 'login', 'required');
       $this->form_validation->set_rules('firstname', 'firstname', 'required');
       $this->form_validation->set_rules('lastname', 'lastname', 'required');
       $this->form_validation->set_rules('email', 'email', 'required');
   }
-  
+
   /**
    * Render overview
    */
   private function _displayOverviewPage() {
       $users = $this->admin_service->fetchAllUsers($this->_get_user_token());
-  
+
       if(!$users){
           $this->_add_content('Geen gebruikers gevonden!');
       } else if (!is_array($users) && property_exists($users, 'statusCode')) {
@@ -299,7 +299,7 @@ class User extends Page {
                   )
           );
       }
-  
+
       $this->_render_page();
   }
 }
