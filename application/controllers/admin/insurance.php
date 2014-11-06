@@ -20,7 +20,6 @@ class Insurance extends Page {
 
   /**
    * Create new insurance instance
-   * @param string $name
    */
   public function create(){
 

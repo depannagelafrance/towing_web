@@ -8,12 +8,11 @@
 <div class="box table_list table_list_large">
 <?php
 //set table headers
-$this->table->set_heading('ID', 'Naam');
+$this->table->set_heading('Naam');
 
 // add table row(s)
 foreach ($collectors as $collector){
     $this->table->add_row(
-            $collector->id,
             $collector->name,
             anchor('admin/collector/delete/' . $collector->id, 'delete'),
             anchor('admin/collector/edit/' . $collector->id, 'update')

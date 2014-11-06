@@ -36,7 +36,7 @@ class Collector extends Page {
           {
               $this->_add_content(
                       $this->load->view(
-                              'admin/collector/create',
+                              'admin/collectors/create',
                               array("name" => ""),
                               true
                       )
