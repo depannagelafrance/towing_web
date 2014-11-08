@@ -9,7 +9,8 @@ if ( ! function_exists('toMySQLDate')) {
       return null;
     } else {
       $_date = strtotime($date);
-      return date("Y-m-d h:i:s",$_date);
+      // return date("Y-m-d h:i:s",$_date);
+      return date("c",$_date);
     }
   }
 }
@@ -36,7 +37,7 @@ if ( ! function_exists('toTimeValue')) {
     }
     else
     {
-      return "2014-10-04T22:00:00.000Z";
+      return date("c", strtotime($time));
     }
   }
 }
