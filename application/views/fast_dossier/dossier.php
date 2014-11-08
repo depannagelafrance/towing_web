@@ -755,7 +755,7 @@ $_dossier = $dossier->dossier;
       </div>
 
       <div class="form-item fancybox-form__actions__save fancybox-form__actions__twobuttons">
-        <?php print form_button('use_default','Depot Lafrance gebruiken'); ?>
+        <?php print form_button('use_default','Depot ' . $company_depot->name); ?>
         <input type="submit" value="Bewaren" name="btnDepotSave" />
       </div>
     </div>
