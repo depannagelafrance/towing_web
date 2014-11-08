@@ -1089,7 +1089,11 @@ $_dossier = $dossier->dossier;
     <?= form_close(); ?>
   </div>
 </div>
-
+<?php
+echo "<pre>";
+var_dump($dossier);
+echo "</pre>";
+?>
 <script>
 $('#list_direction').change(function(){
   var id = $('#list_direction option:selected').val();
