@@ -23,6 +23,7 @@ function composeCustomerInformation($c) {
 
 
 $this->load->helper('listbox');
+$this->load->helper('datetime');
 $this->load->helper('date');
 
 $_dossier = $dossier->dossier;
@@ -95,7 +96,7 @@ $_dossier = $dossier->dossier;
           <div class="icon--clock"></div>
         </div>
         <div class="idbar__value">
-          <?php print mdate('%H:%i',strtotime($_dossier->call_date)); ?>
+          <?php print asTime($_dossier->call_date); ?>
         </div>
       </div>
 
@@ -256,7 +257,7 @@ $_dossier = $dossier->dossier;
         <div class="signa-container__right">
           <div class="form-item-horizontal signa-container__arrival">
             <label>Aankomst:</label>
-            <?php print form_input('signa_arrival', mdate('%H:%i',strtotime($_voucher->signa_arrival))); ?>
+            <?php print form_input('signa_arrival', asTime($_voucher->signa_arrival)); ?>
           </div>
         </div>
       </div>
@@ -279,22 +280,22 @@ $_dossier = $dossier->dossier;
         <div class="towedby-container__right">
           <div class="form-item-horizontal towedby-container__call">
             <label>Oproep:</label>
-            <?php print form_input('towing_called', mdate('%H:%i',strtotime($_voucher->towing_called))); ?>
+            <?php print form_input('towing_called', asTime($_voucher->towing_called)); ?>
           </div>
 
           <div class="form-item-horizontal towedby-container__arival">
             <label>Aankomst:</label>
-            <?php print form_input('towing_arrival', mdate('%H:%i',strtotime($_voucher->towing_arrival))); ?>
+            <?php print form_input('towing_arrival',asTime($_voucher->towing_arrival)); ?>
           </div>
 
           <div class="form-item-horizontal towedby-container__start">
             <label>Start:</label>
-            <?php print form_input('towing_start', mdate('%H:%i',strtotime($_voucher->towing_start))); ?>
+            <?php print form_input('towing_start', asTime($_voucher->towing_start)); ?>
           </div>
 
           <div class="form-item-horizontal towedby-container__completed">
             <label>Stop:</label>
-            <?php print form_input('towing_completed', mdate('%H:%i',strtotime($_voucher->towing_completed))); ?>
+            <?php print form_input('towing_completed', asTime($_voucher->towing_completed)); ?>
           </div>
 
         </div>
