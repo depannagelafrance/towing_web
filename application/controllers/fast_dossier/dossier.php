@@ -165,10 +165,22 @@ class Dossier extends Page {
           $j = 0;
 
           foreach($activity_ids as $activity_id) {
+            $found = false;
+
             foreach($voucher->towing_activities as $towing_activity) {
               if($towing_activity->activity_id == $activity_id) {
                 $towing_activity->amount = $activity_amounts[$j];
+                $found = true;
               }
+            }
+
+            if(!$found) {
+              $_activity = new stdClass();
+              $_activity->activity_id = $activity_id;
+              $_activity->towing_voucher_id = $voucher->id;
+              $_activity->amount = $activity_amounts[$j];
+
+              $voucher->towing_activities[] = $_activity;
             }
 
             $j++;
