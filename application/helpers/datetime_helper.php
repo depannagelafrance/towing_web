@@ -2,11 +2,22 @@
 
 
 if ( ! function_exists('asTime')) {
-  function asTime($data) {
-    if(!$data || trim($data) === "") {
+  function asTime($data)
+  {
+    if(!$data || trim($data) === "")
+    {
       return "";
-    } else {
-      return mdate('%H:%i',strtotime($data));
+    }
+    else
+    {
+      if(is_numeric($data))  //it can be a unixtimestamp
+      {
+        return date('H:i', $data);
+      }
+      else //or just a string
+      {
+        return mdate('%H:%i',strtotime($data));
+      }
     }
   }
 }
