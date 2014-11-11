@@ -21,8 +21,20 @@ function composeCustomerInformation($c) {
   return $output;
 }
 
+function displayVoucherTimeField($value, $name) {
+  if($value) {
+    $render = sprintf('<div>%s</div>', asTime($value));
+    $render .= form_hidden($name, asTime($value));
+
+    return $render;
+  } else {
+    return form_input($name, asTime($value));
+  }
+}
+
 
 $this->load->helper('listbox');
+$this->load->helper('datetime');
 $this->load->helper('date');
 
 $_dossier = $dossier->dossier;
@@ -94,7 +106,7 @@ $_dossier = $dossier->dossier;
           <div class="icon--clock"></div>
         </div>
         <div class="idbar__value">
-          <?php print mdate('%H:%i',strtotime($_dossier->call_date)); ?>
+          <?php print asTime($_dossier->call_date); ?>
         </div>
       </div>
 
@@ -253,11 +265,14 @@ $_dossier = $dossier->dossier;
         <div class="signa-container__right">
           <div class="form-item-horizontal signa-container__arrival">
             <label>Aankomst:</label>
-            <?php print form_input('signa_arrival', mdate('%H:%i',strtotime($_voucher->signa_arrival))); ?>
+
+            <?php print displayVoucherTimeField($_voucher->signa_arrival, 'signa_arrival'); ?>
           </div>
         </div>
       </div>
       <!-- END SIGNA -->
+
+
 
       <!--TOWED BY-->
       <div class="towedby-container">
@@ -276,22 +291,22 @@ $_dossier = $dossier->dossier;
         <div class="towedby-container__right">
           <div class="form-item-horizontal towedby-container__call">
             <label>Oproep:</label>
-            <?php print form_input('towing_called', mdate('%H:%i',strtotime($_voucher->towing_called))); ?>
+            <?php print displayVoucherTimeField($_voucher->towing_called, 'towing_called'); ?>
           </div>
 
           <div class="form-item-horizontal towedby-container__arival">
             <label>Aankomst:</label>
-            <?php print form_input('towing_arrival', mdate('%H:%i',strtotime($_voucher->towing_arrival))); ?>
+            <?php print displayVoucherTimeField($_voucher->towing_arrival, 'towing_arrival'); ?>
           </div>
 
           <div class="form-item-horizontal towedby-container__start">
             <label>Start:</label>
-            <?php print form_input('towing_start', mdate('%H:%i',strtotime($_voucher->towing_start))); ?>
+            <?php print displayVoucherTimeField($_voucher->towing_start, 'towing_start'); ?>
           </div>
 
           <div class="form-item-horizontal towedby-container__completed">
             <label>Stop:</label>
-            <?php print form_input('towing_completed', mdate('%H:%i',strtotime($_voucher->towing_completed))); ?>
+            <?php print displayVoucherTimeField($_voucher->towing_completed, 'towing_completed'); ?>
           </div>
 
         </div>
@@ -751,7 +766,7 @@ $_dossier = $dossier->dossier;
       </div>
 
       <div class="form-item fancybox-form__actions__save fancybox-form__actions__twobuttons">
-        <?php print form_button('use_default','Depot Lafrance gebruiken'); ?>
+        <?php print form_button('use_default','Depot ' . $company_depot->name); ?>
         <input type="submit" value="Bewaren" name="btnDepotSave" />
       </div>
     </div>
@@ -1085,7 +1100,11 @@ $_dossier = $dossier->dossier;
     <?= form_close(); ?>
   </div>
 </div>
-
+<?php
+echo "<pre>";
+var_dump($dossier);
+echo "</pre>";
+?>
 <script>
 $('#list_direction').change(function(){
   var id = $('#list_direction option:selected').val();

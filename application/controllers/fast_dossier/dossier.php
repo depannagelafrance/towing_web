@@ -109,7 +109,6 @@ class Dossier extends Page {
             'voucher_number'          => $voucher_number,
             'vouchers'                => $this->dossier_service->fetchAllNewVouchers($token),
             'traffic_posts'           => $this->dossier_service->fetchAllTrafficPostsByAllotment($dossier->dossier->allotment_id, $token),
-            'available_activities'    => $this->dossier_service->fetchAllAvailableActivitiesForVoucher($dossier->dossier->id, $_voucher->id, $token),
             'insurances'              => $this->vocabulary_service->fetchAllInsurances($token),
             'collectors'              => $this->vocabulary_service->fetchAllCollectors($token),
             'licence_plate_countries' => $this->vocabulary_service->fetchAllCountryLicencePlates($token),
@@ -165,10 +164,22 @@ class Dossier extends Page {
           $j = 0;
 
           foreach($activity_ids as $activity_id) {
+            $found = false;
+
             foreach($voucher->towing_activities as $towing_activity) {
               if($towing_activity->activity_id == $activity_id) {
                 $towing_activity->amount = $activity_amounts[$j];
+                $found = true;
               }
+            }
+
+            if(!$found) {
+              $_activity = new stdClass();
+              $_activity->activity_id = $activity_id;
+              $_activity->towing_voucher_id = $voucher->id;
+              $_activity->amount = $activity_amounts[$j];
+
+              $voucher->towing_activities[] = $_activity;
             }
 
             $j++;
