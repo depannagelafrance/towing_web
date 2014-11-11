@@ -42,7 +42,7 @@ $route['default_controller'] = "login";
 $route['404_override'] = '';
 
 $route['login'] = 'login';
-$route['fast_dispatch/dossier/(:num)'] = 'fast_dispatch/dossier/view/$1';
+$route['fast_dispatch/dossier/(:num)/(:num)'] = 'fast_dispatch/dossier/view/$1/$2';
 $route['fast_dossier/dossier/(:num)'] = 'fast_dossier/dossier/view/$1';
 $route['fast_dossier/dossier/(:num)/(:num)'] = 'fast_dossier/dossier/view/$1/$2';
 //$route['news'] = 'news';

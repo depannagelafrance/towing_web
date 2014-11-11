@@ -124,116 +124,172 @@ table{
 }
 
 .table_list_large table{
+  .id__cell{
+    padding: 5px;
+  }
   .id__cell__icon{
-    margin-top: -5px;
-    margin-bottom: -5px;
-    margin-right: 10px;
-    margin-left: 10px;
+    position: absolute;
+    top: -6px;
+    left: 8px;
+  }
+  .id__cell__text{
+    text-indent: 15px;
   }
 }
-.table_list_small table{
+.table_list_small{
+  background: none !important;
+  border: none !important;
+  @include box-shadow(none!important);
 
-  th,
-  td{
-    &.active{
+  table{
 
-      background-color: $table_small_row_active_bg_color;
-      color: $table_small_row_active_color;
-
-      a{
-
-        color: $table_small_row_active_color;
-
-      }
-
+    thead{
+      background: #FFF;
     }
-  }
 
-  th{
-    padding-top: 20px;
-    padding-bottom: 20px;
-  }
+    tbody{
+      position: relative;
+      padding-top: 97px;
+      overflow: scroll;
+      height: 500px;
+    }
 
-  tbody{
-
-    tr{
-
+    tbody,tbody tr, tbody tr td{
+      display: block;
+      width: 100%;
+      background: none;
+      border: none;
+    }
+    tbody tr td{
+      background: #FFF;
+      border-top: 1px solid #EEE;
+      //@include box-shadow(0 1px 2px rgba(0,0,0,.1));
       &:hover{
-
-        color: $table_small_row_hover_color;
         background-color: $table_small_row_hover_bg_color;
+        color: $table_small_row_hover_color;
+        border-top: 1px solid $table_small_row_hover_bg_color;
 
+        background-color: lighten($table_small_row_active_bg_color,30%);
+        color: $table_small_row_active_color;
+        border-top: 1px solid lighten($table_small_row_active_bg_color,30%);
+
+        &.active{
+          background-color: $table_small_row_active_bg_color;
+          color: $table_small_row_active_color;
+          border-top: 1px solid $table_small_row_active_bg_color;
+        }
+      }
+    }
+
+    th,
+    td{
+      &.active{
+
+        background-color: $table_small_row_active_bg_color;
+        color: $table_small_row_active_color;
+        position: absolute;
+        top: 0px;
+        .id__cell__text__data{
+          //display: none;
+        }
         a{
 
+          color: $table_small_row_active_color;
+          display: block;
+
+        }
+
+      }
+    }
+
+    th{
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+
+    tbody{
+
+      tr{
+
+        &:hover{
+
           color: $table_small_row_hover_color;
+          background-color: $table_small_row_hover_bg_color;
 
-        }
+          a{
 
-        .icon--ticket{
+            color: $table_small_row_hover_color;
 
-          background-position: -338px -276px;
+          }
 
-        }
+          .icon--ticket{
 
-        .icon--map{
+            background-position: -338px -276px;
 
-          background-position: -274px -275px;
+          }
 
-        }
+          .icon--map{
 
-        td{
-          &.active{
-            color: #FFF;
+            background-position: -274px -275px;
 
-            a{
+          }
 
-              color: #FFF!important;
+          td{
+            &.active{
+              color: #FFF;
 
-            }
+              a{
 
-            .icon--map{
+                color: #FFF!important;
 
-              background-position: -274px -341px;
+              }
 
-            }
-            .icon--ticket{
+              .icon--map{
 
-              background-position: -337px -342px;
+                background-position: -274px -341px;
 
+              }
+              .icon--ticket{
+
+                background-position: -337px -342px;
+
+              }
             }
           }
+
         }
 
       }
 
-    }
 
-    tr:nth-child(even),
-    tr.even{
+      tr:nth-child(even),
+      tr.even{
 
-      &:hover{
+        &:hover{
 
-        color: $table_small_row_hover_color;
-        background-color: $table_small_row_hover_bg_color;
-
-        a{
           color: $table_small_row_hover_color;
+          background-color: $table_small_row_hover_bg_color;
+
+          a{
+            color: $table_small_row_hover_color;
+          }
+
         }
 
       }
 
-    }
+      tr:nth-child(odd),
+      tr.odd{
 
-    tr:nth-child(odd),
-    tr.odd{
+        &:hover{
 
-      &:hover{
-
-        color: $table_small_row_hover_color;
-        background-color: $table_small_row_hover_bg_color;
-
-        a{
           color: $table_small_row_hover_color;
+          background-color: $table_small_row_hover_bg_color;
+
+          a{
+            color: $table_small_row_hover_color;
+          }
+
         }
 
       }
@@ -241,7 +297,6 @@ table{
     }
 
   }
-
 }
 
 table a{
@@ -250,20 +305,54 @@ table a{
 }
 
 .id__cell{
-  @include clearfix;
+  @include clearfix();
+  position: relative;
+  display: block;
 }
 
 .id__cell__icon{
   float: left;
   display: block;
-  margin-top: -5px;
-  margin-bottom: -5px;
-  margin-right: 40px;
-  margin-left: 10px;
+  position: absolute;
+  top: -3px;
+  left: 12px;
 }
 
 .id__cell__text{
   float: left;
   display: block;
-  margin-top: 5px;
+  width: 100%;
+  padding-left: 7px;
+  padding-right: 7px;
+  text-align: center;
+}
+.id__cell__text__type{
+  background: #F8F8F8;
+
+  .active &{
+    background-color: #666;
+    color: #FFF;
+  }
+  padding: 9px 16px;
+  @include border-radius(8px);
+  position: absolute;
+  top: 1px;
+  right: 8px;
+}
+
+.id__cell__text__nr{
+  display: block;
+  text-align: left;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.id__cell__text__data{
+  display: block;
+  text-align: left;
+  padding: 35px 10px 10px 13px;
+}
+
+.id__cell__text__info{
+  font-size: 11px;
 }

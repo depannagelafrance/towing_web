@@ -47,7 +47,6 @@ $_dossier = $dossier->dossier;
       $prev = '';
       if($vouchers && sizeof($vouchers) > 0) {
         foreach($vouchers as $voucher) {
-
           if($voucher->dossier_number === $url_dossier_id){
             $class = 'active bright';
           }else{
@@ -59,8 +58,7 @@ $_dossier = $dossier->dossier;
             $prev = $voucher->dossier_number;
 
             $this->table->add_row(
-                  array('class' => $class, 'data' => sprintf('<a class="id__cell" href="/fast_dossier/dossier/%s/%s"><span class="id__cell__icon icon--map"></span><span class="id__cell__text">%s</span></a>', $voucher->dossier_number, $voucher->voucher_number, $voucher->dossier_number)),
-                  array('class' => $class, 'data' => sprintf("%s<br />%s",$voucher->direction_name, $voucher->indicator_name))
+                  array('class' => $class, 'data' => sprintf('<a class="id__cell" href="/fast_dossier/dossier/%s/%s"><span class="id__cell__icon icon--map"></span><span class="id__cell__text__type">%s</span><span class="id__cell__text"><span class="id__cell__text__data"><span class="id__cell__text__nr">%s</span><span class="id__cell__text__info">%s %s</span></span></a>', $voucher->dossier_number, $voucher->voucher_number, $voucher->dossier_number, $voucher->incident_type, $voucher->direction_name , $voucher->indicator_name))
             );
 
           }
@@ -75,11 +73,12 @@ $_dossier = $dossier->dossier;
 
   <div class="layout-content">
     <div class="box box--unpadded idbar">
-
+      <!--
       <div class="idbar__item idbar__id bright has_icon">
         <div class="idbar__icon icon--map"></div>
         <div class="idbar__id__value"><?php print $_dossier->dossier_number; ?></div>
       </div>
+      -->
 
       <div class="idbar__item">
         <div class="idbar__label">
@@ -104,7 +103,6 @@ $_dossier = $dossier->dossier;
         <?php print $_dossier->incident_type_name; ?>
       </div>
   </div>
-
     <div class="box detailbar">
       <div class="detailbar__row">
         <div class="form-item-horizontal less_padded">
@@ -119,7 +117,7 @@ $_dossier = $dossier->dossier;
 
         <div class="form-item-horizontal less_padded">
           <label>Toegewezen aan&nbsp;:</label>
-          <div class="value"><?php print $_dossier->company_name ?></div>
+          <div class="value"><?php  print $_dossier->company_name ?></div>
         </div>
       </div>
 
@@ -127,22 +125,21 @@ $_dossier = $dossier->dossier;
 
          <div class="form-item-horizontal less_padded">
            <label>Richting&nbsp;:</label>
-           <div class="value"><?php print $_dossier->direction_name; ?></div>
+           <div class="value"><?php  print $_dossier->direction_name; ?></div>
          </div>
 
          <div class="form-item-horizontal less_padded">
            <label>KM Paal&nbsp;:</label>
-           <div class="value"><?php print $_dossier->indicator_name; ?></div>
+           <div class="value"><?php  print $_dossier->indicator_name; ?></div>
          </div>
 
          <div class="form-item-horizontal less_padded">
            <label>Rijstrook&nbsp;:</label>
-           <div class="value"><?php print $_dossier->traffic_lane_name; ?></div>
+           <div class="value"><?php  print $_dossier->traffic_lane_name; ?></div>
          </div>
       </div>
 
     </div>
-
   <?php
   print validation_errors();
 
@@ -1460,6 +1457,8 @@ $(document).ready(function() {
     $('#payment_unpaid input').val(unpaid);
 
   }
+
+
 });
 
 </script>

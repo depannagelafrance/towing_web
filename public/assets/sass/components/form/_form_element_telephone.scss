@@ -1,0 +1,19 @@
+.telephone-container{
+  position: relative;
+  .form-value{
+    @extend .form_input_border;
+    @include box-shadow(none);
+    @include border-radius(4px);
+    background-color: #666;
+    color: #FFF;
+    height: 45px;
+    padding: 15px !important;
+    display: block;
+    text-align: center;
+    font-size: 13px;
+  }
+  .phone{
+    position: absolute;
+    top: -3px;
+  }
+}

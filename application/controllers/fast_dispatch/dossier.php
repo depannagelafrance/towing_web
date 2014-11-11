@@ -20,17 +20,22 @@ class Dossier extends Page {
   /**
    * Index Page for this controller.
    */
-  public function view($number)
+  public function view($number, $voucher_number)
   {
+    if(isset($_GET['saved']) && $_GET['saved'] == 1){
+      $saved = TRUE;
+    }else{
+      $saved = FALSE;
+    }
     $token = $this->_get_user_token();
 
     $dossier = $this->dossier_service->fetchDossierByNumber($number, $token);
 
-    $this->_loadDossierView($token, $dossier);
+    $this->_loadDossierView($token, $dossier, $voucher_number, $saved);
 
   }
 
-  public function save($number) {
+  public function save($number, $voucher_number) {
     $token = $this->_get_user_token();
 
     $dossier = $this->dossier_service->fetchDossierByNumber($number, $token);
@@ -52,20 +57,21 @@ class Dossier extends Page {
         $this->_setDossierValuesFromPostRequest($dossier);
 
         $dossier = $this->dossier_service->updateDossier(new Dossier_model($dossier), $token);
-
         if($dossier) {
-          redirect(sprintf("/fast_dispatch/dossier/%s", $dossier->dossier->dossier_number));
+          redirect(sprintf("/fast_dispatch/dossier/%s/%s", $dossier->dossier->dossier_number, $voucher_number) . '?saved=1');
         }
       }
     }
   }
 
-  private function _loadDossierView($token, $dossier) {
+  private function _loadDossierView($token, $dossier, $voucher_number, $saved) {
     $this->_add_content(
       $this->load->view(
         'fast_dispatch/dossier',
           array(
+            'saved'                   => $saved,
             'dossier'                 => $dossier,
+            'voucher_number'          => $voucher_number,
             'vouchers'                => $this->dossier_service->fetchAllNewVouchers($token),
             'incident_types'          => $this->vocabulary_service->fetchAllIncidentTypes($token),
             'insurances'              => $this->vocabulary_service->fetchAllInsurances($token),

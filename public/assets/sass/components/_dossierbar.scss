@@ -1,7 +1,6 @@
 .dossierbar{
 
   @include clearfix;
-  margin-bottom: 15px;
 
 }
 
@@ -9,6 +8,7 @@
 
   float: left;
   @include clearfix;
+  max-width: 570px;
 
 }
 
@@ -21,6 +21,7 @@
   @include border-radius(1px);
   cursor: pointer;
   margin-right: 5px;
+  margin-bottom: 15px;
   @include clearfix;
 
   a{
@@ -48,6 +49,7 @@
     border-bottom-width: 2px;
     a{
       color: $dossierbar_hover_color;
+
     }
   }
 
