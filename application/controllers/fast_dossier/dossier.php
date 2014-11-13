@@ -160,6 +160,12 @@ class Dossier extends Page {
         $activity_ids = $this->input->post('activity_id');
         $activity_amounts = $this->input->post('amount');
 
+        $voucher->towing_payments->amount_guaranteed_by_insurance  = $this->input->post('amount_guaranteed_by_insurance');
+        $voucher->towing_payments->paid_in_cash                    = $this->input->post('paid_in_cash');
+        $voucher->towing_payments->paid_by_bank_deposit            = $this->input->post('paid_by_bank_deposit');
+        $voucher->towing_payments->paid_by_debit_card              = $this->input->post('paid_by_debit_card');
+        $voucher->towing_payments->paid_by_credit_card             = $this->input->post('paid_by_credit_card');
+
         if(is_array($activity_ids)) {
           $j = 0;
 

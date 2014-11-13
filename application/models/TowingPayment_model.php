@@ -6,6 +6,7 @@ class TowingPayment_model  {
   public $amount_guaranteed_by_insurance  = null;
   public $amount_customer                 = null;
   public $paid_in_cash                    = null;
+  public $paid_by_bank_deposit            = null;
   public $paid_by_debit_card              = null;
   public $paid_by_credit_card             = null;
   public $cal_amount_paid                 = null;
@@ -20,8 +21,10 @@ class TowingPayment_model  {
       $this->amount_customer                  = $data->amount_customer;
       $this->paid_in_cash                     = $data->paid_in_cash;
       $this->paid_by_debit_card               = $data->paid_by_debit_card;
+      $this->paid_by_bank_deposit             = $data->paid_by_bank_deposit;
       $this->paid_by_credit_card              = $data->paid_by_credit_card;
       $this->cal_amount_paid                  = $data->cal_amount_paid;
       $this->cal_amount_unpaid                = $data->cal_amount_unpaid;
     }
   }
+}  
