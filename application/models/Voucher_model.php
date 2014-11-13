@@ -22,6 +22,7 @@ class Voucher_model  {
   public $towing_start         = null;
   public $towing_completed     = null;
   public $towing_depot         = null;
+  public $towing_payment       = null;
   public $signa_by             = null;
   public $signa_by_vehicle     = null;
   public $signa_arrival        = null;
@@ -63,6 +64,12 @@ class Voucher_model  {
         $this->depot = new Depot_model($data->depot);
       } else {
         $this->depot = new Depot_model();
+      }
+
+      if(property_exists($data, 'towing_payments') && $data->towing_payments) {
+        $this->towing_payments = new TowingPayment_model($data->towing_payments);
+      } else {
+        $this->towing_payments = new TowingPayment_model();
       }
 
       if($data->towing_activities && is_array($data->towing_activities)) {
