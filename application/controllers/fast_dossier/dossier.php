@@ -148,16 +148,16 @@ class Dossier extends Page {
 
         $voucher->signa_by          = $this->input->post('signa_by');
         $voucher->signa_by_vehicle  = $this->input->post('signa_by_vehicle');
-        $voucher->signa_arrival     = $this->convertToUnixTime($this->input->post('signa_arrival'));
+        $voucher->signa_arrival     = $this->convertToUnixTime($this->input->post('signa_arrival'), strtotime($dossier->dossier->call_date));
 
         $voucher->towed_by            = $this->input->post('towed_by');
         $voucher->towed_by_vehicle    = $this->input->post('towed_by_vehicle');
-        $voucher->towing_called       = $this->convertToUnixTime($this->input->post('towing_called'));
-        $voucher->towing_arrival      = $this->convertToUnixTime($this->input->post('towing_arrival'));
-        $voucher->towing_start        = $this->convertToUnixTime($this->input->post('towing_start'));
-        $voucher->towing_completed    = $this->convertToUnixTime($this->input->post('towing_completed'));
+        $voucher->towing_called       = $this->convertToUnixTime($this->input->post('towing_called'), strtotime($dossier->dossier->call_date));
+        $voucher->towing_arrival      = $this->convertToUnixTime($this->input->post('towing_arrival'), strtotime($dossier->dossier->call_date));
+        $voucher->towing_start        = $this->convertToUnixTime($this->input->post('towing_start'), strtotime($dossier->dossier->call_date));
+        $voucher->towing_completed    = $this->convertToUnixTime($this->input->post('towing_completed'), strtotime($dossier->dossier->call_date));
 
-        $voucher->police_signature_dt = $this->convertToUnixTime($this->input->post('police_signature_dt'));
+        $voucher->police_signature_dt = $this->convertToUnixTime($this->input->post('police_signature_dt'), strtotime($dossier->dossier->call_date));
 
         $activity_ids = $this->input->post('activity_id');
         $activity_amounts = $this->input->post('amount');
@@ -200,17 +200,21 @@ class Dossier extends Page {
     }
   }
 
-  private function convertToUnixTime($val, $refdate = null)
+  private function convertToUnixTime($val, $reference_unix_timestamp = null)
   {
     if (preg_match('/^[0-9]{1,2}:[0-9]{1,2}$/i', $val))
     {
+        $format = '%s'; //Unix Epoch Time timestamp (same as the time() function)
+
+        $ref_date = strptime($reference_unix_timestamp, $format);
+
         //just received a time string (HH:MM)
         $te = explode(':', $val);
 
-        //TODO: fetch values from reference date, if not provided, use today
-        $day = 13;
-        $month = 11;
-        $year = 2014;
+        //fetch values from reference date, if not provided, use today
+        $day = $ref_date['tm_mday'];
+        $month = $ref_date['tm_mon'];
+        $year = $ref_date['tm_year']+1900; //tm_year is years sinds 1900
         $sec = 0;
 
         //TODO: validate the received hour and minutes, if not ok, just return null
