@@ -30,7 +30,7 @@
 	  }
 	  if (!empty($js)) {
 		  foreach ($js as $file) {
-			  print '<script type="text/javascript" src="' . site_url($file) . '"></script>';
+			  print '<script type="text/javascript" src="' . $file . '"></script>';
 		  }
 	  }
 	?>

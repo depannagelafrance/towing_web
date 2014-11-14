@@ -55,7 +55,7 @@ class Login extends Page {
 
             $modules = $this->_get_available_modules();
 
-            if($modules && ($module = array_pop($modules))) {
+            if($modules && ($module = array_shift($modules))) {
               redirect(sprintf("/%s/index",strtolower($module->code)));
               exit;
             }

@@ -11,6 +11,7 @@ class Customer_model  {
   public $street_pobox    = null;
   public $zip             = null;
   public $city            = null;
+  public $country         = null;
   public $email           = null;
   public $phone           = null;
 
@@ -27,6 +28,7 @@ class Customer_model  {
         $this->street_pobox   = $data['street_pobox'];
         $this->zip            = $data['zip'];
         $this->city           = $data['city'];
+        $this->country        = $data['country'];
         $this->email          = $data['email'];
         $this->phone          = $data['phone'];
       }else{
@@ -40,6 +42,7 @@ class Customer_model  {
         $this->street_pobox   = $data->street_pobox;
         $this->zip            = $data->zip;
         $this->city           = $data->city;
+        $this->country        = $data->country;
         $this->email          = $data->email;
         $this->phone          = $data->phone;
       }
