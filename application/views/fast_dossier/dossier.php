@@ -1,22 +1,39 @@
 <?php
 
 function composeCustomerInformation($c) {
-  $output = "<div>";
+  $output = "";
 
   if($c->company_name) {
+    $output .= "<div>";
     $output .= $c->company_name;
-  } else {
+    $output .= "</div>";
+  } elseif($c->last_name && $c->first_name) {
+    $output .= "<div>";
     $output .= sprintf("%s %s", $c->last_name, $c->first_name);
+    $output .= "</div>";
   }
 
-  $output .= "</div>";
-  $output .= "<div>";
-  $output .= sprintf("%s %s %s", $c->street, $c->street_number, ($c->street_pobox ? "/" . $c->street_pobox : ""));
-  $output .= "</div>";
-  $output .= "<div>" . sprintf("%s %s", $c->zip, $c->city) . "</div>";
-  $output .= "<div>" . $c->country . "</div>";
-  $output .= "<div>T: " . $c->phone . "</div>";
-  $output .= "<div>E: " . $c->email . "</div>";
+  if($c->street && $c->street_number){
+    $output .= "<div>";
+    $output .= sprintf("%s %s %s", $c->street, $c->street_number, ($c->street_pobox ? "/" . $c->street_pobox : ""));
+    $output .= "</div>";
+  }
+
+  if($c->zip && $c->city){
+    $output .= "<div>" . sprintf("%s %s", $c->zip, $c->city) . "</div>";
+  }
+
+  if($c->country){
+    $output .= "<div>" . $c->country . "</div>";
+  }
+
+  if($c->phone){
+    $output .= "<div>T: " . $c->phone . "</div>";
+  }
+
+  if($c->email){
+    $output .= "<div>E: " . $c->email . "</div>";
+  }
 
   return $output;
 }
@@ -85,12 +102,12 @@ $_dossier = $dossier->dossier;
 
   <div class="layout-content">
     <div class="box box--unpadded idbar">
-      <!--
+
       <div class="idbar__item idbar__id bright has_icon">
         <div class="idbar__icon icon--map"></div>
         <div class="idbar__id__value"><?php print $_dossier->dossier_number; ?></div>
       </div>
-      -->
+
 
       <div class="idbar__item">
         <div class="idbar__label">
@@ -174,36 +191,22 @@ $_dossier = $dossier->dossier;
   <div class="dossierbar">
 
     <div class="dossierbar__vouchers">
+      <select name="voucher_switcher" id="voucher_switcher" data-did="<?php print $_dossier->dossier_number; ?>">
       <?php
-        foreach($_dossier->towing_vouchers as $_v) :
+        foreach($_dossier->towing_vouchers as $_v){
           $_is_selected = ($_v->voucher_number == $_voucher->voucher_number);
-      ?>
-          <div class="dossierbar__id box has_icon <?php print ($_is_selected || sizeof($_dossier->towing_vouchers) == 1) ? 'active bright' : 'inactive'; ?>">
-            <div class="dossierbar__icon icon--ticket"></div>
-            <div class="dossierbar__id__value">
-            <?php
 
-            if($_is_selected || sizeof($_dossier->towing_vouchers) == 1) {
-              printf('%s', $_v->voucher_number);
-            } else {
-              printf('<a href="/fast_dossier/dossier/%s/%s">%s</a>', $_dossier->dossier_number, $_v->voucher_number, $_v->voucher_number);
-            }
-            ?>
-            </div>
-          </div>
-      <?php
-        endforeach;
+          $sel = '';
+          if($_is_selected || sizeof($_dossier->towing_vouchers) == 1){
+            $sel = 'selected';
+          }
+          print '<option value="'. $_v->voucher_number .'" '. $sel .'>'. $_v->voucher_number .'</option>';
+        };
       ?>
+      </select>
     </div>
 
     <div class="dossierbar__mainactions">
-      <!--
-      <div class="dossierbar__mainaction__item">
-        <div class="btn--icon">
-          <a class="icon--edit" href="#">Edit</a>
-        </div>
-      </div>
-      -->
       <div class="dossierbar__mainaction__item">
         <div class="btn--icon--highlighted bright">
           <a class="icon--add" href="/fast_dossier/dossier/voucher/<?=$_dossier->id?>">Add</a>
@@ -214,20 +217,31 @@ $_dossier = $dossier->dossier;
     <div class="dossierbar__actions">
       <div class="dossierbar__action__item">
         <div class="btn--icon">
-          <a id="add-nota-link" class="icon--nota" href="#add-nota-form">Nota</a>
-        </div>
-      </div>
-      <div class="dossierbar__action__item">
-        <div class="btn--icon">
-          <a class="icon--attachement" href="">Bijlage</a>
-        </div>
-      </div>
-      <div class="dossierbar__action__item">
-        <div class="btn--icon">
           <a id="add-email-link" class="icon--email" href="#add-email-form">Email</a>
         </div>
       </div>
-
+      <div class="dossierbar__action__item">
+        <div class="btn--dropdown">
+          <div class="btn--dropdown--btn btn--icon">
+            <span class="icon--nota">Nota</span>
+          </div>
+          <ul class="btn--dropdown--drop">
+            <li><a id="add-nota-link" href="#add-nota-form">Nota toevoegen</a></li>
+            <li><a id="add-nota-link">Notas bekijken</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="dossierbar__action__item">
+        <div class="btn--dropdown">
+          <div class="btn--dropdown--btn btn--icon">
+            <span class="icon--attachement">Bijlage</span>
+          </div>
+          <ul class="btn--dropdown--drop">
+            <li><a>Bijlage Toevoegen</a></li>
+            <li><a>Bijlages bekijken (X)</a></li>
+          </ul>
+        </div>
+      </div>
       <div class="dossierbar__action__item">
         <div class="btn--dropdown">
           <div class="btn--dropdown--btn btn--icon">
@@ -336,7 +350,8 @@ $_dossier = $dossier->dossier;
               array(
                 'value_key' => 'name',
                 'label_key' => 'name',
-              )); ?>
+              ));
+            ?>
           </div>
         </div>
       </div>
@@ -403,6 +418,7 @@ $_dossier = $dossier->dossier;
 
       <!--WORK-->
       <div class="form-item-vertical work-container">
+        <?php if(count($_voucher->towing_activities) > 0): ?>
         <div class="work-container__header">
           <div class="work-container__task__label"><label>Activiteiten:</label></div>
           <div class="work-container__number__label"><label>Aantal:</label></div>
@@ -410,6 +426,7 @@ $_dossier = $dossier->dossier;
           <div class="work-container__excl__label"><label>Excl:</label></div>
           <div class="work-container__incl__label"><label>Incl:</label></div>
         </div>
+        <?php endif; ?>
         <div class="work-container__fields">
           <?php foreach($_voucher->towing_activities as $_activity) : ?>
           <div class="work-container__field" data-id="<?php print $_activity->activity_id;?>" data-incl="<?php print $_activity->fee_incl_vat;?>" data-excl="<?php print $_activity->fee_excl_vat;?>">
@@ -483,7 +500,7 @@ $_dossier = $dossier->dossier;
 
       <div class="work-container__actions">
         <div class="work-container__add">
-          <a id="add-work-link" class="inform-link" href="#add-work-form">Activiteit toevoegen</a>
+          <a id="add-work-link" class="inform-link" href="#add-work-form" data-did="<?php print $_dossier->id; ?>" data-vid="<?php print $_voucher->id ;?>" >Activiteit toevoegen</a>
         </div>
       </div>
 
@@ -579,7 +596,7 @@ $_dossier = $dossier->dossier;
         <div class="autograph-container__nuisance">
           <label>Bevestiging hinderverwekker:</label>
 
-          <div class="form-item-horizontal">
+          <div id="edit-nuisance-short-data" class="form-item-horizontal">
             <div class="nuisance_value">
               <?php print $_voucher->causer->first_name . ' ' . $_voucher->causer->last_name; ?>
             </div>
@@ -710,7 +727,13 @@ $_dossier = $dossier->dossier;
       $depot_attr = array(
         'data-cid' => '#edit-depot-data',
         'data-vid' =>  $_voucher->id,
-        'data-did' => $_dossier->id
+        'data-did' => $_dossier->id,
+        'data-default-name' => $company_depot->name,
+        'data-default-street' => $company_depot->street,
+        'data-default-street-number' => $company_depot->street_number,
+        'data-default-street-pobox' => $company_depot->street_pobox,
+        'data-default-zip' => $company_depot->zip,
+        'data-default-city' => $company_depot->city
       );
 
       $depot_hidden = array(
@@ -865,9 +888,9 @@ $_dossier = $dossier->dossier;
       </div>
 
       <div class="form-item fancybox-form__actions__save fancybox-form__actions__twobuttons">
-        <input type="submit" value="Zelfde als hinderverwekker" name="btnSameAsCauser" id="btnSameAsCauser" />
+        <input type="submit" value="Gebruik deze gegevens ook voor hinderverwekker" name="btnSameAsCauser" id="btninvoicesameascauser" />
 
-        <input type="submit" value="Bewaren" name="btnInvoiceSave" />
+        <input type="submit" value="Bewaren" name="btnInvoiceSave" id="btninvoicesave" />
       </div>
     </div>
     <?php print form_close(); ?>
@@ -879,6 +902,7 @@ $_dossier = $dossier->dossier;
 
       $nuisance_attr = array(
         'data-cid' => '#edit-nuisance-data',
+        'data-shortcid' => '#edit-nuisance-short-data',
         'data-vid' => $_voucher->id,
         'data-did' => $_dossier->id
       );
@@ -969,9 +993,9 @@ $_dossier = $dossier->dossier;
       </div>
 
       <div class="form-item fancybox-form__actions__save fancybox-form__actions__twobuttons">`
-        <input type="button" value="Zelfde als hinderverwekker" name="btnSameAsCustomer" id="btnSameAsCustomer"/>
+        <input type="button" value="Gebruik deze gegevens ook voor facturatie" name="btnSameAsCustomer" id="btnnuisancesameascauser"/>
 
-        <input type="submit" value="Bewaren" name="btnNuisanceSave" />
+        <input type="submit" value="Bewaren" name="btnNuisanceSave" id="btnnuisancesave" />
       </div>
     </div>
     <?php print form_close(); ?>
@@ -1061,32 +1085,7 @@ $_dossier = $dossier->dossier;
     <?php print form_open(); ?>
     <div class="fancybox-form">
       <h3>Activiteiten toevoegen</h3>
-      <?php
-
-      if($available_activities && sizeof($available_activities) > 0) {
-        foreach($available_activities as $activity) {
-
-          $data = array(
-            'name'        => 'activity',
-            'value'       => $activity->id,
-            'checked'     => FALSE,
-            'data-id'     => $activity->id,
-            'data-label'  => $activity->name,
-            'data-code'   => $activity->code,
-            'data-incl'   => round($activity->fee_incl_vat, 2),
-            'data-excl'   => round($activity->fee_excl_vat, 2)
-          );
-
-          echo '<div class="form-item-checkbox">';
-          echo form_checkbox($data);
-          echo '<label>' . $activity->name . '</label>';
-          echo '</div>';
-
-        }
-
-      }
-
-      ?>
+      <div id="add-work-form-ajaxloaded-content"></div>
     </div>
     <div class="fancybox-form__actions">
       <div class="form-item fancybox-form__actions__cancel">

@@ -22,16 +22,11 @@ class Dossier extends Page {
    */
   public function view($number, $voucher_number)
   {
-    if(isset($_GET['saved']) && $_GET['saved'] == 1){
-      $saved = TRUE;
-    }else{
-      $saved = FALSE;
-    }
     $token = $this->_get_user_token();
 
     $dossier = $this->dossier_service->fetchDossierByNumber($number, $token);
 
-    $this->_loadDossierView($token, $dossier, $voucher_number, $saved);
+    $this->_loadDossierView($token, $dossier, $voucher_number);
 
   }
 
@@ -49,7 +44,7 @@ class Dossier extends Page {
     if ($this->form_validation->run() === FALSE)
     {
       $this->_setDossierValuesFromPostRequest($dossier);
-      $this->_loadDossierView($token, $dossier);
+      $this->_loadDossierView($token, $dossier, $voucher_number);
     }
     else
     {
@@ -58,18 +53,17 @@ class Dossier extends Page {
 
         $dossier = $this->dossier_service->updateDossier(new Dossier_model($dossier), $token);
         if($dossier) {
-          redirect(sprintf("/fast_dispatch/dossier/%s/%s", $dossier->dossier->dossier_number, $voucher_number) . '?saved=1');
+          redirect(sprintf("/fast_dispatch/dossier/%s/%s", $dossier->dossier->dossier_number, $voucher_number));
         }
       }
     }
   }
 
-  private function _loadDossierView($token, $dossier, $voucher_number, $saved) {
+  private function _loadDossierView($token, $dossier, $voucher_number) {
     $this->_add_content(
       $this->load->view(
         'fast_dispatch/dossier',
           array(
-            'saved'                   => $saved,
             'dossier'                 => $dossier,
             'voucher_number'          => $voucher_number,
             'vouchers'                => $this->dossier_service->fetchAllNewVouchers($token),

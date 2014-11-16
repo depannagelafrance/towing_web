@@ -81,8 +81,9 @@ class Dossier extends Page {
       //for performance improvements, put the dossier in the flash data cache
       $this->_cache_Dossier($dossier);
 
+      $voucher = end($dossier->dossier->towing_vouchers)->voucher_number;
       //redirect to the view
-      redirect(sprintf("/fast_dossier/dossier/%s", $dossier->dossier->dossier_number));
+      redirect(sprintf("/fast_dossier/dossier/%s/%s", $dossier->dossier->dossier_number, $voucher));
     }
   }
 

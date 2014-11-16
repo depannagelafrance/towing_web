@@ -1,6 +1,7 @@
 .dossierbar{
 
   @include clearfix;
+  margin-bottom: 10px;
 
 }
 
@@ -40,6 +41,9 @@
     }
     a{
       color: $dossierbar_active_color;
+      &:hover{
+        color: $dossierbar_active_color;
+      }
     }
   }
 
@@ -97,4 +101,19 @@
 
 .dossierbar__id__value{
   float: left;
+}
+
+.dossierbar{
+  #voucher_switcher{
+    width: 300px;
+  }
+  .chosen-container-single .chosen-single,
+  .chosen-container-active.chosen-with-drop .chosen-single{
+    height: 52px;
+    padding-top: 10px;
+  }
+  .chosen-container-single .chosen-single div{
+    top: 10px;
+    right: 7px;
+  }
 }
