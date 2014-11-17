@@ -6,10 +6,6 @@
   $_voucher_id = $voucher_number;
 
 ?>
-<?php if($saved): ?>
-  <div class="msg msg__succes">Uw wijzigingen werden bewaard</div>
-<?php endif; ?>
-
 <div class="layout-has-sidebar edit-view">
   <div class="layout-sidebar">
     <div class="box table_list table_list_small">
@@ -54,11 +50,10 @@
   <div class="layout-content">
 
     <div class="box box--unpadded idbar">
-      <!--
+
       <div class="idbar__item idbar__id">
-          <?php // print $_voucher_id; ?>
+          <?php print $_voucher_id; ?>
       </div>
-      -->
 
       <div class="idbar__item">
           <div class="idbar__label">
@@ -85,7 +80,7 @@
 $errors = validation_errors();
 
 if($errors) {
-  printf('<div style="background: red; color: white; font-size: 1.2em; padding-top:10px; padding-bottom: 10px; padding-left: 4px;">%s</div>', $errors);
+  printf('<div class="msg msg__error">%s</div>', $errors);
 }
 
 ?>
@@ -294,9 +289,11 @@ $(function() {
   // setTimeout() function will be fired after page is loaded
   // it will wait for 5 sec. and then will fire
   // $("#successMessage").hide() function
+  /*
   setTimeout(function() {
     $('.msg').fadeOut(800)
   }, 3000);
+  */
 });
 
 

@@ -51,6 +51,30 @@ function composeAddressHtml(data) {
   return html;
 }
 
+function composeShortAddressHtml(data) {
+    html = '';
+
+    if(data.company_name !== ''){
+        html += '<div class="nuisance_value">' + data.company_name + '</div>';
+    }else{
+        html += '<div class="nuisance_value">' + data.first_name + ' ' + data.last_name + '</div>';
+    }
+
+    if(data.street !== '' || data.street_number !== ''  ){
+        if(data.street_pobox !== ''){
+            html += '<div class="nuisance_value">' + data.street + ' ' + data.street_number + ' ' + data.street_pobox + '</div>';
+        } else {
+            html += '<div class="nuisance_value">' + data.street + ' ' + data.street_number + '</div>';
+        }
+    }
+
+    if((data.zip && data.zip !== '') || (data.city && data.city !== '')  ){
+        html += '<div class="nuisance_value">' + data.zip + ' ' + data.city + '</div>';
+    }
+
+    return html;
+}
+
 
 $(document).ready(function() {
 
@@ -84,7 +108,37 @@ $(document).ready(function() {
 
   $('#add-work-link').fancybox({
     'scrolling'		: 'no',
-    'titleShow'		: false
+    'titleShow'		: false,
+    'beforeLoad' : function (){
+
+          var did = $('#add-work-link').data('did');
+          var vid = $('#add-work-link').data('vid');
+
+          $.ajax({
+              type		: "POST",
+              cache	: false,
+              url		: "/fast_dossier/ajax/availableActivities/" + did + '/' + vid,
+              success: function(data) {
+                 var form = '';
+                 var attr = '';
+
+                  console.log(data);
+
+                  $.each(data, function( key, value ) {
+                    value.locked = 0;
+                    attr += 'data-id="'+ value.id +'" data-label="'+ value.name +'" data-code="'+ value.code +'" data-incl="'+ value.fee_incl_vat +'" data-excl="'+ value.fee_excl_vat +'" data-number-locked="'+ value.locked +'"';
+                    form += '<div class="form-item-checkbox">';
+                    form += '<input type="checkbox" name="activity" value="'+ value.id +'" '+ attr +' >';
+                    form += '<label>'+ value.name +'</label>';
+                    form += '</div>';
+                    attr = '';
+                  });
+
+                 $('#add-work-form-ajaxloaded-content').html(form);
+
+              }
+          });
+      }
   });
 
   $('.close_overlay').click(function(){
@@ -95,12 +149,13 @@ $(document).ready(function() {
 
   //DEPOT
   $('#edit-depot-form form button').click(function() {
-    $('#edit-depot-form form').find('input[name="name"]').val('<?=addslashes($company_depot->name)?>');
-    $('#edit-depot-form form').find('input[name="street"]').val('<?=addslashes($company_depot->street)?>');
-    $('#edit-depot-form form').find('input[name="street_number"]').val('<?=addslashes($company_depot->street_number)?>');
-    $('#edit-depot-form form').find('input[name="street_pobox"]').val('<?=addslashes($company_depot->street_pobox)?>');
-    $('#edit-depot-form form').find('input[name="zip"]').val('<?=addslashes($company_depot->zip)?>');
-    $('#edit-depot-form form').find('input[name="city"]').val('<?=addslashes($company_depot->city)?>');
+    var form = $(this).parents('form');
+    $('#edit-depot-form form').find('input[name="name"]').val(form.data('default-name'));
+    $('#edit-depot-form form').find('input[name="street"]').val(form.data('default-street'));
+    $('#edit-depot-form form').find('input[name="street_number"]').val(form.data('default-street-number'));
+    $('#edit-depot-form form').find('input[name="street_pobox"]').val(form.data('default-street-pobox'));
+    $('#edit-depot-form form').find('input[name="zip"]').val(form.data('default-zip'));
+    $('#edit-depot-form form').find('input[name="city"]').val(form.data('default-city'));
   });
 
   $('#edit-depot-form form').bind('submit', function() {
@@ -143,78 +198,100 @@ $(document).ready(function() {
   });
 
   //INVOICE
-  $('#edit-invoice-data-form form').bind('submit', function() {
+  $('#edit-invoice-data-form form #btninvoicesave, #edit-invoice-data-form form #btninvoicesameascauser').on('click', function() {
 
     $('#edit-invoice-data-form').find('.msg__error').hide();
-    var cid = $(this).data('cid');
-    var did = $(this).data('did');
-    var vid = $(this).data('vid');
+    var cid = $(this).parents('form').data('cid');
+    var did = $(this).parents('form').data('did');
+    var vid = $(this).parents('form').data('vid');
 
     var formObj = {};
-    var inputs = $(this).serializeArray();
+    var inputs = $(this).parents('form').serializeArray();
     $.each(inputs, function (i, input) {
       formObj[input.name] = input.value;
     });
 
-    $.ajax({
-      type		: "POST",
-      cache	: false,
-      url		: "/fast_dossier/ajax/updatecustomer/" + did + '/' + vid,
-      data		: {'customer' : formObj},
-      success: function(data) {
-        if(data.id) {
-          var html = composeAddressHtml(data);
-          $(cid).html(html);
-          parent.$.fancybox.close();
-        } else {
-          //could not save data for whatever reason
-          $('#edit-invoice-data-form').find('.msg__error').show();
-          $.fancybox.resize();
-        }
-      }
-    });
+    updatecustomer(did, vid, cid, formObj);
+
+    if(this.id === 'btninvoicesameascauser'){
+        updatecauser(did, vid, '#edit-nuisance-data', '#edit-nuisance-short-data', formObj);
+    }
+
     return false;
   });
 
   //NUISANCE
-  $('#edit-nuisance-data-form form').bind('submit', function() {
+  $('#edit-nuisance-data-form form #btnnuisancesave, #edit-nuisance-data-form form #btnnuisancesameascauser').bind('click', function() {
 
     $('#edit-nuisance-data-form').find('.msg__error').hide();
 
-    var cid = $(this).data('cid');
-    var did = $(this).data('did');
-    var vid = $(this).data('vid');
+    var cid = $(this).parents('form').data('cid');
+    var shortcid = $(this).parents('form').data('shortcid');
+    var did = $(this).parents('form').data('did');
+    var vid = $(this).parents('form').data('vid');
 
     var formObj = {};
-    var inputs = $(this).serializeArray();
+    var inputs = $(this).parents('form').serializeArray();
     $.each(inputs, function (i, input) {
       formObj[input.name] = input.value;
     });
 
-    $.ajax({
-      type		: "POST",
-      cache	: false,
-      url		: "/fast_dossier/ajax/updatecauser/" + did + '/' + vid,
-      data		: {'causer' : formObj},
-      success: function(data) {
-        if(data.id){
-          var html = composeAddressHtml(data);
-
-          $(cid).html(html);
-          parent.$.fancybox.close();
-        }else{
-          //could not save data for whatever reason
-          $('#edit-nuisance-data-form').find('.msg__error').show();
-          $.fancybox.resize();
-        }
-      }
-    });
-
+    updatecauser(did, vid, cid, shortcid, formObj);
+    if(this.id === 'btnnuisancesameascauser'){
+        updatecustomer(did, vid, '#edit-invoice-data', formObj);
+    }
+      
     return false;
   });
 
-  //NOTA
+  function updatecustomer(did, vid, cid, formObj){
+      $.ajax({
+          type		: "POST",
+          cache	: false,
+          url		: "/fast_dossier/ajax/updatecustomer/" + did + '/' + vid,
+          data		: {'customer' : formObj},
+          success: function(data) {
+              if(data.id) {
+                  var html = composeAddressHtml(data);
+                  $(cid).html(html);
+                  parent.$.fancybox.close();
+              } else {
+                  //could not save data for whatever reason
+                  $('#edit-invoice-data-form').find('.msg__error').show();
+                  $.fancybox.resize();
+              }
+          }
+      });
+  }
 
+  function updatecauser(did, vid, cid, shortcid, formObj){
+      $.ajax({
+          type		: "POST",
+          cache	: false,
+          url		: "/fast_dossier/ajax/updatecauser/" + did + '/' + vid,
+          data		: {'causer' : formObj},
+          success: function(data) {
+              console.log(data);
+              if(data.id){
+                  var html = composeAddressHtml(data);
+                  var shorthtml = composeShortAddressHtml(data);
+
+                  $(cid).html(html);
+                  $(shortcid).html(shorthtml);
+                  parent.$.fancybox.close();
+              }else{
+                  //could not save data for whatever reason
+                  $('#edit-nuisance-data-form').find('.msg__error').show();
+                  $.fancybox.resize();
+              }
+          }
+      });
+  }
+
+
+
+
+        //NOTA
   $('#add-nota-form form').bind('submit', function() {
 
     var did = $(this).data('did');
@@ -295,8 +372,13 @@ $(document).ready(function() {
           var code = $(this).data('code');
           var incl = $(this).data('incl');
           var excl = $(this).data('excl');
+          var locked = $(this).data('number-locked');
 
-          $('.work-container__fields').append('<div class="work-container__field" data-id="'+ id + '" data-incl="'+ incl +'" data-excl="'+ excl +'"><div class="form-item-vertical work-container__task"><input type="text" name="name[]" value="'+ label +'" readonly="readonly" style="background: #F0F0F0"><input type="hidden" name="activity_id[]" value="'+ id +'"></div><div class="form-item-vertical work-container__number"><input type="text" name="amount[]" value="1"></div><div class="form-item-vertical work-container__unitprice"><input type="text" name="fee_incl_vat[]" value="'+ incl +'" readonly="readonly" style="background: #F0F0F0"></div><div class="form-item-vertical work-container__excl"><input type="text" name="cal_fee_excl_vat[]" value="'+ excl +'" readonly="readonly" style="background: #F0F0F0"></div><div class="form-item-vertical work-container__incl"><input type="text" name="cal_fee_incl_vat[]" value="'+ incl +'" readonly="readonly" style="background: #F0F0F0"></div><div class="form-item-vertical work-container__remove"><div class="work-container__remove__btn"><div class="btn--icon--small"><a class="icon--remove--small" href="#">Remove</a></div></div></div></div>');
+          if(locked == 1){
+              $('.work-container__fields').append('<div class="work-container__field" data-id="'+ id + '" data-incl="'+ incl +'" data-excl="'+ excl +'"><div class="form-item-vertical work-container__task"><input type="text" name="name[]" value="'+ label +'" readonly="readonly" style="background: #F0F0F0"><input type="hidden" name="activity_id[]" value="'+ id +'"></div><div class="form-item-vertical work-container__number"><input type="text" name="amount[]" value="1" readonly="readonly" style="background: #F0F0F0"></div><div class="form-item-vertical work-container__unitprice"><input type="text" name="fee_incl_vat[]" value="'+ incl +'" readonly="readonly" style="background: #F0F0F0"></div><div class="form-item-vertical work-container__excl"><input type="text" name="cal_fee_excl_vat[]" value="'+ excl +'" readonly="readonly" style="background: #F0F0F0"></div><div class="form-item-vertical work-container__incl"><input type="text" name="cal_fee_incl_vat[]" value="'+ incl +'" readonly="readonly" style="background: #F0F0F0"></div><div class="form-item-vertical work-container__remove"><div class="work-container__remove__btn"><div class="btn--icon--small"><a class="icon--remove--small" href="#">Remove</a></div></div></div></div>');
+          }else{
+              $('.work-container__fields').append('<div class="work-container__field" data-id="'+ id + '" data-incl="'+ incl +'" data-excl="'+ excl +'"><div class="form-item-vertical work-container__task"><input type="text" name="name[]" value="'+ label +'" readonly="readonly" style="background: #F0F0F0"><input type="hidden" name="activity_id[]" value="'+ id +'"></div><div class="form-item-vertical work-container__number"><input type="text" name="amount[]" value="1"></div><div class="form-item-vertical work-container__unitprice"><input type="text" name="fee_incl_vat[]" value="'+ incl +'" readonly="readonly" style="background: #F0F0F0"></div><div class="form-item-vertical work-container__excl"><input type="text" name="cal_fee_excl_vat[]" value="'+ excl +'" readonly="readonly" style="background: #F0F0F0"></div><div class="form-item-vertical work-container__incl"><input type="text" name="cal_fee_incl_vat[]" value="'+ incl +'" readonly="readonly" style="background: #F0F0F0"></div><div class="form-item-vertical work-container__remove"><div class="work-container__remove__btn"><div class="btn--icon--small"><a class="icon--remove--small" href="#">Remove</a></div></div></div></div>');
+          }
         }
       });
 
@@ -304,6 +386,14 @@ $(document).ready(function() {
       recalculate_price();
       parent.$.fancybox.close();
       return false;
+  });
+
+  //VOUCHER SWITCHER
+  $(document).on('change', '#voucher_switcher', function(){
+   var dossier = $('#voucher_switcher').data('did');
+   var selected = $(this).val();
+   var url = '/fast_dossier/dossier/' + dossier + '/' + selected;
+   $(location).attr('href',url);
   });
 
 
