@@ -73,6 +73,21 @@ class Dossier_service extends Rest_service {
       }
     }
 
+    public function fetchVoucherDepot($dossier, $voucher, $token)
+    {
+      return $this->CI->rest->get(sprintf('/dossier/depot/%s/%s/%s', $dossier, $voucher, $token));
+    }
+
+    public function fetchVoucherCauser($dossier, $voucher, $token)
+    {
+      return $this->CI->rest->get(sprintf('/dossier/causer/%s/%s/%s', $dossier, $voucher, $token));
+    }
+
+    public function fetchVoucherCustomer($dossier, $voucher, $token)
+    {
+      return $this->CI->rest->get(sprintf('/dossier/customer/%s/%s/%s', $dossier, $voucher, $token));
+    }
+
     public function fetchAllTrafficPostsByAllotment($allotment, $token)
     {
       return $this->CI->rest->get(sprintf('/dossier/list/traffic_posts/allotment/%s/%s', $allotment, $token));
