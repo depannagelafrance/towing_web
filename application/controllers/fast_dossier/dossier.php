@@ -115,7 +115,8 @@ class Dossier extends Page {
             'insurances'              => $this->vocabulary_service->fetchAllInsurances($token),
             'collectors'              => $this->vocabulary_service->fetchAllCollectors($token),
             'licence_plate_countries' => $this->vocabulary_service->fetchAllCountryLicencePlates($token),
-            'company_depot'           => $this->_get_authenticated_user()->company_depot
+            'company_depot'           => $this->_get_authenticated_user()->company_depot,
+            'signa_drivers'           => $this->vocabulary_service->fetchAllSignaDrivers($token),
           ),
           true
       )
@@ -147,6 +148,17 @@ class Dossier extends Page {
         $voucher->collector_id        = toIntegerValue($this->input->post('collector_id'));
         $voucher->vehicule_collected  = toMySQLDate($this->input->post('vehicule_collected'));
 
+
+        if($voucher->signa_id != $this->input->post('signa_id') && trim($this->input->post('signa_id')) != '') {
+            //either the previous signa was not set or the data has changed => send a push message
+            $_actions = new stdClass();
+
+            $_actions->signa_send_notification = 1;
+
+            $voucher->actions = $_actions;
+        }
+
+        $voucher->signa_id          = $this->input->post('signa_id');
         $voucher->signa_by          = $this->input->post('signa_by');
         $voucher->signa_by_vehicle  = $this->input->post('signa_by_vehicle');
         $voucher->signa_arrival     = $this->convertToUnixTime($this->input->post('signa_arrival'), strtotime($dossier->dossier->call_date));

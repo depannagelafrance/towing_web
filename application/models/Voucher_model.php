@@ -24,11 +24,13 @@ class Voucher_model  {
   public $towing_completed     = null;
   public $towing_depot         = null;
   public $towing_payment       = null;
+  public $signa_id             = null;
   public $signa_by             = null;
   public $signa_by_vehicle     = null;
   public $signa_arrival        = null;
   public $cic                  = null;
   public $additional_info      = null;
+  public $actions              = null;
 
   public $depot = null; //instance of Depot_model
 
@@ -55,11 +57,17 @@ class Voucher_model  {
       $this->towing_start                 = $data->towing_start;
       $this->towing_completed             = $data->towing_completed;
       //$this->towing_depot                 = $data->towing_depot;
+      $this->signa_id                     = $data->signa_id;
       $this->signa_by                     = $data->signa_by;
       $this->signa_arrival                = $data->signa_arrival;
       $this->signa_by_vehicle             = $data->signa_by_vehicle;
       $this->cic                          = $data->cic;
       $this->additional_info              = $data->additional_info;
+
+      if(property_exists($data, 'actions'))
+      {
+          $this->actions = $data->actions;
+      }
 
       if(property_exists($data, 'depot') && $data->depot) {
         $this->depot = new Depot_model($data->depot);
