@@ -240,7 +240,7 @@ $(document).ready(function() {
     if(this.id === 'btnnuisancesameascauser'){
         updatecustomer(did, vid, '#edit-invoice-data', formObj);
     }
-      
+
     return false;
   });
 
