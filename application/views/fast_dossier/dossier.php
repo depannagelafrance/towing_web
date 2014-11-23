@@ -267,7 +267,8 @@ $_dossier = $dossier->dossier;
         <div class="signa-container__left">
           <div class="form-item-horizontal signa-container__signa">
             <label>Signa:</label>
-            <?php print form_input('signa_by', $_voucher->signa_by); ?>
+            <?php /* print form_input('signa_by', $_voucher->signa_by);*/ ?>
+            <?php print listbox('signa_id', $signa_drivers, $_voucher->signa_id); ?>
           </div>
 
           <div class="form-item-horizontal signa-container__licenceplate">

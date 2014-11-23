@@ -37,4 +37,8 @@ class Vocabulary_service extends Rest_service {
   public function fetchAllIncidentTypes($token) {
     return $this->CI->rest->get(sprintf('/vocab/incident_types/%s', $token));
   }
+
+  public function fetchAllSignaDrivers($token) {
+    return $this->CI->rest->get(sprintf('/vocab/drivers/signa/%s', $token));
+  }
 }
