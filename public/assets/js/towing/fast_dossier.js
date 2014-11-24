@@ -457,4 +457,22 @@ $(document).ready(function() {
     $('#payment_unpaid input').val(unpaid);
 
   }
+
+  $('#signature-collector').bind('click', function() {
+
+    var did = $(this).data('did');
+    var vid = $(this).data('vid');
+
+    $.ajax({
+      type		: "POST",
+      cache	: false,
+      url		: "/fast_dossier/ajax/requestcollectorsignature/" + did + "/" + vid,
+      data		: {},
+      success: function(data) {
+          //do nothing, it's requested.
+      }
+    });
+    return false;
+  });
+
 });

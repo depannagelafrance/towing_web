@@ -190,4 +190,15 @@ class Dossier_service extends Rest_service {
 
       return $result;
     }
+
+    public function requestCollectorSignature($dossier_id, $voucher_id, $token)
+    {
+      $result = $this->CI->rest->post(
+          sprintf('/dossier/signature/collector/%s/%s/%s', $dossier_id, $voucher_id, $token),
+          json_encode(array("dossier" => $dossier_id, "voucher" => $voucher_id)),
+          'application/json'
+      );
+
+      return $result;
+    }
 }

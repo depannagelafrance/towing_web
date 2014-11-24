@@ -660,7 +660,10 @@ $_dossier = $dossier->dossier;
             <?php if($nuisance_has_autograph): ?>
               <a id="edit-autograph-nuisance" class="inform-link icon--edit--small" href="#"></a>
             <?php else: ?>
-              <a class="add_autograph" href="#">Voeg een handtekening toe</a>
+              <a class="add_autograph" id="signature-causer"
+                 data-did="<?php print $_dossier->dossier_number; ?>"
+                 data-vid="<?php print $_voucher->id; ?>"
+                 href="#">Voeg een handtekening toe</a>
             <?php endif; ?>
           </div>
         </div>
@@ -680,7 +683,10 @@ $_dossier = $dossier->dossier;
             <?php if($collecting_has_autograph): ?>
               <a id="edit-autograph-collecting" class="inform-link icon--edit--small" href="#"></a>
             <?php else: ?>
-              <a class="add_autograph" href="#">Voeg een handtekening toe</a>
+              <a class="add_autograph" id="signature-collector"
+                 data-did="<?php print $_dossier->id; ?>"
+                 data-vid="<?php print $_voucher->id; ?>"
+                 href="#">Voeg een handtekening toe</a>
             <?php endif; ?>
           </div>
         </div>
