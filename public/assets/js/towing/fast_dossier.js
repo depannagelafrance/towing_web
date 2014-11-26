@@ -443,15 +443,15 @@ $(document).ready(function() {
   function recalculate_price(){
 
     var insurance = $('#payment_insurance input').val() || 0;
-    var cash = $('#payment_cash input').val() || 0;
-    var bank = $('#payment_bank input').val() || 0;
-    var debit = $('#payment_debit input').val() || 0;
-    var credit = $('#payment_credit input').val() || 0;
-    var total = $('#payment_total input').val() || 0;
+    var cash      = $('#payment_cash input').val() || 0;
+    var bank      = $('#payment_bank input').val() || 0;
+    var debit     = $('#payment_debit input').val() || 0;
+    var credit    = $('#payment_credit input').val() || 0;
+    var total     = $('#payment_total input').val() || 0;
 
-    var topay = total - insurance - cash - bank - debit - credit;
-    var paid = (total - topay).toFixed(2);
-    var unpaid = topay.toFixed(2);
+    var topay     = total - insurance - cash - bank - debit - credit;
+    var paid      = (total - topay).toFixed(2);
+    var unpaid    = topay.toFixed(2);
 
     $('#payment_paid input').val(paid);
     $('#payment_unpaid input').val(unpaid);
@@ -470,6 +470,7 @@ $(document).ready(function() {
       data		: {},
       success: function(data) {
           //do nothing, it's requested.
+          alert('De aanvraag voor een handtekening werd verzonden naar de iPad!');
       }
     });
     return false;

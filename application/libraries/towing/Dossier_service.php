@@ -201,4 +201,15 @@ class Dossier_service extends Rest_service {
 
       return $result;
     }
+
+    public function searchTowingVoucherByNumber($number, $token)
+    {
+      $result = $this->CI->rest->post(
+            sprintf('/search/towing_voucher/%s', $token),
+            json_encode(array("number" => $number)),
+            'application/json'
+      );
+
+      return $result;
+    }
 }

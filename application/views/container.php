@@ -57,6 +57,11 @@
 									}
 							 	}
 							?>
+							<li>
+								<form method="post" action="/fast_dossier/search/voucher">
+									<input type="text" value="" name="searchVoucherNumber" placeholder="Takelbon zoeken" />
+								</form>
+							</li>
             </ul>
           <?php endif; ?>
         </nav>
