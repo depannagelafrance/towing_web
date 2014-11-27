@@ -68,8 +68,8 @@
       </div>
       <div class="l-user-navigation">
         <div class="user-navigation bright">
-          <div class="l-user-action"><a href="#" class="icon--user"></a></div>
-          <div class="l-user-action"><a href="#" class="icon--settings"></a></div>
+          <!-- div class="l-user-action"><a href="#" class="icon--user"></a></div>
+          <div class="l-user-action"><a href="#" class="icon--settings"></a></div -->
           <div class="l-user-action"><a href="/logout/index" class="icon--off"></a></div>
         </div>
       </div>

@@ -35,6 +35,12 @@ function composeCustomerInformation($c) {
     $output .= "<div>E: " . $c->email . "</div>";
   }
 
+  if(property_exists($c, 'invoice_ref') && $c->invoice_ref) {
+    $output .= "<div>Ref.: " . $c->invoice_ref . "</div>";
+  } else {
+    $output .= "<div>&nbsp;</div>";
+  }
+
   return $output;
 }
 
@@ -840,7 +846,7 @@ $_dossier = $dossier->dossier;
             <?php print form_input('company_name', $_voucher->customer->company_name); ?>
           </div>
           <div class="form-item-horizontal invoice-full-container__company_vat">
-            <label>VAT:</label>
+            <label>BTW:</label>
             <?php print form_input('company_vat', $_voucher->customer->company_vat); ?>
           </div>
         </div>
@@ -885,6 +891,11 @@ $_dossier = $dossier->dossier;
           <div class="form-item-horizontal invoice-full-container__email">
             <label>Email:</label>
             <?php print form_input('email', $_voucher->customer->email); ?>
+          </div>
+
+          <div class="form-item-horizontal invoice-full-container__email">
+            <label>Referentie:</label>
+            <?php print form_input('invoice_ref', $_voucher->customer->invoice_ref); ?>
           </div>
         </div>
       </div>
