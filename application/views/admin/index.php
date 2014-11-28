@@ -3,4 +3,5 @@
     <p><?php echo anchor('/admin/collector', 'Afhalers'); ?></p>
     <p><?php echo anchor('/admin/insurance', 'Verzekeringsmaatschappijen'); ?></p>
     <p><?php echo anchor('/admin/calendar', 'Beheer kalender'); ?></p>
+    <p><?php echo anchor('/admin/timeframe', 'Beheer prijzen'); ?></p>
 </div>
