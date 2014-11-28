@@ -63,5 +63,19 @@
 
 .vehicule-container__country{
   float: left;
-  width: 50%;
+  width: 100%;
+
+  label{
+
+    width: 22%;
+    float: left;
+
+  }
+
+  .chosen-container,
+  select{
+    width: 70%;
+    float: left;
+  }
+
 }

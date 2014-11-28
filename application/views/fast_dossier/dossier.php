@@ -1,24 +1,58 @@
 <?php
 
 function composeCustomerInformation($c) {
-  $output = "<div>";
+  $output = "";
 
   if($c->company_name) {
+    $output .= "<div>";
     $output .= $c->company_name;
-  } else {
+    $output .= "</div>";
+  } elseif($c->last_name && $c->first_name) {
+    $output .= "<div>";
     $output .= sprintf("%s %s", $c->last_name, $c->first_name);
+    $output .= "</div>";
   }
 
-  $output .= "</div>";
-  $output .= "<div>";
-  $output .= sprintf("%s %s %s", $c->street, $c->street_number, ($c->street_pobox ? "/" . $c->street_pobox : ""));
-  $output .= "</div>";
-  $output .= "<div>" . sprintf("%s %s", $c->zip, $c->city) . "</div>";
-  $output .= "<div>" . $c->country . "</div>";
-  $output .= "<div>T: " . $c->phone . "</div>";
-  $output .= "<div>E: " . $c->email . "</div>";
+  if($c->street && $c->street_number){
+    $output .= "<div>";
+    $output .= sprintf("%s %s %s", $c->street, $c->street_number, ($c->street_pobox ? "/" . $c->street_pobox : ""));
+    $output .= "</div>";
+  }
+
+  if($c->zip && $c->city){
+    $output .= "<div>" . sprintf("%s %s", $c->zip, $c->city) . "</div>";
+  }
+
+  if($c->country){
+    $output .= "<div>" . $c->country . "</div>";
+  }
+
+  if($c->phone){
+    $output .= "<div>T: " . $c->phone . "</div>";
+  }
+
+  if($c->email){
+    $output .= "<div>E: " . $c->email . "</div>";
+  }
+
+  if(property_exists($c, 'invoice_ref') && $c->invoice_ref) {
+    $output .= "<div>Ref.: " . $c->invoice_ref . "</div>";
+  } else {
+    $output .= "<div>&nbsp;</div>";
+  }
 
   return $output;
+}
+
+function displayVoucherTimeField($value, $name) {
+  if($value) {
+    $render = sprintf('<div>%s</div>', asTime($value));
+    $render .= form_hidden($name, asJsonDateTime($value));
+
+    return $render;
+  } else {
+    return form_input($name, asTime($value));
+  }
 }
 
 
@@ -48,7 +82,6 @@ $_dossier = $dossier->dossier;
       $prev = '';
       if($vouchers && sizeof($vouchers) > 0) {
         foreach($vouchers as $voucher) {
-
           if($voucher->dossier_number === $url_dossier_id){
             $class = 'active bright';
           }else{
@@ -60,8 +93,7 @@ $_dossier = $dossier->dossier;
             $prev = $voucher->dossier_number;
 
             $this->table->add_row(
-                  array('class' => $class, 'data' => sprintf('<a class="id__cell" href="/fast_dossier/dossier/%s/%s"><span class="id__cell__icon icon--map"></span><span class="id__cell__text">%s</span></a>', $voucher->dossier_number, $voucher->voucher_number, $voucher->dossier_number)),
-                  array('class' => $class, 'data' => sprintf("%s<br />%s",$voucher->direction_name, $voucher->indicator_name))
+                  array('class' => $class, 'data' => sprintf('<a class="id__cell" href="/fast_dossier/dossier/%s/%s"><span class="id__cell__icon icon--map"></span><span class="id__cell__text__type">%s</span><span class="id__cell__text"><span class="id__cell__text__data"><span class="id__cell__text__nr">%s</span><span class="id__cell__text__info">%s %s</span></span></a>', $voucher->dossier_number, $voucher->voucher_number, $voucher->dossier_number, $voucher->incident_type, $voucher->direction_name , $voucher->indicator_name))
             );
 
           }
@@ -81,6 +113,7 @@ $_dossier = $dossier->dossier;
         <div class="idbar__icon icon--map"></div>
         <div class="idbar__id__value"><?php print $_dossier->dossier_number; ?></div>
       </div>
+
 
       <div class="idbar__item">
         <div class="idbar__label">
@@ -105,7 +138,6 @@ $_dossier = $dossier->dossier;
         <?php print $_dossier->incident_type_name; ?>
       </div>
   </div>
-
     <div class="box detailbar">
       <div class="detailbar__row">
         <div class="form-item-horizontal less_padded">
@@ -120,7 +152,7 @@ $_dossier = $dossier->dossier;
 
         <div class="form-item-horizontal less_padded">
           <label>Toegewezen aan&nbsp;:</label>
-          <div class="value"><?php print $_dossier->company_name ?></div>
+          <div class="value"><?php  print $_dossier->company_name ?></div>
         </div>
       </div>
 
@@ -128,22 +160,21 @@ $_dossier = $dossier->dossier;
 
          <div class="form-item-horizontal less_padded">
            <label>Richting&nbsp;:</label>
-           <div class="value"><?php print $_dossier->direction_name; ?></div>
+           <div class="value"><?php  print $_dossier->direction_name; ?></div>
          </div>
 
          <div class="form-item-horizontal less_padded">
            <label>KM Paal&nbsp;:</label>
-           <div class="value"><?php print $_dossier->indicator_name; ?></div>
+           <div class="value"><?php  print $_dossier->indicator_name; ?></div>
          </div>
 
          <div class="form-item-horizontal less_padded">
            <label>Rijstrook&nbsp;:</label>
-           <div class="value"><?php print $_dossier->traffic_lane_name; ?></div>
+           <div class="value"><?php  print $_dossier->traffic_lane_name; ?></div>
          </div>
       </div>
 
     </div>
-
   <?php
   print validation_errors();
 
@@ -166,36 +197,22 @@ $_dossier = $dossier->dossier;
   <div class="dossierbar">
 
     <div class="dossierbar__vouchers">
+      <select name="voucher_switcher" id="voucher_switcher" data-did="<?php print $_dossier->dossier_number; ?>">
       <?php
-        foreach($_dossier->towing_vouchers as $_v) :
+        foreach($_dossier->towing_vouchers as $_v){
           $_is_selected = ($_v->voucher_number == $_voucher->voucher_number);
-      ?>
-          <div class="dossierbar__id box has_icon <?php print ($_is_selected || sizeof($_dossier->towing_vouchers) == 1) ? 'active bright' : 'inactive'; ?>">
-            <div class="dossierbar__icon icon--ticket"></div>
-            <div class="dossierbar__id__value">
-            <?php
 
-            if($_is_selected || sizeof($_dossier->towing_vouchers) == 1) {
-              printf('%s', $_v->voucher_number);
-            } else {
-              printf('<a href="/fast_dossier/dossier/%s/%s">%s</a>', $_dossier->dossier_number, $_v->voucher_number, $_v->voucher_number);
-            }
-            ?>
-            </div>
-          </div>
-      <?php
-        endforeach;
+          $sel = '';
+          if($_is_selected || sizeof($_dossier->towing_vouchers) == 1){
+            $sel = 'selected';
+          }
+          print '<option value="'. $_v->voucher_number .'" '. $sel .'>'. $_v->voucher_number .'</option>';
+        };
       ?>
+      </select>
     </div>
 
     <div class="dossierbar__mainactions">
-      <!--
-      <div class="dossierbar__mainaction__item">
-        <div class="btn--icon">
-          <a class="icon--edit" href="#">Edit</a>
-        </div>
-      </div>
-      -->
       <div class="dossierbar__mainaction__item">
         <div class="btn--icon--highlighted bright">
           <a class="icon--add" href="/fast_dossier/dossier/voucher/<?=$_dossier->id?>">Add</a>
@@ -206,20 +223,31 @@ $_dossier = $dossier->dossier;
     <div class="dossierbar__actions">
       <div class="dossierbar__action__item">
         <div class="btn--icon">
-          <a id="add-nota-link" class="icon--nota" href="#add-nota-form">Nota</a>
-        </div>
-      </div>
-      <div class="dossierbar__action__item">
-        <div class="btn--icon">
-          <a class="icon--attachement" href="">Bijlage</a>
-        </div>
-      </div>
-      <div class="dossierbar__action__item">
-        <div class="btn--icon">
           <a id="add-email-link" class="icon--email" href="#add-email-form">Email</a>
         </div>
       </div>
-
+      <div class="dossierbar__action__item">
+        <div class="btn--dropdown">
+          <div class="btn--dropdown--btn btn--icon">
+            <span class="icon--nota">Nota</span>
+          </div>
+          <ul class="btn--dropdown--drop">
+            <li><a id="add-nota-link" href="#add-nota-form">Nota toevoegen</a></li>
+            <li><a id="add-nota-link">Notas bekijken</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="dossierbar__action__item">
+        <div class="btn--dropdown">
+          <div class="btn--dropdown--btn btn--icon">
+            <span class="icon--attachement">Bijlage</span>
+          </div>
+          <ul class="btn--dropdown--drop">
+            <li><a>Bijlage Toevoegen</a></li>
+            <li><a>Bijlages bekijken (X)</a></li>
+          </ul>
+        </div>
+      </div>
       <div class="dossierbar__action__item">
         <div class="btn--dropdown">
           <div class="btn--dropdown--btn btn--icon">
@@ -245,7 +273,8 @@ $_dossier = $dossier->dossier;
         <div class="signa-container__left">
           <div class="form-item-horizontal signa-container__signa">
             <label>Signa:</label>
-            <?php print form_input('signa_by', $_voucher->signa_by); ?>
+            <?php /* print form_input('signa_by', $_voucher->signa_by);*/ ?>
+            <?php print listbox('signa_id', $signa_drivers, $_voucher->signa_id); ?>
           </div>
 
           <div class="form-item-horizontal signa-container__licenceplate">
@@ -257,11 +286,14 @@ $_dossier = $dossier->dossier;
         <div class="signa-container__right">
           <div class="form-item-horizontal signa-container__arrival">
             <label>Aankomst:</label>
-            <?php print form_input('signa_arrival', asTime($_voucher->signa_arrival)); ?>
+
+            <?php print displayVoucherTimeField($_voucher->signa_arrival, 'signa_arrival'); ?>
           </div>
         </div>
       </div>
       <!-- END SIGNA -->
+
+
 
       <!--TOWED BY-->
       <div class="towedby-container">
@@ -280,22 +312,22 @@ $_dossier = $dossier->dossier;
         <div class="towedby-container__right">
           <div class="form-item-horizontal towedby-container__call">
             <label>Oproep:</label>
-            <?php print form_input('towing_called', asTime($_voucher->towing_called)); ?>
+            <?php print displayVoucherTimeField($_voucher->towing_called, 'towing_called'); ?>
           </div>
 
           <div class="form-item-horizontal towedby-container__arival">
             <label>Aankomst:</label>
-            <?php print form_input('towing_arrival',asTime($_voucher->towing_arrival)); ?>
+            <?php print displayVoucherTimeField($_voucher->towing_arrival, 'towing_arrival'); ?>
           </div>
 
           <div class="form-item-horizontal towedby-container__start">
             <label>Start:</label>
-            <?php print form_input('towing_start', asTime($_voucher->towing_start)); ?>
+            <?php print displayVoucherTimeField($_voucher->towing_start, 'towing_start'); ?>
           </div>
 
           <div class="form-item-horizontal towedby-container__completed">
             <label>Stop:</label>
-            <?php print form_input('towing_completed', asTime($_voucher->towing_completed)); ?>
+            <?php print displayVoucherTimeField($_voucher->towing_completed, 'towing_completed'); ?>
           </div>
 
         </div>
@@ -325,7 +357,8 @@ $_dossier = $dossier->dossier;
               array(
                 'value_key' => 'name',
                 'label_key' => 'name',
-              )); ?>
+              ));
+            ?>
           </div>
         </div>
       </div>
@@ -392,6 +425,7 @@ $_dossier = $dossier->dossier;
 
       <!--WORK-->
       <div class="form-item-vertical work-container">
+        <?php if(count($_voucher->towing_activities) > 0): ?>
         <div class="work-container__header">
           <div class="work-container__task__label"><label>Activiteiten:</label></div>
           <div class="work-container__number__label"><label>Aantal:</label></div>
@@ -399,6 +433,7 @@ $_dossier = $dossier->dossier;
           <div class="work-container__excl__label"><label>Excl:</label></div>
           <div class="work-container__incl__label"><label>Incl:</label></div>
         </div>
+        <?php endif; ?>
         <div class="work-container__fields">
           <?php foreach($_voucher->towing_activities as $_activity) : ?>
           <div class="work-container__field" data-id="<?php print $_activity->activity_id;?>" data-incl="<?php print $_activity->fee_incl_vat;?>" data-excl="<?php print $_activity->fee_excl_vat;?>">
@@ -472,7 +507,7 @@ $_dossier = $dossier->dossier;
 
       <div class="work-container__actions">
         <div class="work-container__add">
-          <a id="add-work-link" class="inform-link" href="#add-work-form">Activiteit toevoegen</a>
+          <a id="add-work-link" class="inform-link" href="#add-work-form" data-did="<?php print $_dossier->id; ?>" data-vid="<?php print $_voucher->id ;?>" >Activiteit toevoegen</a>
         </div>
       </div>
 
@@ -568,7 +603,7 @@ $_dossier = $dossier->dossier;
         <div class="autograph-container__nuisance">
           <label>Bevestiging hinderverwekker:</label>
 
-          <div class="form-item-horizontal">
+          <div id="edit-nuisance-short-data" class="form-item-horizontal">
             <div class="nuisance_value">
               <?php print $_voucher->causer->first_name . ' ' . $_voucher->causer->last_name; ?>
             </div>
@@ -631,7 +666,10 @@ $_dossier = $dossier->dossier;
             <?php if($nuisance_has_autograph): ?>
               <a id="edit-autograph-nuisance" class="inform-link icon--edit--small" href="#"></a>
             <?php else: ?>
-              <a class="add_autograph" href="#">Voeg een handtekening toe</a>
+              <a class="add_autograph" id="signature-causer"
+                 data-did="<?php print $_dossier->dossier_number; ?>"
+                 data-vid="<?php print $_voucher->id; ?>"
+                 href="#">Voeg een handtekening toe</a>
             <?php endif; ?>
           </div>
         </div>
@@ -651,7 +689,10 @@ $_dossier = $dossier->dossier;
             <?php if($collecting_has_autograph): ?>
               <a id="edit-autograph-collecting" class="inform-link icon--edit--small" href="#"></a>
             <?php else: ?>
-              <a class="add_autograph" href="#">Voeg een handtekening toe</a>
+              <a class="add_autograph" id="signature-collector"
+                 data-did="<?php print $_dossier->id; ?>"
+                 data-vid="<?php print $_voucher->id; ?>"
+                 href="#">Voeg een handtekening toe</a>
             <?php endif; ?>
           </div>
         </div>
@@ -699,7 +740,13 @@ $_dossier = $dossier->dossier;
       $depot_attr = array(
         'data-cid' => '#edit-depot-data',
         'data-vid' =>  $_voucher->id,
-        'data-did' => $_dossier->id
+        'data-did' => $_dossier->id,
+        'data-default-name' => $company_depot->name,
+        'data-default-street' => $company_depot->street,
+        'data-default-street-number' => $company_depot->street_number,
+        'data-default-street-pobox' => $company_depot->street_pobox,
+        'data-default-zip' => $company_depot->zip,
+        'data-default-city' => $company_depot->city
       );
 
       $depot_hidden = array(
@@ -799,7 +846,7 @@ $_dossier = $dossier->dossier;
             <?php print form_input('company_name', $_voucher->customer->company_name); ?>
           </div>
           <div class="form-item-horizontal invoice-full-container__company_vat">
-            <label>VAT:</label>
+            <label>BTW:</label>
             <?php print form_input('company_vat', $_voucher->customer->company_vat); ?>
           </div>
         </div>
@@ -845,6 +892,11 @@ $_dossier = $dossier->dossier;
             <label>Email:</label>
             <?php print form_input('email', $_voucher->customer->email); ?>
           </div>
+
+          <div class="form-item-horizontal invoice-full-container__email">
+            <label>Referentie:</label>
+            <?php print form_input('invoice_ref', $_voucher->customer->invoice_ref); ?>
+          </div>
         </div>
       </div>
     </div>
@@ -854,9 +906,9 @@ $_dossier = $dossier->dossier;
       </div>
 
       <div class="form-item fancybox-form__actions__save fancybox-form__actions__twobuttons">
-        <input type="submit" value="Zelfde als hinderverwekker" name="btnSameAsCauser" id="btnSameAsCauser" />
+        <input type="submit" value="Gebruik deze gegevens ook voor hinderverwekker" name="btnSameAsCauser" id="btninvoicesameascauser" />
 
-        <input type="submit" value="Bewaren" name="btnInvoiceSave" />
+        <input type="submit" value="Bewaren" name="btnInvoiceSave" id="btninvoicesave" />
       </div>
     </div>
     <?php print form_close(); ?>
@@ -868,6 +920,7 @@ $_dossier = $dossier->dossier;
 
       $nuisance_attr = array(
         'data-cid' => '#edit-nuisance-data',
+        'data-shortcid' => '#edit-nuisance-short-data',
         'data-vid' => $_voucher->id,
         'data-did' => $_dossier->id
       );
@@ -958,9 +1011,9 @@ $_dossier = $dossier->dossier;
       </div>
 
       <div class="form-item fancybox-form__actions__save fancybox-form__actions__twobuttons">`
-        <input type="button" value="Zelfde als hinderverwekker" name="btnSameAsCustomer" id="btnSameAsCustomer"/>
+        <input type="button" value="Gebruik deze gegevens ook voor facturatie" name="btnSameAsCustomer" id="btnnuisancesameascauser"/>
 
-        <input type="submit" value="Bewaren" name="btnNuisanceSave" />
+        <input type="submit" value="Bewaren" name="btnNuisanceSave" id="btnnuisancesave" />
       </div>
     </div>
     <?php print form_close(); ?>
@@ -1050,32 +1103,7 @@ $_dossier = $dossier->dossier;
     <?php print form_open(); ?>
     <div class="fancybox-form">
       <h3>Activiteiten toevoegen</h3>
-      <?php
-
-      if($available_activities && sizeof($available_activities) > 0) {
-        foreach($available_activities as $activity) {
-
-          $data = array(
-            'name'        => 'activity',
-            'value'       => $activity->id,
-            'checked'     => FALSE,
-            'data-id'     => $activity->id,
-            'data-label'  => $activity->name,
-            'data-code'   => $activity->code,
-            'data-incl'   => round($activity->fee_incl_vat, 2),
-            'data-excl'   => round($activity->fee_excl_vat, 2)
-          );
-
-          echo '<div class="form-item-checkbox">';
-          echo form_checkbox($data);
-          echo '<label>' . $activity->name . '</label>';
-          echo '</div>';
-
-        }
-
-      }
-
-      ?>
+      <div id="add-work-form-ajaxloaded-content"></div>
     </div>
     <div class="fancybox-form__actions">
       <div class="form-item fancybox-form__actions__cancel">
@@ -1089,378 +1117,8 @@ $_dossier = $dossier->dossier;
     <?= form_close(); ?>
   </div>
 </div>
-
-<script>
-$('#list_direction').change(function(){
-  var id = $('#list_direction option:selected').val();
-
-  $.getJSON("/fast_dispatch/ajax/indicators/"+id,
-    function(data) {
-      $('#list_indicator').empty();
-
-      $.each(data, function(index, item) {
-          $('#list_indicator').append($('<option/>', {
-                  value: item.id,
-                  text : item.name
-              }));
-      });
-
-      $('#list_indicator').trigger('chosen:updated');
-
-    }
-  );
-});
-
-function composeAddressHtml(data) {
-  html = '';
-
-  if(data.company_name !== ''){
-    html += '<div>' + data.company_name + '</div>';
-  }else{
-    html += '<div>' + data.last_name + ' ' + data.first_name + '</div>';
-  }
-
-  if(data.street !== '' || data.street_number !== ''  ){
-    if(data.street_pobox !== ''){
-      html += '<div>' + data.street + ' ' + data.street_number + ' ' + data.street_pobox + '</div>';
-    } else {
-      html += '<div>' + data.street + ' ' + data.street_number + '</div>';
-    }
-  }
-
-  if(data.zip !== '' || data.city !== ''  ){
-    html += '<div>' + data.zip + ' ' + data.city + '</div>';
-  }
-  if(data.country !== ''){
-    html += '<div>' + data.country + '</div>';
-  }
-  if(data.phone !== ''){
-    html += '<div>T: ' + data.phone + '</div>';
-  }
-  if(data.email !== ''){
-    html += '<div>E: ' + data.email + '</div>';
-  }
-
-  return html;
-}
-
-
-$(document).ready(function() {
-
-  $('#edit-depot-link').fancybox({
-    'scrolling'		: 'no',
-    'titleShow'		: false,
-    'onClosed'		: function() {
-      $('#edit-depot-form .msg__error').hide();
-    }
-  });
-
-  $('#edit-invoice-data-link').fancybox({
-    'scrolling'		: 'no',
-    'titleShow'		: false
-  });
-
-  $('#edit-nuisance-data-link').fancybox({
-    'scrolling'		: 'no',
-    'titleShow'		: false
-  });
-
-  $('#add-email-link').fancybox({
-    'scrolling'		: 'no',
-    'titleShow'		: false
-  });
-
-  $('#add-nota-link').fancybox({
-    'scrolling'		: 'no',
-    'titleShow'		: false
-  });
-
-  $('#add-work-link').fancybox({
-    'scrolling'		: 'no',
-    'titleShow'		: false
-  });
-
-  $('.close_overlay').click(function(){
-    parent.$.fancybox.close();
-    return false;
-  });
-
-
-  //DEPOT
-  $('#edit-depot-form form button').click(function() {
-    $('#edit-depot-form form').find('input[name="name"]').val('<?=addslashes($company_depot->name)?>');
-    $('#edit-depot-form form').find('input[name="street"]').val('<?=addslashes($company_depot->street)?>');
-    $('#edit-depot-form form').find('input[name="street_number"]').val('<?=addslashes($company_depot->street_number)?>');
-    $('#edit-depot-form form').find('input[name="street_pobox"]').val('<?=addslashes($company_depot->street_pobox)?>');
-    $('#edit-depot-form form').find('input[name="zip"]').val('<?=addslashes($company_depot->zip)?>');
-    $('#edit-depot-form form').find('input[name="city"]').val('<?=addslashes($company_depot->city)?>');
-  });
-
-  $('#edit-depot-form form').bind('submit', function() {
-
-    /* /depot/:dossier/:voucher/:token */
-    $('#edit-depot-form').find('.msg__error').hide();
-
-    var cid = $(this).data('cid');
-    var did = $(this).data('did');
-    var vid = $(this).data('vid');
-
-    var formObj = {};
-    var inputs = $(this).serializeArray();
-    $.each(inputs, function (i, input) {
-      formObj[input.name] = input.value;
-    });
-
-    $.ajax({
-      type		: "POST",
-      cache	: false,
-      url		: "/fast_dossier/ajax/updatedepot/" + did + '/' + vid,
-      data		: {'depot' : formObj},
-      success: function(data) {
-        if(data.id) {
-          var po = '';
-          if(data.street_pobox){
-            po = '/'+ data.street_pobox
-          }
-          var html = data.name + ', ' + data.street + ' ' + data.street_number + po + ', ' + data.zip + ' ' + data.city;
-          $(cid).html(html);
-          parent.$.fancybox.close();
-        } else {
-          $('#edit-depot-form').find('.msg__error').show();
-          $.fancybox.resize();
-        }
-      }
-    });
-
-    return false;
-  });
-
-  //INVOICE
-  $('#edit-invoice-data-form form').bind('submit', function() {
-
-    $('#edit-invoice-data-form').find('.msg__error').hide();
-    var cid = $(this).data('cid');
-    var did = $(this).data('did');
-    var vid = $(this).data('vid');
-
-    var formObj = {};
-    var inputs = $(this).serializeArray();
-    $.each(inputs, function (i, input) {
-      formObj[input.name] = input.value;
-    });
-
-    $.ajax({
-      type		: "POST",
-      cache	: false,
-      url		: "/fast_dossier/ajax/updatecustomer/" + did + '/' + vid,
-      data		: {'customer' : formObj},
-      success: function(data) {
-        if(data.id) {
-          var html = composeAddressHtml(data);
-          $(cid).html(html);
-          parent.$.fancybox.close();
-        } else {
-          //could not save data for whatever reason
-          $('#edit-invoice-data-form').find('.msg__error').show();
-          $.fancybox.resize();
-        }
-      }
-    });
-    return false;
-  });
-
-  //NUISANCE
-  $('#edit-nuisance-data-form form').bind('submit', function() {
-
-    $('#edit-nuisance-data-form').find('.msg__error').hide();
-
-    var cid = $(this).data('cid');
-    var did = $(this).data('did');
-    var vid = $(this).data('vid');
-
-    var formObj = {};
-    var inputs = $(this).serializeArray();
-    $.each(inputs, function (i, input) {
-      formObj[input.name] = input.value;
-    });
-
-
-    $.ajax({
-      type		: "POST",
-      cache	: false,
-      url		: "/fast_dossier/ajax/updatecauser/" + did + '/' + vid,
-      data		: {'causer' : formObj},
-      success: function(data) {
-        if(data.id){
-          var html = composeAddressHtml(data);
-
-          $(cid).html(html);
-          parent.$.fancybox.close();
-        }else{
-          //could not save data for whatever reason
-          $('#edit-nuisance-data-form').find('.msg__error').show();
-          $.fancybox.resize();
-        }
-      }
-    });
-
-    return false;
-  });
-
-  //NOTA
-
-  $('#add-nota-form form').bind('submit', function() {
-
-    var did = $(this).data('did');
-    var vid = $(this).data('vid');
-
-    var formObj = {};
-    var inputs = $(this).serializeArray();
-    $.each(inputs, function (i, input) {
-      formObj[input.name] = input.value;
-    });
-
-    formObj['dossier_id'] = did;
-    formObj['voucher_id'] = vid;
-
-    $.ajax({
-      type		: "POST",
-      cache	: false,
-      url		: "/fast_dossier/ajax/addinternalcommunication",
-      data		: {'communication' : formObj},
-      success: function(data) {
-        if(data.result == 'OK'){
-          parent.$.fancybox.close();
-        }else{
-          $('#add-nota-form').find('.msg__error').show();
-          $.fancybox.resize();
-        }
-      }
-    });
-    return false;
-  });
-
-  //NOTA
-
-  $('#add-email-form form').bind('submit', function() {
-
-    var did = $(this).data('did');
-    var vid = $(this).data('vid');
-
-    var formObj = {};
-    var inputs = $(this).serializeArray();
-    $.each(inputs, function (i, input) {
-      formObj[input.name] = input.value;
-    });
-
-    formObj['dossier_id'] = did;
-    formObj['voucher_id'] = vid;
-
-    $.ajax({
-      type		: "POST",
-      cache	: false,
-      url		: "/fast_dossier/ajax/addemailcommunication",
-      data		: {'communication' : formObj},
-      success: function(data) {
-        if(data.result == 'OK'){
-          parent.$.fancybox.close();
-        }else{
-          $('#add-email-form').find('.msg__error').show();
-          $.fancybox.resize();
-        }
-
-      }
-    });
-    return false;
-  });
-
-
-  //WORK
-
-  $('#add-work-form form').bind('submit', function() {
-      var formObj = {};
-      var inputs = $(this).find('input[type="checkbox"]');
-
-      $.each(inputs, function (i, input) {
-        if($(this).is(':checked')){
-          console.log($(this));
-          var id = $(this).data('id');
-          var label = $(this).data('label');
-          var code = $(this).data('code');
-          var incl = $(this).data('incl');
-          var excl = $(this).data('excl');
-
-          $('.work-container__fields').append('<div class="work-container__field" data-id="'+ id + '" data-incl="'+ incl +'" data-excl="'+ excl +'"><div class="form-item-vertical work-container__task"><input type="text" name="name[]" value="'+ label +'" readonly="readonly" style="background: #F0F0F0"><input type="hidden" name="activity_id[]" value="'+ id +'"></div><div class="form-item-vertical work-container__number"><input type="text" name="amount[]" value="1"></div><div class="form-item-vertical work-container__unitprice"><input type="text" name="fee_incl_vat[]" value="'+ incl +'" readonly="readonly" style="background: #F0F0F0"></div><div class="form-item-vertical work-container__excl"><input type="text" name="cal_fee_excl_vat[]" value="'+ excl +'" readonly="readonly" style="background: #F0F0F0"></div><div class="form-item-vertical work-container__incl"><input type="text" name="cal_fee_incl_vat[]" value="'+ incl +'" readonly="readonly" style="background: #F0F0F0"></div><div class="form-item-vertical work-container__remove"><div class="work-container__remove__btn"><div class="btn--icon--small"><a class="icon--remove--small" href="#">Remove</a></div></div></div></div>');
-        }
-      });
-
-      update_total_price();
-      recalculate_price();
-      parent.$.fancybox.close();
-      return false;
-  });
-
-
-  $(document).on('change','.work-container__field .work-container__number input', function(){
-    var unit_incl = $(this).parents('.work-container__field').data('incl');
-    var unit_excl = $(this).parents('.work-container__field').data('excl');
-    var new_incl = 0;
-    var new_excl = 0;
-
-    var number = $(this).val();
-
-    if (!$.isNumeric(number)) {
-      $(this).val(1);
-      new_incl = unit_incl.toFixed(2);
-      new_excl = unit_excl.toFixed(2);
-    } else {
-      new_incl = (unit_incl * number).toFixed(2);
-      new_excl = (unit_excl * number).toFixed(2);
-    }
-
-    $(this).parents('.work-container__field').find('.work-container__incl').find('input').val(new_incl);
-    $(this).parents('.work-container__field').find('.work-container__excl').find('input').val(new_excl);
-
-    update_total_price();
-    recalculate_price();
-  });
-
-  $(document).on('click','.work-container__remove', function(){
-    $(this).parents('.work-container__field').remove();
-    update_total_price();
-    recalculate_price();
-    return false;
-  });
-
-  $('#payment_insurance, #payment_credit, #payment_debit, #payment_cash, #payment_bank, #payment_total').change(function(){
-    recalculate_price();
-  });
-
-  function update_total_price(){
-    var total = 0;
-    $('.work-container__incl input').each(function() {
-      total += parseFloat($(this).val());
-    });
-    $('#payment_total input').val(total.toFixed(2));
-  }
-
-  function recalculate_price(){
-
-    var insurance = $('#payment_insurance input').val() || 0;
-    var cash = $('#payment_cash input').val() || 0;
-    var bank = $('#payment_bank input').val() || 0;
-    var debit = $('#payment_debit input').val() || 0;
-    var credit = $('#payment_credit input').val() || 0;
-    var total = $('#payment_total input').val() || 0;
-
-    var topay = total - insurance - cash - bank - debit - credit;
-    var paid = (total - topay).toFixed(2);
-    var unpaid = topay.toFixed(2);
-
-    $('#payment_paid input').val(paid);
-    $('#payment_unpaid input').val(unpaid);
-
-  }
-});
-
-</script>
+<?php
+echo "<pre>";
+var_dump($dossier);
+echo "</pre>";
+?>

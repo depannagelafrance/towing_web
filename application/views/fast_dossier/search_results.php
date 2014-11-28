@@ -1,8 +1,3 @@
-<div class="layout-actions">
-  <div class="btn--icon--highlighted bright">
-    <a class="icon--add" href="/fast_dispatch/create">New Voucher</a>
-  </div>
-</div>
 <div class="box table_list table_list_large">
   <?php
 
@@ -14,7 +9,7 @@
     foreach($vouchers as $voucher) {
 
       $this->table->add_row(
-        sprintf('<a class="id__cell" href="/fast_dispatch/dossier/%s/%s"><span class="id__cell__icon icon--ticket"></span><span class="id__cell__text">%s</span></a>', $voucher->dossier_number, $voucher->voucher_number, $voucher->voucher_number),
+        sprintf('<a class="id__cell" href="/fast_dossier/dossier/%s/%s"><span class="id__cell__icon icon--ticket"></span><span class="id__cell__text">%s</span></a>', $voucher->dossier_number, $voucher->voucher_number, $voucher->voucher_number),
         $voucher->call_number,
         mdate('%d/%m/%Y %H:%i',strtotime($voucher->call_date)),
         $voucher->direction_name,
@@ -28,4 +23,3 @@
   echo $this->table->generate();
   ?>
 </div>
-

@@ -30,7 +30,7 @@
 	  }
 	  if (!empty($js)) {
 		  foreach ($js as $file) {
-			  print '<script type="text/javascript" src="' . site_url($file) . '"></script>';
+			  print '<script type="text/javascript" src="' . $file . '"></script>';
 		  }
 	  }
 	?>
@@ -57,14 +57,19 @@
 									}
 							 	}
 							?>
+							<li>
+								<form method="post" action="/fast_dossier/search/voucher">
+									<input type="text" value="" name="searchVoucherNumber" placeholder="Takelbon zoeken" />
+								</form>
+							</li>
             </ul>
           <?php endif; ?>
         </nav>
       </div>
       <div class="l-user-navigation">
         <div class="user-navigation bright">
-          <div class="l-user-action"><a href="#" class="icon--user"></a></div>
-          <div class="l-user-action"><a href="#" class="icon--settings"></a></div>
+          <!-- div class="l-user-action"><a href="#" class="icon--user"></a></div>
+          <div class="l-user-action"><a href="#" class="icon--settings"></a></div -->
           <div class="l-user-action"><a href="/logout/index" class="icon--off"></a></div>
         </div>
       </div>

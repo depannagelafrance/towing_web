@@ -5,8 +5,10 @@ require_once(APPPATH . '/models/Depot_model.php');
 require_once(APPPATH . '/models/Causer_model.php');
 require_once(APPPATH . '/models/Customer_model.php');
 
-class Ajax extends AjaxPage {
-  public function __construct(){
+class Ajax extends AjaxPage
+{
+  public function __construct()
+  {
     parent::__construct();
 
     $this->load->library('towing/Dossier_service');
@@ -35,7 +37,6 @@ class Ajax extends AjaxPage {
     $this->_sendJson($result);
   }
 
-
   public function updateCustomer($dossier_id, $voucher_id)
   {
     $token = $this->_get_user_token();
@@ -47,7 +48,23 @@ class Ajax extends AjaxPage {
     $this->_sendJson($result);
   }
 
-  public function availableActivities($dossier_id, $voucher_id) {
+  public function depot($dossier, $voucher_id)
+  {
+    return $this->_sendJson($this->dossier_service->fetchVoucherDepot($dossier_id, $voucher_id, $this->_get_user_token()));
+  }
+
+  public function customer($dossier_id, $voucher_id)
+  {
+    return $this->_sendJson($this->dossier_service->fetchVoucherCustomer($dossier_id, $voucher_id, $this->_get_user_token()));
+  }
+
+  public function causer($dossier_id, $voucher_id)
+  {
+    return $this->_sendJson($this->dossier_service->fetchVoucherCauser($dossier_id, $voucher_id, $this->_get_user_token()));
+  }
+
+  public function availableActivities($dossier_id, $voucher_id)
+  {
     $token = $this->_get_user_token();
 
     $result = $this->dossier_service->fetchAllAvailableActivitiesForVoucher($dossier_id, $voucher_id, $token);
@@ -55,7 +72,8 @@ class Ajax extends AjaxPage {
     $this->_sendJson($result);
   }
 
-  public function addInternalCommunication(){
+  public function addInternalCommunication()
+  {
     $token = $this->_get_user_token();
 
     $model = new Communication_model($this->input->post('communication'));
@@ -65,12 +83,21 @@ class Ajax extends AjaxPage {
     $this->_sendJson($result);
   }
 
-  public function addEmailCommunication(){
+  public function addEmailCommunication()
+  {
     $token = $this->_get_user_token();
 
     $model = new Communication_model($this->input->post('communication'));
 
     $result = $this->dossier_service->addEmailCommunication($model, $token);
+
+    $this->_sendJson($result);
+  }
+
+  public function requestCollectorSignature($dossier_id, $voucher_id) {
+    $token = $this->_get_user_token();
+
+    $result = $this->dossier_service->requestCollectorSignature($dossier_id, $voucher_id, $token);
 
     $this->_sendJson($result);
   }

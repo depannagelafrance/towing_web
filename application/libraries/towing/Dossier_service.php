@@ -73,6 +73,21 @@ class Dossier_service extends Rest_service {
       }
     }
 
+    public function fetchVoucherDepot($dossier, $voucher, $token)
+    {
+      return $this->CI->rest->get(sprintf('/dossier/depot/%s/%s/%s', $dossier, $voucher, $token));
+    }
+
+    public function fetchVoucherCauser($dossier, $voucher, $token)
+    {
+      return $this->CI->rest->get(sprintf('/dossier/causer/%s/%s/%s', $dossier, $voucher, $token));
+    }
+
+    public function fetchVoucherCustomer($dossier, $voucher, $token)
+    {
+      return $this->CI->rest->get(sprintf('/dossier/customer/%s/%s/%s', $dossier, $voucher, $token));
+    }
+
     public function fetchAllTrafficPostsByAllotment($allotment, $token)
     {
       return $this->CI->rest->get(sprintf('/dossier/list/traffic_posts/allotment/%s/%s', $allotment, $token));
@@ -171,6 +186,28 @@ class Dossier_service extends Rest_service {
           sprintf('/dossier/communication/email/%s', $token),
           json_encode($model),
           'application/json'
+      );
+
+      return $result;
+    }
+
+    public function requestCollectorSignature($dossier_id, $voucher_id, $token)
+    {
+      $result = $this->CI->rest->post(
+          sprintf('/dossier/signature/collector/%s/%s/%s', $dossier_id, $voucher_id, $token),
+          json_encode(array("dossier" => $dossier_id, "voucher" => $voucher_id)),
+          'application/json'
+      );
+
+      return $result;
+    }
+
+    public function searchTowingVoucherByNumber($number, $token)
+    {
+      $result = $this->CI->rest->post(
+            sprintf('/search/towing_voucher/%s', $token),
+            json_encode(array("number" => $number)),
+            'application/json'
       );
 
       return $result;

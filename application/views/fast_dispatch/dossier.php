@@ -3,16 +3,13 @@
   $this->load->helper('date');
 
   $_dossier = $dossier->dossier;
-?>
+  $_voucher_id = $voucher_number;
 
+?>
 <div class="layout-has-sidebar edit-view">
   <div class="layout-sidebar">
     <div class="box table_list table_list_small">
       <?php
-
-      $last = $this->uri->total_segments();
-      $urlid = $this->uri->segment($last);
-
       $this->load->helper('date');
 
       $this->table->set_heading('Takelbon');
@@ -23,7 +20,7 @@
       if($vouchers && sizeof($vouchers) > 0) {
         foreach($vouchers as $voucher) {
 
-          if($voucher->dossier_number === $urlid){
+          if($voucher->voucher_number === $_voucher_id){
             $class = 'active bright';
           }else{
             $class = 'inactive';
@@ -32,9 +29,10 @@
           $this->table->add_row(
             array(
               'class' => $class,
-              'data' => sprintf('<a class="id__cell" href="/fast_dispatch/dossier/%s"><span class="id__cell__icon icon--ticket"></span><span class="id__cell__text">%s</span></a>', $voucher->dossier_number, $voucher->voucher_number)
+              'data' => sprintf('<a class="id__cell" href="/fast_dispatch/dossier/%s/%s"><span class="id__cell__icon icon--ticket"></span><span class="id__cell__text__type">%s</span><span class="id__cell__text"><span class="id__cell__text__data"><span class="id__cell__text__nr">%s</span><span class="id__cell__text__info">%s %s</span></span></a>', $voucher->dossier_number, $voucher->voucher_number, $voucher->voucher_number, $voucher->incident_type, $voucher->direction_name , $voucher->indicator_name)
             )
-            //array('class' => $class, 'data' => mdate('%d/%m/%Y',strtotime($voucher->call_date))),
+
+          //array('class' => $class, 'data' => mdate('%d/%m/%Y',strtotime($voucher->call_date))),
             //array('class' => $class, 'data' => mdate('%H:%i',strtotime($voucher->call_date)))
           );
         }
@@ -45,14 +43,16 @@
     </div>
   </div>
 
-  <?php print form_open('fast_dispatch/dossier/save/' . $_dossier->dossier_number) ?>
+
+
+  <?php print form_open('fast_dispatch/dossier/save/' . $_dossier->dossier_number .'/'. $_voucher_id) ?>
 
   <div class="layout-content">
 
     <div class="box box--unpadded idbar">
 
       <div class="idbar__item idbar__id">
-          <?php print $_dossier->towing_vouchers[0]->voucher_number ?>
+          <?php print $_voucher_id; ?>
       </div>
 
       <div class="idbar__item">
@@ -72,7 +72,6 @@
           <?php print mdate('%H:%i',strtotime($_dossier->call_date)); ?>
         </div>
       </div>
-
     </div>
 
 <?php
@@ -81,7 +80,7 @@
 $errors = validation_errors();
 
 if($errors) {
-  printf('<div style="background: red; color: white; font-size: 1.2em; padding-top:10px; padding-bottom: 10px; padding-left: 4px;">%s</div>', $errors);
+  printf('<div class="msg msg__error">%s</div>', $errors);
 }
 
 ?>
@@ -188,19 +187,18 @@ if($errors) {
             ?>
         </div>
 
-        <div class="form-item-horizontal">
-            <label>Telefoonnummer:</label>
+        <?php if(property_exists($_dossier, 'towing_company')): ?>
+        <div class="form-item-horizontal telephone-container">
+            <label></label>
 
-            <div class="form-value" style="background-color: red; color: white; font-size: 1.2em; text-align: center" id="towing_service_phone">
+            <div class="form-value bright" id="towing_service_phone">
+              <span class="phone icon--phone"></span>
               <?php
-                if(property_exists($_dossier, 'towing_company')) {
                   printf("%s", $_dossier->towing_company->phone);
-                } else {
-                  printf("&nbsp;");
-                }
               ?>
             </div>
         </div>
+        <?php endif; ?>
 
 
 
@@ -285,6 +283,17 @@ $('#list_direction').change(function(){
 
 $('#list_indicator').change(function(){
   fetchAllotmentAndTowingServices();
+});
+
+$(function() {
+  // setTimeout() function will be fired after page is loaded
+  // it will wait for 5 sec. and then will fire
+  // $("#successMessage").hide() function
+  /*
+  setTimeout(function() {
+    $('.msg').fadeOut(800)
+  }, 3000);
+  */
 });
 
 

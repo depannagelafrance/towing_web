@@ -11,8 +11,10 @@ class Customer_model  {
   public $street_pobox    = null;
   public $zip             = null;
   public $city            = null;
+  public $country         = null;
   public $email           = null;
   public $phone           = null;
+  public $invoice_ref     = null;
 
   public function __construct($data = null) {
     if($data) {
@@ -27,8 +29,10 @@ class Customer_model  {
         $this->street_pobox   = $data['street_pobox'];
         $this->zip            = $data['zip'];
         $this->city           = $data['city'];
+        $this->country        = $data['country'];
         $this->email          = $data['email'];
         $this->phone          = $data['phone'];
+        $this->invoice_ref    = $data['invoice_ref'];
       }else{
         $this->id             = $data->id;
         $this->first_name     = $data->first_name;
@@ -40,8 +44,10 @@ class Customer_model  {
         $this->street_pobox   = $data->street_pobox;
         $this->zip            = $data->zip;
         $this->city           = $data->city;
+        $this->country        = $data->country;
         $this->email          = $data->email;
         $this->phone          = $data->phone;
+        $this->invoice_ref    = $data->invoice_ref;
       }
     }
   }

@@ -12,9 +12,8 @@ class Create extends Page {
   public function index()
   {
     $dossier = $this->dossier_service->createDossier($this->_get_user_token());
-
     if($dossier) {
-      redirect(sprintf("/fast_dispatch/dossier/%s", $dossier->dossier->dossier_number));
+      redirect(sprintf("/fast_dispatch/dossier/%s/%s", $dossier->dossier->dossier_number, $dossier->dossier->towing_vouchers[0]->voucher_number));
     }
   }
 }

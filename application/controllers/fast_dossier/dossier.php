@@ -16,6 +16,8 @@ class Dossier extends Page {
       $this->load->helper('form');
       $this->load->helper('url');
       $this->load->helper('restdata');
+
+      $this->_add_js('/public/assets/js/towing/fast_dossier.js');
     }
 
   /**
@@ -79,8 +81,9 @@ class Dossier extends Page {
       //for performance improvements, put the dossier in the flash data cache
       $this->_cache_Dossier($dossier);
 
+      $voucher = end($dossier->dossier->towing_vouchers)->voucher_number;
       //redirect to the view
-      redirect(sprintf("/fast_dossier/dossier/%s", $dossier->dossier->dossier_number));
+      redirect(sprintf("/fast_dossier/dossier/%s/%s", $dossier->dossier->dossier_number, $voucher));
     }
   }
 
@@ -109,11 +112,11 @@ class Dossier extends Page {
             'voucher_number'          => $voucher_number,
             'vouchers'                => $this->dossier_service->fetchAllNewVouchers($token),
             'traffic_posts'           => $this->dossier_service->fetchAllTrafficPostsByAllotment($dossier->dossier->allotment_id, $token),
-            'available_activities'    => $this->dossier_service->fetchAllAvailableActivitiesForVoucher($dossier->dossier->id, $_voucher->id, $token),
             'insurances'              => $this->vocabulary_service->fetchAllInsurances($token),
             'collectors'              => $this->vocabulary_service->fetchAllCollectors($token),
             'licence_plate_countries' => $this->vocabulary_service->fetchAllCountryLicencePlates($token),
-            'company_depot'           => $this->_get_authenticated_user()->company_depot
+            'company_depot'           => $this->_get_authenticated_user()->company_depot,
+            'signa_drivers'           => $this->vocabulary_service->fetchAllSignaDrivers($token),
           ),
           true
       )
@@ -145,30 +148,59 @@ class Dossier extends Page {
         $voucher->collector_id        = toIntegerValue($this->input->post('collector_id'));
         $voucher->vehicule_collected  = toMySQLDate($this->input->post('vehicule_collected'));
 
+
+        if($voucher->signa_id != $this->input->post('signa_id') && trim($this->input->post('signa_id')) != '') {
+            //either the previous signa was not set or the data has changed => send a push message
+            $_actions = new stdClass();
+
+            $_actions->signa_send_notification = 1;
+
+            $voucher->actions = $_actions;
+        }
+
+        $voucher->signa_id          = $this->input->post('signa_id');
         $voucher->signa_by          = $this->input->post('signa_by');
         $voucher->signa_by_vehicle  = $this->input->post('signa_by_vehicle');
-        $voucher->signa_arrival     = toTimeValue($this->input->post('signa_arrival'));
+        $voucher->signa_arrival     = $this->convertToUnixTime($this->input->post('signa_arrival'), strtotime($dossier->dossier->call_date));
 
         $voucher->towed_by            = $this->input->post('towed_by');
         $voucher->towed_by_vehicle    = $this->input->post('towed_by_vehicle');
-        $voucher->towing_called       = toTimeValue($this->input->post('towing_called'));
-        $voucher->towing_arrival      = toTimeValue($this->input->post('towing_arrival'));
-        $voucher->towing_start        = toTimeValue($this->input->post('towing_start'));
-        $voucher->towing_completed    = toTimeValue($this->input->post('towing_completed'));
+        $voucher->towing_called       = $this->convertToUnixTime($this->input->post('towing_called'), strtotime($dossier->dossier->call_date));
+        $voucher->towing_arrival      = $this->convertToUnixTime($this->input->post('towing_arrival'), strtotime($dossier->dossier->call_date));
+        $voucher->towing_start        = $this->convertToUnixTime($this->input->post('towing_start'), strtotime($dossier->dossier->call_date));
+        $voucher->towing_completed    = $this->convertToUnixTime($this->input->post('towing_completed'), strtotime($dossier->dossier->call_date));
 
-        $voucher->police_signature_dt = toTimeValue($this->input->post('police_signature_dt'));
+        $voucher->police_signature_dt = $this->convertToUnixTime($this->input->post('police_signature_dt'), strtotime($dossier->dossier->call_date));
 
         $activity_ids = $this->input->post('activity_id');
         $activity_amounts = $this->input->post('amount');
+
+        $voucher->towing_payments->amount_guaranteed_by_insurance  = $this->input->post('amount_guaranteed_by_insurance');
+        $voucher->towing_payments->paid_in_cash                    = $this->input->post('paid_in_cash');
+        $voucher->towing_payments->paid_by_bank_deposit            = $this->input->post('paid_by_bank_deposit');
+        $voucher->towing_payments->paid_by_debit_card              = $this->input->post('paid_by_debit_card');
+        $voucher->towing_payments->paid_by_credit_card             = $this->input->post('paid_by_credit_card');
 
         if(is_array($activity_ids)) {
           $j = 0;
 
           foreach($activity_ids as $activity_id) {
+            $found = false;
+
             foreach($voucher->towing_activities as $towing_activity) {
               if($towing_activity->activity_id == $activity_id) {
                 $towing_activity->amount = $activity_amounts[$j];
+                $found = true;
               }
+            }
+
+            if(!$found) {
+              $_activity = new stdClass();
+              $_activity->activity_id = $activity_id;
+              $_activity->towing_voucher_id = $voucher->id;
+              $_activity->amount = $activity_amounts[$j];
+
+              $voucher->towing_activities[] = $_activity;
             }
 
             $j++;
@@ -178,6 +210,37 @@ class Dossier extends Page {
 
         $dossier->dossier->towing_vouchers[$i] = $voucher;
       }
+    }
+  }
+
+  private function convertToUnixTime($val, $reference_unix_timestamp = null)
+  {
+    if (preg_match('/^[0-9]{1,2}:[0-9]{1,2}$/i', $val))
+    {
+        $format = '%s'; //Unix Epoch Time timestamp (same as the time() function)
+
+        $ref_date = strptime($reference_unix_timestamp, $format);
+
+        //just received a time string (HH:MM)
+        $te = explode(':', $val);
+
+        //fetch values from reference date, if not provided, use today
+        $day = $ref_date['tm_mday'];
+        $month = $ref_date['tm_mon'];
+        $year = $ref_date['tm_year']+1900; //tm_year is years sinds 1900
+        $sec = 0;
+
+        //TODO: validate the received hour and minutes, if not ok, just return null
+        $hour = $te[0];
+        $min = $te[1];
+
+        if(($hour >= 0 && $hour <= 23) && ($min >= 0 && $min <= 59)) {
+          return mktime($hour, $min, $sec, $month, $day, $year);
+        } else return null;
+    }
+    else
+    {
+      return strtotime($val);
     }
   }
 }
