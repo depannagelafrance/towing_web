@@ -15,4 +15,12 @@ class Login_service extends Rest_service {
 
       return $result;
     }
+
+    public function authenticateToken($token) {
+      $result = $this->CI->rest->post('/login/token', array(
+        "token" => $token
+      ));
+
+      return $result;
+    }
 }

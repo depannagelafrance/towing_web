@@ -15,6 +15,7 @@ class Page extends CI_Controller {
 		parent::__construct();
 
 		$this->load->helper('html');
+		$this->load->helper('cookie');
 		$this->load->library('session');
 
 		if(!$this->data) {
@@ -90,6 +91,15 @@ class Page extends CI_Controller {
 
 	protected function _set_authenticated_user($user) {
 		$this->session->set_userdata('current_user', $user);
+
+		$cookie = array(
+			'name'   => 'app_token',
+			'value'  => $this->_get_user_token(),
+			'expire' => 3600 * 24 * 5,
+			'secure' => FALSE
+		);
+
+		$this->input->set_cookie($cookie);
 	}
 
 	protected function _get_authenticated_user() {
