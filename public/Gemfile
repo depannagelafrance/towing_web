@@ -32,4 +32,5 @@ group :development do
   gem 'rb-fsevent', :require => false                # Mac OSX
   gem 'rb-fchange', :require => false                # Windows
 
+  # gem 'font-awesome-sass'
 end

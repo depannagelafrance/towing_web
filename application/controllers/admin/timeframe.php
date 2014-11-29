@@ -91,8 +91,8 @@ class Timeframe extends Page {
    */
   private function _displayOverviewPage() {
       $timeframes = $this->admin_service->fetchAllTimeframes($this->_get_user_token());
-      //$activities = $this->admin_service->fetchAllTimeframeActivities($this->_get_user_token());
-      //$fees = $this->admin_service->fetchAllTimeframeActivityFees(2, $this->_get_user_token());
+      $activities = $this->admin_service->fetchAllTimeframeActivities($this->_get_user_token());
+      // $fees = $this->admin_service->fetchAllTimeframeActivityFees(2, $this->_get_user_token());
 
       if(!$timeframes){
           $this->_add_content('Geen items gevonden!');
@@ -105,7 +105,7 @@ class Timeframe extends Page {
                           array(
                                   'timeframes' => $timeframes,
                                   'activities' => $activities,
-                                  'fees' => $fees
+                                  // 'fees' => $fees
                           ),
                           true
                   )
@@ -121,7 +121,7 @@ class Timeframe extends Page {
    * @param array of objects $timeframes[]
    */
   private function _getTimeframeDataById($id, $timeframes){
-      if(is_null($id) || $id == '') { $id = 1;}  
+      if(is_null($id) || $id == '') { $id = 1;}
       foreach($timeframes as $timeframe){
           if($timeframe->id == $id){
               $timeframe_data['name'] = $timeframe->name;
