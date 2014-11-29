@@ -23,21 +23,35 @@ class Timeframe extends Page {
    * Edit collector (create form to edit)
    * @param int $id
    */
-  public function edit($id = null){
+  public function edit($id){
 
       $this->load->helper('form');
 
       if($this->input->post('submit'))
       {
-          $result = $this->admin_service->updateTimeframeActivityFees($this->input->post('id'), $this->input->post(), $this->_get_user_token());
 
-          if($result && property_exists($result, 'statusCode')) {
-              if($result->statusCode == 409) {
-                  $this->_add_error(sprintf("Er bestaat reeds een item met als naam: '%s'", $this->input->post('name')));
-              } else {
-                  $this->_add_error(sprintf('Fout bij het wijzigen van een item (%d - %s)', $result->statusCode, $result->message));
-              }
+          $timeframe_activity_id = $this->input->post('timeframe_activity_id');
+          $fee_excl_vat = $this->input->post('fee_excl_vat');
+          $fee_incl_vat = $this->input->post('fee_incl_vat');
 
+
+          $data = array();
+
+          foreach($timeframe_activity_id as $i => $taf_id)
+          {
+            $data[] = array(
+              "timeframe_activity_id" => $taf_id,
+              "fee_excl_vat" => $fee_excl_vat[$i],
+              "fee_incl_vat" => $fee_incl_vat[$i]
+            );
+          }
+
+
+          $result = $this->admin_service->updateTimeframeActivityFees($id, array("activity_fees" => $data), $this->_get_user_token());
+
+
+          if($result && array_key_exists('statusCode', $result)) {
+              $this->_add_error(sprintf('Fout bij het wijzigen van een item (%d - %s)', $result->statusCode, $result->message));
 
               $this->_add_content(
                       $this->load->view(
@@ -74,7 +88,8 @@ class Timeframe extends Page {
                               array(
                                       'timeframe_data' => $this->_getTimeframeDataById($id, $timeframes),
                                       'activities' => $activities,
-                                      'fees' => $fees
+                                      'fees' => $fees,
+                                      'timeframe_id' => $id
                               ),
                               true
                       )
