@@ -65,8 +65,8 @@ class Login extends Page {
 
   public function perform()
   {
-    	$this->form_validation->set_rules('login', 'Login', 'required');
-    	$this->form_validation->set_rules('password', 'Password', 'required');
+    	$this->form_validation->set_rules('login', 'Gebruikersnaam', 'required');
+    	$this->form_validation->set_rules('password', 'Wachtwoord', 'required');
 
     	if ($this->form_validation->run() === FALSE)
     	{
