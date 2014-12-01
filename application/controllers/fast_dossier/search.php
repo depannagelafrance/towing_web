@@ -24,7 +24,7 @@ class Search extends Page {
     $name           = $this->input->post('customer_name');
     $token          = $this->_get_user_token();
 
-    $dossiers = $this->dossier_service->searchTowingVouchers($call_number, $call_date, $type, $licence_plate, $name, $token)
+    $dossiers = $this->dossier_service->searchTowingVouchers($call_number, $call_date, $type, $licence_plate, $name, $token);
 
     if(count($dossiers) == 1)
     {
@@ -58,7 +58,7 @@ class Search extends Page {
     }
   }
 
-  private _displaySearchResults($results)
+  private function _displaySearchResults($results)
   {
     $this->_add_content(
       $this->load->view(
