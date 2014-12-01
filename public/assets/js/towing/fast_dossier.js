@@ -476,4 +476,36 @@ $(document).ready(function() {
     return false;
   });
 
+    /******* REFACTORING JS ********/
+    var Dossier = {};
+
+    $(document).ready(function() {
+        var url = document.URL.split('/');
+        var dossier_id = url[url.length-2];
+        var voucher_id = url[url.length-1];
+        Dossier.dossier_id = dossier_id;
+        Dossier.voucher_id = voucher_id;
+
+        getCauser().success(function(data){
+            console.log(data);
+        });
+
+    });
+
+    function prepareAjaxUrl(url){
+        return url + '/' + Dossier.dossier_id + '/' + Dossier.voucher_id;
+    }
+
+    function getCauser(){
+        var url = prepareAjaxUrl('/fast_dossier/ajax/causer');
+        return $.ajax({
+            type		: "POST",
+            cache	: false,
+            url		: url,
+            data		: {}
+        });
+    }
+
+
+
 });

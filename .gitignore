@@ -10,3 +10,5 @@ public/bower_components
 public/.sass-cache
 
 #Ignore config
+
+.idea
