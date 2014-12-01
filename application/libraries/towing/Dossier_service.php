@@ -202,6 +202,28 @@ class Dossier_service extends Rest_service {
       return $result;
     }
 
+    public function requestCauserSignature($dossier_id, $voucher_id, $token)
+    {
+      $result = $this->CI->rest->post(
+        sprintf('/dossier/signature/causer/%s/%s/%s', $dossier_id, $voucher_id, $token),
+        json_encode(array("dossier" => $dossier_id, "voucher" => $voucher_id)),
+        'application/json'
+      );
+
+      return $result;
+    }
+
+    public function requestTrafficPostSignature($dossier_id, $voucher_id, $token)
+    {
+      $result = $this->CI->rest->post(
+        sprintf('/dossier/signature/police/%s/%s/%s', $dossier_id, $voucher_id, $token),
+        json_encode(array("dossier" => $dossier_id, "voucher" => $voucher_id)),
+        'application/json'
+      );
+
+      return $result;
+    }
+
     public function searchTowingVouchers($call_number, $call_date, $type, $licence_plate, $name, $token)
     {
       $result = $this->CI->rest->post(

@@ -458,8 +458,8 @@ $(document).ready(function() {
 
   }
 
-  $('#signature-collector').bind('click', function() {
 
+  $('#signature-collector').bind('click', function() {
     var did = $(this).data('did');
     var vid = $(this).data('vid');
 
@@ -469,8 +469,43 @@ $(document).ready(function() {
       url		: "/fast_dossier/ajax/requestcollectorsignature/" + did + "/" + vid,
       data		: {},
       success: function(data) {
-          //do nothing, it's requested.
-          alert('De aanvraag voor een handtekening werd verzonden naar de iPad!');
+        //do nothing, it's requested.
+        alert('De aanvraag voor een handtekening werd verzonden naar de iPad!');
+      }
+    });
+    return false;
+  });
+
+
+  $('#signature-causer').bind('click', function() {
+    var did = $(this).data('did');
+    var vid = $(this).data('vid');
+
+    $.ajax({
+      type		: "POST",
+      cache	: false,
+      url		: "/fast_dossier/ajax/requestcausersignature/" + did + "/" + vid,
+      data		: {},
+      success: function(data) {
+        //do nothing, it's requested.
+        alert('De aanvraag voor een handtekening werd verzonden naar de iPad!');
+      }
+    });
+    return false;
+  });
+
+  $('#signature-traffic-post').bind('click', function() {
+    var did = $(this).data('did');
+    var vid = $(this).data('vid');
+
+    $.ajax({
+      type		: "POST",
+      cache	: false,
+      url		: "/fast_dossier/ajax/requesttrafficpostsignature/" + did + "/" + vid,
+      data		: {},
+      success: function(data) {
+        //do nothing, it's requested.
+        alert('De aanvraag voor een handtekening werd verzonden naar de iPad!');
       }
     });
     return false;
