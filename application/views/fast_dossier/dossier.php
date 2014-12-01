@@ -644,9 +644,12 @@ $_dossier = $dossier->dossier;
           ?>
           <div class="autograph-block autograph-container__police__autograph <?php print $police_class; ?>" style="background-image: url(<?php print $police_collecting_url; ?>);">
             <?php if($police_has_autograph): ?>
-              <a id="edit-autograph-police" class="inform-link icon--edit--small" href="#"></a>
+              <!-- a id="edit-autograph-police" class="inform-link icon--edit--small" href="#"></a -->
             <?php else: ?>
-              <a class="add_autograph" href="#">Voeg een handtekening toe</a>
+              <a class="add_autograph" id="signature-traffic-post"
+                  data-did="<?php print $_dossier->dossier_number; ?>"
+                  data-vid="<?php print $_voucher->id; ?>"
+                  href="#">Voeg een handtekening toe</a>
             <?php endif; ?>
           </div>
         </div>
@@ -664,7 +667,7 @@ $_dossier = $dossier->dossier;
           ?>
           <div class="autograph-block autograph-container__nuisance__autograph <?php print $nuisance_class; ?>" style="background-image: url(<?php print $nuisance_collecting_url; ?>);">
             <?php if($nuisance_has_autograph): ?>
-              <a id="edit-autograph-nuisance" class="inform-link icon--edit--small" href="#"></a>
+              <!--a id="edit-autograph-nuisance" class="inform-link icon--edit--small" href="#"></a-->
             <?php else: ?>
               <a class="add_autograph" id="signature-causer"
                  data-did="<?php print $_dossier->dossier_number; ?>"
@@ -687,7 +690,7 @@ $_dossier = $dossier->dossier;
           ?>
           <div class="autograph-block autograph-container__collecting__autograph <?php print $collecting_class; ?>" style="background-image: url(<?php print $autograph_collecting_url; ?>);">
             <?php if($collecting_has_autograph): ?>
-              <a id="edit-autograph-collecting" class="inform-link icon--edit--small" href="#"></a>
+              <!-- a id="edit-autograph-collecting" class="inform-link icon--edit--small" href="#"></a-->
             <?php else: ?>
               <a class="add_autograph" id="signature-collector"
                  data-did="<?php print $_dossier->id; ?>"
