@@ -15,7 +15,7 @@
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
     <script src="/public/bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="/public/bower_components/handlebars/handlebars.js"></script>
+    <script src="/public/bower_components/handlebars/handlebars.min.js"></script>
     <script src="/public/bower_components/chosen/chosen.jquery.min.js"></script>
   <script src="/public/bower_components/fancyBox/source/jquery.fancybox.pack.js"></script>
   <script type="application/javascript">
@@ -25,6 +25,7 @@
   </script>
 
   <script src="/public/assets/js/towing/towing.js"></script>
+  <script src="/public/assets/js/templates.js"></script>
 
 
   <title><?php print $title ?></title>

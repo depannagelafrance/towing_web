@@ -27,6 +27,10 @@ module.exports = function (grunt) {
       styleguide: {
         files: ['assets/stylesheets/{,**/}*.css'],
         tasks: ['styleguide']
+      },
+      handlebars: {
+        files: ['assets/templates/{,**/}*.hbs'],
+        tasks: ['handlebars']
       }
     },
 
@@ -74,44 +78,57 @@ module.exports = function (grunt) {
     },
 
     uglify: {
-      dev: {
-        options: {
-          mangle: false,
-          compress: false,
-          beautify: true
+        dev: {
+            options: {
+                mangle: false,
+                compress: false,
+                beautify: true
+            },
+            files: [{
+                expand: true,
+                flatten: true,
+                cwd: 'assets/scripts',
+                dest: 'assets/scripts',
+                src: ['**/*.js', '!**/*.min.js'],
+                rename: function (dest, src) {
+                    var folder = src.substring(0, src.lastIndexOf('/'));
+                    var filename = src.substring(src.lastIndexOf('/'), src.length);
+                    filename = filename.substring(0, filename.lastIndexOf('.'));
+                    return dest + '/' + folder + filename + '.min.js';
+                }
+            }]
         },
-        files: [{
-          expand: true,
-          flatten: true,
-          cwd: 'assets/scripts',
-          dest: 'assets/scripts',
-          src: ['**/*.js', '!**/*.min.js'],
-          rename: function(dest, src) {
-            var folder = src.substring(0, src.lastIndexOf('/'));
-            var filename = src.substring(src.lastIndexOf('/'), src.length);
-            filename = filename.substring(0, filename.lastIndexOf('.'));
-            return dest + '/' + folder + filename + '.min.js';
-          }
-        }]
+        dist: {
+            options: {
+                mangle: true,
+                compress: true
+            },
+            files: [{
+                expand: true,
+                flatten: true,
+                cwd: 'assets/scripts',
+                dest: 'assets/scripts',
+                src: ['**/*.js', '!**/*.min.js'],
+                rename: function (dest, src) {
+                    var folder = src.substring(0, src.lastIndexOf('/'));
+                    var filename = src.substring(src.lastIndexOf('/'), src.length);
+                    filename = filename.substring(0, filename.lastIndexOf('.'));
+                    return dest + '/' + folder + filename + '.min.js';
+                }
+            }]
+        }
+    },
+    handlebars: {
+      options: {
+        namespace: 'Handlebars.Templates',
+        processName: function(filePath) {
+          return filePath.replace('assets/templates/', '').replace(/\.hbs$/, '');
+        }
       },
-      dist: {
-        options: {
-          mangle: true,
-          compress: true
-        },
-        files: [{
-          expand: true,
-          flatten: true,
-          cwd: 'assets/scripts',
-          dest: 'assets/scripts',
-          src: ['**/*.js', '!**/*.min.js'],
-          rename: function(dest, src) {
-            var folder = src.substring(0, src.lastIndexOf('/'));
-            var filename = src.substring(src.lastIndexOf('/'), src.length);
-            filename = filename.substring(0, filename.lastIndexOf('.'));
-            return dest + '/' + folder + filename + '.min.js';
-          }
-        }]
+      all: {
+        files: {
+          'assets/js/templates.js': ['assets/templates/{,**/}*.hbs']
+        }
       }
     }
   });
@@ -122,6 +139,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-styleguide');
+  grunt.loadNpmTasks('grunt-contrib-handlebars');
 
   grunt.registerTask('build', [
     'uglify:dist',

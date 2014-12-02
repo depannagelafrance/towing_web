@@ -264,29 +264,7 @@ $(document).ready(function() {
       });
   }
 
-  function updatecauser(did, vid, cid, shortcid, formObj){
-      $.ajax({
-          type		: "POST",
-          cache	: false,
-          url		: "/fast_dossier/ajax/updatecauser/" + did + '/' + vid,
-          data		: {'causer' : formObj},
-          success: function(data) {
-              console.log(data);
-              if(data.id){
-                  var html = composeAddressHtml(data);
-                  var shorthtml = composeShortAddressHtml(data);
 
-                  $(cid).html(html);
-                  $(shortcid).html(shorthtml);
-                  parent.$.fancybox.close();
-              }else{
-                  //could not save data for whatever reason
-                  $('#edit-nuisance-data-form').find('.msg__error').show();
-                  $.fancybox.resize();
-              }
-          }
-      });
-  }
 
 
 
@@ -514,6 +492,7 @@ $(document).ready(function() {
     /******* REFACTORING JS ********/
     var Dossier = {};
 
+    /* Document Ready */
     $(document).ready(function() {
         var url = document.URL.split('/');
         var dossier_id = url[url.length-2];
@@ -521,16 +500,29 @@ $(document).ready(function() {
         Dossier.dossier_id = dossier_id;
         Dossier.voucher_id = voucher_id;
 
+        $('input[type="submit"]').click(function (){
+            Dossier.btnClicked = $(this).attr('name');
+        });
+
         getCauser().success(function(data){
-            console.log(data);
+            updateCauserTemplates(data);
+            updateCauserForm(data);
+        });
+
+        getCustomer().success(function(data){
+            updateCustomerTemplates(data);
+            updateCustomerForm(data);
         });
 
     });
 
+    /* Helpers */
     function prepareAjaxUrl(url){
         return url + '/' + Dossier.dossier_id + '/' + Dossier.voucher_id;
     }
 
+
+    /****** Causer *********/
     function getCauser(){
         var url = prepareAjaxUrl('/fast_dossier/ajax/causer');
         return $.ajax({
@@ -540,6 +532,123 @@ $(document).ready(function() {
             data		: {}
         });
     }
+
+    function setCauser(formObj){
+        var url = prepareAjaxUrl('/fast_dossier/ajax/updatecauser');
+        return $.ajax({
+            type		: "POST",
+            cache	: false,
+            url		: url,
+            data		: {'causer' : formObj}
+        });
+    }
+
+    function updateCauserTemplates(data){
+        var info = Handlebars.Templates['causer/info'];
+        $('#causer_info').html(info(data));
+
+        var info_short = Handlebars.Templates['causer/info_short'];
+        $('#causer_info_short').html(info_short(data));
+    }
+
+    function updateCauserForm(data){
+        $.each(data, function(i, item) {
+            $('#causer_form').find('input[name="'+ i +'"]').val(item);
+        });
+    }
+
+    $('#causer_form form').submit(function(event) {
+        console.log('test');
+        var formObj = {};
+        var inputs = $(this).serializeArray();
+        $.each(inputs, function (i, input) {
+            formObj[input.name] = input.value;
+        });
+
+
+        console.log(formObj);
+
+        if(Dossier.btnClicked == 'btnCauserCopy'){
+            setCustomer(formObj).success(function(data){
+                console.log(data);
+                if(data.id){
+                    updateCustomerTemplates(data);
+                }
+            });
+        }
+
+        setCauser(formObj).success(function(data){
+            if(data.id){
+                updateCauserTemplates(data);
+                parent.$.fancybox.close();
+            }
+        });
+
+        event.preventDefault();
+    });
+
+    /****** END Causer *********/
+
+
+    /******* Customer *******/
+    function getCustomer(){
+        var url = prepareAjaxUrl('/fast_dossier/ajax/customer');
+        return $.ajax({
+            type		: "POST",
+            cache	: false,
+            url		: url,
+            data		: {}
+        });
+    }
+
+    function setCustomer(formObj){
+        console.log(formObj);
+        var url = prepareAjaxUrl('/fast_dossier/ajax/updatecustomer');
+        return $.ajax({
+            type		: "POST",
+            cache	: false,
+            url		: url,
+            data		: {'customer' : formObj}
+        });
+    }
+
+    function updateCustomerTemplates(data){
+        var template = Handlebars.Templates['customer/info'];
+        $('#customer_info').html(template(data));
+    }
+
+    function updateCustomerForm(data){
+        $.each(data, function(i, item) {
+            $('#customer_form').find('input[name="'+ i +'"]').val(item);
+        });
+    }
+
+    $('#customer_form form').submit(function(event) {
+        var formObj = {};
+        var inputs = $(this).serializeArray();
+        $.each(inputs, function (i, input) {
+            formObj[input.name] = input.value;
+        });
+
+
+        if(Dossier.btnClicked == 'btnCustomerCopy'){
+            setCauser(formObj).success(function(data){
+                if(data.id){
+                    updateCauserTemplates(data);
+                }
+            });
+        }
+
+        setCustomer(formObj).success(function(data){
+            if(data.id){
+                updateCustomerTemplates(data);
+                parent.$.fancybox.close();
+            }
+        });
+
+        event.preventDefault();
+    });
+    /******* END Customer *******/
 
 
 

@@ -1,0 +1,23 @@
+<label>Bevestiging hinderverwekker:</label>
+{{#if company_name}}
+  <div class="nuisance_value">{{company_name}}</div>
+{{else}}
+  {{#if last_name}}
+    {{#if first_name}}
+      <div class="nuisance_value">{{first_name}} {{last_name}}</div>
+    {{/if}}
+  {{/if}}
+{{/if}}
+
+{{#if street}}
+  {{#if street_number}}
+    <div class="nuisance_value">{{street}} {{street_number}} {{street_pobox}}</div>
+  {{/if}}
+{{/if}}
+
+{{#if city}}
+  {{#if zip}}
+    <div class="nuisance_value">{{zip}} {{city}}</div>
+  {{/if}}
+{{/if}}
+

@@ -32,7 +32,7 @@ class Ajax extends AjaxPage
 
     $causer = new Causer_model($this->input->post('causer'));
 
-    $result = $this->dossier_service->updateCauser($dossier_id, $voucher_id, $causer, $token);
+    $result = $this->dossier_service->updateCauser($causer->id, $voucher_id, $causer, $token);
 
     $this->_sendJson($result);
   }
@@ -43,7 +43,7 @@ class Ajax extends AjaxPage
 
     $customer = new Customer_model($this->input->post('customer'));
 
-    $result = $this->dossier_service->updateCustomer($dossier_id, $voucher_id, $customer, $token);
+    $result = $this->dossier_service->updateCustomer($customer->id, $voucher_id, $customer, $token);
 
     $this->_sendJson($result);
   }

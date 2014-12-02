@@ -367,25 +367,12 @@ $_dossier = $dossier->dossier;
       <div class="dsform__clearfix dsform_seperation">
         <div class="dsform__left">
 
-          <!--FACTURATION-->
-          <div class="form-item-vertical facturation-container">
-            <label>Facturatiegegevens:</label>
-            <div id="edit-invoice-data" class="facturation-container__info">
-              <?php print(composeCustomerInformation($_voucher->customer)) ?>
-            </div>
-            <a id="edit-invoice-data-link" class="inform-link icon--edit--small" href="#edit-invoice-data-form">Bewerken</a>
-          </div>
-          <!--END FACTURATION-->
+        <!-- Customer Info -->
+        <div id="customer_info" class="form-item-vertical facturation-container"></div>
 
-          <!--NUISANCE-->
-          <div class="form-item-vertical nuisance-container">
-            <label>Hinderverwekker:</label>
-            <div id="edit-nuisance-data" class="nuisance-container__info">
-              <?php print(composeCustomerInformation($_voucher->causer)) ?>
-            </div>
-            <a id="edit-nuisance-data-link" class="inform-link icon--edit--small" href="#edit-nuisance-data-form">Bewerken</a>
-          </div>
-          <!--END NUISANCE-->
+        <!-- Causer Info -->
+        <div id="causer_info" class="form-item-vertical nuisance-container"></div>
+
 
         </div>
         <div class="dsform__right">
@@ -600,21 +587,11 @@ $_dossier = $dossier->dossier;
             <?php print form_input('police_signature_dt', mdate('%H:%i',strtotime($_voucher->police_signature_dt))); ?>
           </div>
         </div>
-        <div class="autograph-container__nuisance">
-          <label>Bevestiging hinderverwekker:</label>
 
-          <div id="edit-nuisance-short-data" class="form-item-horizontal">
-            <div class="nuisance_value">
-              <?php print $_voucher->causer->first_name . ' ' . $_voucher->causer->last_name; ?>
-            </div>
-            <div class="nuisance_value">
-              <?php print $_voucher->causer->street . ' ' . $_voucher->causer->street_number . ' ' . $_voucher->causer->street_pobox; ?>
-            </div>
-            <div class="nuisance_value">
-              <?php print $_voucher->causer->zip . ' ' . $_voucher->causer->city; ?>
-            </div>
-          </div>
-        </div>
+        <!-- Causer Short Info -->
+        <div id="causer_info_short" class="autograph-container__nuisance"></div>
+
+
         <div class="autograph-container__collecting">
           <label>Bevestiging afhaler:</label>
 
@@ -814,19 +791,14 @@ $_dossier = $dossier->dossier;
 
 
   <!-- INVOICE -->
-  <div id="edit-invoice-data-form" style="display: none;">
+  <div id="customer_form" style="display: none;">
     <?php
-      $fact_attr = array(
-        'data-cid' => '#edit-invoice-data',
-        'data-vid' => $_voucher->id,
-        'data-did' => $_dossier->id
-      );
 
       $fact_hidden = array(
         'id' => $_voucher->customer->id,
       );
 
-      print form_open('',$fact_attr,$fact_hidden);
+      print form_open('','',$fact_hidden);
     ?>
     <div class="fancybox-form">
       <h3>Facturatie gegevens Bewerken</h3>
@@ -895,11 +867,12 @@ $_dossier = $dossier->dossier;
             <label>Email:</label>
             <?php print form_input('email', $_voucher->customer->email); ?>
           </div>
-
+            <!--
           <div class="form-item-horizontal invoice-full-container__email">
             <label>Referentie:</label>
-            <?php print form_input('invoice_ref', $_voucher->customer->invoice_ref); ?>
+            <?php // print form_input('invoice_ref', $_voucher->customer->invoice_ref); ?>
           </div>
+          -->
         </div>
       </div>
     </div>
@@ -909,31 +882,22 @@ $_dossier = $dossier->dossier;
       </div>
 
       <div class="form-item fancybox-form__actions__save fancybox-form__actions__twobuttons">
-        <input type="submit" value="Gebruik deze gegevens ook voor hinderverwekker" name="btnSameAsCauser" id="btninvoicesameascauser" />
+        <input type="submit" value="Gebruik deze gegevens ook voor hinderverwekker" name="btnCustomerCopy" />
 
-        <input type="submit" value="Bewaren" name="btnInvoiceSave" id="btninvoicesave" />
+        <input type="submit" value="Bewaren" name="btnCustomerSave"/>
       </div>
     </div>
     <?php print form_close(); ?>
   </div>
 
   <!-- NUISANCE -->
-  <div id="edit-nuisance-data-form" style="display: none;">
+  <div id="causer_form" style="display: none;">
+
     <?php
-
-      $nuisance_attr = array(
-        'data-cid' => '#edit-nuisance-data',
-        'data-shortcid' => '#edit-nuisance-short-data',
-        'data-vid' => $_voucher->id,
-        'data-did' => $_dossier->id
-      );
-
       $nuisance_hidden = array(
         'id' => $_voucher->causer->id,
       );
-
-      print form_open('',$nuisance_attr,$nuisance_hidden);
-
+      print form_open('','',$nuisance_hidden);
     ?>
     <div class="fancybox-form">
       <h3>Hinderverwerker gegevens Bewerken</h3>
@@ -1014,9 +978,9 @@ $_dossier = $dossier->dossier;
       </div>
 
       <div class="form-item fancybox-form__actions__save fancybox-form__actions__twobuttons">`
-        <input type="button" value="Gebruik deze gegevens ook voor facturatie" name="btnSameAsCustomer" id="btnnuisancesameascauser"/>
+        <input type="submit" value="Gebruik deze gegevens ook voor facturatie" name="btnCauserCopy"/>
 
-        <input type="submit" value="Bewaren" name="btnNuisanceSave" id="btnnuisancesave" />
+        <input type="submit" value="Bewaren" name="btnCauserSave" />
       </div>
     </div>
     <?php print form_close(); ?>
@@ -1120,6 +1084,8 @@ $_dossier = $dossier->dossier;
     <?= form_close(); ?>
   </div>
 </div>
+
+
 <?php
 echo "<pre>";
 var_dump($dossier);

@@ -127,25 +127,25 @@ class Dossier_service extends Rest_service {
       );
     }
 
-    public function updateCustomer($dossier_id, $voucher_id, Customer_model $data, $token)
+    public function updateCustomer($customer_id, $voucher_id, Customer_model $data, $token)
     {
       $_value = new stdClass();
       $_value->customer = $data;
 
       return $this->CI->rest->put(
-          sprintf('/dossier/customer/%s/%s/%s', $dossier_id, $voucher_id, $token),
+          sprintf('/dossier/customer/%s/%s/%s', $customer_id, $voucher_id, $token),
           json_encode($_value),
           'application/json'
       );
     }
 
-    public function updateCauser($dossier_id, $voucher_id, Causer_model $data, $token)
+    public function updateCauser($causer_id, $voucher_id, Causer_model $data, $token)
     {
       $_value = new stdClass();
       $_value->causer = $data;
 
       return $this->CI->rest->put(
-          sprintf('/dossier/causer/%s/%s/%s', $dossier_id, $voucher_id, $token),
+          sprintf('/dossier/causer/%s/%s/%s', $causer_id, $voucher_id, $token),
           json_encode($_value),
           'application/json'
       );

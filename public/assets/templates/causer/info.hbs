@@ -1,0 +1,37 @@
+<label>Hinderverwekker:</label>
+<div id="edit-nuisance-data" class="nuisance-container__info">
+    {{#if company_name}}
+      <div>{{company_name}}</div>
+    {{else}}
+    {{#if last_name}}
+        {{#if first_name}}
+            <div>{{first_name}} {{last_name}}</div>
+        {{/if}}
+    {{/if}}
+    {{/if}}
+
+    {{#if street}}
+      {{#if street_number}}
+        <div>{{street}} {{street_number}} {{street_pobox}}</div>
+      {{/if}}
+    {{/if}}
+
+    {{#if city}}
+      {{#if zip}}
+        <div>{{zip}} {{city}}</div>
+      {{/if}}
+    {{/if}}
+
+    {{#if country}}
+      <div>{{country}} </div>
+    {{/if}}
+
+    {{#if phone}}
+      <div>T: {{phone}} </div>
+    {{/if}}
+
+    {{#if email}}
+    <div>E: {{email}} </div>
+    {{/if}}
+</div>
+<a id="edit-nuisance-data-link" class="inform-link icon--edit--small" href="#causer_form">Bewerken</a>
