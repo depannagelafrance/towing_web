@@ -400,9 +400,23 @@ $(document).ready(function() {
   });
 
   $(document).on('click','.work-container__remove', function(){
+    var aid = $(this).data('aid');
+    var vid = $(this).data('vid');
+
+    $.ajax({
+      type		: "POST",
+      cache	: false,
+      url		: "/fast_dossier/ajax/removeactivityfromvoucher/" + vid + "/" + aid,
+      data		: {},
+      success: function(data) {
+        console.log(data);
+      }
+    });
+
     $(this).parents('.work-container__field').remove();
     update_total_price();
     recalculate_price();
+
     return false;
   });
 

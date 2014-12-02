@@ -115,6 +115,13 @@ class Dossier_service extends Rest_service {
       );
     }
 
+    public function removeActivityFromVoucher($voucher_id, $activity_id, $token)
+    {
+      return $this->CI->rest->delete(
+        sprintf('/dossier/voucher/%s/activity/%s/%s', $voucher_id, $activity_id, $token)
+      );              
+    }
+
     public function updateTowingDepot($dossier_id, $voucher_id, Depot_model $depot, $token)
     {
       $_depot = new stdClass();
@@ -251,4 +258,6 @@ class Dossier_service extends Rest_service {
 
     return $result;
   }
+
+
 }
