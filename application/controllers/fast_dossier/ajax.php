@@ -72,6 +72,17 @@ class Ajax extends AjaxPage
     $this->_sendJson($result);
   }
 
+  public function removeActivityFromVoucher($voucher_id, $activity_id)
+  {
+    $this->_sendJson(
+      $this->dossier_service->removeActivityFromVoucher(
+        $voucher_id,
+        $activity_id,
+        $this->_get_user_token()
+      )
+    );
+  }
+
   public function addInternalCommunication()
   {
     $token = $this->_get_user_token();

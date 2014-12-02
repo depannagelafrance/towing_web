@@ -494,10 +494,12 @@ $_dossier = $dossier->dossier;
                 print form_input($data);
               ?>
             </div>
-            <div class="form-item-vertical work-container__remove">
+            <div  class="form-item-vertical work-container__remove"
+                  data-vid="<?php print $_voucher->id ;?>"
+                  data-aid="<?php print $_activity->activity_id; ?>">
                 <div class="work-container__remove__btn">
                   <div class="btn--icon--small">
-                    <a class="icon--remove--small" href="#">Remove</a>
+                    <a  class="icon--remove--small" href="#">Remove</a>
                   </div>
                 </div>
             </div>
