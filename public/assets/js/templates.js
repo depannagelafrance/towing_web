@@ -235,3 +235,22 @@ this["Handlebars"]["Templates"]["customer/info"] = Handlebars.template({"1":func
   if (stack1 != null) { buffer += stack1; }
   return buffer + "</div>\n<a id=\"edit-invoice-data-link\" class=\"inform-link icon--edit--small\" href=\"#customer_form\">Bewerken</a>\n";
 },"useData":true});
+
+
+
+this["Handlebars"]["Templates"]["depot/info"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+  var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
+  return "<label>Depot:</label>\n<div id=\"edit-depot-data\" class=\"depot-container__name\">"
+    + escapeExpression(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"name","hash":{},"data":data}) : helper)))
+    + ", "
+    + escapeExpression(((helper = (helper = helpers.street || (depth0 != null ? depth0.street : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"street","hash":{},"data":data}) : helper)))
+    + " "
+    + escapeExpression(((helper = (helper = helpers.street_number || (depth0 != null ? depth0.street_number : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"street_number","hash":{},"data":data}) : helper)))
+    + " "
+    + escapeExpression(((helper = (helper = helpers.street_pobox || (depth0 != null ? depth0.street_pobox : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"street_pobox","hash":{},"data":data}) : helper)))
+    + " "
+    + escapeExpression(((helper = (helper = helpers.zip || (depth0 != null ? depth0.zip : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"zip","hash":{},"data":data}) : helper)))
+    + " "
+    + escapeExpression(((helper = (helper = helpers.city || (depth0 != null ? depth0.city : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"city","hash":{},"data":data}) : helper)))
+    + "</div>\n<a id=\"edit-depot-link\" class=\"inform-link icon--edit--small\" href=\"#depot_form\">Bewerken</a>\n";
+},"useData":true});

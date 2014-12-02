@@ -377,13 +377,8 @@ $_dossier = $dossier->dossier;
         </div>
         <div class="dsform__right">
 
-          <!--DEPOT-->
-          <div class="form-item-horizontal depot-container">
-            <label>Depot:</label>
-            <div id="edit-depot-data" class="depot-container__name"><?php print $_voucher->depot->display_name; ?></div>
-            <a id="edit-depot-link" class="inform-link icon--edit--small" href="#edit-depot-form">Bewerken</a>
-          </div>
-          <!-- END DEPOT-->
+          <!-- Depot Info -->
+          <div id="depot_info" class="form-item-horizontal depot-container"></div>
 
           <!--ASSI-->
           <div class="form-item-horizontal  assistance-container">
@@ -717,25 +712,13 @@ $_dossier = $dossier->dossier;
   <?php print form_close(); ?>
 
   <!-- DEPOT -->
-  <div id="edit-depot-form" style="display: none;">
+  <div id="depot_form" style="display: none;">
     <?php
-      $depot_attr = array(
-        'data-cid' => '#edit-depot-data',
-        'data-vid' =>  $_voucher->id,
-        'data-did' => $_dossier->id,
-        'data-default-name' => $company_depot->name,
-        'data-default-street' => $company_depot->street,
-        'data-default-street-number' => $company_depot->street_number,
-        'data-default-street-pobox' => $company_depot->street_pobox,
-        'data-default-zip' => $company_depot->zip,
-        'data-default-city' => $company_depot->city
-      );
-
       $depot_hidden = array(
         'id' => $_voucher->depot->id
       );
 
-      print form_open('', $depot_attr, $depot_hidden);
+      print form_open('', '', $depot_hidden);
     ?>
     <div class="fancybox-form">
       <h3>Depot Bewerken</h3
@@ -784,7 +767,8 @@ $_dossier = $dossier->dossier;
       </div>
 
       <div class="form-item fancybox-form__actions__save fancybox-form__actions__twobuttons">
-        <?php print form_button('use_default','Depot ' . $company_depot->name); ?>
+        <?php // print form_button('use_default','Depot ' . $company_depot->name); ?>
+        <input type="submit" value="Standaard Depot" name="btnDepotDefault" />
         <input type="submit" value="Bewaren" name="btnDepotSave" />
       </div>
     </div>
@@ -885,7 +869,6 @@ $_dossier = $dossier->dossier;
 
       <div class="form-item fancybox-form__actions__save fancybox-form__actions__twobuttons">
         <input type="submit" value="Gebruik deze gegevens ook voor hinderverwekker" name="btnCustomerCopy" />
-
         <input type="submit" value="Bewaren" name="btnCustomerSave"/>
       </div>
     </div>

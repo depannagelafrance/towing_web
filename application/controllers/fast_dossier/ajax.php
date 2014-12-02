@@ -21,7 +21,22 @@ class Ajax extends AjaxPage
 
     $depot = new Depot_model($this->input->post('depot'));
 
-    $result = $this->dossier_service->updateTowingDepot($dossier_id, $voucher_id, $depot, $token);
+    $result = $this->dossier_service->updateTowingDepot($depot->id, $voucher_id, $depot, $token);
+
+    $this->_sendJson($result);
+  }
+
+    //@TODO : get default depot object
+  public function updateDepotToDefault($dossier_id, $voucher_id)
+  {
+    $token = $this->_get_user_token();
+    $depot = new Depot_model($this->input->post('depot'));
+    $depot_id = $depot->id;
+
+    //@TODO: get default depot
+    $default = new Depot_model($this->input->post('depot'));
+
+    $result = $this->dossier_service->updateTowingDepot($depot_id, $voucher_id, $default, $token);
 
     $this->_sendJson($result);
   }
@@ -48,7 +63,8 @@ class Ajax extends AjaxPage
     $this->_sendJson($result);
   }
 
-  public function depot($dossier, $voucher_id)
+
+  public function depot($dossier_id, $voucher_id)
   {
     return $this->_sendJson($this->dossier_service->fetchVoucherDepot($dossier_id, $voucher_id, $this->_get_user_token()));
   }

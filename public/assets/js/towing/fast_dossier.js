@@ -122,8 +122,6 @@ $(document).ready(function() {
                  var form = '';
                  var attr = '';
 
-                  console.log(data);
-
                   $.each(data, function( key, value ) {
                     value.locked = 0;
                     attr += 'data-id="'+ value.id +'" data-label="'+ value.name +'" data-code="'+ value.code +'" data-incl="'+ value.fee_incl_vat +'" data-excl="'+ value.fee_excl_vat +'" data-number-locked="'+ value.locked +'"';
@@ -196,74 +194,6 @@ $(document).ready(function() {
 
     return false;
   });
-
-  //INVOICE
-  $('#edit-invoice-data-form form #btninvoicesave, #edit-invoice-data-form form #btninvoicesameascauser').on('click', function() {
-
-    $('#edit-invoice-data-form').find('.msg__error').hide();
-    var cid = $(this).parents('form').data('cid');
-    var did = $(this).parents('form').data('did');
-    var vid = $(this).parents('form').data('vid');
-
-    var formObj = {};
-    var inputs = $(this).parents('form').serializeArray();
-    $.each(inputs, function (i, input) {
-      formObj[input.name] = input.value;
-    });
-
-    updatecustomer(did, vid, cid, formObj);
-
-    if(this.id === 'btninvoicesameascauser'){
-        updatecauser(did, vid, '#edit-nuisance-data', '#edit-nuisance-short-data', formObj);
-    }
-
-    return false;
-  });
-
-  //NUISANCE
-  $('#edit-nuisance-data-form form #btnnuisancesave, #edit-nuisance-data-form form #btnnuisancesameascauser').bind('click', function() {
-
-    $('#edit-nuisance-data-form').find('.msg__error').hide();
-
-    var cid = $(this).parents('form').data('cid');
-    var shortcid = $(this).parents('form').data('shortcid');
-    var did = $(this).parents('form').data('did');
-    var vid = $(this).parents('form').data('vid');
-
-    var formObj = {};
-    var inputs = $(this).parents('form').serializeArray();
-    $.each(inputs, function (i, input) {
-      formObj[input.name] = input.value;
-    });
-
-    updatecauser(did, vid, cid, shortcid, formObj);
-    if(this.id === 'btnnuisancesameascauser'){
-        updatecustomer(did, vid, '#edit-invoice-data', formObj);
-    }
-
-    return false;
-  });
-
-  function updatecustomer(did, vid, cid, formObj){
-      $.ajax({
-          type		: "POST",
-          cache	: false,
-          url		: "/fast_dossier/ajax/updatecustomer/" + did + '/' + vid,
-          data		: {'customer' : formObj},
-          success: function(data) {
-              if(data.id) {
-                  var html = composeAddressHtml(data);
-                  $(cid).html(html);
-                  parent.$.fancybox.close();
-              } else {
-                  //could not save data for whatever reason
-                  $('#edit-invoice-data-form').find('.msg__error').show();
-                  $.fancybox.resize();
-              }
-          }
-      });
-  }
-
 
 
 
@@ -344,7 +274,6 @@ $(document).ready(function() {
 
       $.each(inputs, function (i, input) {
         if($(this).is(':checked')){
-          console.log($(this));
           var id = $(this).data('id');
           var label = $(this).data('label');
           var code = $(this).data('code');
@@ -409,7 +338,6 @@ $(document).ready(function() {
       url		: "/fast_dossier/ajax/removeactivityfromvoucher/" + vid + "/" + aid,
       data		: {},
       success: function(data) {
-        console.log(data);
       }
     });
 
@@ -528,11 +456,27 @@ $(document).ready(function() {
             updateCustomerForm(data);
         });
 
+        getDepot().success(function(data){
+            updateDepotTemplates(data);
+        });
+
     });
 
     /* Helpers */
     function prepareAjaxUrl(url){
         return url + '/' + Dossier.dossier_id + '/' + Dossier.voucher_id;
+    }
+
+    function serializeFormInputs(inputs){
+        var formObj = {};
+        $.each(inputs, function (i, input) {
+            if(input.name == 'id'){
+                formObj[input.name] = parseInt(input.value); //make sure id is numeric
+            }else{
+                formObj[input.name] = input.value;
+            }
+        });
+        return formObj;
     }
 
 
@@ -572,21 +516,16 @@ $(document).ready(function() {
     }
 
     $('#causer_form form').submit(function(event) {
-        console.log('test');
-        var formObj = {};
         var inputs = $(this).serializeArray();
-        $.each(inputs, function (i, input) {
-            formObj[input.name] = input.value;
-        });
 
-
-        console.log(formObj);
+        var formObj = {};
+        formObj = serializeFormInputs(inputs);
 
         if(Dossier.btnClicked == 'btnCauserCopy'){
             setCustomer(formObj).success(function(data){
-                console.log(data);
                 if(data.id){
                     updateCustomerTemplates(data);
+                    updateCustomerForm(data);
                 }
             });
         }
@@ -594,6 +533,7 @@ $(document).ready(function() {
         setCauser(formObj).success(function(data){
             if(data.id){
                 updateCauserTemplates(data);
+                updateCauserForm(data);
                 parent.$.fancybox.close();
             }
         });
@@ -616,7 +556,6 @@ $(document).ready(function() {
     }
 
     function setCustomer(formObj){
-        console.log(formObj);
         var url = prepareAjaxUrl('/fast_dossier/ajax/updatecustomer');
         return $.ajax({
             type		: "POST",
@@ -638,17 +577,16 @@ $(document).ready(function() {
     }
 
     $('#customer_form form').submit(function(event) {
-        var formObj = {};
         var inputs = $(this).serializeArray();
-        $.each(inputs, function (i, input) {
-            formObj[input.name] = input.value;
-        });
 
+        var formObj = {};
+        formObj = serializeFormInputs(inputs);
 
         if(Dossier.btnClicked == 'btnCustomerCopy'){
             setCauser(formObj).success(function(data){
                 if(data.id){
                     updateCauserTemplates(data);
+                    updateCauserForm(data);
                 }
             });
         }
@@ -656,6 +594,7 @@ $(document).ready(function() {
         setCustomer(formObj).success(function(data){
             if(data.id){
                 updateCustomerTemplates(data);
+                updateCustomerForm(data);
                 parent.$.fancybox.close();
             }
         });
@@ -663,6 +602,75 @@ $(document).ready(function() {
         event.preventDefault();
     });
     /******* END Customer *******/
+
+    /*******  Depot *******/
+    function getDepot(){
+        var url = prepareAjaxUrl('/fast_dossier/ajax/depot');
+        return $.ajax({
+            type		: "POST",
+            cache	: false,
+            url		: url,
+            data		: {}
+        });
+    }
+
+    function setDepot(formObj){
+        var url = prepareAjaxUrl('/fast_dossier/ajax/updatedepot');
+        return $.ajax({
+            type		: "POST",
+            cache	: false,
+            url		: url,
+            data		: {'depot' : formObj}
+        });
+    }
+
+    function setDepotDefault(formObj){
+        var url = prepareAjaxUrl('/fast_dossier/ajax/updatedepottodefault');
+        return $.ajax({
+            type		: "POST",
+            cache	: false,
+            url		: url,
+            data		: {'depot' : formObj}
+        });
+    }
+
+    function updateDepotTemplates(data){
+        var info = Handlebars.Templates['depot/info'];
+        $('#depot_info').html(info(data));
+    }
+
+    function updateDepotForm(data){
+        $.each(data, function(i, item) {
+            $('#depot_form').find('input[name="'+ i +'"]').val(item);
+        });
+    }
+
+    $('#depot_form form').submit(function(event) {
+        var inputs = $(this).serializeArray();
+
+        var formObj = {};
+        formObj = serializeFormInputs(inputs);
+
+        if(Dossier.btnClicked == 'btnDepotDefault'){
+            setDepotDefault(formObj).success(function(data){
+                if(data.id){
+                    updateDepotTemplates(data);
+                    parent.$.fancybox.close();
+                }
+            });
+        }else{
+            setDepot(formObj).success(function(data){
+              if(data.id){
+                updateDepotTemplates(data);
+                parent.$.fancybox.close();
+              }
+            });
+        }
+
+        event.preventDefault();
+    });
+
+    /*******  END Depot *******/
 
 
 
