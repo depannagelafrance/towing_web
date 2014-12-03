@@ -4,19 +4,16 @@
   </div>
 </div>
 
-<div class="box table_list table_list_large">
+<div class="box">
 <?php
-$this->table->set_heading('ID', 'Name');
+$this->table->set_heading('ID', 'Name', '&nbsp;', '&nbsp;');
 
 foreach ($insurances as $insurance){
     $this->table->add_row(
             $insurance->id,
             $insurance->name,
-            /**
-             * add other fields here
-             */
-            anchor('admin/insurance/delete/' . $insurance->id, 'delete'),
-            anchor('admin/insurance/edit/' . $insurance->id, 'update')
+            sprintf('<a href="/admin/insurance/delete/%s"><i class="fa fa-trash-o fa-2x">&nbsp;</i></a>', $insurance->id),
+            sprintf('<a href="/admin/insurance/edit/%s"><i class="fa fa-pencil-square-o fa-2x"></i></a>', $insurance->id)
     );
 }
 

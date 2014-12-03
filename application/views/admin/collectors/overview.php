@@ -5,22 +5,17 @@
 </div>
 
 
-<div class="box table_list table_list_large">
+<div class="box">
 <?php
 //set table headers
-$this->table->set_heading('Naam');
+$this->table->set_heading('Naam', '&nbsp;', '&nbsp;');
 
 // add table row(s)
 foreach ($collectors as $collector){
     $this->table->add_row(
             $collector->name,
-            anchor('admin/collector/delete/' . $collector->id, 'delete'),
-            anchor('admin/collector/edit/' . $collector->id, 'update')
-            /**
-             * TO REPLACE ANCHORS ABOVE WITH IMAGES -> ADD IMAGE SOURCE (see example below)
-             * anchor('admin/user/unlock/' . $user->id, img(array('src'=>'images/???.png','border'=>'0','alt'=>'Delete')));
-             *
-             */
+            sprintf('<a href="/admin/collector/delete/%s"><i class="fa fa-trash-o fa-2x">&nbsp;</i></a>', $collector->id),
+            sprintf('<a href="/admin/collector/edit/%s"><i class="fa fa-pencil-square-o fa-2x"></i></a>', $collector->id)
     );
 }
 //render table

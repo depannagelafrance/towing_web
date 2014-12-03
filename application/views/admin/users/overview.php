@@ -4,11 +4,11 @@
   </div>
 </div>
 
-<div class="box table_list table_list_large">
+<div class="box">
 <?php
 
 //set table headers
-$this->table->set_heading('Login', 'Voornaam', 'Naam', 'E-mail', 'Locked', 'Datum lock', 'Unlock', /*'Reactivate',*/ 'delete', 'update');
+$this->table->set_heading('Login', 'Voornaam', 'Naam', 'E-mail', 'Locked', 'Datum lock', '&nbsp;', '&nbsp;', '&nbsp;');
 //add table row(s)
 foreach ($users as $user){
     $this->table->add_row(
@@ -18,15 +18,10 @@ foreach ($users as $user){
             $user->email,
             $user->is_locked,
             $user->locked_ts,
-            /**
-             * TO REPLACE ANCHORS ABOVE WITH IMAGES -> ADD IMAGE SOURCE (see example below)
-             * anchor('admin/user/unlock/' . $user->id, img(array('src'=>'images/???.png','border'=>'0','alt'=>'Delete')));
-             *
-             */
-            anchor('admin/user/unlock/' . $user->id, 'unlock'),
-            //anchor('admin/user/reactivate/' . $user->id, 'reactivate'),
-            anchor('admin/user/delete/' . $user->id, 'delete'),
-            anchor('admin/user/edit/' . $user->id, 'update')
+
+            sprintf('<a href="/admin/user/unlock/%s"><i class="fa fa-unlock fa-2x">&nbsp;</i></a>', $user->id),
+            sprintf('<a href="/admin/user/delete/%s"><i class="fa fa-trash-o fa-2x">&nbsp;</i></a>', $user->id),
+            sprintf('<a href="/admin/user/edit/%s"><i class="fa fa-pencil-square-o fa-2x"></i></a>', $user->id)
     );
 }
 

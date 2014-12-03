@@ -198,19 +198,11 @@ class Insurance extends Page {
     $insurances = $this->admin_service->fetchAllInsurances($this->_get_user_token());
 
     if(!$insurances){
-        $this->_add_content('No insurances found!');
+      $this->_displayInsuranceOverview(array());
     } else if (!is_array($insurances) && property_exists($insurances, 'statusCode')) {
         $this->_add_error(sprintf('Fout bij het ophalen van de maatschappijen (%d - %s)', $result->statusCode, $result->message));
     } else {
-        $this->_add_content(
-                $this->load->view(
-                        'admin/insurances/overview',
-                        array(
-                                'insurances' => $insurances
-                        ),
-                        true
-                )
-        );
+        $this->_displayInsuranceOverview($insurances);
     }
 
     $this->_render_page();
@@ -223,5 +215,18 @@ class Insurance extends Page {
    */
   private function _getInsuranceById($id){
       return $this->admin_service->fetchInsuranceById($id, $this->_get_user_token());
+  }
+
+  private function _displayInsuranceOverview($data)
+  {
+    $this->_add_content(
+      $this->load->view(
+        'admin/insurances/overview',
+        array(
+          'insurances' => $data
+        ),
+        true
+      )
+    );
   }
 }
