@@ -1,8 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-require_once(APPPATH . '/models/Depot_model.php');
-
-class Depot_model  {
+class Company_model
+{
   public $id              = null;
   public $name            = null;
   public $street          = null;
@@ -10,6 +9,12 @@ class Depot_model  {
   public $street_pobox    = null;
   public $zip             = null;
   public $city            = null;
+  public $code            = null;
+  public $vat             = null;
+  public $phone           = null;
+  public $fax             = null;
+  public $email           = null;
+  public $website         = null;
 
   public function __construct($data = null) {
     if($data) {
@@ -24,18 +29,31 @@ class Depot_model  {
         $this->street_pobox   = $data->street_pobox;
         $this->zip            = $data->zip;
         $this->city           = $data->city;
+        $this->code           = $data->code;
+        $this->vat            = $data->vat;
+        $this->phone          = $data->phone;
+        $this->fax            = $data->fax;
+        $this->email          = $data->email;
+        $this->website        = $data->website;
       }
 
     }
   }
 
-  public function initFromPost($data, $prefix='depot_') {
-    //$this->id             = $data[$prefix . 'id'];
+  public function initFromPost($data, $prefix='company_') {
+    //$this->id             = $data['id'];
     $this->name           = $data[$prefix . 'name'];
     $this->street         = $data[$prefix . 'street'];
     $this->street_number  = $data[$prefix . 'street_number'];
     $this->street_pobox   = $data[$prefix . 'street_pobox'];
     $this->zip            = $data[$prefix . 'zip'];
     $this->city           = $data[$prefix . 'city'];
+    $this->code           = $data[$prefix . 'code'];
+    $this->vat            = $data[$prefix . 'vat'];
+    $this->phone          = $data[$prefix . 'phone'];
+    $this->fax            = $data[$prefix . 'fax'];
+    $this->email          = $data[$prefix . 'email'];
+    $this->website        = $data[$prefix . 'website'];
+
   }
 }

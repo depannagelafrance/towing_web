@@ -23,4 +23,9 @@
     <div style="text-align: center;"><a href="/admin/collector"><span class="fa fa-taxi fa-5x"></span></a></div>
     <div style="text-align: center;"><a href="/admin/collector"><span>Afhalers</span></a></div>
   </div>
+
+  <div style="background-color: #f0f0f0; width: 175px; border: 1px solid #d0d0d0; padding-top: 25px; padding-bottom: 25px; float: left; margin-left: 25px; margin-right: 25px; margin-bottom: 25px;">
+    <div style="text-align: center;"><a href="/admin/company"><span class="fa fa-building-o fa-5x"></span></a></div>
+    <div style="text-align: center;"><a href="/admin/company"><span>Uw bedrijf</span></a></div>
+  </div>
 </div>

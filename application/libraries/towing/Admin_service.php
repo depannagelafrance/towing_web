@@ -138,5 +138,30 @@ class Admin_service extends Rest_service {
                     'application/json');
   }
 
+  // -- -------------------------------------------------
+  // -- COMPANY MANAGEMENT
+  // -- -------------------------------------------------
+  public function fetchUserCompany($token) {
+    return $this->CI->rest->get(sprintf('/admin/company/%s', $token));
+  }
 
+  public function fetchUserCompanyDepot($token) {
+    return $this->CI->rest->get(sprintf('/admin/company/depot/%s', $token));
+  }
+
+  public function updateCompany(Company_model $company_model, $token)
+  {
+    return $this->CI->rest->put(
+                          sprintf('/admin/company/%s', $token),
+                          json_encode(array("company" => $company_model)),
+                          'application/json');
+  }
+
+  public function updateCompanyDepot(Depot_model $depot_model, $token)
+  {
+    return $this->CI->rest->put(
+                          sprintf('/admin/company/depot/%s', $token),
+                          json_encode(array("depot" => $depot_model)),
+                          'application/json');
+  }
 }
