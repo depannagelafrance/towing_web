@@ -396,7 +396,7 @@ $_dossier = $dossier->dossier;
 
           <!--WARENTY-->
           <div class="form-item-horizontal warrenty-container">
-            <label>Garantie:</label>
+            <label>Garantiehouder:</label>
             <?= form_input('insurance_warranty_held_by', $_voucher->insurance_warranty_held_by); ?>
           </div>
           <!--END WARENTY-->
