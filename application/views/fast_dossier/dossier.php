@@ -300,7 +300,8 @@ $_dossier = $dossier->dossier;
         <div class="towedby-container__left">
           <div class="form-item-horizontal towedby-container__towedby">
             <label>Takelaar:</label>
-            <?php print form_input('towed_by', $_voucher->towed_by); ?>
+            <?php /* print form_input('towed_by', $_voucher->towed_by);*/ ?>
+            <?php print listbox('towing_id', $towing_drivers, $_voucher->towing_id); ?>
           </div>
 
           <div class="form-item-horizontal towedby-container__licenceplate">

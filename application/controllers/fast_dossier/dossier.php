@@ -117,6 +117,7 @@ class Dossier extends Page {
             'licence_plate_countries' => $this->vocabulary_service->fetchAllCountryLicencePlates($token),
             'company_depot'           => $this->_get_authenticated_user()->company_depot,
             'signa_drivers'           => $this->vocabulary_service->fetchAllSignaDrivers($token),
+            'towing_drivers'          => $this->vocabulary_service->fetchAllTowingDrivers($token)
           ),
           true
       )
@@ -163,6 +164,7 @@ class Dossier extends Page {
         $voucher->signa_by_vehicle  = $this->input->post('signa_by_vehicle');
         $voucher->signa_arrival     = $this->convertToUnixTime($this->input->post('signa_arrival'), strtotime($dossier->dossier->call_date));
 
+        $voucher->towing_id           = $this->input->post('towing_id');
         $voucher->towed_by            = $this->input->post('towed_by');
         $voucher->towed_by_vehicle    = $this->input->post('towed_by_vehicle');
         $voucher->towing_called       = $this->convertToUnixTime($this->input->post('towing_called'), strtotime($dossier->dossier->call_date));

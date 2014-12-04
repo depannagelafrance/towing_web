@@ -16,6 +16,7 @@ class Voucher_model  {
   public $vehicule_licenceplate       = null;
   public $vehicule_country            = null;
   public $vehicule_collected          = null;
+  public $towing_id            = null;
   public $towed_by             = null;
   public $towed_by_vehicle     = null;
   public $towing_called        = null;
@@ -50,13 +51,13 @@ class Voucher_model  {
       $this->vehicule_licenceplate        = $data->vehicule_licenceplate;
       $this->vehicule_country             = $data->vehicule_country;
       $this->vehicule_collected           = $data->vehicule_collected;
+      $this->towing_id                    = $data->towing_id;
       $this->towed_by                     = $data->towed_by;
       $this->towed_by_vehicle             = $data->towed_by_vehicle;
       $this->towing_called                = $data->towing_called;
       $this->towing_arrival               = $data->towing_arrival;
       $this->towing_start                 = $data->towing_start;
       $this->towing_completed             = $data->towing_completed;
-      //$this->towing_depot                 = $data->towing_depot;
       $this->signa_id                     = $data->signa_id;
       $this->signa_by                     = $data->signa_by;
       $this->signa_arrival                = $data->signa_arrival;
