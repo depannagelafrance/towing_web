@@ -1,3 +1,20 @@
 <label>Depot:</label>
-<div id="edit-depot-data" class="depot-container__name">{{name}}, {{street}} {{street_number}} {{street_pobox}} {{zip}} {{city}}</div>
+<div id="edit-depot-data" class="depot-container__name">
+{{#if name}}
+<div class="has_content">
+{{/if}}
+
+{{#if name}}
+    <div>{{name}}</div>
+{{/if}}
+{{#if street}}
+    <div>{{street}} {{street_number}} {{street_pobox}}</div>
+{{/if}}
+{{#if city}}
+    <div>{{zip}} {{city}}</div>
+{{/if}}
+
+{{#if name}}
+</div>
+{{/if}}
 <a id="edit-depot-link" class="inform-link icon--edit--small" href="#depot_form">Bewerken</a>

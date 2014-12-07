@@ -1,31 +1,28 @@
 //SIGNA
 .signa-container{
   @include clearfix;
+  border-bottom: 1px solid #EEE;
 }
 
 .signa-container__left{
-  float: left;
-  width: 65%;
+  width: 100%;
 
   input{
 
     width: 60%;
-    margin-right: 5%;
 
   }
 
   label{
 
-    width: 35%;
+    width: 25%;
 
   }
 
 }
 
 .signa-container__right{
-  float: right;
-  width: 35%;
-
+  width: 100%;
 
   input{
 
@@ -43,8 +40,9 @@
 }
 
 .signa-container__signa{
+  width: 48%;
+  margin-right: 2%;
   float: left;
-  width: 50%;
 }
 
 .signa-container__licenceplate{

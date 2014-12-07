@@ -3,10 +3,17 @@
   margin-top: 15px;
   position: relative;
 
-  padding: 15px 25px;
   border: 1px solid #EEE;
   margin-right: 3%;
   background: #EEE;
+  min-height: 70px;
+
+  label {
+    float: none!important;
+    width: 100%!important;
+    text-align: center;
+    margin-top: 15px;
+  }
 
 
   .inform-link{
@@ -34,9 +41,19 @@
 
   .depot-container__name{
     float: left;
-    width: 55%;
-    margin-left: 3%;
+    width: 100%;
+    text-align: center;
+    margin-top: 5px;
+    .has_content{
+      min-height: 97px;
+    }
+    div {
+      padding-top: 6px;
+      padding-bottom: 3px;
+    }
   }
+
+
 
 }
 

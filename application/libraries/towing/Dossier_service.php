@@ -122,13 +122,13 @@ class Dossier_service extends Rest_service {
       );              
     }
 
-    public function updateTowingDepot($dossier_id, $voucher_id, Depot_model $depot, $token)
+    public function updateTowingDepot($depot_id, $voucher_id, Depot_model $depot, $token)
     {
       $_depot = new stdClass();
       $_depot->depot = $depot;
 
       return $this->CI->rest->put(
-          sprintf('/dossier/depot/%s/%s/%s', $dossier_id, $voucher_id, $token),
+          sprintf('/dossier/depot/%s/%s/%s', $depot_id, $voucher_id, $token),
           json_encode($_depot),
           'application/json'
       );

@@ -378,31 +378,38 @@ $_dossier = $dossier->dossier;
         </div>
         <div class="dsform__right">
 
+
+
           <!-- Depot Info -->
           <div id="depot_info" class="form-item-horizontal depot-container"></div>
 
-          <!--ASSI-->
-          <div class="form-item-horizontal  assistance-container">
-            <label>Assistance:</label>
-            <?php print listbox('insurance_id', $insurances, $_voucher->insurance_id); ?>
-          </div>
-          <!--END ASSI-->
+            <!--ASSI-->
+            <div class="form-item-horizontal  assistance-container">
+                <label>Assistance:</label>
+                <?php print listbox('insurance_id', $insurances, $_voucher->insurance_id); ?>
+            </div>
+            <!--END ASSI-->
+
+        </div>
+      </div>
+
+      <div style="width: 64%;margin-bottom: 30px;">
+
 
           <!--DOSS-->
           <div class="form-item-horizontal dossiernr-container">
-            <label>Dossiernr.:</label>
-            <?= form_input('insurance_dossiernr', $_voucher->insurance_dossiernr); ?>
+              <label>Dossiernr.:</label>
+              <?= form_input('insurance_dossiernr', $_voucher->insurance_dossiernr); ?>
           </div>
           <!--END DOSS-->
 
           <!--WARENTY-->
           <div class="form-item-horizontal warrenty-container">
-            <label>Garantiehouder:</label>
-            <?= form_input('insurance_warranty_held_by', $_voucher->insurance_warranty_held_by); ?>
+              <label>Garantiehouder:</label>
+              <?= form_input('insurance_warranty_held_by', $_voucher->insurance_warranty_held_by); ?>
           </div>
           <!--END WARENTY-->
 
-        </div>
       </div>
 
 

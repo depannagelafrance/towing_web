@@ -645,6 +645,7 @@ $(document).ready(function() {
         });
     }
 
+
     $('#depot_form form').submit(function(event) {
         var inputs = $(this).serializeArray();
 
@@ -655,16 +656,21 @@ $(document).ready(function() {
             setDepotDefault(formObj).success(function(data){
                 if(data.id){
                     updateDepotTemplates(data);
+                    updateDepotForm(data);
                     parent.$.fancybox.close();
                 }
             });
         }else{
-            setDepot(formObj).success(function(data){
-              if(data.id){
-                updateDepotTemplates(data);
-                parent.$.fancybox.close();
-              }
-            });
+            if(Dossier.btnClicked == 'btnDepotSave'){
+                setDepot(formObj).success(function(data){
+                    console.log(data);
+                    if(data.id){
+                        updateDepotTemplates(data);
+                        updateDepotForm(data);
+                        parent.$.fancybox.close();
+                    }
+                });
+            }
         }
 
         event.preventDefault();

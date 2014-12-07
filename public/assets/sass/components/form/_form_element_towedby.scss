@@ -1,22 +1,21 @@
 //towedby
 .towedby-container{
   @include clearfix;
+  padding-top: 10px;
 }
 
 .towedby-container__left{
-  float: left;
-  width: 65%;
+  width: 100%;
 
   input{
 
     width: 60%;
-    margin-right: 5%;
 
   }
 
   label{
 
-    width: 35%;
+    width: 25%;
 
   }
 
@@ -24,8 +23,7 @@
 
 
 .towedby-container__right{
-  float: right;
-  width: 35%;
+  width: 100%;
 
   input{
 
@@ -44,7 +42,8 @@
 
 .towedby-container__towedby{
   float: left;
-  width: 50%;
+  width: 48%;
+  margin-right: 2%;
 }
 
 .towedby-container__licenceplate{

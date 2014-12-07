@@ -1,5 +1,14 @@
 <label>Hinderverwekker:</label>
 <div id="edit-nuisance-data" class="nuisance-container__info">
+
+{{#if company_name}}
+<div class="has_content">
+{{else}}
+{{#if last_name}}
+<div class="has_content">
+{{/if}}
+{{/if}}
+
     {{#if company_name}}
       <div>{{company_name}}</div>
     {{else}}
@@ -33,5 +42,15 @@
     {{#if email}}
     <div>E: {{email}} </div>
     {{/if}}
+
+
+{{#if company_name}}
+</div>
+{{else}}
+{{#if last_name}}
+</div>
+{{/if}}
+{{/if}}
+
 </div>
 <a id="edit-nuisance-data-link" class="inform-link icon--edit--small" href="#causer_form">Bewerken</a>

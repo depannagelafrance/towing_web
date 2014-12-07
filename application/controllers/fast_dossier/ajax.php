@@ -20,8 +20,9 @@ class Ajax extends AjaxPage
     $token = $this->_get_user_token();
 
     $depot = new Depot_model($this->input->post('depot'));
+    $depot_id = $depot->id;
 
-    $result = $this->dossier_service->updateTowingDepot($depot->id, $voucher_id, $depot, $token);
+    $result = $this->dossier_service->updateTowingDepot($depot_id, $voucher_id, $depot, $token);
 
     $this->_sendJson($result);
   }

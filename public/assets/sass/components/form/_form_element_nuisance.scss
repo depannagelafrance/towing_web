@@ -2,18 +2,22 @@
   width: 45%;
   float: left;
 
-  padding: 15px 25px;
   border: 1px solid #EEE;
   margin-right: 3%;
   background: #EEE;
+  min-height: 70px;
+  .has_content{
+    min-height: 160px;
+  }
 
   @include border-radius(2px);
 
   text-align: center;
-  padding-bottom: 30px;
 
   position: relative;
-
+  label{
+    margin-top: 15px;
+  }
 
 
   .inform-link{
