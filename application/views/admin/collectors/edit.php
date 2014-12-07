@@ -1,4 +1,4 @@
-<?php echo form_open('admin/collector/edit/'.$id)?>
+e<?php echo form_open('admin/collector/edit/'.$id)?>
 <div class="box layout_2col_container">
   <div class="layout_2col_item">
     <?php echo validation_errors(); ?>

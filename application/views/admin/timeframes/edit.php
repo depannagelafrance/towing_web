@@ -1,8 +1,7 @@
 <?php echo form_open('admin/timeframe/edit/' . $timeframe_id);?>
-<div class="box layout_2col_container">
-  <div>
+<div class="box unpadded dsform admin_form">
     <?php echo validation_errors(); ?>
-    <table>
+    <table class="timeframes">
         <thead>
             <tr>
                 <th rowspan="2">Type activiteit</th>
@@ -56,14 +55,19 @@
         </tbody>
     </table>
     <?php print form_hidden('timeframe_id', $timeframe_data['id']);?>
+      <div class="form__actions">
+          <div class="form__actions__cancel">
+              <div class="form-item">
+                  <a href="/admin/timeframe">Annuleren</a>
+              </div>
+          </div>
+          <div class="form__actions__save">
+              <div class="form-item">
+                  <input type="submit" value="Bewaren" name="submit">
+              </div>
+          </div>
+      </div>
 
-    <div class="form-item-horizontal">
-      <input type="submit" name="submit" value="Opslaan" />
-    </div>
-
-    <div class="form-item-horizontal">
-      <a href="/admin/timeframe">Annuleren</a>
-    </div>
   </div>
 </div>
 <?php echo form_close();?>

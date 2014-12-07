@@ -1,0 +1,26 @@
+.timeframes{
+  thead {
+    background: #F4F4F4;
+  }
+  th {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  tbody tr{
+    border-bottom: none;
+    background: #FFF!important;
+    td {
+      padding-top: 20px!important;
+      padding-bottom: 20px!important;
+    }
+    &:hover {
+      background: #FFF!important;
+      color: #666!important;
+      a{
+        color: #666!important;
+      }
+    }
+  }
+
+}
