@@ -17,7 +17,7 @@ if($errors) {
     		     value="<?php print set_value('name'); ?>" name="name" />
         </div>
     </div>
-    
+
         <div class="form__actions">
           <div class="form__actions__cancel">
             <div class="form-item">

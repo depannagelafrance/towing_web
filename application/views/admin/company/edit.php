@@ -1,10 +1,10 @@
 <?php echo form_open('admin/company/edit')?>
-<div class="box layout_2col_container">
-  <?php echo validation_errors(); ?>
+<?php echo validation_errors(); ?>
 
+<div class="box unpadded dsform admin_form">
+  <div class="inner_padding">
 
-  <div class="layout_2col_item">
-    <h2>Bedrijfsgegevens</h2>
+    <h2 class="admin_form_title">Bedrijfsgegevens</h2>
     <div class="form-item-horizontal">
         <label>Naam: </label>
         <?php print form_input('company_name', $company->name); ?>
@@ -65,12 +65,8 @@
       <label>Website: </label>
       <?php print form_input('company_website', $company->website); ?>
     </div>
-  </div>
-</div>
 
-<div class="box layout_2col_container">
-  <div class="layout_2col_item">
-    <h2>Depot</h2>
+    <h2 class="admin_form_title">Depot</h2>
     <div class="form-item-horizontal">
       <label>Naam: </label>
       <?php print form_input('depot_name', $depot->name); ?>
@@ -100,15 +96,19 @@
       <label>Gemeente: </label>
       <?php print form_input('depot_city', $depot->city); ?>
     </div>
-
   </div>
-</div>
 
-<div class="form-item-horizontal">
-  <input type="submit" name="submit" value="Opslaan" />
-</div>
-
-<div class="form-item-horizontal">
-  <a href="/admin/company">Annuleren</a>
+    <div class="form__actions">
+        <div class="form__actions__cancel">
+            <div class="form-item">
+                <a href="/admin/index">Annuleren</a>
+            </div>
+        </div>
+        <div class="form__actions__save">
+            <div class="form-item">
+                <input type="submit" value="Bewaren" name="submit">
+            </div>
+        </div>
+    </div>
 </div>
   <?php echo form_close();?>
