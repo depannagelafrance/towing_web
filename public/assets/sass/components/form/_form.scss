@@ -84,7 +84,7 @@
 
 .form__actions__cancel{
 
-  float: float;
+  float: left;
   width: 50%;
 
 }
@@ -93,6 +93,10 @@
 
   float: right;
   width: 20%;
+
+  input {
+    width: 100%;
+  }
 
 }
 

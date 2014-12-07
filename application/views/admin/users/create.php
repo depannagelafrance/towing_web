@@ -1,17 +1,15 @@
 
-<div class="box unpadded dsform" style="width:850px">
+<div class="box unpadded dsform admin_form">
   <div class="inner_padding">
 
-    <div style="width: 800px; margin: auto;">
-<?php
-//TODO: @Gert, voorzien van een correcte styling voor de form errors!
+    <?php
+    $errors = validation_errors();
 
-$errors = validation_errors();
-
-if($errors) {
-  printf('<div style="background: red; color: white; font-size: 1.2em; padding-top:10px; padding-bottom: 10px; padding-left: 4px;">%s</div>', $errors);
-}
-?>
+    if($errors) {
+      printf('<div style="background: red; color: white; font-size: 1.2em; padding-top:10px; padding-bottom: 10px; padding-left: 4px;">%s</div>', $errors);
+    }
+    ?>
+      <h2 class="admin_form_title">Gebruiker aanmaken</h2>
 
       <?php echo form_open('admin/user/create')?>
         <div class="form-item">
@@ -34,13 +32,17 @@ if($errors) {
         		value="<?php print set_value('email'); ?>" name="email" />
         </div>
 
-        <div class="form-item">
+        <div class="form-item admin-form-checks">
             <?php foreach($roles as $role) {?>
-                <input type="checkbox" name="roles[]" value="<?php echo $role->id?>" /><?php echo $role->name;?><br />
+            <div class="form-item admin-user-checkbox">
+                <input type="checkbox" name="roles[]" value="<?php echo $role->id?>" />
+                <span><?php echo $role->name;?></span>
+            </div>
             <?php }?>
         </div>
+      </div>
 
-        <div class="form__actions">
+        <div class="box form__actions">
           <div class="form__actions__cancel">
             <div class="form-item">
               <a href="/admin/user">Annuleren</a>
@@ -54,6 +56,4 @@ if($errors) {
         </div>
       <?php echo form_close();?>
     </div>
-
-</div>
 </div>

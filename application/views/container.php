@@ -49,6 +49,18 @@
       <div class="l-branding">
         <div class="logo"></div>
       </div>
+        <div class="l-main-search">
+            <form method="post" action="/fast_dossier/search/voucher">
+                <input type="text" value="" name="searchVoucherNumber" placeholder="Takelbon zoeken" />
+            </form>
+        </div>
+        <div class="l-user-navigation">
+            <div class="user-navigation bright">
+                <!-- div class="l-user-action"><a href="#" class="icon--user"></a></div>
+                <div class="l-user-action"><a href="#" class="icon--settings"></a></div -->
+                <div class="l-user-action"><a href="/logout/index" class="icon--off"></a></div>
+            </div>
+        </div>
       <div class="l-main-navigation">
         <nav class="main-navigation">
           <?php if(isset($available_modules) && !empty($available_modules)) : ?>
@@ -64,22 +76,12 @@
 									}
 							 	}
 							?>
-							<li>
-								<form method="post" action="/fast_dossier/search/voucher">
-									<input type="text" value="" name="searchVoucherNumber" placeholder="Takelbon zoeken" />
-								</form>
-							</li>
             </ul>
           <?php endif; ?>
         </nav>
       </div>
-      <div class="l-user-navigation">
-        <div class="user-navigation bright">
-          <!-- div class="l-user-action"><a href="#" class="icon--user"></a></div>
-          <div class="l-user-action"><a href="#" class="icon--settings"></a></div -->
-          <div class="l-user-action"><a href="/logout/index" class="icon--off"></a></div>
-        </div>
-      </div>
+
+
     </div>
   </div>
   <div class="container">

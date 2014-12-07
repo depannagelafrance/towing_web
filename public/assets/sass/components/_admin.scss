@@ -1,0 +1,43 @@
+.admin_form {
+  width: 80%;
+  margin: auto;
+}
+
+.admin_form_title {
+  margin-bottom: 30px;
+}
+
+.admin-form-checks{
+  margin-top: 25px;
+  margin-left: 2px;
+}
+
+.admin_item{
+  padding: 50px;
+  width: 23%;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  float: left;
+  margin: 1%;
+
+  .fa, a {
+    color: #666;
+    text-decoration: none;
+    &:hover {
+      color: darken(#666, 5%);
+    }
+  }
+
+}
+
+.admin_link{
+  text-align: center;
+  margin-top: 20px;
+  font-size: 15px;
+}
+
+.admin-user-checkbox{
+  span{
+    padding-left: 10px;
+  }
+}
