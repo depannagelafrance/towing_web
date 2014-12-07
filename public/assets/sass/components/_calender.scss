@@ -1,0 +1,28 @@
+.calendar{
+  width: 80%;
+  margin: auto;
+
+  th {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 15%;
+  }
+
+  tbody tr{
+    border-bottom: 1px solid #F4F4F4;
+    background: #FFF!important;
+    width: 15%;
+    td {
+      padding-top: 20px!important;
+      padding-bottom: 20px!important;
+    }
+    &:hover {
+      background: #FFF!important;
+      color: #666!important;
+      a{
+        color: #666!important;
+      }
+    }
+  }
+
+}

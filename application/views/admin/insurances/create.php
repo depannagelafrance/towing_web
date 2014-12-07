@@ -1,13 +1,16 @@
 
   <?php echo form_open('admin/insurance/create')?>
-<div class="box layout_2col_container">
-  <div class="layout_2col_item">
-    <?php echo validation_errors(); ?>
+  <?php echo validation_errors(); ?>
 
-    <div class="form-item-horizontal">
-        <label>Naam: </label>
-        <?php print form_input('name', $name); ?>
-    </div>
+  <div class="box unpadded dsform admin_form">
+      <div class="inner_padding">
+        <h2 class="admin_form_title">Verzekeringsmaatschappij bewerken</h2>
+
+        <div class="form-item-horizontal">
+            <label>Naam: </label>
+            <?php print form_input('name', $name); ?>
+        </div>
+      </div>
 
     <div class="form__actions">
       <div class="form__actions__cancel">
@@ -21,6 +24,6 @@
         </div>
       </div>
     </div>
+
   </div>
-</div>
   <?php echo form_close();?>

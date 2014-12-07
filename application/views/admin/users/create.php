@@ -1,17 +1,20 @@
+<?php
+$errors = validation_errors();
+
+if($errors) {
+    printf('<div style="background: red; color: white; font-size: 1.2em; padding-top:10px; padding-bottom: 10px; padding-left: 4px;">%s</div>', $errors);
+}
+?>
+
+<?php echo form_open('admin/user/create')?>
+
 
 <div class="box unpadded dsform admin_form">
   <div class="inner_padding">
 
-    <?php
-    $errors = validation_errors();
 
-    if($errors) {
-      printf('<div style="background: red; color: white; font-size: 1.2em; padding-top:10px; padding-bottom: 10px; padding-left: 4px;">%s</div>', $errors);
-    }
-    ?>
       <h2 class="admin_form_title">Gebruiker aanmaken</h2>
 
-      <?php echo form_open('admin/user/create')?>
         <div class="form-item">
         	<input type="text" placeholder="Login"
         		value="<?php print set_value('login'); ?>" name="login" />
@@ -54,6 +57,7 @@
             </div>
           </div>
         </div>
-      <?php echo form_close();?>
     </div>
 </div>
+
+<?php echo form_close();?>
