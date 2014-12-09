@@ -1,5 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 require_once(APPPATH . '/controllers/page.php');
+require_once(APPPATH . '/models/Insurance_model.php');
 
 class Insurance extends Page {
     public function __construct(){
@@ -47,7 +48,9 @@ class Insurance extends Page {
               //load the model
               $this->load->model('vocabulary_model');
 
-              $result = $this->admin_service->createInsurance($this->vocabulary_model->initialise($this->input->post()), $this->_get_user_token());
+              $model = new Insurance_model($this->input->post());
+
+              $result = $this->admin_service->createInsurance($model, $this->_get_user_token());
 
               if($result && property_exists($result, 'statusCode')) {
                 if($result->statusCode == 409) {
@@ -60,7 +63,7 @@ class Insurance extends Page {
                 $this->_add_content(
                         $this->load->view(
                                 'admin/insurances/create',
-                                array('name' => $this->input->post('name')),
+                                $this->input->post(),
                                 true
                         )
                 );
@@ -77,7 +80,15 @@ class Insurance extends Page {
           $this->_add_content(
                   $this->load->view(
                           'admin/insurances/create',
-                          array("name" => ""),
+                          array(
+                              "name"          => "",
+                              "vat"           => "",
+                              "street"        => "",
+                              "street_number" => "",
+                              "street_pobox"  => "",
+                              "zip"           => "",
+                              "city"          => ""
+                          ),
                           true
                   )
           );
@@ -102,21 +113,17 @@ class Insurance extends Page {
           //return to form if validation failed
           if (!$this->form_validation->run())
           {
-              $this->_add_content(
-                      $this->load->view(
-                              'admin/insurances/edit',
-                              array("name" => $this->input->post('name'), "id" => $id),
-                              true
-                      )
-              );
+              $data = $this->input->post();
+              $data['id'] = $id;
+
+              $this->_add_content($this->load->view('admin/insurances/edit', $data,true));
           }
           //form is valid, send the data
           else
           {
               //load the model
-              $this->load->model('vocabulary_model');
 
-              $model=$this->vocabulary_model->initialise($this->input->post());
+              $model=new Insurance_model($this->input->post());
               $model->id = $id;
 
               $result = $this->admin_service->updateInsurance($model, $this->_get_user_token());
@@ -128,14 +135,10 @@ class Insurance extends Page {
                   $this->_add_error(sprintf('Fout bij het wijzigen van een maatschappij (%d - %s)', $result->statusCode, $result->message));
                 }
 
+                $data = $this->input->post();
+                $data['id'] = $id;
 
-                $this->_add_content(
-                        $this->load->view(
-                                'admin/insurances/edit',
-                                array("name" => $this->input->post('name'), "id" => $id),
-                                true
-                        )
-                );
+                $this->_add_content($this->load->view('admin/insurances/edit', $data,true));
               } else {
                 //yes, nicely done!
                 $this->session->set_flashdata('_INFO_MSG', "Item aangepast: " . $this->input->post('name'));
@@ -160,8 +163,14 @@ class Insurance extends Page {
             $this->load->view(
                 'admin/insurances/edit',
                 array(
-                    'name' => $result->name,
-                    'id' => $result->id
+                    'name'          => $result->name,
+                    'id'            => $result->id,
+                    'vat'           => $result->vat,
+                    'street'        => $result->street,
+                    'street_number' => $result->street_number,
+                    'street_pobox'  => $result->street_pobox,
+                    'zip'           => $result->zip,
+                    'city'          => $result->city
                 ),
                 true
             )

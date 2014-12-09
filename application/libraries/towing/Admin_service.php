@@ -79,11 +79,11 @@ class Admin_service extends Rest_service {
     return $this->CI->rest->get(sprintf('/admin/insurance/%s/%s', $id, $token));
   }
 
-  public function createInsurance(Vocabulary_model $insurance, $token) {
+  public function createInsurance(Insurance_model $insurance, $token) {
     return $this->CI->rest->post(sprintf('/admin/insurance/%s', $token), get_object_vars($insurance));
   }
 
-  public function updateInsurance(Vocabulary_model $insurance, $token) {
+  public function updateInsurance(Insurance_model $insurance, $token) {
     return $this->CI->rest->put(sprintf('/admin/insurance/%s/%s', $insurance->id, $token), get_object_vars($insurance));
   }
 
