@@ -93,6 +93,11 @@ class Dossier_service extends Rest_service {
       return $this->CI->rest->get(sprintf('/dossier/list/traffic_posts/allotment/%s/%s', $allotment, $token));
     }
 
+    public function fetchAllTrafficLanes($dossier_id, $token)
+    {
+      return $this->CI->rest->get(sprintf('/dossier/list/traffic_lanes/%s/%s', $dossier_id, $token));
+    }
+
     public function createDossier($token)
     {
       return $this->CI->rest->post(sprintf('/dossier/%s', $token));
@@ -119,7 +124,7 @@ class Dossier_service extends Rest_service {
     {
       return $this->CI->rest->delete(
         sprintf('/dossier/voucher/%s/activity/%s/%s', $voucher_id, $activity_id, $token)
-      );              
+      );
     }
 
     public function updateTowingDepot($depot_id, $voucher_id, Depot_model $depot, $token)

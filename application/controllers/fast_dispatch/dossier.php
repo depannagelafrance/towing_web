@@ -71,7 +71,7 @@ class Dossier extends Page {
             'insurances'              => $this->vocabulary_service->fetchAllInsurances($token),
             'directions'              => $this->vocabulary_service->fetchAllDirections($token),
             'indicators'              => $this->vocabulary_service->fetchAllIndicatorsByDirection($dossier->dossier->allotment_direction_id, $token),
-            'traffic_lanes'           => $this->vocabulary_service->fetchAllTrafficLanes($token),
+            'traffic_lanes'           => $this->dossier_service->fetchAllTrafficLanes($dossier->dossier->id, $token),
             'licence_plate_countries' => $this->vocabulary_service->fetchAllCountryLicencePlates($token)
           ),
           true
@@ -88,7 +88,7 @@ class Dossier extends Page {
     $dossier->dossier->allotment_id           =  $this->input->post('allotment_id');
     $dossier->dossier->allotment_direction_id = $this->input->post('direction');
     $dossier->dossier->allotment_direction_indicator_id = $this->input->post('indicator');
-    $dossier->dossier->traffic_lane_id        = $this->input->post('traffic_lane_id');
+    $dossier->dossier->traffic_lanes          = $this->input->post('traffic_lane_id');
 
     $dossier->dossier->towing_vouchers[0]->vehicule_type = $this->input->post('vehicule_type');
     $dossier->dossier->towing_vouchers[0]->vehicule_licenceplate = $this->input->post('vehicule_licenceplate');

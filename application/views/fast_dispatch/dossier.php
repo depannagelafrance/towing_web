@@ -100,7 +100,24 @@ if($errors) {
 
         <div class="form-item-horizontal">
             <label>Rijstrook:</label>
-            <?php print listbox('traffic_lane_id', $traffic_lanes, $_dossier->traffic_lane_id); ?>
+
+            <div class="licenseplate-container">
+              <table>
+            <?php
+              foreach($traffic_lanes as $_traffic_lane)
+              {
+
+                $data = array(
+                  'name'        => 'traffic_lane_id[]',
+                  'value'       => $_traffic_lane->id,
+                  'checked'     => $_traffic_lane->selected,
+                );
+
+                printf("<tr><td>%s</td><td>%s</td></tr>", form_checkbox($data), $_traffic_lane->name);
+              }
+            ?>
+              </table>
+            </div>
         </div>
 
         <div class="form-item-horizontal">
