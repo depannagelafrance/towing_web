@@ -106,7 +106,6 @@ if($errors) {
             <?php
               foreach($traffic_lanes as $_traffic_lane)
               {
-
                 $data = array(
                   'name'        => 'traffic_lane_id[]',
                   'value'       => $_traffic_lane->id,

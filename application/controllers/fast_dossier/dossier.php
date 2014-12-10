@@ -130,6 +130,22 @@ class Dossier extends Page {
 
     $dossier->dossier->police_traffic_post_id = toIntegerValue($this->input->post('traffic_post_id'));
 
+
+    //traffic lanes are not changed here
+    $traffic_lanes = $this->dossier_service->fetchAllTrafficLanes($dossier->dossier->id, $this->_get_user_token());
+
+    foreach($traffic_lanes as $_traffic_lane)
+    {
+      if(!property_exists($dossier->dossier, 'traffic_lanes') || !$dossier->dossier->traffic_lanes) {
+        $dossier->dossier->traffic_lanes = array();
+      }
+
+      if($_traffic_lane->selected)
+        $dossier->dossier->traffic_lanes[] = $_traffic_lane->id;
+    }
+
+
+    //iterate towing vouchers and update data
     for($i = 0; $i < sizeof($dossier->dossier->towing_vouchers); $i++) {
 
       $voucher = $dossier->dossier->towing_vouchers[$i];
