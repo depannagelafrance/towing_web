@@ -1,4 +1,14 @@
 <div class="box table_list table_list_large">
+  <ul>
+    <li><a href="">Nieuw</a></li>
+    <li><a href="">Afgerond</a></li>
+    <li><a href="">Ter controle</a></li>
+    <li><a href="">Ter facturatie</a></li>
+    <li><a href="">Afgesloten</a></li>
+  </ul>
+</div>
+
+<div class="box table_list table_list_large">
 <?php
 
 $this->load->helper('date');

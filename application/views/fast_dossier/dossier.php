@@ -93,7 +93,17 @@ $_dossier = $dossier->dossier;
             $prev = $voucher->dossier_number;
 
             $this->table->add_row(
-                  array('class' => $class, 'data' => sprintf('<a class="id__cell" href="/fast_dossier/dossier/%s/%s"><span class="id__cell__icon icon--map"></span><span class="id__cell__text__type">%s</span><span class="id__cell__text"><span class="id__cell__text__data"><span class="id__cell__text__nr">%s</span><span class="id__cell__text__info">%s %s</span></span></a>', $voucher->dossier_number, $voucher->voucher_number, $voucher->dossier_number, $voucher->incident_type, $voucher->direction_name , $voucher->indicator_name))
+                  array('class' => $class,
+                        'data' => sprintf('<a class="id__cell" href="/fast_dossier/dossier/%s/%s">
+                                              <span class="id__cell__icon icon--map"></span>
+                                              <span class="id__cell__text__type">%s</span>
+                                              <span class="id__cell__text">
+                                                <span class="id__cell__text__data">
+                                                  <span class="id__cell__text__info">Oproepnummer: %s</span>
+                                                  <span class="id__cell__text__nr">%s</span>
+                                                  <span class="id__cell__text__info">%s %s</span>
+                                                </span>
+                                              </span></a>', $voucher->dossier_number, $voucher->voucher_number, $voucher->dossier_number, $_dossier->call_number, $voucher->incident_type, $voucher->direction_name , $voucher->indicator_name))
             );
 
           }
