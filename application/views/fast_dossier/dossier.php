@@ -243,7 +243,7 @@ $_dossier = $dossier->dossier;
           </div>
           <ul class="btn--dropdown--drop">
             <li><a id="add-nota-link" href="#add-nota-form">Nota toevoegen</a></li>
-            <li><a id="add-nota-link">Notas bekijken</a></li>
+            <li><a id="view-nota-link" href="#view-nota-container">Notas bekijken</a></li>
           </ul>
         </div>
       </div>
@@ -278,6 +278,7 @@ $_dossier = $dossier->dossier;
 
   <div class="box unpadded dsform">
     <div class="inner_padding">
+
       <!--SIGNA-->
       <div class="signa-container">
         <div class="signa-container__left">
@@ -1000,7 +1001,12 @@ $_dossier = $dossier->dossier;
       'data-did' => $_dossier->id
     );
 
-    print form_open('',$email_attr,'');
+    $email_hidden = array(
+        'voucher_id' => $_voucher->id,
+        'dossier_id' => $_dossier->id
+    );
+
+    print form_open('',$email_attr,$email_hidden);
 
     ?>
 
@@ -1039,12 +1045,17 @@ $_dossier = $dossier->dossier;
   <div id="add-nota-form" style="display: none;">
     <?php
 
+    $nota_hidden = array(
+      'voucher_id' => $_voucher->id,
+      'dossier_id' =>  $_dossier->id
+    );
+
     $nota_attr = array(
       'data-vid' => $_voucher->id,
       'data-did' => $_dossier->id
     );
 
-    print form_open('',$nota_attr,'');
+    print form_open('',$nota_attr,$nota_hidden);
 
     ?>
     <div class="fancybox-form">
@@ -1067,6 +1078,13 @@ $_dossier = $dossier->dossier;
     </div>
     <?= form_close(); ?>
   </div>
+
+  <div id="view-nota-container">
+
+
+  </div>
+
+  <!--END NOTA-->
 
   <!-- WORK -->
   <div id="add-work-form" style="display: none;">

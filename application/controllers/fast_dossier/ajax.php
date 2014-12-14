@@ -111,6 +111,15 @@ class Ajax extends AjaxPage
     $this->_sendJson($result);
   }
 
+  public function getInternalCommunication($dossier_id, $voucher_id)
+  {
+    $token = $this->_get_user_token();
+
+    $result = $this->dossier_service->fetchAllInternalCommunications($dossier_id, $voucher_id, $token);
+
+    $this->_sendJson($result);
+  }
+
   public function addEmailCommunication()
   {
     $token = $this->_get_user_token();
@@ -121,6 +130,16 @@ class Ajax extends AjaxPage
 
     $this->_sendJson($result);
   }
+
+  public function getEmailCommunication($dossier_id, $voucher_id)
+  {
+    $token = $this->_get_user_token();
+
+    $result = $this->dossier_service->fetchAllEmailCommunications($dossier_id,$voucher_id, $token);
+
+    $this->_sendJson($result);
+  }
+
 
   public function requestCollectorSignature($dossier_id, $voucher_id) {
     $token = $this->_get_user_token();

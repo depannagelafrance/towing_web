@@ -7,3 +7,16 @@
 /* Import Components */
 @import "components/**/*";
 
+.nota-item{
+  padding: 25px;
+  border-top: 1px solid #EEE;
+  margin-top: 15px;
+  &:first-child{
+    border-top: none;
+    margin-top: 0;
+  }
+}
+
+#view-nota-container{
+  overflow: scroll;
+}

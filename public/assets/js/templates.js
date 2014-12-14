@@ -319,3 +319,9 @@ this["Handlebars"]["Templates"]["depot/info"] = Handlebars.template({"1":functio
   if (stack1 != null) { buffer += stack1; }
   return buffer + "<a id=\"edit-depot-link\" class=\"inform-link icon--edit--small\" href=\"#depot_form\">Bewerken</a>\n";
 },"useData":true});
+
+
+
+this["Handlebars"]["Templates"]["nota/overview"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+  return "    <div class=\"nota-item\">\n        <h2>Nota 1</h2>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae volutpat lorem, ac sollicitudin lorem. Vivamus porttitor pellentesque mattis. Vestibulum et ipsum eget tortor ultricies euismod. Morbi ultricies eros mauris, eget venenatis mauris feugiat eget. Praesent turpis massa, volutpat sed faucibus vel, eleifend sed urna. Curabitur nec metus pharetra, convallis tortor et, volutpat sem. Vestibulum varius porttitor dapibus. Vivamus a erat maximus, laoreet odio sit amet, maximus lacus. Proin molestie lectus felis, et condimentum metus sollicitudin ut. Nulla euismod ultricies viverra. Nullam egestas tortor et ante laoreet suscipit. Donec sed est luctus, tristique neque ac, volutpat felis. Quisque pretium auctor tellus. Duis faucibus, lorem et hendrerit sollicitudin, arcu velit finibus elit, a condi\n    </div>\n\n<div class=\"fancybox-form__actions\">\n<div class=\"form-item fancybox-form__actions__save\">\n<a class=\"close_overlay\" href=\"#\">Sluiten</a>\n</div>\n</div>\n";
+  },"useData":true});

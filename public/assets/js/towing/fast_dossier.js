@@ -18,72 +18,11 @@ $('#list_direction').change(function(){
   );
 });
 
-function composeAddressHtml(data) {
-  html = '';
-
-  if(data.company_name !== ''){
-    html += '<div>' + data.company_name + '</div>';
-  }else{
-    html += '<div>' + data.last_name + ' ' + data.first_name + '</div>';
-  }
-
-  if(data.street !== '' || data.street_number !== ''  ){
-    if(data.street_pobox !== ''){
-      html += '<div>' + data.street + ' ' + data.street_number + ' ' + data.street_pobox + '</div>';
-    } else {
-      html += '<div>' + data.street + ' ' + data.street_number + '</div>';
-    }
-  }
-
-  if((data.zip && data.zip !== '') || (data.city && data.city !== '')  ){
-    html += '<div>' + data.zip + ' ' + data.city + '</div>';
-  }
-  if(data.country && data.country !== ''){
-    html += '<div>' + data.country + '</div>';
-  }
-  if(data.phone !== ''){
-    html += '<div>T: ' + data.phone + '</div>';
-  }
-  if(data.email !== ''){
-    html += '<div>E: ' + data.email + '</div>';
-  }
-
-  return html;
-}
-
-function composeShortAddressHtml(data) {
-    html = '';
-
-    if(data.company_name !== ''){
-        html += '<div class="nuisance_value">' + data.company_name + '</div>';
-    }else{
-        html += '<div class="nuisance_value">' + data.first_name + ' ' + data.last_name + '</div>';
-    }
-
-    if(data.street !== '' || data.street_number !== ''  ){
-        if(data.street_pobox !== ''){
-            html += '<div class="nuisance_value">' + data.street + ' ' + data.street_number + ' ' + data.street_pobox + '</div>';
-        } else {
-            html += '<div class="nuisance_value">' + data.street + ' ' + data.street_number + '</div>';
-        }
-    }
-
-    if((data.zip && data.zip !== '') || (data.city && data.city !== '')  ){
-        html += '<div class="nuisance_value">' + data.zip + ' ' + data.city + '</div>';
-    }
-
-    return html;
-}
-
-
 $(document).ready(function() {
 
   $('#edit-depot-link').fancybox({
     'scrolling'		: 'no',
     'titleShow'		: false,
-    'onClosed'		: function() {
-      $('#edit-depot-form .msg__error').hide();
-    }
   });
 
   $('#edit-invoice-data-link').fancybox({
@@ -106,7 +45,13 @@ $(document).ready(function() {
     'titleShow'		: false
   });
 
-  $('#add-work-link').fancybox({
+  $('#view-nota-link').fancybox({
+    'scrolling'		: 'no',
+    'titleShow'		: false
+  });
+
+
+    $('#add-work-link').fancybox({
     'scrolling'		: 'no',
     'titleShow'		: false,
     'beforeLoad' : function (){
@@ -139,67 +84,13 @@ $(document).ready(function() {
       }
   });
 
-  $('.close_overlay').click(function(){
+  $('.close_overlay').on('click', function(){
     parent.$.fancybox.close();
     return false;
   });
 
-
-  //DEPOT
-  $('#edit-depot-form form button').click(function() {
-    var form = $(this).parents('form');
-    $('#edit-depot-form form').find('input[name="name"]').val(form.data('default-name'));
-    $('#edit-depot-form form').find('input[name="street"]').val(form.data('default-street'));
-    $('#edit-depot-form form').find('input[name="street_number"]').val(form.data('default-street-number'));
-    $('#edit-depot-form form').find('input[name="street_pobox"]').val(form.data('default-street-pobox'));
-    $('#edit-depot-form form').find('input[name="zip"]').val(form.data('default-zip'));
-    $('#edit-depot-form form').find('input[name="city"]').val(form.data('default-city'));
-  });
-
-  $('#edit-depot-form form').bind('submit', function() {
-
-    /* /depot/:dossier/:voucher/:token */
-    $('#edit-depot-form').find('.msg__error').hide();
-
-    var cid = $(this).data('cid');
-    var did = $(this).data('did');
-    var vid = $(this).data('vid');
-
-    var formObj = {};
-    var inputs = $(this).serializeArray();
-    $.each(inputs, function (i, input) {
-      formObj[input.name] = input.value;
-    });
-
-    $.ajax({
-      type		: "POST",
-      cache	: false,
-      url		: "/fast_dossier/ajax/updatedepot/" + did + '/' + vid,
-      data		: {'depot' : formObj},
-      success: function(data) {
-        if(data.id) {
-          var po = '';
-          if(data.street_pobox){
-            po = '/'+ data.street_pobox
-          }
-          var html = data.name + ', ' + data.street + ' ' + data.street_number + po + ', ' + data.zip + ' ' + data.city;
-          $(cid).html(html);
-          parent.$.fancybox.close();
-        } else {
-          $('#edit-depot-form').find('.msg__error').show();
-          $.fancybox.resize();
-        }
-      }
-    });
-
-    return false;
-  });
-
-
-
-
-
         //NOTA
+    /*
   $('#add-nota-form form').bind('submit', function() {
 
     var did = $(this).data('did');
@@ -230,9 +121,10 @@ $(document).ready(function() {
     });
     return false;
   });
+  */
 
-  //NOTA
-
+  //EMAIL
+/*
   $('#add-email-form form').bind('submit', function() {
 
     var did = $(this).data('did');
@@ -265,7 +157,8 @@ $(document).ready(function() {
     return false;
   });
 
-
+*/
+    
   //WORK
 
   $('#add-work-form form').bind('submit', function() {
@@ -300,7 +193,7 @@ $(document).ready(function() {
    var dossier = $('#voucher_switcher').data('did');
    var selected = $(this).val();
    var url = '/fast_dossier/dossier/' + dossier + '/' + selected;
-   $(location).attr('href',url);
+   redirectPage(url);
   });
 
 
@@ -431,6 +324,13 @@ $(document).ready(function() {
     return false;
   });
 
+
+
+
+
+
+
+
     /******* REFACTORING JS ********/
     var Dossier = {};
 
@@ -460,9 +360,24 @@ $(document).ready(function() {
             updateDepotTemplates(data);
         });
 
+        getNotas().success(function(data){
+            updateNotaTemplates(data);
+            console.log(data);
+        });
+
+        getEmails().success(function(data){
+            console.log(data);
+        });
+
     });
 
-    /* Helpers */
+
+    /****** Helpers *********/
+
+    function redirectPage(url){
+        $(location).attr('href',url);
+    }
+
     function prepareAjaxUrl(url){
         return url + '/' + Dossier.dossier_id + '/' + Dossier.voucher_id;
     }
@@ -678,6 +593,83 @@ $(document).ready(function() {
 
     /*******  END Depot *******/
 
+    /*******  NOTA *******/
+
+    function addNota(formObj){
+        var url = '/fast_dossier/ajax/addinternalcommunication';
+        return $.ajax({
+            type		: "POST",
+            cache	: false,
+            url		: url,
+            data		: {'communication' : formObj}
+        });
+    }
+
+    function getNotas(){
+        var url = prepareAjaxUrl('/fast_dossier/ajax/getinternalcommunication');
+        return $.ajax({
+            type		: "POST",
+            cache	: false,
+            url		: url,
+            data		: {}
+        });
+    }
+
+    function updateNotaTemplates(data) {
+        var template = Handlebars.Templates['nota/overview'];
+        $('#view-nota-container').html(template(data));
+    }
+
+    $('#add-nota-form form').submit(function(event) {
+        var inputs = $(this).serializeArray();
+
+        var formObj = {};
+        formObj = serializeFormInputs(inputs);
+
+        addNota(formObj).success(function(data){
+            parent.$.fancybox.close();
+        });
+
+        event.preventDefault();
+    });
+
+    /*******  END NOTA *******/
+
+    /*******  EMAIL *******/
+
+    function sendEmail(formObj){
+        var url = '/fast_dossier/ajax/addemailcommunication';
+        return $.ajax({
+            type		: "POST",
+            cache	: false,
+            url		: url,
+            data		: {'communication' : formObj}
+        });
+    }
+
+    function getEmails(){
+        var url = prepareAjaxUrl('/fast_dossier/ajax/getemailcommunication');
+        return $.ajax({
+            type		: "POST",
+            cache	: false,
+            url		: url,
+            data		: {}
+        });
+    }
+
+    $('#add-email-form form').submit(function(event) {
+
+        var inputs = $(this).serializeArray();
+
+        var formObj = {};
+        formObj = serializeFormInputs(inputs);
+
+        sendEmail(formObj).success(function(data){
+            parent.$.fancybox.close();
+        });
+
+        event.preventDefault();
+    });
 
 
 });
