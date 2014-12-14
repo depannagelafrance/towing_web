@@ -8,7 +8,7 @@
 
 .vehicule-container__left{
   float: left;
-  width: 65%;
+  width: 60%;
 
   input{
 
@@ -27,7 +27,7 @@
 
 .vehicule-container__right{
   float: right;
-  width: 35%;
+  width: 40%;
 
 
   input,.chosen-container{
@@ -53,12 +53,18 @@
 
 .vehicule-container__vehicule{
   float: left;
-  width: 50%;
+  width: 46%;
 }
 
 .vehicule-container__license{
   float: left;
-  width: 50%;
+  width: 48%;
+  label {
+    width: 38%;
+  }
+  input {
+    width: 56%;
+  }
 }
 
 .vehicule-container__country{

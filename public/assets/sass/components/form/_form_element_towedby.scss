@@ -5,7 +5,9 @@
 }
 
 .towedby-container__left{
-  width: 100%;
+  width: 55%;
+  @include clearfix;
+  float: left;
 
   input{
 
@@ -23,7 +25,9 @@
 
 
 .towedby-container__right{
-  width: 100%;
+  width: 40%;
+  float: right;
+  @include clearfix;
 
   input{
 
