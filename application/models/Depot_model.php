@@ -29,13 +29,13 @@ class Depot_model  {
     }
   }
 
-  public function initFromPost($data) {
-    $this->id             = $data['id'];
-    $this->name           = $data['name'];
-    $this->street         = $data['street'];
-    $this->street_number  = $data['street_number'];
-    $this->street_pobox   = $data['street_pobox'];
-    $this->zip            = $data['zip'];
-    $this->city           = $data['city'];
+  public function initFromPost($data, $prefix = "depot_") {
+    $this->id             = array_key_exists('id', $data) ? $data['id'] : null;
+    $this->name           = $data[$prefix . 'name'];
+    $this->street         = $data[$prefix . 'street'];
+    $this->street_number  = $data[$prefix . 'street_number'];
+    $this->street_pobox   = $data[$prefix . 'street_pobox'];
+    $this->zip            = $data[$prefix . 'zip'];
+    $this->city           = $data[$prefix . 'city'];
   }
 }
