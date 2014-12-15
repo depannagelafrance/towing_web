@@ -1,5 +1,11 @@
 <?php echo form_open('admin/company/edit')?>
-<?php echo validation_errors(); ?>
+<?php
+$errors = validation_errors();
+
+if($errors) {
+  printf('<div style="background: red; color: white; font-size: 1.2em; padding-top:10px; padding-bottom: 10px; padding-left: 4px;">%s</div>', $errors);
+}
+?>
 
 <div class="box unpadded dsform admin_form">
   <div class="inner_padding">

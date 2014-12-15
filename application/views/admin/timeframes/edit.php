@@ -1,6 +1,13 @@
 <?php echo form_open('admin/timeframe/edit/' . $timeframe_id);?>
+<?php
+$errors = validation_errors();
+
+if($errors) {
+  printf('<div style="background: red; color: white; font-size: 1.2em; padding-top:10px; padding-bottom: 10px; padding-left: 4px;">%s</div>', $errors);
+}
+?>
+
 <div class="box unpadded dsform admin_form">
-    <?php echo validation_errors(); ?>
     <table class="timeframes">
         <thead>
             <tr>

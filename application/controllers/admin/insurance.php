@@ -29,7 +29,8 @@ class Insurance extends Page {
       if($this->input->post('submit'))
       {
           $this->load->library("form_validation");
-          $this->form_validation->set_rules('name', 'name', 'required');
+          $this->form_validation->set_rules('name', 'Naam', 'required');
+          $this->form_validation->set_rules('vat', 'BTW-nummer', 'required');
 
           //return to form if validation failed
           if (!$this->form_validation->run())
@@ -37,7 +38,7 @@ class Insurance extends Page {
               $this->_add_content(
                       $this->load->view(
                               'admin/insurances/create',
-                              array("name" => ""),
+                              $this->input->post(),
                               true
                       )
               );
@@ -108,7 +109,8 @@ class Insurance extends Page {
       if($this->input->post('submit'))
       {
           $this->load->library("form_validation");
-          $this->form_validation->set_rules('name', 'name', 'required');
+          $this->form_validation->set_rules('name', 'Naam', 'required');
+          $this->form_validation->set_rules('vat', 'BTW-nummer', 'required');
 
           //return to form if validation failed
           if (!$this->form_validation->run())
