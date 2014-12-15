@@ -31,13 +31,10 @@ class Ajax extends AjaxPage
   public function updateDepotToDefault($dossier_id, $voucher_id)
   {
     $token = $this->_get_user_token();
-    $depot = new Depot_model($this->input->post('depot'));
+    $depot = new Depot_model($this->_get_company_depot());
     $depot_id = $depot->id;
 
-    //@TODO: get default depot
-    $default = new Depot_model($this->input->post('depot'));
-
-    $result = $this->dossier_service->updateTowingDepot($depot_id, $voucher_id, $default, $token);
+    $result = $this->dossier_service->updateTowingDepot($depot_id, $voucher_id, $depot, $token);
 
     $this->_sendJson($result);
   }

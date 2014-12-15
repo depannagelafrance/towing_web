@@ -116,7 +116,7 @@ class Page extends CI_Controller {
 		//$this->session->set_userdata('dossier_cache', $dossier);
 	}
 
-	protected function _pop_Dossier_cache() {
+	protected function _pop_dossier_cache() {
 		if(!isset($_SESSION)) {
 			session_start();
 		}
@@ -145,8 +145,18 @@ class Page extends CI_Controller {
 			if(property_exists($data, 'token') && $data->token) {
 				return $data->user_modules;
 			}
+		}
 
-			return null;
+		return null;
+	}
+
+	protected function _get_company_depot() {
+		$data = $this->_get_authenticated_user();
+
+		if($data) {
+			if(property_exists($data, 'company_depot') && $data->token) {
+				return $data->company_depot;
+			}
 		}
 
 		return null;
@@ -159,8 +169,6 @@ class Page extends CI_Controller {
 			if(property_exists($data, 'token') && $data->token) {
 				return $data->token;
 			}
-
-			return null;
 		}
 
 		return null;
