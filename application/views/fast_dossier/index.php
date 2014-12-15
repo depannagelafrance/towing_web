@@ -1,12 +1,14 @@
 <div class="box table_list table_list_large">
   <ul>
-    <li><a href="">Nieuw</a></li>
-    <li><a href="">Afgerond</a></li>
-    <li><a href="">Ter controle</a></li>
-    <li><a href="">Ter facturatie</a></li>
-    <li><a href="">Afgesloten</a></li>
+    <li><a href="/fast_dossier/overview/new">Nieuw</a></li>
+    <li><a href="/fast_dossier/overview/to_check">Ter controle</a></li>
+    <li><a href="/fast_dossier/overview/for_invoice">Ter facturatie</a></li>
+    <li><a href="/fast_dossier/overview/done">Afgesloten</a></li>
   </ul>
 </div>
+
+
+<h1><?php print $title ?></h1>
 
 <div class="box table_list table_list_large">
 <?php

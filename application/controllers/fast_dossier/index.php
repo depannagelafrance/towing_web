@@ -14,13 +14,36 @@ class Index extends Page {
    */
   public function index()
   {
-    $dossiers = $this->dossier_service->fetchAllNewDossiers($this->_get_user_token());
+    $this->overview('new');
+  }
+
+  public function overview($status)
+  {
+
+    switch($status) {
+      case 'to_check':
+        $dossiers = $this->dossier_service->fetchAllToBeCheckedDossiers($this->_get_user_token());
+        $title = 'Dossiers ter controle';
+        break;
+      case 'for_invoice':
+        $dossiers = $this->dossier_service->fetchAllInvoicableDossiers($this->_get_user_token());
+        $title = 'Dossiers voor facturatie';
+        break;
+      case 'done':
+        $dossiers = $this->dossier_service->fetchAllClosedDossiers($this->_get_user_token());
+        $title = 'Afgesloten dossiers';
+        break;
+      default:
+        $dossiers = $this->dossier_service->fetchAllNewDossiers($this->_get_user_token());
+        $title = 'Actieve dossiers';
+    }
 
     $this->_add_content(
       $this->load->view(
         'fast_dossier/index',
         array(
-          'dossiers' => $dossiers
+          'dossiers' => $dossiers,
+          'title' => $title
         ),
         true
       )

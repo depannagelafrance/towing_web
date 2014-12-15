@@ -104,13 +104,26 @@ class Dossier extends Page {
       $_voucher = $dossier->dossier->towing_vouchers[0];
     }
 
+
+    switch($_voucher->status) {
+      case 'TO CHECK':
+        $vouchers = $this->dossier_service->fetchAllToBeCheckedDossiers($token);
+        break;
+      case 'READY FOR INVOICE':
+        $vouchers = $this->dossier_service->fetchAllInvoicableDossiers($token);
+        break;
+      case 'NEW':
+      default:
+        $vouchers = $this->dossier_service->fetchAllNewVouchers($token);
+    }
+
     $this->_add_content(
       $this->load->view(
         'fast_dossier/dossier',
           array(
             'dossier'                 => $dossier,
             'voucher_number'          => $voucher_number,
-            'vouchers'                => $this->dossier_service->fetchAllNewVouchers($token),
+            'vouchers'                => $vouchers,
             'traffic_posts'           => $this->dossier_service->fetchAllTrafficPostsByAllotment($dossier->dossier->allotment_id, $token),
             'insurances'              => $this->vocabulary_service->fetchAllInsurances($token),
             'collectors'              => $this->vocabulary_service->fetchAllCollectors($token),

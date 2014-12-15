@@ -216,7 +216,7 @@ $_dossier = $dossier->dossier;
           if($_is_selected || sizeof($_dossier->towing_vouchers) == 1){
             $sel = 'selected';
           }
-          print '<option value="'. $_v->voucher_number .'" '. $sel .'>'. $_v->voucher_number .'</option>';
+          print '<option value="'. $_v->voucher_number .'" '. $sel .'>'. sprintf("%s (%s)", $_v->voucher_number, $_v->status) .'</option>';
         };
       ?>
       </select>
@@ -1108,7 +1108,7 @@ $_dossier = $dossier->dossier;
 
 
 <?php
-echo "<pre>";
-var_dump($dossier);
-echo "</pre>";
+// echo "<pre>";
+// var_dump($dossier);
+// echo "</pre>";
 ?>

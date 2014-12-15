@@ -39,6 +39,11 @@ class Dossier_service extends Rest_service {
       return $this->CI->rest->get(sprintf('/dossier/list/invoice/%s', $token));
     }
 
+    public function fetchAllClosedDossiers($token)
+    {
+      return $this->CI->rest->get(sprintf('/dossier/list/done/%s', $token));
+    }
+
     public function fetchAllNewVouchers($token)
     {
       return $this->CI->rest->get(sprintf('/dossier/list/vouchers/new/%s', $token));
