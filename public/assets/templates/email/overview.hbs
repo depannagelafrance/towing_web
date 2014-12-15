@@ -1,0 +1,13 @@
+{{#each emails}}
+<div class="email-item">
+    <h2>Email {{inc @index}}</h2>
+    <div>{{subject}}</div>
+    <div>{{message}}</div>
+</div>
+{{/each}}
+
+<div class="fancybox-form__actions">
+    <div class="form-item fancybox-form__actions__save">
+        <a class="close_overlay" href="#">Sluiten</a>
+    </div>
+</div>

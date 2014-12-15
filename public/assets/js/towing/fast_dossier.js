@@ -50,6 +50,11 @@ $(document).ready(function() {
     'titleShow'		: false
   });
 
+    $('#view-email-link').fancybox({
+        'scrolling'		: 'no',
+        'titleShow'		: false
+    });
+
 
     $('#add-work-link').fancybox({
     'scrolling'		: 'no',
@@ -332,6 +337,7 @@ $(document).ready(function() {
 
 
     /******* REFACTORING JS ********/
+
     var Dossier = {};
 
     /* Document Ready */
@@ -362,13 +368,18 @@ $(document).ready(function() {
 
         getNotas().success(function(data){
             updateNotaTemplates(data);
-            console.log(data);
         });
 
         getEmails().success(function(data){
-            console.log(data);
+            updateEmailTemplates(data);
         });
 
+    });
+
+    /****** Handlebar Helpers *********/
+
+    Handlebars.registerHelper("inc", function(value, options) {
+        return parseInt(value) + 1;
     });
 
 
@@ -616,8 +627,16 @@ $(document).ready(function() {
     }
 
     function updateNotaTemplates(data) {
+        var items = {
+            notas : []
+        };
+
+        $.each( data, function( key, value ) {
+            items.notas.push(value);
+        });
+
         var template = Handlebars.Templates['nota/overview'];
-        $('#view-nota-container').html(template(data));
+        $('#view-nota-container').html(template(items));
     }
 
     $('#add-nota-form form').submit(function(event) {
@@ -627,6 +646,9 @@ $(document).ready(function() {
         formObj = serializeFormInputs(inputs);
 
         addNota(formObj).success(function(data){
+            getNotas().success(function(data){
+                updateNotaTemplates(data);
+            });
             parent.$.fancybox.close();
         });
 
@@ -657,6 +679,20 @@ $(document).ready(function() {
         });
     }
 
+    function updateEmailTemplates(data) {
+        console.log(data);
+        var items = {
+            emails : []
+        };
+
+        $.each( data, function( key, value ) {
+            items.emails.push(value);
+        });
+
+        var template = Handlebars.Templates['email/overview'];
+        $('#view-email-container').html(template(items));
+    }
+
     $('#add-email-form form').submit(function(event) {
 
         var inputs = $(this).serializeArray();
@@ -665,6 +701,9 @@ $(document).ready(function() {
         formObj = serializeFormInputs(inputs);
 
         sendEmail(formObj).success(function(data){
+            getEmails().success(function(data){
+                updateEmailTemplates(data);
+            });
             parent.$.fancybox.close();
         });
 

@@ -1,7 +1,9 @@
-    <div class="nota-item">
-        <h2>Nota 1</h2>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae volutpat lorem, ac sollicitudin lorem. Vivamus porttitor pellentesque mattis. Vestibulum et ipsum eget tortor ultricies euismod. Morbi ultricies eros mauris, eget venenatis mauris feugiat eget. Praesent turpis massa, volutpat sed faucibus vel, eleifend sed urna. Curabitur nec metus pharetra, convallis tortor et, volutpat sem. Vestibulum varius porttitor dapibus. Vivamus a erat maximus, laoreet odio sit amet, maximus lacus. Proin molestie lectus felis, et condimentum metus sollicitudin ut. Nulla euismod ultricies viverra. Nullam egestas tortor et ante laoreet suscipit. Donec sed est luctus, tristique neque ac, volutpat felis. Quisque pretium auctor tellus. Duis faucibus, lorem et hendrerit sollicitudin, arcu velit finibus elit, a condi
-    </div>
+{{#each notas}}
+<div class="nota-item">
+<h2>Nota {{inc @index}}</h2>
+<div>{{message}}</div>
+</div>
+{{/each}}
 
 <div class="fancybox-form__actions">
 <div class="form-item fancybox-form__actions__save">

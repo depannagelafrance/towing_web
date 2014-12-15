@@ -322,6 +322,34 @@ this["Handlebars"]["Templates"]["depot/info"] = Handlebars.template({"1":functio
 
 
 
-this["Handlebars"]["Templates"]["nota/overview"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-  return "    <div class=\"nota-item\">\n        <h2>Nota 1</h2>\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vitae volutpat lorem, ac sollicitudin lorem. Vivamus porttitor pellentesque mattis. Vestibulum et ipsum eget tortor ultricies euismod. Morbi ultricies eros mauris, eget venenatis mauris feugiat eget. Praesent turpis massa, volutpat sed faucibus vel, eleifend sed urna. Curabitur nec metus pharetra, convallis tortor et, volutpat sem. Vestibulum varius porttitor dapibus. Vivamus a erat maximus, laoreet odio sit amet, maximus lacus. Proin molestie lectus felis, et condimentum metus sollicitudin ut. Nulla euismod ultricies viverra. Nullam egestas tortor et ante laoreet suscipit. Donec sed est luctus, tristique neque ac, volutpat felis. Quisque pretium auctor tellus. Duis faucibus, lorem et hendrerit sollicitudin, arcu velit finibus elit, a condi\n    </div>\n\n<div class=\"fancybox-form__actions\">\n<div class=\"form-item fancybox-form__actions__save\">\n<a class=\"close_overlay\" href=\"#\">Sluiten</a>\n</div>\n</div>\n";
-  },"useData":true});
+this["Handlebars"]["Templates"]["email/overview"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
+  var helper, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, functionType="function";
+  return "<div class=\"nota-item\">\n    <h2>Email "
+    + escapeExpression(((helpers.inc || (depth0 && depth0.inc) || helperMissing).call(depth0, (data && data.index), {"name":"inc","hash":{},"data":data})))
+    + "</h2>\n    <div>"
+    + escapeExpression(((helper = (helper = helpers.subject || (depth0 != null ? depth0.subject : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"subject","hash":{},"data":data}) : helper)))
+    + "</div>\n    <div>"
+    + escapeExpression(((helper = (helper = helpers.message || (depth0 != null ? depth0.message : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"message","hash":{},"data":data}) : helper)))
+    + "</div>\n</div>\n";
+},"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+  var stack1, buffer = "";
+  stack1 = helpers.each.call(depth0, (depth0 != null ? depth0.emails : depth0), {"name":"each","hash":{},"fn":this.program(1, data),"inverse":this.noop,"data":data});
+  if (stack1 != null) { buffer += stack1; }
+  return buffer + "\n<div class=\"fancybox-form__actions\">\n    <div class=\"form-item fancybox-form__actions__save\">\n        <a class=\"close_overlay\" href=\"#\">Sluiten</a>\n    </div>\n</div>\n";
+},"useData":true});
+
+
+
+this["Handlebars"]["Templates"]["nota/overview"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
+  var helper, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, functionType="function";
+  return "<div class=\"nota-item\">\n<h2>Nota "
+    + escapeExpression(((helpers.inc || (depth0 && depth0.inc) || helperMissing).call(depth0, (data && data.index), {"name":"inc","hash":{},"data":data})))
+    + "</h2>\n<div>"
+    + escapeExpression(((helper = (helper = helpers.message || (depth0 != null ? depth0.message : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"message","hash":{},"data":data}) : helper)))
+    + "</div>\n</div>\n";
+},"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+  var stack1, buffer = "";
+  stack1 = helpers.each.call(depth0, (depth0 != null ? depth0.notas : depth0), {"name":"each","hash":{},"fn":this.program(1, data),"inverse":this.noop,"data":data});
+  if (stack1 != null) { buffer += stack1; }
+  return buffer + "\n<div class=\"fancybox-form__actions\">\n<div class=\"form-item fancybox-form__actions__save\">\n<a class=\"close_overlay\" href=\"#\">Sluiten</a>\n</div>\n</div>\n";
+},"useData":true});

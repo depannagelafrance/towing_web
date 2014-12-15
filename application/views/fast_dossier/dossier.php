@@ -232,8 +232,14 @@ $_dossier = $dossier->dossier;
 
     <div class="dossierbar__actions">
       <div class="dossierbar__action__item">
-        <div class="btn--icon">
-          <a id="add-email-link" class="icon--email" href="#add-email-form">Email</a>
+        <div class="btn--dropdown">
+          <div class="btn--dropdown--btn btn--icon">
+            <span class="icon--email">Email</span>
+          </div>
+          <ul class="btn--dropdown--drop">
+            <li><a id="add-email-link" href="#add-email-form">Email verzenden</a></li>
+            <li><a id="view-email-link" href="#view-email-container">Emails bekijken</a></li>
+          </ul>
         </div>
       </div>
       <div class="dossierbar__action__item">
@@ -1041,6 +1047,9 @@ $_dossier = $dossier->dossier;
     <?= form_close(); ?>
   </div>
 
+  <div id="view-email-container"></div>
+  <!-- END EMAIL -->
+
   <!-- NOTA -->
   <div id="add-nota-form" style="display: none;">
     <?php
@@ -1079,10 +1088,7 @@ $_dossier = $dossier->dossier;
     <?= form_close(); ?>
   </div>
 
-  <div id="view-nota-container">
-
-
-  </div>
+  <div id="view-nota-container"></div>
 
   <!--END NOTA-->
 
