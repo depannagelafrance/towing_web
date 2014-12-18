@@ -8,7 +8,7 @@ if($errors) {
 ?>
 
 <div class="box unpadded dsform admin_form">
-    <table class="timeframes">
+    <table>
         <thead>
             <tr>
                 <th rowspan="2">Type activiteit</th>

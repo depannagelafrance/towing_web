@@ -28,9 +28,16 @@ class Search extends Page {
 
     if(count($dossiers) == 1)
     {
-      $dossier = array_pop($dossiers);
+      if(!is_array($dossiers) || array_key_exists('statusCode', $dossiers))
+      {
+          $this->_displaySearchResults(array());
+      }
+      else
+      {
+        $dossier = array_pop($dossiers);
 
-      redirect(sprintf("/fast_dossier/dossier/%s/%s", $dossier->dossier_number, $dossier->voucher_number));
+        redirect(sprintf("/fast_dossier/dossier/%s/%s", $dossier->dossier_number, $dossier->voucher_number));
+      }
     }
     else
     {
@@ -44,7 +51,12 @@ class Search extends Page {
    */
   public function voucher()
   {
-    $dossiers = $this->dossier_service->searchTowingVoucherByNumber($this->input->post('searchVoucherNumber'), $this->_get_user_token());
+    $dossiers = array();
+
+    if($this->input->post('searchVoucherNumber') && trim($this->input->post('searchVoucherNumber')) != '')
+    {
+      $dossiers = $this->dossier_service->searchTowingVoucherByNumber($this->input->post('searchVoucherNumber'), $this->_get_user_token());
+    }
 
     if(count($dossiers) == 1)
     {
@@ -60,14 +72,11 @@ class Search extends Page {
 
   private function _displaySearchResults($results)
   {
+    $data = $this->input->post();
+    $data['vouchers'] = $results;
+
     $this->_add_content(
-      $this->load->view(
-        'fast_dossier/search_results',
-        array(
-          'vouchers' => $results
-        ),
-        true
-      )
+      $this->load->view('fast_dossier/search_results',$data,true)
     );
 
     $this->_render_page();

@@ -51,7 +51,12 @@
       </div>
         <div class="l-main-search">
             <form method="post" action="/fast_dossier/search/voucher">
-                <input type="text" value="" name="searchVoucherNumber" placeholder="Takelbon zoeken" />
+                <table>
+									<tr>
+										<td><input type="text" value="" name="searchVoucherNumber" placeholder="Takelbon zoeken" /></td>
+										<td><a href="/fast_dossier/search"><i class="fa fa-search-plus fa-border fa-2x"></i></a></td>
+									</tr>
+								</table>
             </form>
         </div>
         <div class="l-user-navigation">
