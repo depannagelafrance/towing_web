@@ -24,11 +24,6 @@ class Dossier_service extends Rest_service {
       return $this->CI->rest->get(sprintf('/dossier/list/new/%s', $token));
     }
 
-    public function fetchAllCompletedDossiers($token)
-    {
-      return $this->CI->rest->get(sprintf('/dossier/list/completed/%s', $token));
-    }
-
     public function fetchAllToBeCheckedDossiers($token)
     {
       return $this->CI->rest->get(sprintf('/dossier/list/check/%s', $token));
@@ -259,7 +254,7 @@ class Dossier_service extends Rest_service {
               sprintf('/search/%s', $token),
               json_encode(array(
                 "call_number"   => $call_number,
-                "date"          => $call_date,
+                "call_date"     => $call_date,
                 "type"          => $type,
                 "licence_plate" => $licence_plate,
                 "name"          => $name

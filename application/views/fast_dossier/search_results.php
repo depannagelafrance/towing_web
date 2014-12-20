@@ -1,3 +1,15 @@
+<div>
+  <form method="post" action="/fast_dossier/search">
+    <input type="text" value="<?php print isset($call_number) ? $call_number : '' ?>" name="call_number" placeholder="Oproepnummer" />
+    <input type="text" value="<?php print isset($call_date) ? $call_date : '' ?>" name="call_date" placeholder="Datum oproep" />
+    <input type="text" value="<?php print isset($type) ? $type : '' ?>" name="type" placeholder="Type voertuig" />
+    <input type="text" value="<?php print isset($licence_plate) ? $licence_plate : '' ?>" name="licence_plate" placeholder="Nummerplaat" />
+    <input type="text" value="<?php print isset($customer_name) ? $customer_name : '' ?>" name="customer_name" placeholder"Naam klant" />
+    <input type="submit" value="Zoeken" name="btnSearch" />
+  </form>
+</div>
+
+
 <div class="box table_list table_list_large">
   <?php
 
