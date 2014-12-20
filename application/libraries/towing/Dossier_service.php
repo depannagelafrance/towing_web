@@ -129,7 +129,7 @@ class Dossier_service extends Rest_service {
     public function addActivitiesToVoucher($dossier_id, $voucher_id, $activities, $token)
     {
       return $this->CI->rest->put(
-                sprintf('/voucher/activities/%s/%s/%s', $dossier_id, $voucher_id, $token),
+                sprintf('/dossier/voucher/activities/%s/%s/%s', $dossier_id, $voucher_id, $token),
                 json_encode(array("activities" => $activities)),
                 'application/json'
       );
