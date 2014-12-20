@@ -32,19 +32,12 @@
 .work-container__task,
 .work-container__task__label{
   float: left;
-  width: 50%;
+  width: 38%;
   margin-right: 1%;
 }
 
 .work-container__number,
 .work-container__number__label{
-  float: left;
-  width: 10%;
-  margin-right: 1%;
-}
-
-.work-container__unitprice,
-.work-container__unitprice__label{
   float: left;
   width: 10%;
   margin-right: 1%;
@@ -59,6 +52,20 @@
 
 .work-container__incl,
 .work-container__incl__label{
+  float: left;
+  width: 10%;
+  margin-right: 1%;
+}
+
+.work-container__tot__excl,
+.work-container__tot__excl__label{
+  float: left;
+  width: 10%;
+  margin-right: 1%;
+}
+
+.work-container__tot__incl,
+.work-container__tot__incl__label{
   float: left;
   width: 10%;
   margin-right: 1%;

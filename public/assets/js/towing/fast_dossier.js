@@ -96,6 +96,16 @@ $(document).ready(function() {
         return parseInt(value) + 1;
     });
 
+    Handlebars.registerHelper('equal', function(lvalue, rvalue, options) {
+        if (arguments.length < 3)
+            throw new Error("Handlebars Helper equal needs 2 parameters");
+        if( lvalue!=rvalue ) {
+            return options.inverse(this);
+        } else {
+            return options.fn(this);
+        }
+    });
+
     /****** END HANDLEBAR HELPERS  *********/
 
 
@@ -130,17 +140,16 @@ $(document).ready(function() {
         return formObj;
     }
 
-    function serializeFormCheckboxes(inputs, int){
-        int = int || false;
-        var formObj = {};
+    function serializeActivityCheckboxes(inputs){
+        var formArr = [];
+        var activityObj = {};
         $.each(inputs, function (i, input) {
-            if(int){
-                formObj[i] = parseInt(input.value);
-            }else{
-                formObj[i] = input.value;
-            }
+            var values = input.value.split("|");
+            activityObj.activity_id = parseInt(values[0]);
+            activityObj.amount = parseInt(values[1]);
+            formArr[i] = activityObj;
         });
-        return formObj;
+        return formArr;
     }
     /****** END HELPERS *********/
 
@@ -339,7 +348,6 @@ $(document).ready(function() {
         }else{
             if(Dossier.btnClicked == 'btnDepotSave'){
                 setDepot(formObj).success(function(data){
-                    console.log(data);
                     if(data.id){
                         updateDepotTemplates(data);
                         updateDepotForm(data);
@@ -591,10 +599,11 @@ $(document).ready(function() {
         var inputs = $(this).serializeArray();
 
         var formObj = {};
-        formObj = serializeFormCheckboxes(inputs, true);
+        formObj = serializeActivityCheckboxes(inputs);
 
         addActivities(formObj).success(function(data){
             parent.$.fancybox.close();
+            console.log(data);
 
             getActivities().success(function(data) {
                 updateActivityTemplates(data);
