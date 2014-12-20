@@ -1,7 +1,7 @@
 {{#each activities}}
 <div class="form-item-checkbox">
-<input type="checkbox" name="activity" value="{{id}}" data-id="{{id}}"  data-label="{{name}}" data-code="{{code}}" data-incl="{{fee_incl_vat}}" data-excl="{{fee_excl_vat}}" data-number-locked="{{locked}}">
-<labe>{{name}}</label>
+<input type="checkbox" name="activity" value="{{id}}|{{default_value}}" data-default="{{default_value}}" data-id="{{id}}"  data-label="{{name}}" data-code="{{code}}" data-incl="{{fee_incl_vat}}" data-excl="{{fee_excl_vat}}" data-number-locked="{{is_modifiable}}">
+<label>{{name}}</label>
 </div>
 {{/each}}
 
