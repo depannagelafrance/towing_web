@@ -21,7 +21,11 @@
 
   <script type="application/javascript">
     $(document).ready(function() {
-      $('select').chosen();
+      $('select').chosen({
+        'no_results_text' : 'Geen resultaten gevonden',
+        'placeholder_text_multiple' : 'Selecteer alle opties',
+        'placeholder_text_single' : 'Selecteer een optie'
+      });
     });
   </script>
 

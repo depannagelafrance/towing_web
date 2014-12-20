@@ -101,21 +101,22 @@ if($errors) {
         <div class="form-item-horizontal">
             <label>Rijstrook:</label>
 
-            <div class="licenseplate-container">
-              <table>
+            <div class="trafficlane-container">
             <?php
+              $data = array();
+              $traffic_selected = array();
+            
               foreach($traffic_lanes as $_traffic_lane)
               {
-                $data = array(
-                  'name'        => 'traffic_lane_id[]',
-                  'value'       => $_traffic_lane->id,
-                  'checked'     => $_traffic_lane->selected,
-                );
-
-                printf("<tr><td>%s</td><td>%s</td></tr>", form_checkbox($data), $_traffic_lane->name);
+                $data[$_traffic_lane->id] = $_traffic_lane->name;
+                  if($_traffic_lane->selected == 1){
+                      array_push($traffic_selected, $_traffic_lane->id);
+                  }
               }
+
+              print form_multiselect('traffic_lanes', $data, $traffic_selected);
+
             ?>
-              </table>
             </div>
         </div>
 
