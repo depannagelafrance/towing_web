@@ -73,6 +73,8 @@ class Company extends Page {
             $resultCompany = $this->admin_service->updateCompany($company_model, $this->_get_user_token());
             $resultDepot   = $this->admin_service->updateCompanyDepot($depot_model, $this->_get_user_token());
 
+            var_dump($resultCompany);
+            die();
 
             $this->session->set_flashdata('_INFO_MSG', "De gegevens werden aangepast");
 
