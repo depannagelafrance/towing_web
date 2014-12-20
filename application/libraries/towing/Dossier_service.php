@@ -126,7 +126,7 @@ class Dossier_service extends Rest_service {
       );
     }
 
-    //@Kris Provide service
+    //@Kris TODO Provide service
     public function addActivitiesToVoucher($voucher_id, $activities, $token){
         return 'test';
     }

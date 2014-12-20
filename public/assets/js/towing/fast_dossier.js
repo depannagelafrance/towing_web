@@ -689,8 +689,7 @@ $(document).ready(function() {
     /******* END CAUSER ********/
 
 
-    /*******  CAUSER ********/
-
+    /*******  TRAFFIC POST ********/
 
     function requestTrafficPostSignature(){
         var url = prepareAjaxUrl('/fast_dossier/ajax/requesttrafficpostsignature');
@@ -711,6 +710,6 @@ $(document).ready(function() {
     });
 
 
-    /******* END CAUSER ********/
+    /******* END TRAFFIC POST ********/
 
 });
