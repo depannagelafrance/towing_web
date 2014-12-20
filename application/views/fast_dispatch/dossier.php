@@ -114,7 +114,8 @@ if($errors) {
                   }
               }
 
-              print form_multiselect('traffic_lanes', $data, $traffic_selected);
+              //traffic_lane_id is used in the post in the controller, is mapped to traffic_lanes in the service
+              print form_multiselect('traffic_lane_id', $data, $traffic_selected);
 
             ?>
             </div>
