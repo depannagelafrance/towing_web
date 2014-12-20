@@ -13,10 +13,10 @@
 {{/equal}}
 </div>
 <div class="form-item-vertical work-container__excl">
-<input type="text" name="cal_fee_excl_vat[]" value="{{fee_excl_vat}}" readonly="readonly" style="background: #F0F0F0">
+<input type="text" name="cal_fee_excl_vat[]" value="{{formatNumber fee_excl_vat}}" readonly="readonly" style="background: #F0F0F0">
 </div>
 <div class="form-item-vertical work-container__incl">
-<input type="text" name="fee_incl_vat[]" value="{{fee_incl_vat}}" readonly="readonly" style="background: #F0F0F0">
+<input type="text" name="fee_incl_vat[]" value="{{formatNumber fee_incl_vat}}" readonly="readonly" style="background: #F0F0F0">
 </div>
 <div class="form-item-vertical work-container__tot__excl">
 <input type="text" name="cal_fee_incl_vat[]" value="{{math amount '*' fee_excl_vat}}" readonly="readonly" style="background: #F0F0F0">

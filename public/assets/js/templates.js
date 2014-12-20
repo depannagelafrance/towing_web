@@ -18,9 +18,9 @@ this["Handlebars"]["Templates"]["activity/activitylist"] = Handlebars.template({
   stack1 = ((helpers.equal || (depth0 && depth0.equal) || helperMissing).call(depth0, (depth0 != null ? depth0.is_modifiable : depth0), 0, {"name":"equal","hash":{},"fn":this.program(4, data),"inverse":this.noop,"data":data}));
   if (stack1 != null) { buffer += stack1; }
   return buffer + "</div>\n<div class=\"form-item-vertical work-container__excl\">\n<input type=\"text\" name=\"cal_fee_excl_vat[]\" value=\""
-    + escapeExpression(((helper = (helper = helpers.fee_excl_vat || (depth0 != null ? depth0.fee_excl_vat : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"fee_excl_vat","hash":{},"data":data}) : helper)))
+    + escapeExpression(((helpers.formatNumber || (depth0 && depth0.formatNumber) || helperMissing).call(depth0, (depth0 != null ? depth0.fee_excl_vat : depth0), {"name":"formatNumber","hash":{},"data":data})))
     + "\" readonly=\"readonly\" style=\"background: #F0F0F0\">\n</div>\n<div class=\"form-item-vertical work-container__incl\">\n<input type=\"text\" name=\"fee_incl_vat[]\" value=\""
-    + escapeExpression(((helper = (helper = helpers.fee_incl_vat || (depth0 != null ? depth0.fee_incl_vat : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"fee_incl_vat","hash":{},"data":data}) : helper)))
+    + escapeExpression(((helpers.formatNumber || (depth0 && depth0.formatNumber) || helperMissing).call(depth0, (depth0 != null ? depth0.fee_incl_vat : depth0), {"name":"formatNumber","hash":{},"data":data})))
     + "\" readonly=\"readonly\" style=\"background: #F0F0F0\">\n</div>\n<div class=\"form-item-vertical work-container__tot__excl\">\n<input type=\"text\" name=\"cal_fee_incl_vat[]\" value=\""
     + escapeExpression(((helpers.math || (depth0 && depth0.math) || helperMissing).call(depth0, (depth0 != null ? depth0.amount : depth0), "*", (depth0 != null ? depth0.fee_excl_vat : depth0), {"name":"math","hash":{},"data":data})))
     + "\" readonly=\"readonly\" style=\"background: #F0F0F0\">\n</div>\n<div class=\"form-item-vertical work-container__tot__incl\">\n<input type=\"text\" name=\"cal_fee_incl_vat[]\" value=\""

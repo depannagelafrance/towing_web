@@ -111,13 +111,18 @@ $(document).ready(function() {
         rvalue = parseFloat(rvalue);
 
         return {
-            "+": lvalue + rvalue,
-            "-": lvalue - rvalue,
-            "*": lvalue * rvalue,
-            "/": lvalue / rvalue,
-            "%": lvalue % rvalue
+            "+": (lvalue + rvalue).toFixed(2),
+            "-": (lvalue - rvalue).toFixed(2),
+            "*": (lvalue * rvalue).toFixed(2),
+            "/": (lvalue / rvalue).toFixed(2),
+            "%": (lvalue % rvalue).toFixed(2)
         }[operator];
     });
+
+    Handlebars.registerHelper('formatNumber', function(value) {
+        return value.toFixed(2);
+    });
+
 
 
     /****** END HANDLEBAR HELPERS  *********/
@@ -540,10 +545,19 @@ $(document).ready(function() {
 
     function updateActivityTotalPrice(){
         var total = 0;
-        $('.work-container__incl input').each(function() {
-            total += parseFloat($(this).val());
-        });
-        $('#payment_total input').val(total.toFixed(2));
+        var btw_from_belgium = true;
+        if(btw_from_belgium){
+            $('.work-container__tot__incl input').each(function() {
+                total += parseFloat($(this).val());
+            });
+            $('#payment_total input').val(total.toFixed(2));
+        }else{
+            $('.work-container__tot__excl input').each(function() {
+                total += parseFloat($(this).val());
+            });
+            $('#payment_total input').val(total.toFixed(2));
+        }
+
     }
 
     function recalcuteActivityPrice(){
@@ -581,16 +595,21 @@ $(document).ready(function() {
     }
 
     function updateActivityForm(data){
-        var items = {
-            activities : []
-        };
+        if(data.length > 0){
+            var items = {
+                activities : []
+            };
 
-        $.each( data, function( key, value ) {
-            items.activities.push(value);
-        });
+            $.each( data, function( key, value ) {
+                items.activities.push(value);
+            });
 
-        var template = Handlebars.Templates['activity/checkboxes'];
-        $('#add-work-form-ajaxloaded-content').html(template(items));
+            var template = Handlebars.Templates['activity/checkboxes'];
+            $('#add-work-form-ajaxloaded-content').html(template(items));
+        }else{
+            $('#add-work-form-ajaxloaded-content').html('Alle mogelijke activiteiten zijn toegevoegd');
+        }
+
     }
 
     //REMOVE
@@ -598,11 +617,9 @@ $(document).ready(function() {
         var aid = $(this).data('id');
 
         removeActivity(aid).success(function(data){
-            getActivities().success(function(data){
-                updateActivityTemplates(data);
-                updateActivityTotalPrice();
-                recalcuteActivityPrice();
-            });
+            updateActivityTemplates(data);
+            updateActivityTotalPrice();
+            recalcuteActivityPrice();
         });
 
         return false;
@@ -610,21 +627,20 @@ $(document).ready(function() {
 
 
     $('#add-activity-form form').submit(function(event) {
-        console.log('test');
         var inputs = $(this).serializeArray();
 
         var formObj = {};
         formObj = serializeActivityCheckboxes(inputs);
 
         addActivities(formObj).success(function(data){
-            console.log(data);
-            parent.$.fancybox.close();
-
-            getActivities().success(function(data) {
                 updateActivityTemplates(data);
                 updateActivityTotalPrice();
                 recalcuteActivityPrice();
-            });
+                parent.$.fancybox.close();
+
+                getAvailableActivities().success(function(available){
+                    updateActivityForm(available);
+                });
         });
 
         event.preventDefault();
@@ -648,8 +664,8 @@ $(document).ready(function() {
             new_excl = (unit_excl * number).toFixed(2);
         }
 
-        $(this).parents('.work-container__field').find('.work-container__incl').find('input').val(new_incl);
-        $(this).parents('.work-container__field').find('.work-container__excl').find('input').val(new_excl);
+        $(this).parents('.work-container__field').find('.work-container__tot__incl').find('input').val(new_incl);
+        $(this).parents('.work-container__field').find('.work-container__tot__excl').find('input').val(new_excl);
 
         updateActivityTotalPrice();
         recalcuteActivityPrice();
