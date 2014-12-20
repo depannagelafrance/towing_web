@@ -3,7 +3,7 @@ this["Handlebars"]["Templates"] = this["Handlebars"]["Templates"] || {};
 
 this["Handlebars"]["Templates"]["activity/activitylist"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
   var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "<div class=\"work-container__field\" data-id=\""
-    + escapeExpression(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"id","hash":{},"data":data}) : helper)))
+    + escapeExpression(((helper = (helper = helpers.activity_id || (depth0 != null ? depth0.activity_id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"activity_id","hash":{},"data":data}) : helper)))
     + "\" data-incl=\""
     + escapeExpression(((helper = (helper = helpers.fee_incl_vat || (depth0 != null ? depth0.fee_incl_vat : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"fee_incl_vat","hash":{},"data":data}) : helper)))
     + "\" data-excl=\""
@@ -11,7 +11,7 @@ this["Handlebars"]["Templates"]["activity/activitylist"] = Handlebars.template({
     + "\">\n<div class=\"form-item-vertical work-container__task\">\n<input type=\"text\" name=\"name[]\" value=\""
     + escapeExpression(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"name","hash":{},"data":data}) : helper)))
     + "\" readonly=\"readonly\" style=\"background: #F0F0F0\">\n<input type=\"hidden\" name=\"activity_id[]\" value=\""
-    + escapeExpression(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"id","hash":{},"data":data}) : helper)))
+    + escapeExpression(((helper = (helper = helpers.activity_id || (depth0 != null ? depth0.activity_id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"activity_id","hash":{},"data":data}) : helper)))
     + "\">\n</div>\n<div class=\"form-item-vertical work-container__number\">\n";
   stack1 = ((helpers.equal || (depth0 && depth0.equal) || helperMissing).call(depth0, (depth0 != null ? depth0.is_modifiable : depth0), 1, {"name":"equal","hash":{},"fn":this.program(2, data),"inverse":this.noop,"data":data}));
   if (stack1 != null) { buffer += stack1; }
@@ -26,7 +26,7 @@ this["Handlebars"]["Templates"]["activity/activitylist"] = Handlebars.template({
     + "\" readonly=\"readonly\" style=\"background: #F0F0F0\">\n</div>\n<div class=\"form-item-vertical work-container__tot__incl\">\n<input type=\"text\" name=\"cal_fee_incl_vat[]\" value=\""
     + escapeExpression(((helpers.math || (depth0 && depth0.math) || helperMissing).call(depth0, (depth0 != null ? depth0.amount : depth0), "*", (depth0 != null ? depth0.fee_incl_vat : depth0), {"name":"math","hash":{},"data":data})))
     + "\" readonly=\"readonly\" style=\"background: #F0F0F0\">\n</div>\n<div class=\"form-item-vertical work-container__remove\" data-id=\""
-    + escapeExpression(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"id","hash":{},"data":data}) : helper)))
+    + escapeExpression(((helper = (helper = helpers.activity_id || (depth0 != null ? depth0.activity_id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"activity_id","hash":{},"data":data}) : helper)))
     + "\">\n<div class=\"work-container__remove__btn\">\n<div class=\"btn--icon--small\">\n<a class=\"icon--remove--small\" href=\"#\">Remove</a>\n</div>\n</div>\n</div>\n</div>\n";
 },"2":function(depth0,helpers,partials,data) {
   var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;

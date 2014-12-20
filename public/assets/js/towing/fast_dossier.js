@@ -161,9 +161,11 @@ $(document).ready(function() {
 
     function serializeActivityCheckboxes(inputs){
         var formArr = [];
-        var activityObj = {};
+
         $.each(inputs, function (i, input) {
-            var values = input.value.split("|");
+            var activityObj = {};
+            var values = [];
+            values = input.value.split("|");
             activityObj.activity_id = parseInt(values[0]);
             activityObj.amount = parseInt(values[1]);
             formArr[i] = activityObj;
@@ -614,12 +616,16 @@ $(document).ready(function() {
 
     //REMOVE
     $(document).on('click','.work-container__remove', function(){
-        var aid = $(this).data('id');
+        var aid =$(this).data('id');
 
         removeActivity(aid).success(function(data){
             updateActivityTemplates(data);
             updateActivityTotalPrice();
             recalcuteActivityPrice();
+
+            getAvailableActivities().success(function(available){
+                updateActivityForm(available);
+            });
         });
 
         return false;
@@ -628,11 +634,11 @@ $(document).ready(function() {
 
     $('#add-activity-form form').submit(function(event) {
         var inputs = $(this).serializeArray();
-
         var formObj = {};
         formObj = serializeActivityCheckboxes(inputs);
 
         addActivities(formObj).success(function(data){
+            console.log(data);
                 updateActivityTemplates(data);
                 updateActivityTotalPrice();
                 recalcuteActivityPrice();

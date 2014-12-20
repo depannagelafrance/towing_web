@@ -94,6 +94,9 @@ class Ajax extends AjaxPage
 
   public function removeActivityFromVoucher($voucher_id, $activity_id)
   {
+
+    $activity_id = intval ($activity_id);
+
     $this->_sendJson(
       $this->dossier_service->removeActivityFromVoucher(
         $voucher_id,
