@@ -215,8 +215,8 @@ $_dossier = $dossier->dossier;
             <span class="icon--attachement">Bijlage</span>
           </div>
           <ul class="btn--dropdown--drop">
-            <li><a>Bijlage Toevoegen</a></li>
-            <li><a>Bijlages bekijken (X)</a></li>
+            <li><a id="add-attachment-link" href="#add-attachment-form">Bijlage Toevoegen</a></li>
+            <li><a id="view-attachment-link" href="#view-attachment-container">Bijlages bekijken</a></li>
           </ul>
         </div>
       </div>
@@ -1014,6 +1014,49 @@ $_dossier = $dossier->dossier;
     </div>
     <?= form_close(); ?>
   </div>
+
+  <!-- END WORK -->
+
+  <!-- ATTACHEMENT -->
+  <div id="add-attachment-form" style="display: none;">
+    <?php
+    print form_open_multipart('','','');
+
+    ?>
+    <div class="fancybox-form">
+      <h3>Bijlage toevoegen</h3>
+      <div class="form-item-horizontal">
+        <label>Bijlage:</label>
+        <input id="fileupload" type="file" name="attachment"/>
+      </div>
+
+    </div>
+    <div class="fancybox-form__actions">
+      <div class="form-item fancybox-form__actions__cancel">
+        <a class="close_overlay" href="#">Annuleren</a>
+      </div>
+
+      <div class="form-item fancybox-form__actions__save">
+        <input type="submit" value="Bewaren" name="btnAttachmentSave" />
+      </div>
+    </div>
+    <?= form_close(); ?>
+  </div>
+
+  <div id="view-attachment-container" style="display: none;">
+    <div class="attachments">
+      <!-- NOTAS LOADED BY JS -->
+    </div>
+    <div class="fancybox-form__actions">
+      <div class="form-item fancybox-form__actions__save">
+        <a class="close_overlay" href="#">Sluiten</a>
+      </div>
+    </div>
+  </div>
+
+  <!--END NOTA-->
+
+
 </div>
 
 

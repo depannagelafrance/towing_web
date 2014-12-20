@@ -18,6 +18,7 @@
     <script src="/public/bower_components/handlebars/handlebars.min.js"></script>
     <script src="/public/bower_components/chosen/chosen.jquery.min.js"></script>
   <script src="/public/bower_components/fancyBox/source/jquery.fancybox.pack.js"></script>
+
   <script type="application/javascript">
     $(document).ready(function() {
       $('select').chosen();

@@ -280,5 +280,20 @@ class Dossier_service extends Rest_service {
     return $result;
   }
 
+    public function fetchAllAttachments($dossier_id, $voucher_id, $token)
+    {
+        $files = array();
+        $file = new stdClass();
+        $file->name = 'test.png';
+        $file->url = 'http://www.google.com';
+        $files[] = $file;
+        return $files;
+    }
+
+    public function addAttachment($dossier_id, $voucher_id, $file, $token)
+    {
+        return 'test';
+    }
+
 
 }

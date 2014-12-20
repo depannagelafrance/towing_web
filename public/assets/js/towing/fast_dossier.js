@@ -56,6 +56,8 @@ $(document).ready(function() {
     initFancyBox('#view-nota-link');
     initFancyBox('#view-email-link');
     initFancyBox('#add-activity-link');
+    initFancyBox('#add-attachment-link');
+    initFancyBox('#view-attachment-link');
 
     getCauser().success(function(data){
         updateCauserTemplates(data);
@@ -87,6 +89,9 @@ $(document).ready(function() {
         updateActivityForm(data);
     });
 
+    getAttachement().success(function(data){
+        updateAttachementTemplates(data);
+    });
 
 
 
@@ -498,6 +503,63 @@ $(document).ready(function() {
 
     /*******  END EMAIL *******/
 
+    /*******  ATTACHEMENT *******/
+
+    function addAttachement(formObj){
+        var url = '/fast_dossier/ajax/addemailcommunication';
+
+        return $.ajax({
+            type		: "POST",
+            cache	: false,
+            url		: url,
+            data		: {'file' : formObj},
+            enctype: 'multipart/form-data',
+            processData: false,  // tell jQuery not to process the data
+            contentType: false   // tell jQuery not to set contentType
+
+        });
+    }
+
+    function getAttachement(){
+        var url = prepareAjaxUrl('/fast_dossier/ajax/getAttachments');
+        return $.ajax({
+            type		: "POST",
+            cache	: false,
+            url		: url,
+            data		: {}
+        });
+    }
+
+    function updateAttachementTemplates(data) {
+        var items = {
+            attachments : []
+        };
+
+        $.each( data, function( key, value ) {
+            items.attachments.push(value);
+        });
+
+        var template = Handlebars.Templates['attachment/overview'];
+        $('#view-attachment-container .attachments').html(template(items));
+    }
+
+    $('#add-attachement-form form').submit(function(event) {
+
+        var inputs = $(this).serializeArray();
+
+        var formObj = {};
+        formObj = serializeFormInputs(inputs);
+
+        formObj = {};
+
+        addAttachement(formObj).success(function(data){
+
+        });
+        event.preventDefault();
+    });
+
+    /*******  END EMAIL *******/
+
 
 
 
@@ -638,7 +700,6 @@ $(document).ready(function() {
         formObj = serializeActivityCheckboxes(inputs);
 
         addActivities(formObj).success(function(data){
-            console.log(data);
                 updateActivityTemplates(data);
                 updateActivityTotalPrice();
                 recalcuteActivityPrice();

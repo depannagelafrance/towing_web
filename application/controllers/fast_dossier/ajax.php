@@ -182,4 +182,24 @@ class Ajax extends AjaxPage
     $this->_sendJson($result);
   }
 
+
+  public function addAttachment($dossier_id, $voucher_id)
+  {
+    $token = $this->_get_user_token();
+    $file = new File_model($this->input->post('file'));
+
+    $result = $this->dossier_service->addAttachment($dossier_id, $voucher_id, $file, $token);
+
+    $this->_sendJson($result);
+  }
+
+  public function getAttachments($dossier_id, $voucher_id)
+  {
+    $token = $this->_get_user_token();
+
+    $result = $this->dossier_service->fetchAllAttachments($dossier_id, $voucher_id, $token);
+
+    $this->_sendJson($result);
+  }
+
 }

@@ -7,7 +7,7 @@
 /* Import Components */
 @import "components/**/*";
 
-.nota-item, .email-item{
+.nota-item, .email-item, .attachment-item{
   padding: 25px;
   border-top: 1px solid #EEE;
   margin-top: 15px;
@@ -38,7 +38,8 @@
 }
 
 #view-nota-container,
-#view-email-container{
+#view-email-container,
+#view-attachment-container{
   overflow: scroll;
   max-height: 400px;
 }
