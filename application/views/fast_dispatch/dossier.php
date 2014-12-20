@@ -105,7 +105,7 @@ if($errors) {
             <?php
               $data = array();
               $traffic_selected = array();
-            
+
               foreach($traffic_lanes as $_traffic_lane)
               {
                 $data[$_traffic_lane->id] = $_traffic_lane->name;
