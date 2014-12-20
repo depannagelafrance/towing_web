@@ -602,8 +602,8 @@ $(document).ready(function() {
         formObj = serializeActivityCheckboxes(inputs);
 
         addActivities(formObj).success(function(data){
-            parent.$.fancybox.close();
             console.log(data);
+            parent.$.fancybox.close();
 
             getActivities().success(function(data) {
                 updateActivityTemplates(data);

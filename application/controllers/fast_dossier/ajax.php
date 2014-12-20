@@ -110,7 +110,7 @@ class Ajax extends AjaxPage
     //array of ids
     $activities = $this->input->post('activities');
 
-    $result = $this->dossier_service->addActivitiesToVoucher($voucher_id, $activities, $token);
+    $result = $this->dossier_service->addActivitiesToVoucher($dossier_id, $voucher_id, $activities, $token);
     $this->_sendJson($result);
   }
 
