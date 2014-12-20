@@ -1,12 +1,10 @@
 {{#each notas}}
 <div class="nota-item">
 <h2>Nota {{inc @index}}</h2>
-<div>{{message}}</div>
+<div class="nota-item-content">
+<div class="nota-item-message">
+{{message}}
+</div>
+</div>
 </div>
 {{/each}}
-
-<div class="fancybox-form__actions">
-<div class="form-item fancybox-form__actions__save">
-<a class="close_overlay" href="#">Sluiten</a>
-</div>
-</div>

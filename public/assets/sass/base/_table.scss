@@ -136,6 +136,7 @@ table{
     text-indent: 15px;
   }
 }
+/*
 .table_list_small{
   background: none !important;
   border: none !important;
@@ -151,7 +152,7 @@ table{
       position: relative;
       padding-top: 110px;
       overflow: scroll;
-      height: 500px;
+      max-height: 650px;
     }
 
     tbody,tbody tr, tbody tr td{
@@ -298,6 +299,7 @@ table{
 
   }
 }
+*/
 
 table a{
   text-decoration: none;

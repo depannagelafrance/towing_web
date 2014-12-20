@@ -26,7 +26,6 @@ class Dossier extends Page {
   public function view($dossier_number, $voucher_number = null)
   {
     $token = $this->_get_user_token();
-
     //a dossier might be set in the cached data when an update occured. So no need to refetch.
     $dossier = $this->_pop_Dossier_cache();
 
@@ -82,6 +81,8 @@ class Dossier extends Page {
       $this->_cache_Dossier($dossier);
 
       $voucher = end($dossier->dossier->towing_vouchers)->voucher_number;
+
+
       //redirect to the view
       redirect(sprintf("/fast_dossier/dossier/%s/%s", $dossier->dossier->dossier_number, $voucher));
     }

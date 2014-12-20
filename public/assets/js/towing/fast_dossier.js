@@ -1,3 +1,4 @@
+/*
 $('#list_direction').change(function(){
   var id = $('#list_direction option:selected').val();
 
@@ -17,373 +18,97 @@ $('#list_direction').change(function(){
     }
   );
 });
+*/
 
 $(document).ready(function() {
-
-  $('#edit-depot-link').fancybox({
-    'scrolling'		: 'no',
-    'titleShow'		: false,
-  });
-
-  $('#edit-invoice-data-link').fancybox({
-    'scrolling'		: 'no',
-    'titleShow'		: false
-  });
-
-  $('#edit-nuisance-data-link').fancybox({
-    'scrolling'		: 'no',
-    'titleShow'		: false
-  });
-
-  $('#add-email-link').fancybox({
-    'scrolling'		: 'no',
-    'titleShow'		: false
-  });
-
-  $('#add-nota-link').fancybox({
-    'scrolling'		: 'no',
-    'titleShow'		: false
-  });
-
-  $('#view-nota-link').fancybox({
-    'scrolling'		: 'no',
-    'titleShow'		: false
-  });
-
-    $('#view-email-link').fancybox({
-        'scrolling'		: 'no',
-        'titleShow'		: false
-    });
-
-
-    $('#add-work-link').fancybox({
-    'scrolling'		: 'no',
-    'titleShow'		: false,
-    'beforeLoad' : function (){
-
-          var did = $('#add-work-link').data('did');
-          var vid = $('#add-work-link').data('vid');
-
-          $.ajax({
-              type		: "POST",
-              cache	: false,
-              url		: "/fast_dossier/ajax/availableActivities/" + did + '/' + vid,
-              success: function(data) {
-                 var form = '';
-                 var attr = '';
-
-                  $.each(data, function( key, value ) {
-                    value.locked = 0;
-                    attr += 'data-id="'+ value.id +'" data-label="'+ value.name +'" data-code="'+ value.code +'" data-incl="'+ value.fee_incl_vat +'" data-excl="'+ value.fee_excl_vat +'" data-number-locked="'+ value.locked +'"';
-                    form += '<div class="form-item-checkbox">';
-                    form += '<input type="checkbox" name="activity" value="'+ value.id +'" '+ attr +' >';
-                    form += '<label>'+ value.name +'</label>';
-                    form += '</div>';
-                    attr = '';
-                  });
-
-                 $('#add-work-form-ajaxloaded-content').html(form);
-
-              }
-          });
-      }
-  });
-
-  $('.close_overlay').on('click', function(){
-    parent.$.fancybox.close();
-    return false;
-  });
-
-        //NOTA
-    /*
-  $('#add-nota-form form').bind('submit', function() {
-
-    var did = $(this).data('did');
-    var vid = $(this).data('vid');
-
-    var formObj = {};
-    var inputs = $(this).serializeArray();
-    $.each(inputs, function (i, input) {
-      formObj[input.name] = input.value;
-    });
-
-    formObj['dossier_id'] = did;
-    formObj['voucher_id'] = vid;
-
-    $.ajax({
-      type		: "POST",
-      cache	: false,
-      url		: "/fast_dossier/ajax/addinternalcommunication",
-      data		: {'communication' : formObj},
-      success: function(data) {
-        if(data.result == 'OK'){
-          parent.$.fancybox.close();
-        }else{
-          $('#add-nota-form').find('.msg__error').show();
-          $.fancybox.resize();
-        }
-      }
-    });
-    return false;
-  });
-  */
-
-  //EMAIL
-/*
-  $('#add-email-form form').bind('submit', function() {
-
-    var did = $(this).data('did');
-    var vid = $(this).data('vid');
-
-    var formObj = {};
-    var inputs = $(this).serializeArray();
-    $.each(inputs, function (i, input) {
-      formObj[input.name] = input.value;
-    });
-
-    formObj['dossier_id'] = did;
-    formObj['voucher_id'] = vid;
-
-    $.ajax({
-      type		: "POST",
-      cache	: false,
-      url		: "/fast_dossier/ajax/addemailcommunication",
-      data		: {'communication' : formObj},
-      success: function(data) {
-        if(data.result == 'OK'){
-          parent.$.fancybox.close();
-        }else{
-          $('#add-email-form').find('.msg__error').show();
-          $.fancybox.resize();
-        }
-
-      }
-    });
-    return false;
-  });
-
-*/
-    
-  //WORK
-
-  $('#add-work-form form').bind('submit', function() {
-      var formObj = {};
-      var inputs = $(this).find('input[type="checkbox"]');
-
-      $.each(inputs, function (i, input) {
-        if($(this).is(':checked')){
-          var id = $(this).data('id');
-          var label = $(this).data('label');
-          var code = $(this).data('code');
-          var incl = $(this).data('incl');
-          var excl = $(this).data('excl');
-          var locked = $(this).data('number-locked');
-
-          if(locked == 1){
-              $('.work-container__fields').append('<div class="work-container__field" data-id="'+ id + '" data-incl="'+ incl +'" data-excl="'+ excl +'"><div class="form-item-vertical work-container__task"><input type="text" name="name[]" value="'+ label +'" readonly="readonly" style="background: #F0F0F0"><input type="hidden" name="activity_id[]" value="'+ id +'"></div><div class="form-item-vertical work-container__number"><input type="text" name="amount[]" value="1" readonly="readonly" style="background: #F0F0F0"></div><div class="form-item-vertical work-container__unitprice"><input type="text" name="fee_incl_vat[]" value="'+ incl +'" readonly="readonly" style="background: #F0F0F0"></div><div class="form-item-vertical work-container__excl"><input type="text" name="cal_fee_excl_vat[]" value="'+ excl +'" readonly="readonly" style="background: #F0F0F0"></div><div class="form-item-vertical work-container__incl"><input type="text" name="cal_fee_incl_vat[]" value="'+ incl +'" readonly="readonly" style="background: #F0F0F0"></div><div class="form-item-vertical work-container__remove"><div class="work-container__remove__btn"><div class="btn--icon--small"><a class="icon--remove--small" href="#">Remove</a></div></div></div></div>');
-          }else{
-              $('.work-container__fields').append('<div class="work-container__field" data-id="'+ id + '" data-incl="'+ incl +'" data-excl="'+ excl +'"><div class="form-item-vertical work-container__task"><input type="text" name="name[]" value="'+ label +'" readonly="readonly" style="background: #F0F0F0"><input type="hidden" name="activity_id[]" value="'+ id +'"></div><div class="form-item-vertical work-container__number"><input type="text" name="amount[]" value="1"></div><div class="form-item-vertical work-container__unitprice"><input type="text" name="fee_incl_vat[]" value="'+ incl +'" readonly="readonly" style="background: #F0F0F0"></div><div class="form-item-vertical work-container__excl"><input type="text" name="cal_fee_excl_vat[]" value="'+ excl +'" readonly="readonly" style="background: #F0F0F0"></div><div class="form-item-vertical work-container__incl"><input type="text" name="cal_fee_incl_vat[]" value="'+ incl +'" readonly="readonly" style="background: #F0F0F0"></div><div class="form-item-vertical work-container__remove"><div class="work-container__remove__btn"><div class="btn--icon--small"><a class="icon--remove--small" href="#">Remove</a></div></div></div></div>');
-          }
-        }
-      });
-
-      update_total_price();
-      recalculate_price();
-      parent.$.fancybox.close();
-      return false;
-  });
-
-  //VOUCHER SWITCHER
-  $(document).on('change', '#voucher_switcher', function(){
-   var dossier = $('#voucher_switcher').data('did');
-   var selected = $(this).val();
-   var url = '/fast_dossier/dossier/' + dossier + '/' + selected;
-   redirectPage(url);
-  });
-
-
-  $(document).on('change','.work-container__field .work-container__number input', function(){
-    var unit_incl = $(this).parents('.work-container__field').data('incl');
-    var unit_excl = $(this).parents('.work-container__field').data('excl');
-    var new_incl = 0;
-    var new_excl = 0;
-
-    var number = $(this).val();
-
-    if (!$.isNumeric(number)) {
-      $(this).val(1);
-      new_incl = unit_incl.toFixed(2);
-      new_excl = unit_excl.toFixed(2);
-    } else {
-      new_incl = (unit_incl * number).toFixed(2);
-      new_excl = (unit_excl * number).toFixed(2);
-    }
-
-    $(this).parents('.work-container__field').find('.work-container__incl').find('input').val(new_incl);
-    $(this).parents('.work-container__field').find('.work-container__excl').find('input').val(new_excl);
-
-    update_total_price();
-    recalculate_price();
-  });
-
-  $(document).on('click','.work-container__remove', function(){
-    var aid = $(this).data('aid');
-    var vid = $(this).data('vid');
-
-    $.ajax({
-      type		: "POST",
-      cache	: false,
-      url		: "/fast_dossier/ajax/removeactivityfromvoucher/" + vid + "/" + aid,
-      data		: {},
-      success: function(data) {
-      }
-    });
-
-    $(this).parents('.work-container__field').remove();
-    update_total_price();
-    recalculate_price();
-
-    return false;
-  });
-
-  $('#payment_insurance, #payment_credit, #payment_debit, #payment_cash, #payment_bank, #payment_total').change(function(){
-    recalculate_price();
-  });
-
-  function update_total_price(){
-    var total = 0;
-    $('.work-container__incl input').each(function() {
-      total += parseFloat($(this).val());
-    });
-    $('#payment_total input').val(total.toFixed(2));
-  }
-
-  function recalculate_price(){
-
-    var insurance = $('#payment_insurance input').val() || 0;
-    var cash      = $('#payment_cash input').val() || 0;
-    var bank      = $('#payment_bank input').val() || 0;
-    var debit     = $('#payment_debit input').val() || 0;
-    var credit    = $('#payment_credit input').val() || 0;
-    var total     = $('#payment_total input').val() || 0;
-
-    var topay     = total - insurance - cash - bank - debit - credit;
-    var paid      = (total - topay).toFixed(2);
-    var unpaid    = topay.toFixed(2);
-
-    $('#payment_paid input').val(paid);
-    $('#payment_unpaid input').val(unpaid);
-
-  }
-
-
-  $('#signature-collector').bind('click', function() {
-    var did = $(this).data('did');
-    var vid = $(this).data('vid');
-
-    $.ajax({
-      type		: "POST",
-      cache	: false,
-      url		: "/fast_dossier/ajax/requestcollectorsignature/" + did + "/" + vid,
-      data		: {},
-      success: function(data) {
-        //do nothing, it's requested.
-        alert('De aanvraag voor een handtekening werd verzonden naar de iPad!');
-      }
-    });
-    return false;
-  });
-
-
-  $('#signature-causer').bind('click', function() {
-    var did = $(this).data('did');
-    var vid = $(this).data('vid');
-
-    $.ajax({
-      type		: "POST",
-      cache	: false,
-      url		: "/fast_dossier/ajax/requestcausersignature/" + did + "/" + vid,
-      data		: {},
-      success: function(data) {
-        //do nothing, it's requested.
-        alert('De aanvraag voor een handtekening werd verzonden naar de iPad!');
-      }
-    });
-    return false;
-  });
-
-  $('#signature-traffic-post').bind('click', function() {
-    var did = $(this).data('did');
-    var vid = $(this).data('vid');
-
-    $.ajax({
-      type		: "POST",
-      cache	: false,
-      url		: "/fast_dossier/ajax/requesttrafficpostsignature/" + did + "/" + vid,
-      data		: {},
-      success: function(data) {
-        //do nothing, it's requested.
-        alert('De aanvraag voor een handtekening werd verzonden naar de iPad!');
-      }
-    });
-    return false;
-  });
-
-
-
-
-
-
-
 
     /******* REFACTORING JS ********/
 
     var Dossier = {};
+    var url = document.URL.split('/');
+    var dossier_id = url[url.length-2];
+    var voucher_id = url[url.length-1];
+    Dossier.dossier_id = dossier_id;
+    Dossier.voucher_id = voucher_id;
 
-    /* Document Ready */
-    $(document).ready(function() {
-        var url = document.URL.split('/');
-        var dossier_id = url[url.length-2];
-        var voucher_id = url[url.length-1];
-        Dossier.dossier_id = dossier_id;
-        Dossier.voucher_id = voucher_id;
-
-        $('input[type="submit"]').click(function (){
-            Dossier.btnClicked = $(this).attr('name');
-        });
-
-        getCauser().success(function(data){
-            updateCauserTemplates(data);
-            updateCauserForm(data);
-        });
-
-        getCustomer().success(function(data){
-            updateCustomerTemplates(data);
-            updateCustomerForm(data);
-        });
-
-        getDepot().success(function(data){
-            updateDepotTemplates(data);
-        });
-
-        getNotas().success(function(data){
-            updateNotaTemplates(data);
-        });
-
-        getEmails().success(function(data){
-            updateEmailTemplates(data);
-        });
-
+    $('.close_overlay').on('click', function(){
+        parent.$.fancybox.close();
+        return false;
     });
 
-    /****** Handlebar Helpers *********/
+
+    $('input[type="submit"]').on('click', function (){
+        Dossier.btnClicked = $(this).attr('name');
+    });
+
+    $(document).on('change', '#voucher_switcher', function(){
+        var selected = $(this).val();
+        var url = '/fast_dossier/dossier/' + Dossier.dossier_id + '/' + selected;
+        redirectPage(url);
+    });
+
+    //INIT
+    initFancyBox('#edit-depot-link');
+    initFancyBox('#edit-invoice-data-link');
+    initFancyBox('#edit-nuisance-data-link');
+    initFancyBox('#add-email-link');
+    initFancyBox('#add-nota-link');
+    initFancyBox('#view-nota-link');
+    initFancyBox('#view-email-link');
+    initFancyBox('#add-activity-link');
+
+    getCauser().success(function(data){
+        updateCauserTemplates(data);
+        updateCauserForm(data);
+    });
+
+    getCustomer().success(function(data){
+        updateCustomerTemplates(data);
+        updateCustomerForm(data);
+    });
+
+    getDepot().success(function(data){
+        updateDepotTemplates(data);
+    });
+
+    getNotas().success(function(data){
+        updateNotaTemplates(data);
+    });
+
+    getEmails().success(function(data){
+        updateEmailTemplates(data);
+    });
+
+    getActivities().success(function(data){
+        updateActivityTemplates(data);
+    });
+
+    getAvailableActivities().success(function(data){
+        updateActivityForm(data);
+    });
+
+
+
+
+    /****** HANDLEBAR HELPERS  *********/
 
     Handlebars.registerHelper("inc", function(value, options) {
         return parseInt(value) + 1;
     });
 
+    /****** END HANDLEBAR HELPERS  *********/
 
-    /****** Helpers *********/
+
+
+
+    /****** HELPERS *********/
+
+    function initFancyBox(id){
+        $(id).fancybox({
+            'scrolling'		: 'no',
+            'titleShow'		: false
+        });
+    }
 
     function redirectPage(url){
         $(location).attr('href',url);
@@ -405,8 +130,26 @@ $(document).ready(function() {
         return formObj;
     }
 
+    function serializeFormCheckboxes(inputs, int){
+        int = int || false;
+        var formObj = {};
+        $.each(inputs, function (i, input) {
+            if(int){
+                formObj[i] = parseInt(input.value);
+            }else{
+                formObj[i] = input.value;
+            }
+        });
+        return formObj;
+    }
+    /****** END HELPERS *********/
 
-    /****** Causer *********/
+
+
+
+
+
+    /****** CAUSER *********/
     function getCauser(){
         var url = prepareAjaxUrl('/fast_dossier/ajax/causer');
         return $.ajax({
@@ -467,10 +210,14 @@ $(document).ready(function() {
         event.preventDefault();
     });
 
-    /****** END Causer *********/
+    /****** END CAUSER *********/
 
 
-    /******* Customer *******/
+
+
+
+
+    /******* CUSTOMER *******/
     function getCustomer(){
         var url = prepareAjaxUrl('/fast_dossier/ajax/customer');
         return $.ajax({
@@ -527,9 +274,12 @@ $(document).ready(function() {
 
         event.preventDefault();
     });
-    /******* END Customer *******/
+    /******* END CUSTOMER *******/
 
-    /*******  Depot *******/
+
+
+
+    /*******  DEPOT *******/
     function getDepot(){
         var url = prepareAjaxUrl('/fast_dossier/ajax/depot');
         return $.ajax({
@@ -602,7 +352,11 @@ $(document).ready(function() {
         event.preventDefault();
     });
 
-    /*******  END Depot *******/
+    /*******  END DEPOT *******/
+
+
+
+
 
     /*******  NOTA *******/
 
@@ -636,7 +390,7 @@ $(document).ready(function() {
         });
 
         var template = Handlebars.Templates['nota/overview'];
-        $('#view-nota-container').html(template(items));
+        $('#view-nota-container .notas').html(template(items));
     }
 
     $('#add-nota-form form').submit(function(event) {
@@ -656,6 +410,10 @@ $(document).ready(function() {
     });
 
     /*******  END NOTA *******/
+
+
+
+
 
     /*******  EMAIL *******/
 
@@ -680,7 +438,6 @@ $(document).ready(function() {
     }
 
     function updateEmailTemplates(data) {
-        console.log(data);
         var items = {
             emails : []
         };
@@ -690,7 +447,7 @@ $(document).ready(function() {
         });
 
         var template = Handlebars.Templates['email/overview'];
-        $('#view-email-container').html(template(items));
+        $('#view-email-container .emails').html(template(items));
     }
 
     $('#add-email-form form').submit(function(event) {
@@ -710,5 +467,250 @@ $(document).ready(function() {
         event.preventDefault();
     });
 
+    /*******  END EMAIL *******/
+
+
+
+
+
+    /*******  ACTIVITIES *******/
+
+    function getActivities(){
+        var url = prepareAjaxUrl('/fast_dossier/ajax/activities');
+        return $.ajax({
+            type: "POST",
+            cache: false,
+            url: url,
+            data: {}
+        });
+    }
+
+    function getAvailableActivities(){
+        var url = prepareAjaxUrl('/fast_dossier/ajax/availableActivities');
+        return $.ajax({
+            type: "POST",
+            cache: false,
+            url: url,
+            data: {}
+        });
+    }
+
+    function addActivities(formObj){
+        var url = prepareAjaxUrl('/fast_dossier/ajax/addActivitiesToVoucher');
+        return $.ajax({
+            type: "POST",
+            cache: false,
+            url: url,
+            data: {'activities' : formObj}
+        });
+    }
+
+    function removeActivity(aid){
+        var url = '/fast_dossier/ajax/removeActivityFromVoucher/' + Dossier.voucher_id + '/' + aid;
+
+        return $.ajax({
+            type: "POST",
+            cache: false,
+            url: url,
+            data: {}
+        });
+    }
+
+    function updateActivityTotalPrice(){
+        var total = 0;
+        $('.work-container__incl input').each(function() {
+            total += parseFloat($(this).val());
+        });
+        $('#payment_total input').val(total.toFixed(2));
+    }
+
+    function recalcuteActivityPrice(){
+        var insurance = $('#payment_insurance input').val() || 0;
+        var cash      = $('#payment_cash input').val() || 0;
+        var bank      = $('#payment_bank input').val() || 0;
+        var debit     = $('#payment_debit input').val() || 0;
+        var credit    = $('#payment_credit input').val() || 0;
+        var total     = $('#payment_total input').val() || 0;
+
+        var topay     = total - insurance - cash - bank - debit - credit;
+        var paid      = (total - topay).toFixed(2);
+        var unpaid    = topay.toFixed(2);
+
+        $('#payment_paid input').val(paid);
+        $('#payment_unpaid input').val(unpaid);
+    }
+
+
+    function updateActivityTemplates(data) {
+        updateActivityList(data);
+    }
+
+    function updateActivityList(data){
+        var items = {
+            activities : []
+        };
+
+        $.each( data, function( key, value ) {
+            items.activities.push(value);
+        });
+
+        var template = Handlebars.Templates['activity/activitylist'];
+        $('#added-activities .work-container__fields').html(template(items));
+    }
+
+    function updateActivityForm(data){
+        var items = {
+            activities : []
+        };
+
+        $.each( data, function( key, value ) {
+            items.activities.push(value);
+        });
+
+        var template = Handlebars.Templates['activity/checkboxes'];
+        $('#add-work-form-ajaxloaded-content').html(template(items));
+    }
+
+    //REMOVE
+    $(document).on('click','.work-container__remove', function(){
+        var aid = $(this).data('id');
+
+        removeActivity(aid).success(function(data){
+            getActivities().success(function(data){
+                updateActivityTemplates(data);
+                updateActivityTotalPrice();
+                recalcuteActivityPrice();
+            });
+        });
+
+        return false;
+    });
+
+
+    $('#add-activity-form form').submit(function(event) {
+        var inputs = $(this).serializeArray();
+
+        var formObj = {};
+        formObj = serializeFormCheckboxes(inputs, true);
+
+        addActivities(formObj).success(function(data){
+            parent.$.fancybox.close();
+
+            getActivities().success(function(data) {
+                updateActivityTemplates(data);
+                updateActivityTotalPrice();
+                recalcuteActivityPrice();
+            });
+        });
+
+        event.preventDefault();
+    });
+
+    //CHANGE NUMBER
+    $(document).on('change','.work-container__field .work-container__number input', function(){
+        var unit_incl = $(this).parents('.work-container__field').data('incl');
+        var unit_excl = $(this).parents('.work-container__field').data('excl');
+        var new_incl = 0;
+        var new_excl = 0;
+
+        var number = $(this).val();
+
+        if (!$.isNumeric(number)) {
+            $(this).val(1);
+            new_incl = unit_incl.toFixed(2);
+            new_excl = unit_excl.toFixed(2);
+        } else {
+            new_incl = (unit_incl * number).toFixed(2);
+            new_excl = (unit_excl * number).toFixed(2);
+        }
+
+        $(this).parents('.work-container__field').find('.work-container__incl').find('input').val(new_incl);
+        $(this).parents('.work-container__field').find('.work-container__excl').find('input').val(new_excl);
+
+        updateActivityTotalPrice();
+        recalcuteActivityPrice();
+    });
+
+    //RECALCULATE ON CHANGE
+    $('#payment_insurance, #payment_credit, #payment_debit, #payment_cash, #payment_bank, #payment_total').change(function(){
+        recalcuteActivityPrice();
+    });
+
+    /*******  END ACTIVITIES *******/
+
+
+    /*******  COLLECTOR ********/
+
+
+    function requestCollectorSignature(){
+        var url = prepareAjaxUrl('/fast_dossier/ajax/requestcollectorsignature');
+
+        return $.ajax({
+            type: "POST",
+            cache: false,
+            url: url,
+            data: {}
+        });
+    }
+
+    $('#signature-collector').on('click', function() {
+        requestCollectorSignature().success(function(data) {
+            alert('De aanvraag voor een handtekening werd verzonden naar de iPad!');
+        });
+        return false;
+    });
+
+
+    /******* END COLLECTOR ********/
+
+
+    /*******  CAUSER ********/
+
+
+    function requestCauserSignature(){
+        var url = prepareAjaxUrl('/fast_dossier/ajax/requestcausersignature');
+
+        return $.ajax({
+            type: "POST",
+            cache: false,
+            url: url,
+            data: {}
+        });
+    }
+
+    $('#signature-causer').on('click', function() {
+        requestCauserSignature().success(function(data) {
+            alert('De aanvraag voor een handtekening werd verzonden naar de iPad!');
+        });
+        return false;
+    });
+
+
+    /******* END CAUSER ********/
+
+
+    /*******  CAUSER ********/
+
+
+    function requestTrafficPostSignature(){
+        var url = prepareAjaxUrl('/fast_dossier/ajax/requesttrafficpostsignature');
+
+        return $.ajax({
+            type: "POST",
+            cache: false,
+            url: url,
+            data: {}
+        });
+    }
+
+    $('#signature-traffic-post').on('click', function() {
+        requestTrafficPostSignature().success(function(data) {
+            alert('De aanvraag voor een handtekening werd verzonden naar de iPad!');
+        });
+        return false;
+    });
+
+
+    /******* END CAUSER ********/
 
 });

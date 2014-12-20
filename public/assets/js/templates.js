@@ -1,6 +1,64 @@
 this["Handlebars"] = this["Handlebars"] || {};
 this["Handlebars"]["Templates"] = this["Handlebars"]["Templates"] || {};
 
+this["Handlebars"]["Templates"]["activity/activitylist"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
+  var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
+  return "<div class=\"work-container__field\" data-id=\""
+    + escapeExpression(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"id","hash":{},"data":data}) : helper)))
+    + "\" data-incl=\""
+    + escapeExpression(((helper = (helper = helpers.fee_incl_vat || (depth0 != null ? depth0.fee_incl_vat : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"fee_incl_vat","hash":{},"data":data}) : helper)))
+    + "\" data-excl=\""
+    + escapeExpression(((helper = (helper = helpers.fee_excl_vat || (depth0 != null ? depth0.fee_excl_vat : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"fee_excl_vat","hash":{},"data":data}) : helper)))
+    + "\">\n<div class=\"form-item-vertical work-container__task\">\n<input type=\"text\" name=\"name[]\" value=\""
+    + escapeExpression(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"name","hash":{},"data":data}) : helper)))
+    + "\" readonly=\"readonly\" style=\"background: #F0F0F0\">\n<input type=\"hidden\" name=\"activity_id[]\" value=\""
+    + escapeExpression(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"id","hash":{},"data":data}) : helper)))
+    + "\">\n</div>\n<div class=\"form-item-vertical work-container__number\">\n<input type=\"text\" name=\"amount[]\" value=\"1\" readonly=\"readonly\" style=\"background: #F0F0F0\">\n</div>\n<div class=\"form-item-vertical work-container__unitprice\">\n<input type=\"text\" name=\"fee_incl_vat[]\" value=\""
+    + escapeExpression(((helper = (helper = helpers.fee_incl_vat || (depth0 != null ? depth0.fee_incl_vat : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"fee_incl_vat","hash":{},"data":data}) : helper)))
+    + "\" readonly=\"readonly\" style=\"background: #F0F0F0\">\n</div>\n<div class=\"form-item-vertical work-container__excl\">\n<input type=\"text\" name=\"cal_fee_excl_vat[]\" value=\""
+    + escapeExpression(((helper = (helper = helpers.fee_excl_vat || (depth0 != null ? depth0.fee_excl_vat : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"fee_excl_vat","hash":{},"data":data}) : helper)))
+    + "\" readonly=\"readonly\" style=\"background: #F0F0F0\">\n</div>\n<div class=\"form-item-vertical work-container__incl\">\n<input type=\"text\" name=\"cal_fee_incl_vat[]\" value=\""
+    + escapeExpression(((helper = (helper = helpers.fee_incl_vat || (depth0 != null ? depth0.fee_incl_vat : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"fee_incl_vat","hash":{},"data":data}) : helper)))
+    + "\" readonly=\"readonly\" style=\"background: #F0F0F0\">\n</div>\n<div class=\"form-item-vertical work-container__remove\" data-id=\""
+    + escapeExpression(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"id","hash":{},"data":data}) : helper)))
+    + "\">\n<div class=\"work-container__remove__btn\">\n<div class=\"btn--icon--small\">\n<a class=\"icon--remove--small\" href=\"#\">Remove</a>\n</div>\n</div>\n</div>\n</div>\n";
+},"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+  var stack1, buffer = "";
+  stack1 = helpers.each.call(depth0, (depth0 != null ? depth0.activities : depth0), {"name":"each","hash":{},"fn":this.program(1, data),"inverse":this.noop,"data":data});
+  if (stack1 != null) { buffer += stack1; }
+  return buffer + "\n\n";
+},"useData":true});
+
+
+
+this["Handlebars"]["Templates"]["activity/checkboxes"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
+  var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
+  return "<div class=\"form-item-checkbox\">\n<input type=\"checkbox\" name=\"activity\" value=\""
+    + escapeExpression(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"id","hash":{},"data":data}) : helper)))
+    + "\" data-id=\""
+    + escapeExpression(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"id","hash":{},"data":data}) : helper)))
+    + "\"  data-label=\""
+    + escapeExpression(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"name","hash":{},"data":data}) : helper)))
+    + "\" data-code=\""
+    + escapeExpression(((helper = (helper = helpers.code || (depth0 != null ? depth0.code : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"code","hash":{},"data":data}) : helper)))
+    + "\" data-incl=\""
+    + escapeExpression(((helper = (helper = helpers.fee_incl_vat || (depth0 != null ? depth0.fee_incl_vat : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"fee_incl_vat","hash":{},"data":data}) : helper)))
+    + "\" data-excl=\""
+    + escapeExpression(((helper = (helper = helpers.fee_excl_vat || (depth0 != null ? depth0.fee_excl_vat : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"fee_excl_vat","hash":{},"data":data}) : helper)))
+    + "\" data-number-locked=\""
+    + escapeExpression(((helper = (helper = helpers.locked || (depth0 != null ? depth0.locked : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"locked","hash":{},"data":data}) : helper)))
+    + "\">\n<labe>"
+    + escapeExpression(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"name","hash":{},"data":data}) : helper)))
+    + "</label>\n</div>\n";
+},"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+  var stack1, buffer = "";
+  stack1 = helpers.each.call(depth0, (depth0 != null ? depth0.activities : depth0), {"name":"each","hash":{},"fn":this.program(1, data),"inverse":this.noop,"data":data});
+  if (stack1 != null) { buffer += stack1; }
+  return buffer + "\n\n";
+},"useData":true});
+
+
+
 this["Handlebars"]["Templates"]["causer/info"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
   return "<div class=\"has_content\">\n";
   },"3":function(depth0,helpers,partials,data) {
@@ -157,7 +215,7 @@ this["Handlebars"]["Templates"]["causer/info_short"] = Handlebars.template({"1":
     + escapeExpression(((helper = (helper = helpers.city || (depth0 != null ? depth0.city : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"city","hash":{},"data":data}) : helper)))
     + "</div>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-  var stack1, buffer = "<label>Bevestiging hinderverwekker:</label>\n";
+  var stack1, buffer = "<label>Bevestiging hinderverwekker:</label>\n<div class=\"causer_short_info_wrapper\">\n";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.company_name : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.program(3, data),"data":data});
   if (stack1 != null) { buffer += stack1; }
   buffer += "\n";
@@ -166,7 +224,7 @@ this["Handlebars"]["Templates"]["causer/info_short"] = Handlebars.template({"1":
   buffer += "\n";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.city : depth0), {"name":"if","hash":{},"fn":this.program(10, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
-  return buffer + "\n";
+  return buffer + "  </div>\n\n";
 },"useData":true});
 
 
@@ -324,19 +382,19 @@ this["Handlebars"]["Templates"]["depot/info"] = Handlebars.template({"1":functio
 
 this["Handlebars"]["Templates"]["email/overview"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
   var helper, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, functionType="function";
-  return "<div class=\"nota-item\">\n    <h2>Email "
+  return "<div class=\"email-item\">\n    <h2>Email "
     + escapeExpression(((helpers.inc || (depth0 && depth0.inc) || helperMissing).call(depth0, (data && data.index), {"name":"inc","hash":{},"data":data})))
-    + "</h2>\n    <div>"
+    + "</h2>\n    <div class=\"email-item-content\">\n        <div class=\"email-item-subject\">"
     + escapeExpression(((helper = (helper = helpers.subject || (depth0 != null ? depth0.subject : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"subject","hash":{},"data":data}) : helper)))
-    + "</div>\n    <div>"
+    + "</div>\n        <div class=\"email-item-message\">"
     + escapeExpression(((helper = (helper = helpers.message || (depth0 != null ? depth0.message : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"message","hash":{},"data":data}) : helper)))
-    + "</div>\n</div>\n";
+    + "</div>\n    </div>\n</div>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-  var stack1, buffer = "";
+  var stack1;
   stack1 = helpers.each.call(depth0, (depth0 != null ? depth0.emails : depth0), {"name":"each","hash":{},"fn":this.program(1, data),"inverse":this.noop,"data":data});
-  if (stack1 != null) { buffer += stack1; }
-  return buffer + "\n<div class=\"fancybox-form__actions\">\n    <div class=\"form-item fancybox-form__actions__save\">\n        <a class=\"close_overlay\" href=\"#\">Sluiten</a>\n    </div>\n</div>\n";
-},"useData":true});
+  if (stack1 != null) { return stack1; }
+  else { return ''; }
+  },"useData":true});
 
 
 
@@ -344,12 +402,12 @@ this["Handlebars"]["Templates"]["nota/overview"] = Handlebars.template({"1":func
   var helper, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, functionType="function";
   return "<div class=\"nota-item\">\n<h2>Nota "
     + escapeExpression(((helpers.inc || (depth0 && depth0.inc) || helperMissing).call(depth0, (data && data.index), {"name":"inc","hash":{},"data":data})))
-    + "</h2>\n<div>"
+    + "</h2>\n<div class=\"nota-item-content\">\n<div class=\"nota-item-message\">\n"
     + escapeExpression(((helper = (helper = helpers.message || (depth0 != null ? depth0.message : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"message","hash":{},"data":data}) : helper)))
-    + "</div>\n</div>\n";
+    + "\n</div>\n</div>\n</div>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   var stack1, buffer = "";
   stack1 = helpers.each.call(depth0, (depth0 != null ? depth0.notas : depth0), {"name":"each","hash":{},"fn":this.program(1, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
-  return buffer + "\n<div class=\"fancybox-form__actions\">\n<div class=\"form-item fancybox-form__actions__save\">\n<a class=\"close_overlay\" href=\"#\">Sluiten</a>\n</div>\n</div>\n";
+  return buffer;
 },"useData":true});

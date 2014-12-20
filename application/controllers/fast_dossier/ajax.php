@@ -27,7 +27,6 @@ class Ajax extends AjaxPage
     $this->_sendJson($result);
   }
 
-    //@TODO : get default depot object
   public function updateDepotToDefault($dossier_id, $voucher_id)
   {
     $token = $this->_get_user_token();
@@ -77,6 +76,13 @@ class Ajax extends AjaxPage
     return $this->_sendJson($this->dossier_service->fetchVoucherCauser($dossier_id, $voucher_id, $this->_get_user_token()));
   }
 
+  public function activities($dossier_id, $voucher_id)
+  {
+    $token = $this->_get_user_token();
+    $result = $this->dossier_service->fetchActivitiesForVoucher($dossier_id, $voucher_id, $token);
+    $this->_sendJson($result);
+  }
+
   public function availableActivities($dossier_id, $voucher_id)
   {
     $token = $this->_get_user_token();
@@ -95,6 +101,17 @@ class Ajax extends AjaxPage
         $this->_get_user_token()
       )
     );
+  }
+
+  public function addActivitiesToVoucher($dossier_id, $voucher_id)
+  {
+    $token = $this->_get_user_token();
+
+    //array of ids
+    $activities = $this->input->post('activities');
+
+    $result = $this->dossier_service->addActivitiesToVoucher($voucher_id, $activities, $token);
+    $this->_sendJson($result);
   }
 
   public function addInternalCommunication()

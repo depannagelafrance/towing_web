@@ -1,0 +1,29 @@
+{{#each activities}}
+<div class="work-container__field" data-id="{{id}}" data-incl="{{fee_incl_vat}}" data-excl="{{fee_excl_vat}}">
+<div class="form-item-vertical work-container__task">
+<input type="text" name="name[]" value="{{name}}" readonly="readonly" style="background: #F0F0F0">
+<input type="hidden" name="activity_id[]" value="{{id}}">
+</div>
+<div class="form-item-vertical work-container__number">
+<input type="text" name="amount[]" value="1" readonly="readonly" style="background: #F0F0F0">
+</div>
+<div class="form-item-vertical work-container__unitprice">
+<input type="text" name="fee_incl_vat[]" value="{{fee_incl_vat}}" readonly="readonly" style="background: #F0F0F0">
+</div>
+<div class="form-item-vertical work-container__excl">
+<input type="text" name="cal_fee_excl_vat[]" value="{{fee_excl_vat}}" readonly="readonly" style="background: #F0F0F0">
+</div>
+<div class="form-item-vertical work-container__incl">
+<input type="text" name="cal_fee_incl_vat[]" value="{{fee_incl_vat}}" readonly="readonly" style="background: #F0F0F0">
+</div>
+<div class="form-item-vertical work-container__remove" data-id="{{id}}">
+<div class="work-container__remove__btn">
+<div class="btn--icon--small">
+<a class="icon--remove--small" href="#">Remove</a>
+</div>
+</div>
+</div>
+</div>
+{{/each}}
+
+

@@ -1,52 +1,8 @@
 <?php
 
-function composeCustomerInformation($c) {
-  $output = "";
-
-  if($c->company_name) {
-    $output .= "<div>";
-    $output .= $c->company_name;
-    $output .= "</div>";
-  } elseif($c->last_name && $c->first_name) {
-    $output .= "<div>";
-    $output .= sprintf("%s %s", $c->last_name, $c->first_name);
-    $output .= "</div>";
-  }
-
-  if($c->street && $c->street_number){
-    $output .= "<div>";
-    $output .= sprintf("%s %s %s", $c->street, $c->street_number, ($c->street_pobox ? "/" . $c->street_pobox : ""));
-    $output .= "</div>";
-  }
-
-  if($c->zip && $c->city){
-    $output .= "<div>" . sprintf("%s %s", $c->zip, $c->city) . "</div>";
-  }
-
-  if($c->country){
-    $output .= "<div>" . $c->country . "</div>";
-  }
-
-  if($c->phone){
-    $output .= "<div>T: " . $c->phone . "</div>";
-  }
-
-  if($c->email){
-    $output .= "<div>E: " . $c->email . "</div>";
-  }
-
-  if(property_exists($c, 'invoice_ref') && $c->invoice_ref) {
-    $output .= "<div>Ref.: " . $c->invoice_ref . "</div>";
-  } else {
-    $output .= "<div>&nbsp;</div>";
-  }
-
-  return $output;
-}
-
 function displayVoucherTimeField($value, $name) {
   if($value) {
-    $render = sprintf('<div>%s</div>', asTime($value));
+    $render = sprintf('<div class="input_value">%s</div>', asTime($value));
     $render .= form_hidden($name, asJsonDateTime($value));
 
     return $render;
@@ -431,7 +387,7 @@ $_dossier = $dossier->dossier;
 
 
       <!--WORK-->
-      <div class="form-item-vertical work-container">
+      <div id="added-activities" class="form-item-vertical work-container">
         <?php if(count($_voucher->towing_activities) > 0): ?>
         <div class="work-container__header">
           <div class="work-container__task__label"><label>Activiteiten:</label></div>
@@ -441,82 +397,11 @@ $_dossier = $dossier->dossier;
           <div class="work-container__incl__label"><label>Incl:</label></div>
         </div>
         <?php endif; ?>
-        <div class="work-container__fields">
-          <?php foreach($_voucher->towing_activities as $_activity) : ?>
-          <div class="work-container__field" data-id="<?php print $_activity->activity_id;?>" data-incl="<?php print $_activity->fee_incl_vat;?>" data-excl="<?php print $_activity->fee_excl_vat;?>">
-            <div class="form-item-vertical work-container__task">
-              <?php
-                  $data = array(
-                    'name'        => 'name[]',
-                    'value'       => $_activity->name,
-                    'readonly'    => 'readonly',
-                    'style'       => 'background: #F0F0F0'
-                  );
-                  print form_input($data);
-                  print form_hidden('activity_id[]', $_activity->activity_id);
-              ?>
-            </div>
-
-            <div class="form-item-vertical work-container__number">
-              <?php
-                print form_input('amount[]', $_activity->amount);
-              ?>
-            </div>
-
-            <div class="form-item-vertical work-container__unitprice">
-              <?php
-                $data = array(
-                  'name'        => 'fee_incl_vat[]',
-                  'value'       => $_activity->fee_incl_vat,
-                  'readonly'    => 'readonly',
-                  'style'       => 'background: #F0F0F0'
-                );
-
-                print form_input($data);
-              ?>
-            </div>
-
-            <div class="form-item-vertical work-container__excl">
-              <?php
-                $data = array(
-                  'name'        => 'cal_fee_excl_vat[]',
-                  'value'       => $_activity->cal_fee_excl_vat,
-                  'readonly'    => 'readonly',
-                  'style'       => 'background: #F0F0F0'
-                );
-
-                print form_input($data);
-              ?>
-            </div>
-
-            <div class="form-item-vertical work-container__incl">
-              <?php
-                $data = array(
-                  'name'        => 'cal_fee_incl_vat[]',
-                  'value'       => $_activity->cal_fee_incl_vat,
-                  'readonly'    => 'readonly',
-                  'style'       => 'background: #F0F0F0'
-                );
-
-                print form_input($data);
-              ?>
-            </div>
-            <div  class="form-item-vertical work-container__remove"
-                  data-vid="<?php print $_voucher->id ;?>"
-                  data-aid="<?php print $_activity->activity_id; ?>">
-                <div class="work-container__remove__btn">
-                  <div class="btn--icon--small">
-                    <a  class="icon--remove--small" href="#">Remove</a>
-                  </div>
-                </div>
-            </div>
-          </div>
-          <?php endforeach; ?>
-      </div>
+        <div class="work-container__fields"></div>
 
       <div class="work-container__actions">
         <div class="work-container__add">
-          <a id="add-work-link" class="inform-link" href="#add-work-form" data-did="<?php print $_dossier->id; ?>" data-vid="<?php print $_voucher->id ;?>" >Activiteit toevoegen</a>
+          <a id="add-activity-link" class="inform-link" href="#add-activity-form" data-did="<?php print $_dossier->id; ?>" data-vid="<?php print $_voucher->id ;?>" >Activiteit toevoegen</a>
         </div>
       </div>
 
@@ -1047,7 +932,16 @@ $_dossier = $dossier->dossier;
     <?= form_close(); ?>
   </div>
 
-  <div id="view-email-container"></div>
+  <div id="view-email-container"  style="display: none;">
+    <div class="emails">
+      <!-- EMAILS LOADED BY JS -->
+    </div>
+    <div class="fancybox-form__actions">
+      <div class="form-item fancybox-form__actions__save">
+        <a class="close_overlay" href="#">Sluiten</a>
+      </div>
+    </div>
+  </div>
   <!-- END EMAIL -->
 
   <!-- NOTA -->
@@ -1088,12 +982,21 @@ $_dossier = $dossier->dossier;
     <?= form_close(); ?>
   </div>
 
-  <div id="view-nota-container"></div>
+  <div id="view-nota-container" style="display: none;">
+    <div class="notas">
+      <!-- NOTAS LOADED BY JS -->
+    </div>
+    <div class="fancybox-form__actions">
+      <div class="form-item fancybox-form__actions__save">
+        <a class="close_overlay" href="#">Sluiten</a>
+      </div>
+    </div>
+  </div>
 
   <!--END NOTA-->
 
   <!-- WORK -->
-  <div id="add-work-form" style="display: none;">
+  <div id="add-activity-form" style="display: none;">
     <?php print form_open(); ?>
     <div class="fancybox-form">
       <h3>Activiteiten toevoegen</h3>

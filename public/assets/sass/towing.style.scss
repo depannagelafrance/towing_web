@@ -17,6 +17,26 @@
   }
 }
 
+.email-item-subject{
+  margin-bottom: 20px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.email-item-message,
+.nota-item-message{
+  margin-bottom: 10px;
+  line-height: 18px;
+}
+
+.nota-item-content,
+.email-item-content{
+  padding-left: 25px;
+  border-left: 5px solid #EEE;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
 #view-nota-container,
 #view-email-container{
   overflow: scroll;

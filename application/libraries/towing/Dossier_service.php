@@ -54,6 +54,12 @@ class Dossier_service extends Rest_service {
       return $this->CI->rest->get(sprintf('/dossier/list/vouchers/completed/%s', $token));
     }
 
+    //@Kris TODO provide service to fetch all added activities
+    public function fetchActivitiesForVoucher($dossier, $voucher, $token)
+    {
+        return $this->CI->rest->get(sprintf('/dossier/list/available_activities/%s/%s/%s', $dossier, $voucher, $token));
+    }
+
     public function fetchAllAvailableActivitiesForVoucher($dossier, $voucher, $token)
     {
       return $this->CI->rest->get(sprintf('/dossier/list/available_activities/%s/%s/%s', $dossier, $voucher, $token));
@@ -124,6 +130,12 @@ class Dossier_service extends Rest_service {
           'application/json'
       );
     }
+
+    //@Kris Provide service
+    public function addActivitiesToVoucher($voucher_id, $activities, $token){
+        return 'test';
+    }
+
 
     public function removeActivityFromVoucher($voucher_id, $activity_id, $token)
     {
