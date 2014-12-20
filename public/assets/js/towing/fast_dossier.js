@@ -96,7 +96,7 @@ $(document).ready(function() {
         return parseInt(value) + 1;
     });
 
-    Handlebars.registerHelper('equal', function(lvalue, rvalue, options) {
+    Handlebars.registerHelper("equal", function(lvalue, rvalue, options) {
         if (arguments.length < 3)
             throw new Error("Handlebars Helper equal needs 2 parameters");
         if( lvalue!=rvalue ) {
@@ -105,6 +105,20 @@ $(document).ready(function() {
             return options.fn(this);
         }
     });
+
+    Handlebars.registerHelper("math", function(lvalue, operator, rvalue, options) {
+        lvalue = parseFloat(lvalue);
+        rvalue = parseFloat(rvalue);
+
+        return {
+            "+": lvalue + rvalue,
+            "-": lvalue - rvalue,
+            "*": lvalue * rvalue,
+            "/": lvalue / rvalue,
+            "%": lvalue % rvalue
+        }[operator];
+    });
+
 
     /****** END HANDLEBAR HELPERS  *********/
 
@@ -596,6 +610,7 @@ $(document).ready(function() {
 
 
     $('#add-activity-form form').submit(function(event) {
+        console.log('test');
         var inputs = $(this).serializeArray();
 
         var formObj = {};
