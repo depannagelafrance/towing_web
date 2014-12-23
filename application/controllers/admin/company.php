@@ -73,12 +73,24 @@ class Company extends Page {
             $resultCompany = $this->admin_service->updateCompany($company_model, $this->_get_user_token());
             $resultDepot   = $this->admin_service->updateCompanyDepot($depot_model, $this->_get_user_token());
 
-            // var_dump($resultCompany);
-            // die();
+            if(array_key_exists('statusCode'), $resultCompany) {
+              $this->_add_content(
+                $this->load->view(
+                  'admin/company/edit',
+                  array(
+                    "company" => new Company_model($this->input->post()),
+                    "depot" => new Depot_model($this->input->post())
+                  ),
+                  true
+                )
+              );
 
-            $this->session->set_flashdata('_INFO_MSG', "De gegevens werden aangepast");
+              $this->_render_page();
+            } else {
+              $this->session->set_flashdata('_INFO_MSG', "De gegevens werden aangepast");
 
-            redirect("/admin/company");
+              redirect("/admin/company");
+            }
         }
     }
     else //not a post, so load default view

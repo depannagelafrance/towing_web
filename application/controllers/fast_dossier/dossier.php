@@ -126,12 +126,12 @@ class Dossier extends Page {
             'voucher_number'          => $voucher_number,
             'vouchers'                => $vouchers,
             'traffic_posts'           => $this->dossier_service->fetchAllTrafficPostsByAllotment($dossier->dossier->allotment_id, $token),
-            'insurances'              => $this->vocabulary_service->fetchAllInsurances($token),
-            'collectors'              => $this->vocabulary_service->fetchAllCollectors($token),
+            //'insurances'              => $this->vocabulary_service->fetchAllInsurances($token),
+            //'collectors'              => $this->vocabulary_service->fetchAllCollectors($token),
             'licence_plate_countries' => $this->vocabulary_service->fetchAllCountryLicencePlates($token),
             'company_depot'           => $this->_get_authenticated_user()->company_depot,
-            'signa_drivers'           => $this->vocabulary_service->fetchAllSignaDrivers($token),
-            'towing_drivers'          => $this->vocabulary_service->fetchAllTowingDrivers($token)
+            //'signa_drivers'           => $this->vocabulary_service->fetchAllSignaDrivers($token),
+            //'towing_drivers'          => $this->vocabulary_service->fetchAllTowingDrivers($token)
           ),
           true
       )

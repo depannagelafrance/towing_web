@@ -247,7 +247,7 @@ $_dossier = $dossier->dossier;
           <div class="form-item-horizontal signa-container__signa">
             <label>Signa:</label>
             <?php /* print form_input('signa_by', $_voucher->signa_by);*/ ?>
-            <?php print listbox('signa_id', $signa_drivers, $_voucher->signa_id); ?>
+            <?php print listbox_ajax('signa_id', $_voucher->signa_id); ?>
           </div>
 
           <div class="form-item-horizontal signa-container__licenceplate">
@@ -274,7 +274,7 @@ $_dossier = $dossier->dossier;
           <div class="form-item-horizontal towedby-container__towedby">
             <label>Takelaar:</label>
             <?php /* print form_input('towed_by', $_voucher->towed_by);*/ ?>
-            <?php print listbox('towing_id', $towing_drivers, $_voucher->towing_id); ?>
+            <?php print listbox_ajax('towing_id', $_voucher->towing_id); ?>
           </div>
 
           <div class="form-item-horizontal towedby-container__licenceplate">
@@ -359,7 +359,7 @@ $_dossier = $dossier->dossier;
             <!--ASSI-->
             <div class="form-item-horizontal  assistance-container">
                 <label>Assistance:</label>
-                <?php print listbox('insurance_id', $insurances, $_voucher->insurance_id); ?>
+                <?php print listbox_ajax('insurance_id', $_voucher->insurance_id); ?>
             </div>
             <!--END ASSI-->
 
@@ -505,7 +505,7 @@ $_dossier = $dossier->dossier;
 
           <div class="form-item-horizontal  autograph-container__collecting__collector">
             <label class="notbold">Afhaler:</label>
-            <?php print listbox('collector_id', $collectors, $_voucher->collector_id); ?>
+            <?php print listbox_ajax('collector_id', $_voucher->collector_id); ?>
           </div>
 
           <div class="form-item-horizontal  autograph-container__collecting__date">

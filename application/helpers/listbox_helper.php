@@ -45,4 +45,14 @@ if ( ! function_exists('listbox')) {
     return $open_select . $select_data . $close_select;
   }
 }
+
+if ( ! function_exists('listbox_ajax')) {
+  function listbox_ajax($name, $selected_value) {
+    $open_select = sprintf('<select name="%s" id="list_%s" data-selected-id="%s">', $name, $name, $selected_value);
+
+    $close_select = '</select>';
+
+    return $open_select . $close_select;
+  }
+}
 ?>

@@ -133,6 +133,8 @@ class Insurance extends Page {
               if($result && property_exists($result, 'statusCode')) {
                 if($result->statusCode == 409) {
                   $this->_add_error(sprintf("Er bestaat reeds een maatschappij met als naam: '%s'", $this->input->post('name')));
+                } else if($result->statusCode == 400) {
+                  $this->_add_error(sprintf('Fout bij het wijzigen van een maatschappij (%d - %s)', $result->statusCode, $result->message));
                 } else {
                   $this->_add_error(sprintf('Fout bij het wijzigen van een maatschappij (%d - %s)', $result->statusCode, $result->message));
                 }
@@ -141,6 +143,7 @@ class Insurance extends Page {
                 $data['id'] = $id;
 
                 $this->_add_content($this->load->view('admin/insurances/edit', $data,true));
+                $this->_render_page();
               } else {
                 //yes, nicely done!
                 $this->session->set_flashdata('_INFO_MSG', "Item aangepast: " . $this->input->post('name'));

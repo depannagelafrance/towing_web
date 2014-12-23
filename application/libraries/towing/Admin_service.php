@@ -84,7 +84,9 @@ class Admin_service extends Rest_service {
   }
 
   public function updateInsurance(Insurance_model $insurance, $token) {
-    return $this->CI->rest->put(sprintf('/admin/insurance/%s/%s', $insurance->id, $token), get_object_vars($insurance));
+    $result = $this->CI->rest->put(sprintf('/admin/insurance/%s/%s', $insurance->id, $token), get_object_vars($insurance));
+
+    return $result;
   }
 
   public function deleteInsurance($id, $token) {

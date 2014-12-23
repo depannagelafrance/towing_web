@@ -819,4 +819,38 @@ $(document).ready(function() {
 
     /******* END TRAFFIC POST ********/
 
+    function fetchDataForListBox($id, $api) {
+      $.getJSON($api, function(data, status, xhr) {
+        if(data) {
+          $selectedValue = $($id).data('selected-id');
+
+          $($id).append($('<option/>', {
+            value: '',
+            text : '--'
+          }));
+
+          $.each(data, function(index, item) {
+
+            $data = {
+              value     : item.id,
+              text      : item.name
+            }
+
+            if($selectedValue && $selectedValue == item.id) {
+              $data["selected"] = "selected";
+            }
+
+            $($id).append($('<option/>', $data));
+          });
+
+          $($id).trigger('chosen:updated');
+        }
+      });
+    }
+
+    fetchDataForListBox('#list_insurance_id', '/fast_dossier/ajax/insurances');
+    fetchDataForListBox('#list_collector_id', '/fast_dossier/ajax/collectors');
+    fetchDataForListBox('#list_signa_id',     '/fast_dossier/ajax/signadrivers');
+    fetchDataForListBox('#list_towing_id',    '/fast_dossier/ajax/towingdrivers');
+
 });

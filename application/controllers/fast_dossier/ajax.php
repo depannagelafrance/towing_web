@@ -12,6 +12,7 @@ class Ajax extends AjaxPage
     parent::__construct();
 
     $this->load->library('towing/Dossier_service');
+    $this->load->library('towing/Vocabulary_service');
   }
 
   public function updateDepot($dossier_id, $voucher_id)
@@ -88,6 +89,46 @@ class Ajax extends AjaxPage
     $token = $this->_get_user_token();
 
     $result = $this->dossier_service->fetchAllAvailableActivitiesForVoucher($dossier_id, $voucher_id, $token);
+
+    $this->_sendJson($result);
+  }
+
+  public function insurances() {
+    $token = $this->_get_user_token();
+
+    $result = $this->vocabulary_service->fetchAllInsurances($token);
+
+    $this->_sendJson($result);
+  }
+
+  public function collectors() {
+    $token = $this->_get_user_token();
+
+    $result = $this->vocabulary_service->fetchAllCollectors($token);
+
+    $this->_sendJson($result);
+  }
+
+  public function licencePlateCountries() {
+    $token = $this->_get_user_token();
+
+    $result = $this->vocabulary_service->fetchAllCountryLicencePlates($token);
+
+    $this->_sendJson($result);
+  }
+
+  public function signaDrivers() {
+    $token = $this->_get_user_token();
+
+    $result = $this->vocabulary_service->fetchAllSignaDrivers($token);
+
+    $this->_sendJson($result);
+  }
+
+  public function towingDrivers() {
+    $token = $this->_get_user_token();
+
+    $result = $this->vocabulary_service->fetchAllTowingDrivers($token);
 
     $this->_sendJson($result);
   }
