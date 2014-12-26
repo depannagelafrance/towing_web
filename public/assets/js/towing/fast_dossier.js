@@ -853,4 +853,31 @@ $(document).ready(function() {
     fetchDataForListBox('#list_signa_id',     '/fast_dossier/ajax/signadrivers');
     fetchDataForListBox('#list_towing_id',    '/fast_dossier/ajax/towingdrivers');
 
+    $.getJSON('/fast_dossier/ajax/licenceplatecountries', function(data, status, xhr)
+    {
+      if(data) {
+        $selectedValue = $('#list_licence_plate_country').data('selected-id');
+
+        $('#list_licence_plate_country').append($('<option/>', {
+          value: '',
+          text : '--'
+        }));
+
+        $.each(data, function(index, item) {
+          $data = {
+            value     : item.name,
+            text      : item.name
+          }
+
+          if($selectedValue && $selectedValue == item.name) {
+            $data["selected"] = "selected";
+          }
+
+          $('#list_licence_plate_country').append($('<option/>', $data));
+        });
+
+        $('#list_licence_plate_country').trigger('chosen:updated');
+      }
+    });
+
 });

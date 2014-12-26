@@ -325,14 +325,7 @@ $_dossier = $dossier->dossier;
         <div class="vehicule-container__right">
           <div class="form-item-horizontal vehicule-container__country">
             <label>Land:</label>
-            <?php print listbox('licence_plate_country',
-              $licence_plate_countries,
-              $_voucher->vehicule_country,
-              array(
-                'value_key' => 'name',
-                'label_key' => 'name',
-              ));
-            ?>
+            <?php print listbox_ajax('licence_plate_country', $_voucher->vehicule_country)?>
           </div>
         </div>
       </div>
