@@ -280,20 +280,33 @@ class Dossier_service extends Rest_service {
     return $result;
   }
 
-    public function fetchAllAttachments($dossier_id, $voucher_id, $token)
-    {
-        $files = array();
-        $file = new stdClass();
-        $file->name = 'test.png';
-        $file->url = 'http://www.google.com';
-        $files[] = $file;
-        return $files;
-    }
+  public function fetchAllAttachments($dossier_id, $voucher_id, $token)
+  {
+      //the ID veld dat teruggeven wordt in de lijst van documenten kan je gebruiken
+      //om de Document_Service aan te roepen. Deze wordt al gebruikt om de signatures
+      //op te halen.
 
-    public function addAttachment($dossier_id, $voucher_id, $file, $token)
-    {
-        return 'test';
-    }
+      return $this->CI->rest->get(sprintf('/dossier/voucher/attachment/%s/%s', $voucher_id, $token));
+  }
+
+  public function addAttachment($dossier_id, $voucher_id, $file, $token)
+  {
+    //TODO GERT
+    $content_type = "";
+    $file_size = 1111;
+    $content = base64_encode("the content of the file");
+
+
+    $result = $this->CI->rest->post(
+      sprintf('/dossier/voucher/attachment/any/%s/%s', $voucher_id, $token),
+      json_encode(
+        array("content_type" => $content_type, "file_size" => $file_size, "content" => $content)
+      ),
+      'application/json'
+    );
+
+    return $result;
+  }
 
 
 }

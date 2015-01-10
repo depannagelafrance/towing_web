@@ -243,7 +243,7 @@ if($errors) {
 
     <pre>
 
-    <? var_dump($_dossier); ?>
+    <? //var_dump($_dossier); ?>
     </pre>
 
   </div>
