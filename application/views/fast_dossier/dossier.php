@@ -1020,7 +1020,11 @@ $_dossier = $dossier->dossier;
       <h3>Bijlage toevoegen</h3>
       <div class="form-item-horizontal">
         <label>Bijlage:</label>
-        <input id="fileupload" type="file" name="attachment"/>
+        <input id="attachments" type="file" name="attachment" multiple/>
+      </div>
+
+      <div class="form-item-horizontal">
+        <div id="attachments--list"></div>
       </div>
 
     </div>

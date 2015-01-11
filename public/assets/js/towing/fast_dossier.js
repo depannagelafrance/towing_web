@@ -31,6 +31,8 @@ $(document).ready(function() {
     Dossier.dossier_id = dossier_id;
     Dossier.voucher_id = voucher_id;
 
+    var Attachements = [];
+
     $('.close_overlay').on('click', function(){
         parent.$.fancybox.close();
         return false;
@@ -46,6 +48,7 @@ $(document).ready(function() {
         var url = '/fast_dossier/dossier/' + Dossier.dossier_id + '/' + selected;
         redirectPage(url);
     });
+
 
     //INIT
     initFancyBox('#edit-depot-link');
@@ -90,6 +93,7 @@ $(document).ready(function() {
     });
 
     getAttachement().success(function(data){
+        console.log(data);
         updateAttachementTemplates(data);
     });
 
@@ -505,18 +509,16 @@ $(document).ready(function() {
 
     /*******  ATTACHEMENT *******/
 
+
+
     function addAttachement(formObj){
-        var url = '/fast_dossier/ajax/addemailcommunication';
+        var url = prepareAjaxUrl('/fast_dossier/ajax/addAttachment');
 
         return $.ajax({
             type		: "POST",
             cache	: false,
             url		: url,
-            data		: {'file' : formObj},
-            enctype: 'multipart/form-data',
-            processData: false,  // tell jQuery not to process the data
-            contentType: false   // tell jQuery not to set contentType
-
+            data		: {'file' : formObj}
         });
     }
 
@@ -539,24 +541,51 @@ $(document).ready(function() {
             items.attachments.push(value);
         });
 
+        console.log(items);
+
         var template = Handlebars.Templates['attachment/overview'];
         $('#view-attachment-container .attachments').html(template(items));
     }
 
-    $('#add-attachement-form form').submit(function(event) {
+    //ATTACHEMENT UPLOAD
+    var Attachments = [];
 
-        var inputs = $(this).serializeArray();
-
-        var formObj = {};
-        formObj = serializeFormInputs(inputs);
-
-        formObj = {};
-
-        addAttachement(formObj).success(function(data){
-
+    $("#add-attachment-form input[type=file]").change(function(event) {
+        var html = '';
+        $.each(event.target.files, function(index, file) {
+            var reader = new FileReader();
+            reader.onload = function (event) {
+                console.log(file);
+                object = {};
+                object.file_name = file.name;
+                object.file_size = file.size;
+                object.content_type = file.type;
+                object.content = event.target.result;
+                Attachments.push(object);
+                html += '<p>' + file.name + '</p>';
+            }
+            reader.readAsDataURL(file);
         });
+
+        $('#attachments--list').html(html);
+    });
+
+
+    $('#add-attachment-form form').submit(function(event) {
+
+        $.each(Attachments, function(index, file) {
+            addAttachement(file).success(function(data){
+                console.log(data);
+            });
+        });
+
+        files = [];
+
         event.preventDefault();
     });
+
+
+
 
     /*******  END EMAIL *******/
 

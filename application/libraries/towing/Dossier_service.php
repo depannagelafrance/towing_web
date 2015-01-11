@@ -291,16 +291,10 @@ class Dossier_service extends Rest_service {
 
   public function addAttachment($dossier_id, $voucher_id, $file, $token)
   {
-    //TODO GERT
-    $content_type = "";
-    $file_size = 1111;
-    $content = base64_encode("the content of the file");
-
-
     $result = $this->CI->rest->post(
       sprintf('/dossier/voucher/attachment/any/%s/%s', $voucher_id, $token),
       json_encode(
-        array("content_type" => $content_type, "file_size" => $file_size, "content" => $content)
+        array("file_name" => $file->file_name, "content_type" => $file->content_type, "file_size" => $file->file_size, "content" => $file->content)
       ),
       'application/json'
     );
