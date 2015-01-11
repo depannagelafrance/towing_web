@@ -1018,13 +1018,18 @@ $_dossier = $dossier->dossier;
     ?>
     <div class="fancybox-form">
       <h3>Bijlage toevoegen</h3>
+
+      <div class="form-item-horizontal">
+        <div id="attachments__errors" class="msg msg__error" style="display:none;"></div>
+      </div>
+
       <div class="form-item-horizontal">
         <label>Bijlage:</label>
         <input id="attachments" type="file" name="attachment" multiple/>
       </div>
 
       <div class="form-item-horizontal">
-        <div id="attachments--list"></div>
+        <div id="attachments__list"></div>
       </div>
 
     </div>

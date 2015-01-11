@@ -56,11 +56,49 @@ $(document).ready(function() {
     initFancyBox('#edit-nuisance-data-link');
     initFancyBox('#add-email-link');
     initFancyBox('#add-nota-link');
-    initFancyBox('#view-nota-link');
-    initFancyBox('#view-email-link');
     initFancyBox('#add-activity-link');
     initFancyBox('#add-attachment-link');
-    initFancyBox('#view-attachment-link');
+
+    $('#view-nota-link').fancybox({
+        'scrolling'		: 'no',
+        'titleShow'		: false,
+        'beforeLoad' : function(){
+            getNotas().success(function(data){
+                updateNotaTemplates(data);
+            });
+        }
+    });
+
+    $('#view-email-link').fancybox({
+        'scrolling'		: 'no',
+        'titleShow'		: false,
+        'beforeLoad' : function(){
+            getEmails().success(function(data){
+                updateEmailTemplates(data);
+            });
+        }
+    });
+
+    $('#view-attachment-link').fancybox({
+        'scrolling'		: 'no',
+        'titleShow'		: false,
+        'beforeLoad' : function(){
+            getAttachement().success(function(data){
+                updateAttachementTemplates(data);
+            });
+        }
+    });
+
+    /*
+
+    $('#view-attachment-link').fancybox({
+        'scrolling': 'no',
+        'titleShow': false,
+        'beforeLoad' : function() {
+            loadAttechments;
+        }
+    });
+*/
 
     getCauser().success(function(data){
         updateCauserTemplates(data);
@@ -76,14 +114,6 @@ $(document).ready(function() {
         updateDepotTemplates(data);
     });
 
-    getNotas().success(function(data){
-        updateNotaTemplates(data);
-    });
-
-    getEmails().success(function(data){
-        updateEmailTemplates(data);
-    });
-
     getActivities().success(function(data){
         updateActivityTemplates(data);
     });
@@ -93,7 +123,6 @@ $(document).ready(function() {
     });
 
     getAttachement().success(function(data){
-        console.log(data);
         updateAttachementTemplates(data);
     });
 
@@ -147,6 +176,8 @@ $(document).ready(function() {
             'titleShow'		: false
         });
     }
+
+
 
     function redirectPage(url){
         $(location).attr('href',url);
@@ -250,8 +281,6 @@ $(document).ready(function() {
     });
 
     /****** END CAUSER *********/
-
-
 
 
 
@@ -532,16 +561,6 @@ $(document).ready(function() {
         });
     }
 
-    function downloadAttachement(){
-        var url = prepareAjaxUrl('/fast_dossier/ajax/getAttachments');
-        return $.ajax({
-            type		: "POST",
-            cache	: false,
-            url		: url,
-            data		: {}
-        });
-    }
-
     function updateAttachementTemplates(data) {
         var items = {
             attachments : []
@@ -560,10 +579,12 @@ $(document).ready(function() {
 
     $("#add-attachment-form input[type=file]").change(function(event) {
         var html = '';
+        Attachments = [];
+        $('#attachments__errors').css('display', 'none').html('');
+
         $.each(event.target.files, function(index, file) {
             var reader = new FileReader();
             reader.onload = function (event) {
-                console.log(file);
                 object = {};
                 object.file_name = file.name;
                 object.file_size = file.size;
@@ -574,18 +595,38 @@ $(document).ready(function() {
             }
             reader.readAsDataURL(file);
         });
-        $('#attachments--list').html(html);
     });
 
 
     $('#add-attachment-form form').submit(function(event) {
+        var Errors = [];
         $.each(Attachments, function(index, file) {
-            addAttachement(file).success(function(data){
-                console.log(data);
-            });
+            if(file.content_type == ''){
+                Errors[index] = file.file_name + ' kon niet worden geupload omdat dit type bestand niet ondersteund word.';
+            }else{
+                addAttachement(file).success(function(data){
+                    if(data.result != 'OK'){
+                        Errors[index] = file.file_name + ' kon niet worden geupload.';
+                    }
+                });
+            }
         });
+
         Attachments = [];
+
+        if(Errors.length > 0){
+            $.each(Errors, function(index, error) {
+                $('#attachments__errors').append(error);
+            });
+            $('#attachments__errors').css('display', 'block');
+        }else{
+            parent.$.fancybox.close();
+            $(this)[0].reset();
+        }
+
+        $(this)[0].reset();
         event.preventDefault();
+
     });
 
 

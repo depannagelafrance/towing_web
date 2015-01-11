@@ -46,7 +46,7 @@ $route['fast_dispatch/dossier/(:num)/(:num)']    = 'fast_dispatch/dossier/view/$
 
 $route['fast_dossier/dossier/(:num)']            = 'fast_dossier/dossier/view/$1';
 $route['fast_dossier/dossier/(:num)/(:num)']     = 'fast_dossier/dossier/view/$1/$2';
-$route['fast_dossier/document/(:num)']           = 'fast_dossier/document/view/$1';
+$route['fast_dossier/document/(:num)']           = 'fast_dossier/document/download/$1';
 $route['fast_dossier/overview/new']              = 'fast_dossier/index/overview/new';
 $route['fast_dossier/overview/to_check']         = 'fast_dossier/index/overview/to_check';
 $route['fast_dossier/overview/for_invoice']      = 'fast_dossier/index/overview/for_invoice';

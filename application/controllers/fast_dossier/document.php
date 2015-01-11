@@ -11,7 +11,7 @@ class Document extends Page {
     /**
      * Index Page for this controller.
      */
-    public function view($id)
+    public function download($id)
     {
 
         $token = $this->_get_user_token();
@@ -27,7 +27,8 @@ class Document extends Page {
         header('Content-Transfer-Encoding: binary');
         //header('Content-Length: '.filesize($path)); // provide file size
         header('Connection: close');
-        print base64_decode($document->data);
+        $data = explode(',', $document->data);
+        print base64_decode($data[1]);
 
         exit();
     }
