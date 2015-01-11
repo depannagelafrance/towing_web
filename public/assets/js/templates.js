@@ -83,10 +83,10 @@ this["Handlebars"]["Templates"]["attachment/overview"] = Handlebars.template({"1
   var helper, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, functionType="function";
   return "<div class=\"attachment-item\">\n    <h2>Bijlage "
     + escapeExpression(((helpers.inc || (depth0 && depth0.inc) || helperMissing).call(depth0, (data && data.index), {"name":"inc","hash":{},"data":data})))
-    + "</h2>\n    <div class=\"attachment-item-content\">\n        <div class=\"attachment-item-link\">"
+    + "</h2>\n    <div class=\"attachment-item-content\">\n        <a href=\"/fast_dossier/document/"
+    + escapeExpression(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"id","hash":{},"data":data}) : helper)))
+    + "\" class=\"attachment-item-link\">"
     + escapeExpression(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"name","hash":{},"data":data}) : helper)))
-    + " "
-    + escapeExpression(((helper = (helper = helpers.url || (depth0 != null ? depth0.url : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"url","hash":{},"data":data}) : helper)))
     + "</div>\n    </div>\n</div>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   var stack1;

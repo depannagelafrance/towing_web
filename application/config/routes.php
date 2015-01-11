@@ -42,14 +42,15 @@ $route['default_controller'] = "login";
 $route['404_override'] = '';
 
 $route['login'] = 'login';
-$route['fast_dispatch/dossier/(:num)/(:num)'] = 'fast_dispatch/dossier/view/$1/$2';
+$route['fast_dispatch/dossier/(:num)/(:num)']    = 'fast_dispatch/dossier/view/$1/$2';
 
-$route['fast_dossier/dossier/(:num)']         = 'fast_dossier/dossier/view/$1';
-$route['fast_dossier/dossier/(:num)/(:num)']  = 'fast_dossier/dossier/view/$1/$2';
-$route['fast_dossier/overview/new']           = 'fast_dossier/index/overview/new';
-$route['fast_dossier/overview/to_check']      = 'fast_dossier/index/overview/to_check';
-$route['fast_dossier/overview/for_invoice']   = 'fast_dossier/index/overview/for_invoice';
-$route['fast_dossier/overview/done']          = 'fast_dossier/index/overview/done';
+$route['fast_dossier/dossier/(:num)']            = 'fast_dossier/dossier/view/$1';
+$route['fast_dossier/dossier/(:num)/(:num)']     = 'fast_dossier/dossier/view/$1/$2';
+$route['fast_dossier/document/(:num)']           = 'fast_dossier/document/view/$1';
+$route['fast_dossier/overview/new']              = 'fast_dossier/index/overview/new';
+$route['fast_dossier/overview/to_check']         = 'fast_dossier/index/overview/to_check';
+$route['fast_dossier/overview/for_invoice']      = 'fast_dossier/index/overview/for_invoice';
+$route['fast_dossier/overview/done']             = 'fast_dossier/index/overview/done';
 
 //$route['news'] = 'news';
 //$route['(:any)'] = 'pages/view/$1';

@@ -532,6 +532,16 @@ $(document).ready(function() {
         });
     }
 
+    function downloadAttachement(){
+        var url = prepareAjaxUrl('/fast_dossier/ajax/getAttachments');
+        return $.ajax({
+            type		: "POST",
+            cache	: false,
+            url		: url,
+            data		: {}
+        });
+    }
+
     function updateAttachementTemplates(data) {
         var items = {
             attachments : []
@@ -540,8 +550,6 @@ $(document).ready(function() {
         $.each( data, function( key, value ) {
             items.attachments.push(value);
         });
-
-        console.log(items);
 
         var template = Handlebars.Templates['attachment/overview'];
         $('#view-attachment-container .attachments').html(template(items));
@@ -566,21 +574,17 @@ $(document).ready(function() {
             }
             reader.readAsDataURL(file);
         });
-
         $('#attachments--list').html(html);
     });
 
 
     $('#add-attachment-form form').submit(function(event) {
-
         $.each(Attachments, function(index, file) {
             addAttachement(file).success(function(data){
                 console.log(data);
             });
         });
-
-        files = [];
-
+        Attachments = [];
         event.preventDefault();
     });
 

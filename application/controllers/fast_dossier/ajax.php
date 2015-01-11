@@ -4,6 +4,8 @@ require_once(APPPATH . '/controllers/ajaxpage.php');
 require_once(APPPATH . '/models/Depot_model.php');
 require_once(APPPATH . '/models/Causer_model.php');
 require_once(APPPATH . '/models/Customer_model.php');
+require_once(APPPATH . '/models/File_model.php');
+
 
 class Ajax extends AjaxPage
 {
