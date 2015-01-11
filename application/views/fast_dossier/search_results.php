@@ -1,11 +1,30 @@
 <div>
-  <form method="post" action="/fast_dossier/search">
-    <input type="text" value="<?php print isset($call_number) ? $call_number : '' ?>" name="call_number" placeholder="Oproepnummer" />
-    <input type="text" value="<?php print isset($call_date) ? $call_date : '' ?>" name="call_date" placeholder="Datum oproep" />
-    <input type="text" value="<?php print isset($type) ? $type : '' ?>" name="type" placeholder="Type voertuig" />
-    <input type="text" value="<?php print isset($licence_plate) ? $licence_plate : '' ?>" name="licence_plate" placeholder="Nummerplaat" />
-    <input type="text" value="<?php print isset($customer_name) ? $customer_name : '' ?>" name="customer_name" placeholder"Naam klant" />
-    <input type="submit" value="Zoeken" name="btnSearch" />
+  <form class="search--fast--dossier box" method="post" action="/fast_dossier/search">
+
+    <div class="search--title">Takelbon Zoeken</div>
+
+    <div class="search--input">
+      <input type="text" value="<?php print isset($call_number) ? $call_number : '' ?>" name="call_number" placeholder="Oproepnummer" />
+    </div>
+
+    <div class="search--input">
+      <input type="text" value="<?php print isset($call_date) ? $call_date : '' ?>" name="call_date" placeholder="Datum oproep" />
+    </div>
+
+    <div class="search--input">
+      <input type="text" value="<?php print isset($type) ? $type : '' ?>" name="type" placeholder="Type voertuig" />
+    </div>
+
+    <div class="search--input">
+      <input type="text" value="<?php print isset($licence_plate) ? $licence_plate : '' ?>" name="licence_plate" placeholder="Nummerplaat" />
+    </div>
+
+    <div class="search--input">
+      <input type="text" value="<?php print isset($customer_name) ? $customer_name : '' ?>" name="customer_name" placeholder="Naam klant" />
+    </div>
+    <div class="search--input search--submit">
+      <input type="submit" value="Zoeken" name="btnSearch" />
+    </div>
   </form>
 </div>
 
@@ -15,9 +34,11 @@
 
   $this->load->helper('date');
 
-  $this->table->set_heading('Takelbon', 'Oproepnummer', 'Oproep', 'Richting', 'KM-Paal', 'Takeldienst', 'Type');
 
   if($vouchers && sizeof($vouchers) > 0) {
+
+    $this->table->set_heading('Takelbon', 'Oproepnummer', 'Oproep', 'Richting', 'KM-Paal', 'Takeldienst', 'Type');
+
     foreach($vouchers as $voucher) {
 
       $this->table->add_row(
@@ -30,8 +51,10 @@
         $voucher->incident_type
       );
     }
+
+    echo $this->table->generate();
+
   }
 
-  echo $this->table->generate();
   ?>
 </div>

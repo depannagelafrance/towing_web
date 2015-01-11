@@ -453,3 +453,22 @@
   }
 
 }
+
+// .icon--search
+//
+// Markup:
+// <div class="icon--search"></div>
+//
+// Styleguide 1.0.23
+
+.icon--search{
+  @extend .icon;
+  background-position: -457px -276px;
+
+  .bright & {
+
+    background-position: -457px -339px;
+
+  }
+
+}

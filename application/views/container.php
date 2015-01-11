@@ -54,14 +54,10 @@
       <div class="l-branding">
         <div class="logo"></div>
       </div>
-        <div class="l-main-search">
+        <div class="l-main-search bright">
             <form method="post" action="/fast_dossier/search/voucher">
-                <table>
-									<tr>
-										<td><input type="text" value="" name="searchVoucherNumber" placeholder="Takelbon zoeken" /></td>
-										<td><a href="/fast_dossier/search"><i class="fa fa-search-plus fa-border fa-2x"></i></a></td>
-									</tr>
-								</table>
+               <input type="text" value="" name="searchVoucherNumber" placeholder="Takelbon zoeken" />
+               <a class="icon--search icon" href="/fast_dossier/search"></a>
             </form>
         </div>
         <div class="l-user-navigation">

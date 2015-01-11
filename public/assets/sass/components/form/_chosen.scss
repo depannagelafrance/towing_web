@@ -19,9 +19,10 @@
         height: 34px;
         padding: 0 10px;
         display: block;
-        background-image: image-url('icons/chosen-search.png');
-        background-position: 99% center;
-        background-repeat: no-repeat;
+        background-image: image-url('icons/chosen-search.png')!important;
+        background-position: 99% center!important;
+        background-repeat: no-repeat!important;
+        background-size: auto auto!important;
 
       }
 
@@ -99,4 +100,17 @@
 
   }
 
+}
+
+.chosen-container-multi .chosen-choices li.search-choice span{
+  height: 20px;
+  line-height: 20px;
+}
+
+.chosen-container-multi .chosen-choices li.search-choice .search-choice-close{
+  top: 7px;
+}
+
+.chosen-container-multi .chosen-drop .result-selected {
+  display: none;
 }

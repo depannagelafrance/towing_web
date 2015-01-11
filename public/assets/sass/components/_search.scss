@@ -1,0 +1,47 @@
+.l-main-search{
+  @include clearfix();
+  input{
+    float: left;
+    width: 80%;
+    @include border-radius( 5px 0 0 5px);
+  }
+  a{
+    @include border-radius( 0 5px 5px 0);
+    display: block;
+    width: 40px;
+    height: 34px;
+    float: left;
+    background-color: #666;
+  }
+}
+
+.search--fast--dossier{
+  @include clearfix();
+  margin-bottom: 25px;
+  padding: 20px;
+
+  .search--title{
+    margin-left: 10px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #EEE;
+    padding-bottom: 25px;
+    color: #333;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+
+  .search--input{
+    width: 15%;
+    float: left;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-bottom: 20px;
+  }
+  .search--submit{
+    input{
+      width: 100%;
+    }
+  }
+
+}

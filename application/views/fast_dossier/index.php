@@ -1,14 +1,17 @@
-<div class="box table_list table_list_large">
-  <ul>
-    <li><a href="/fast_dossier/overview/new">Nieuw</a></li>
-    <li><a href="/fast_dossier/overview/to_check">Ter controle</a></li>
-    <li><a href="/fast_dossier/overview/for_invoice">Ter facturatie</a></li>
-    <li><a href="/fast_dossier/overview/done">Afgesloten</a></li>
-  </ul>
+<?php
+
+$last = $this->uri->total_segments();
+$active_tab = $this->uri->segment($last);
+
+?>
+
+<div class="status--indication">
+  <a class="<?php print $active_tab == 'index' ? 'active' : '';  ?>" href="/fast_dossier/index">Alle</a>
+  <a class="<?php print $active_tab == 'new' ? 'active' : '';  ?>" href="/fast_dossier/overview/new">Nieuw</a>
+  <a class="<?php print $active_tab == 'to_check' ? 'active' : '';  ?>" href="/fast_dossier/overview/to_check">Ter controle</a>
+  <a class="<?php print $active_tab == 'for_invoice' ? 'active' : '';  ?>" href="/fast_dossier/overview/for_invoice">Ter facturatie</a>
+  <a class="<?php print $active_tab == 'done' ? 'active' : '';  ?>" href="/fast_dossier/overview/done">Afgesloten</a>
 </div>
-
-
-<h1><?php print $title ?></h1>
 
 <div class="box table_list table_list_large">
 <?php

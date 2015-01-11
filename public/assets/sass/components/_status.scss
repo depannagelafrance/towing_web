@@ -1,0 +1,17 @@
+.status--indication{
+  @include clearfix();
+  margin-bottom: 20px;
+  a{
+    display: block;
+    float: left;
+    padding: 15px 40px;
+    border: 1px solid #CCC;
+    margin-right: 15px;
+    background: #666;
+    color: #FFF;
+    text-decoration: none;
+    &.active{
+      background-color: #4285f4;
+    }
+  }
+}
