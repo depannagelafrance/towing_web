@@ -73,7 +73,7 @@ class Company extends Page {
             $resultCompany = $this->admin_service->updateCompany($company_model, $this->_get_user_token());
             $resultDepot   = $this->admin_service->updateCompanyDepot($depot_model, $this->_get_user_token());
 
-            if(array_key_exists('statusCode'), $resultCompany) {
+            if(array_key_exists('statusCode', $resultCompany)) {
               $this->_add_content(
                 $this->load->view(
                   'admin/company/edit',
