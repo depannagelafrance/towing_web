@@ -7,5 +7,5 @@
       "chosen": "https://github.com/harvesthq/chosen/releases/download/v1.2.0/chosen_v1.2.0.zip",
       "fancyBox" : "https://github.com/fancyapps/fancyBox.git",
       "handlebars" : "2.0.0",
-  }
+  } 
 }
