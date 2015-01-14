@@ -59,7 +59,7 @@ $_dossier = $dossier->dossier;
                                                   <span class="id__cell__text__nr">%s</span>
                                                   <span class="id__cell__text__info">%s %s</span>
                                                 </span>
-                                              </span></a>', $voucher->dossier_number, $voucher->voucher_number, $voucher->dossier_number, $_dossier->call_number, $voucher->incident_type, $voucher->direction_name , $voucher->indicator_name))
+                                              </span></a>', $voucher->dossier_number, $voucher->voucher_number, $voucher->dossier_number, $voucher->call_number, $voucher->incident_type, $voucher->direction_name , $voucher->indicator_name))
             );
 
           }
