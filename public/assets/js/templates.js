@@ -422,17 +422,21 @@ this["Handlebars"]["Templates"]["email/overview"] = Handlebars.template({"1":fun
   var helper, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, functionType="function";
   return "<div class=\"email-item\">\n    <h2>Email "
     + escapeExpression(((helpers.inc || (depth0 && depth0.inc) || helperMissing).call(depth0, (data && data.index), {"name":"inc","hash":{},"data":data})))
-    + "</h2>\n    <div class=\"email-item-content\">\n        <div class=\"email-item-subject\">"
+    + " - "
+    + escapeExpression(((helper = (helper = helpers.cd || (depth0 != null ? depth0.cd : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"cd","hash":{},"data":data}) : helper)))
+    + " ("
+    + escapeExpression(((helper = (helper = helpers.cd_by || (depth0 != null ? depth0.cd_by : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"cd_by","hash":{},"data":data}) : helper)))
+    + ")</h2>\n    <div class=\"email-item-content\">\n        <div class=\"email-item-subject\">"
     + escapeExpression(((helper = (helper = helpers.subject || (depth0 != null ? depth0.subject : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"subject","hash":{},"data":data}) : helper)))
     + "</div>\n        <div class=\"email-item-message\">"
     + escapeExpression(((helper = (helper = helpers.message || (depth0 != null ? depth0.message : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"message","hash":{},"data":data}) : helper)))
     + "</div>\n    </div>\n</div>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-  var stack1;
+  var stack1, buffer = "";
   stack1 = helpers.each.call(depth0, (depth0 != null ? depth0.emails : depth0), {"name":"each","hash":{},"fn":this.program(1, data),"inverse":this.noop,"data":data});
-  if (stack1 != null) { return stack1; }
-  else { return ''; }
-  },"useData":true});
+  if (stack1 != null) { buffer += stack1; }
+  return buffer;
+},"useData":true});
 
 
 
@@ -442,6 +446,10 @@ this["Handlebars"]["Templates"]["nota/overview"] = Handlebars.template({"1":func
     + escapeExpression(((helpers.inc || (depth0 && depth0.inc) || helperMissing).call(depth0, (data && data.index), {"name":"inc","hash":{},"data":data})))
     + "</h2>\n<div class=\"nota-item-content\">\n<div class=\"nota-item-message\">\n"
     + escapeExpression(((helper = (helper = helpers.message || (depth0 != null ? depth0.message : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"message","hash":{},"data":data}) : helper)))
+    + "\n<br />\n"
+    + escapeExpression(((helper = (helper = helpers.cd || (depth0 != null ? depth0.cd : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"cd","hash":{},"data":data}) : helper)))
+    + " - "
+    + escapeExpression(((helper = (helper = helpers.cd_by || (depth0 != null ? depth0.cd_by : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"cd_by","hash":{},"data":data}) : helper)))
     + "\n</div>\n</div>\n</div>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   var stack1, buffer = "";
