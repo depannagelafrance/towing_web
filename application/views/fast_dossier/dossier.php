@@ -252,7 +252,16 @@ $_dossier = $dossier->dossier;
 
           <div class="form-item-horizontal signa-container__licenceplate">
             <label>Nummerplaat:</label>
-            <?php print form_input('signa_by_vehicle', $_voucher->signa_by_vehicle); ?>
+            <?php
+              $data = array(
+                'name'        => 'signa_by_vehicle',
+                'value'       => $_voucher->signa_by_vehicle,
+                'readonly'    => 'readonly',
+                'style'       => 'background: #F0F0F0'
+              );
+
+              print form_input($data);
+            ?>
           </div>
         </div>
 
@@ -279,7 +288,16 @@ $_dossier = $dossier->dossier;
 
           <div class="form-item-horizontal towedby-container__licenceplate">
             <label>Nummerplaat:</label>
-            <?php print form_input('towed_by_vehicle', $_voucher->towed_by_vehicle); ?>
+            <?php
+            $data = array(
+              'name'        => 'towed_by_vehicle',
+              'value'       => $_voucher->towed_by_vehicle,
+              'readonly'    => 'readonly',
+              'style'       => 'background: #F0F0F0'
+            );
+
+            print form_input($data);
+            ?>
           </div>
         </div>
 
@@ -589,7 +607,7 @@ $_dossier = $dossier->dossier;
           <div class="vehicule-container__left">
             <div class="form-item-horizontal">
                 <label>Extra informatie:</label>
-                <?php print form_textarea('additional_info', $_voucher->additional_info); ?>
+                <?php nl2br(print $_voucher->additional_info); ?>
             </div>
           </div>
         </div>

@@ -63,12 +63,13 @@ class Voucher_model  {
       $this->signa_arrival                = $data->signa_arrival;
       $this->signa_by_vehicle             = $data->signa_by_vehicle;
       $this->cic                          = $data->cic;
-      $this->additional_info              = $data->additional_info;
+
+      if(property_exists($data, 'additional_info'))
+        $this->additional_info = $data->additional_info;
+
 
       if(property_exists($data, 'actions'))
-      {
-          $this->actions = $data->actions;
-      }
+        $this->actions = $data->actions;
 
       if(property_exists($data, 'depot') && $data->depot) {
         $this->depot = new Depot_model($data->depot);

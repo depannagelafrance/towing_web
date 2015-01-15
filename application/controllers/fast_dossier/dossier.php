@@ -170,7 +170,8 @@ class Dossier extends Page {
         $voucher->vehicule_licenceplate = $this->input->post('vehicule_licenceplate');
         $voucher->vehicule_country      = $this->input->post('licence_plate_country');
 
-        $voucher->additional_info = $this->input->post('additional_info');
+        if($this->input->post('additional_info'))
+          $voucher->additional_info = $this->input->post('additional_info');
 
         $voucher->insurance_id                = toIntegerValue($this->input->post('insurance_id'));
         $voucher->insurance_dossiernr         = $this->input->post('insurance_dossiernr');
