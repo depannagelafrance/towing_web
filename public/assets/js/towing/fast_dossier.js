@@ -893,7 +893,7 @@ $(document).ready(function() {
 
     /******* END TRAFFIC POST ********/
 
-    function fetchDataForListBox($id, $api) {
+    function fetchDataForListBox($id, $api, cb) {
       $.getJSON($api, function(data, status, xhr) {
         if(data) {
           $selectedValue = $($id).data('selected-id');
@@ -905,12 +905,10 @@ $(document).ready(function() {
 
           $.each(data, function(index, item) {
 
-            $data = {
-              value     : item.id,
-              text      : item.name
-            }
+            $data = cb(item);
 
-            if($selectedValue && $selectedValue == item.id) {
+
+            if($selectedValue && ($selectedValue == item.id || $selectedValue == item.name)) {
               $data["selected"] = "selected";
             }
 
@@ -922,36 +920,30 @@ $(document).ready(function() {
       });
     }
 
-    fetchDataForListBox('#list_insurance_id', '/fast_dossier/ajax/insurances');
-    fetchDataForListBox('#list_collector_id', '/fast_dossier/ajax/collectors');
-    fetchDataForListBox('#list_signa_id',     '/fast_dossier/ajax/signadrivers');
-    fetchDataForListBox('#list_towing_id',    '/fast_dossier/ajax/towingdrivers');
+    var defaultDataMapper = function(item) {
+        return  {
+          value     : item.id,
+          text      : item.name
+        };
+    }
 
-    $.getJSON('/fast_dossier/ajax/licenceplatecountries', function(data, status, xhr)
-    {
-      if(data) {
-        $selectedValue = $('#list_licence_plate_country').data('selected-id');
+    var driverDataMapper = function (item) {
+      return {
+        value     : item.id,
+        text      : item.name + (item.licence_plate && item.licence_plate != '' ? ' (' + item.licence_plate  + ')' : '')
+      };
+    }
 
-        $('#list_licence_plate_country').append($('<option/>', {
-          value: '',
-          text : '--'
-        }));
+    var licencePlateDataMapper = function (item) {
+      return {
+        value     : item.name,
+        text      : item.name
+      };
+    }
 
-        $.each(data, function(index, item) {
-          $data = {
-            value     : item.name,
-            text      : item.name
-          }
-
-          if($selectedValue && $selectedValue == item.name) {
-            $data["selected"] = "selected";
-          }
-
-          $('#list_licence_plate_country').append($('<option/>', $data));
-        });
-
-        $('#list_licence_plate_country').trigger('chosen:updated');
-      }
-    });
-
+    fetchDataForListBox('#list_insurance_id',             '/fast_dossier/ajax/insurances',            defaultDataMapper);
+    fetchDataForListBox('#list_collector_id',             '/fast_dossier/ajax/collectors',            defaultDataMapper);
+    fetchDataForListBox('#list_signa_id',                 '/fast_dossier/ajax/signadrivers',          driverDataMapper);
+    fetchDataForListBox('#list_towing_id',                '/fast_dossier/ajax/towingdrivers',         driverDataMapper);
+    fetchDataForListBox('#list_licence_plate_country',    '/fast_dossier/ajax/licenceplatecountries', licencePlateDataMapper);
 });
