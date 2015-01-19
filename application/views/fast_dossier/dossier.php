@@ -503,7 +503,15 @@ $_dossier = $dossier->dossier;
 
           <div class="form-item-horizontal  autograph-container__police__timestamp">
             <label class="notbold">Tijdstip:</label>
-            <?php print form_input('police_signature_dt', mdate('%H:%i',strtotime($_voucher->police_signature_dt))); ?>
+            <?php
+
+            $police_signature_dt = array(
+                'name' => 'police_signature_dt',
+                'class' => 'datetimepicker',
+                'value' => mdate('%d/%m/%Y %H:%i',strtotime($_voucher->vehicule_collected))
+            );
+
+            print form_input($police_signature_dt); ?>
           </div>
         </div>
 
@@ -525,7 +533,7 @@ $_dossier = $dossier->dossier;
 
             $vehicule = array(
                 'name' => 'vehicule_collected',
-                'class' => 'datepicker',
+                'class' => 'datetimepicker',
                 'value' => mdate('%d/%m/%Y %H:%i',strtotime($_voucher->vehicule_collected))
             );
 
