@@ -521,7 +521,15 @@ $_dossier = $dossier->dossier;
 
           <div class="form-item-horizontal  autograph-container__collecting__date">
             <label class="notbold">Datum:</label>
-            <?php print form_input('vehicule_collected', mdate('%d/%m/%Y %H:%i',strtotime($_voucher->vehicule_collected))); ?>
+            <?php
+
+            $vehicule = array(
+                'name' => 'vehicule_collected',
+                'class' => 'datepicker',
+                'value' => mdate('%d/%m/%Y %H:%i',strtotime($_voucher->vehicule_collected))
+            );
+
+            print form_input($vehicule); ?>
           </div>
         </div>
       </div>

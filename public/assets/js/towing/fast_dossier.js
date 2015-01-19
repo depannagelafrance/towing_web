@@ -89,16 +89,21 @@ $(document).ready(function() {
         }
     });
 
-    /*
-
-    $('#view-attachment-link').fancybox({
-        'scrolling': 'no',
-        'titleShow': false,
-        'beforeLoad' : function() {
-            loadAttechments;
-        }
+    //INIT DATETIMEPICKERS
+    $('.datetimepicker').datetimepicker({
+        format:'d-m-Y H:i'
     });
-*/
+
+    $('.datepicker').datetimepicker({
+        timepicker:false,
+        format:'d-m-Y'
+    });
+
+    $('.timepicker').datetimepicker({
+        datepicker:false,
+        format:'H:i'
+    });
+
 
     getCauser().success(function(data){
         updateCauserTemplates(data);

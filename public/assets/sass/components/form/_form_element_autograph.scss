@@ -120,3 +120,23 @@
     background: darken(#6f6f6f, 5%);
   }
 }
+
+.autograph-container__collecting__date{
+  position: relative;
+  label{
+    width: 40%;
+  }
+  input{
+    margin-right: 10%;
+  }
+  .ui-datepicker-trigger{
+    position: absolute;
+    width: 32px;
+    height: 34px;
+    background: none;
+    padding: 0;
+    background-color: #efefef;
+    border: 1px solid #CCC;
+    right: 0;
+  }
+}
