@@ -403,10 +403,10 @@ $_dossier = $dossier->dossier;
         <div class="work-container__header">
           <div class="work-container__task__label"><label>Activiteiten:</label></div>
           <div class="work-container__number__label"><label>Aantal:</label></div>
-          <div class="work-container__incl__label"><label>EHP Incl:</label></div>
-          <div class="work-container__excl__label"><label>EHP Excl:</label></div>
-          <div class="work-container__tot__incl__label"><label>Totaal Incl:</label></div>
-          <div class="work-container__tot__excl__label"><label>Totaal Excl:</label></div>
+          <div class="work-container__incl__label"><label>EHP (excl.):</label></div>
+          <div class="work-container__excl__label"><label>EHP (incl.):</label></div>
+          <div class="work-container__tot__incl__label"><label>Totaal (excl.):</label></div>
+          <div class="work-container__tot__excl__label"><label>Totaal (incl.):</label></div>
         </div>
         <?php endif; ?>
         <div class="work-container__fields"></div>
