@@ -505,13 +505,21 @@ $_dossier = $dossier->dossier;
             <label class="notbold">Tijdstip:</label>
             <?php
 
-            $police_signature_dt = array(
-                'name' => 'police_signature_dt',
-                'class' => 'datetimepicker',
-                'value' => mdate('%d/%m/%Y %H:%i',strtotime($_voucher->vehicule_collected))
-            );
+            // $police_signature_dt = array(
+            //     'name' => 'police_signature_dt',
+            //     'class' => 'datetimepicker',
+            //     'value' => mdate('%d/%m/%Y %H:%i',strtotime($_voucher->police_signature_dt))
+            // );
+            //
+            // print form_input($police_signature_dt);
+            //
 
-            print form_input($police_signature_dt); ?>
+            if($_voucher->police_signature_dt && trim($_voucher->police_signature_dt) != "") {
+              print mdate('%d/%m/%Y %H:%i',strtotime($_voucher->police_signature_dt));
+            } else {
+              print "";
+            }
+           ?>
           </div>
         </div>
 
