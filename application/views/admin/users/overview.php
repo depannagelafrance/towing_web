@@ -8,7 +8,7 @@
 <?php
 
 //set table headers
-$this->table->set_heading('Login', 'Voornaam', 'Naam', 'E-mail', 'Locked', 'Datum lock', '&nbsp;', '&nbsp;', '&nbsp;');
+$this->table->set_heading('Login', 'Voornaam', 'Naam', 'E-mail', 'Signa?', 'Takel?',  'Locked?', 'Datum lock', '&nbsp;', '&nbsp;', '&nbsp;');
 //add table row(s)
 foreach ($users as $user){
     $this->table->add_row(
@@ -16,7 +16,9 @@ foreach ($users as $user){
             $user->first_name,
             $user->last_name,
             $user->email,
-            $user->is_locked,
+            sprintf('<i class="fa fa-%ssquare-o fa-2x">&nbsp;</i>', ($user->is_signa == 1 ? "check-" : "")),
+            sprintf('<i class="fa fa-%ssquare-o fa-2x">&nbsp;</i>', ($user->is_towing == 1 ? "check-" : "")),
+            sprintf('<i class="fa fa-%ssquare-o fa-2x">&nbsp;</i>', ($user->is_locked == 1 ? "check-" : "")),
             $user->locked_ts,
 
             sprintf('<a href="/admin/user/unlock/%s"><i class="fa fa-unlock fa-2x">&nbsp;</i></a>', $user->id),

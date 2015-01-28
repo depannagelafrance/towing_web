@@ -36,12 +36,39 @@ if($errors) {
         </div>
 
         <div class="form-item admin-form-checks">
+          <fieldset>
+            <legend>Functies</legend>
+            <?php
+            $data = array(
+              'name'        => 'is_signa',
+              'value'       => 1,
+              'checked'     => (set_value('is_signa') == 1)
+            );
+
+            echo '<div class="form-item admin-user-checkbox">' . form_checkbox($data) . '<span>Signa?</span></div>' ;
+
+            $data = array(
+              'name'        => 'is_towing',
+              'value'       => 1,
+              'checked'     => (set_value('is_towing') == 1)
+            );
+
+            echo '<div class="form-item admin-user-checkbox">' . form_checkbox($data) . '<span>Takel?</span></div>' ;
+            ?>
+          </fieldset>
+        </div>
+
+        <div class="form-item admin-form-checks">
+          <fieldset>
+            <legend>Machtigingen</legend>
+
             <?php foreach($roles as $role) {?>
             <div class="form-item admin-user-checkbox">
                 <input type="checkbox" name="roles[]" value="<?php echo $role->id?>" />
                 <span><?php echo $role->name;?></span>
             </div>
             <?php }?>
+          </fieldset>
         </div>
       </div>
 
