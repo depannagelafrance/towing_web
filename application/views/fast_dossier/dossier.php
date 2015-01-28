@@ -542,7 +542,7 @@ $_dossier = $dossier->dossier;
             $vehicule = array(
                 'name' => 'vehicule_collected',
                 'class' => 'datetimepicker',
-                'value' => mdate('%d/%m/%Y %H:%i',strtotime($_voucher->vehicule_collected))
+                'value' => $_voucher->vehicule_collected ? mdate('%d/%m/%Y %H:%i',strtotime($_voucher->vehicule_collected)) : ''
             );
 
             print form_input($vehicule); ?>
