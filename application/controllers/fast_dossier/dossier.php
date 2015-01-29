@@ -178,7 +178,8 @@ class Dossier extends Page {
         $voucher->insurance_warranty_held_by  = $this->input->post('insurance_warranty_held_by');
 
         $voucher->collector_id        = toIntegerValue($this->input->post('collector_id'));
-        $voucher->vehicule_collected  = $this->input->post('vehicule_collected') == '' ? null : DateTime::createFromFormat('d/m/Y h:i', $this->input->post('vehicule_collected'))->getTimestamp();
+
+        $voucher->vehicule_collected  = $this->input->post('vehicule_collected') == '' ? null : DateTime::createFromFormat('d/m/Y H:i', $this->input->post('vehicule_collected'))->getTimestamp();
 
         if($voucher->signa_id != $this->input->post('signa_id') && trim($this->input->post('signa_id')) != '') {
             //either the previous signa was not set or the data has changed => send a push message
