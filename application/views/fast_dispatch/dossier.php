@@ -162,9 +162,18 @@ if($errors) {
         </div>
 
 
-        <div class="form-item-horizontal">
+        <div class="form-item-horizontal  autograph-container__collecting__date">
             <label>Afmelding CIC:</label>
-            <?php print form_input('cic', $_dossier->towing_vouchers[0]->cic); ?>
+            <?php
+
+            $vehicule = array(
+              'name' => 'cic',
+              'class' => 'datetimepicker',
+              'value' => $_dossier->towing_vouchers[0]->cic ? mdate('%d/%m/%Y %H:%i',strtotime($_dossier->towing_vouchers[0]->cic)) : ''
+            );
+
+            print form_input($vehicule);
+            ?>
         </div>
       </div>
 
