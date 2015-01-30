@@ -29,7 +29,7 @@ if($errors) {
     </div>
 
     <div class="form-item">
-    	<input type="text" placeholder="email"
+    	<input type="text" placeholder="E-mail"
     		value="<?php print set_value('email', $users->email); ?>" name="email" />
     </div>
 
@@ -37,6 +37,15 @@ if($errors) {
     <div class="form-item admin-form-checks">
       <fieldset>
         <legend>Functies</legend>
+
+        <div class="form-item">
+          <input type="text" placeholder="Voertuig" value="<?php print set_value('vehicule', $users->vehicule); ?>" name="vehicule" />
+        </div>
+
+        <div class="form-item">
+          <input type="text" placeholder="Nummerplaat" value="<?php print set_value('licence_plate', $users->licence_plate); ?>" name="licence_plate" />
+        </div>
+
         <?php
           $data = array(
             'name'        => 'is_signa',

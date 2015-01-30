@@ -957,9 +957,16 @@ $(document).ready(function() {
     }
 
     var driverDataMapper = function (item) {
+      var $label = item.name;
+
+      $label += "(";
+      $label += (item.licence_plate && item.licence_plate != '' ? item.licence_plate : '');
+      $label += (item.vehicule && item.vehicule != '' ? (item.licence_plate != '' ? ' - ' + item.vehicule : item.vehicule) : '');
+      $label += ")";
+
       return {
         value     : item.id,
-        text      : item.name + (item.licence_plate && item.licence_plate != '' ? ' (' + item.licence_plate  + ')' : '')
+        text      : $label
       };
     }
 

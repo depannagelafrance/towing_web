@@ -161,12 +161,7 @@ class User extends Page {
               $this->_add_content(
                       $this->load->view(
                               'admin/users/edit',
-                              array(
-                                  "login" => $this->input->post('login'),
-                                  "firstname" => $this->input->post('firstname'),
-                                  "lastname" => $this->input->post('lasname'),
-                                  "email" => $this->input->post('email')
-                              ),
+                              $this->input->post(),
                               true
                       )
               );
@@ -192,12 +187,7 @@ class User extends Page {
                   $this->_add_content(
                           $this->load->view(
                                   'admin/users/edit',
-                                  array(
-                                      "login" => $this->input->post('login'),
-                                      "firstname" => $this->input->post('firstname'),
-                                      "lastname" => $this->input->post('lasname'),
-                                      "email" => $this->input->post('email')
-                                  ),
+                                  $this->input->post(),
                                   true
                           )
                   );

@@ -244,23 +244,21 @@ $_dossier = $dossier->dossier;
       <!--SIGNA-->
       <div class="signa-container">
         <div class="signa-container__left">
-          <div class="form-item-horizontal signa-container__signa">
+          <div class="form-item-horizontal signa-container__signa" style="width: 100%;">
             <label>Signa:</label>
             <?php /* print form_input('signa_by', $_voucher->signa_by);*/ ?>
             <?php print listbox_ajax('signa_id', $_voucher->signa_id); ?>
-          </div>
 
-          <div class="form-item-horizontal signa-container__licenceplate">
-            <label>Nummerplaat:</label>
+
             <?php
-              $data = array(
-                'name'        => 'signa_by_vehicle',
-                'value'       => $_voucher->signa_by_vehicle,
-                'readonly'    => 'readonly',
-                'style'       => 'background: #F0F0F0'
-              );
+            $data = array(
+              'name'        => 'signa_by_vehicle',
+              'value'       => $_voucher->signa_by_vehicle,
+              'readonly'    => 'readonly',
+              'style'       => 'background: #F0F0F0'
+            );
 
-              print form_input($data);
+            print form_hidden($data);
             ?>
           </div>
         </div>
@@ -280,14 +278,10 @@ $_dossier = $dossier->dossier;
       <!--TOWED BY-->
       <div class="towedby-container">
         <div class="towedby-container__left">
-          <div class="form-item-horizontal towedby-container__towedby">
+          <div class="form-item-horizontal towedby-container__towedby" style="width: 100%">
             <label>Takelaar:</label>
             <?php /* print form_input('towed_by', $_voucher->towed_by);*/ ?>
             <?php print listbox_ajax('towing_id', $_voucher->towing_id); ?>
-          </div>
-
-          <div class="form-item-horizontal towedby-container__licenceplate">
-            <label>Nummerplaat:</label>
             <?php
             $data = array(
               'name'        => 'towed_by_vehicle',
@@ -296,7 +290,7 @@ $_dossier = $dossier->dossier;
               'style'       => 'background: #F0F0F0'
             );
 
-            print form_input($data);
+            print form_hidden($data);
             ?>
           </div>
         </div>
