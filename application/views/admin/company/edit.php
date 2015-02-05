@@ -9,7 +9,6 @@ if($errors) {
 
 <div class="box unpadded dsform admin_form">
   <div class="inner_padding">
-
     <h2 class="admin_form_title">Bedrijfsgegevens</h2>
     <div class="form-item-horizontal">
         <label>Naam: </label>
