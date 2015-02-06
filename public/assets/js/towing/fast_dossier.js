@@ -399,6 +399,9 @@ $(document).ready(function() {
 
     function setDepotDefault(formObj){
         var url = prepareAjaxUrl('/fast_dossier/ajax/updatedepottodefault');
+
+        formObj.default_depot = 1;
+
         return $.ajax({
             type		: "POST",
             cache	: false,

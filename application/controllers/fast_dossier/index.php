@@ -33,6 +33,10 @@ class Index extends Page {
         $dossiers = $this->dossier_service->fetchAllClosedDossiers($this->_get_user_token());
         $title = 'Afgesloten dossiers';
         break;
+      case 'not_collected':
+        $dossiers = $this->dossier_service->fetchAllNotCollectedDossiers($this->_get_user_token());
+        $title = 'Niet afgehaalde voertuigen';
+        break;
       default:
         $dossiers = $this->dossier_service->fetchAllNewDossiers($this->_get_user_token());
         $title = 'Actieve dossiers';

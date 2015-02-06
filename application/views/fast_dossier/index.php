@@ -10,6 +10,7 @@ $active_tab = $this->uri->segment($last);
   <a class="<?php print $active_tab == 'new' ? 'active' : '';  ?>" href="/fast_dossier/overview/new">Nieuw</a>
   <a class="<?php print $active_tab == 'to_check' ? 'active' : '';  ?>" href="/fast_dossier/overview/to_check">Ter controle</a>
   <a class="<?php print $active_tab == 'for_invoice' ? 'active' : '';  ?>" href="/fast_dossier/overview/for_invoice">Ter facturatie</a>
+  <a class="<?php print $active_tab == 'not_collected' ? 'active' : '';  ?>" href="/fast_dossier/overview/not_collected">Niet afgehaald</a>
   <a class="<?php print $active_tab == 'done' ? 'active' : '';  ?>" href="/fast_dossier/overview/done">Afgesloten</a>
 </div>
 

@@ -670,6 +670,7 @@ $_dossier = $dossier->dossier;
           <div class="form-item-horizontal depot-full-container__depot">
             <label>Depot:</label>
             <?php print form_input('name', $_voucher->depot->name); ?>
+            <?php print form_hidden('default_depot', $_voucher->depot->default_depot) ?>
           </div>
 
           <div class="form-item-horizontal depot-full-container__street">

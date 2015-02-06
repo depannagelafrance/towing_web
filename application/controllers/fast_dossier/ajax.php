@@ -34,6 +34,7 @@ class Ajax extends AjaxPage
   {
     $token = $this->_get_user_token();
     $depot = new Depot_model($this->_get_company_depot());
+    $depot->default_depot = 1;
     $depot_id = $depot->id;
 
     $result = $this->dossier_service->updateTowingDepot($depot_id, $voucher_id, $depot, $token);
