@@ -118,6 +118,32 @@ class Admin_service extends Rest_service {
   }
 
 
+  // -- -------------------------------------------------
+  // -- VEHICLE MANAGEMENT
+  // -- -------------------------------------------------
+
+  public function fetchAllVehicles($token) {
+    return $this->CI->rest->get(sprintf('/admin/vehicle/%s', $token));
+  }
+
+  public function fetchVehicleById($id, $token) {
+    return $this->CI->rest->get(sprintf('/admin/vehicle/%s/%s', $id, $token));
+  }
+
+  public function createVehicle(Vehicle_model $data, $token) {
+    return $this->CI->rest->post(sprintf('/admin/vehicle/%s', $token), get_object_vars($data));
+  }
+
+  public function updateVehicle(Vehicle_model $data, $token) {
+    return $this->CI->rest->put(sprintf('/admin/vehicle/%s/%s', $data->id, $token), get_object_vars($data));
+  }
+
+  public function deleteVehicle($id, $token) {
+    return $this->CI->rest->delete(sprintf('/admin/vehicle/%s/%s', $id, $token));
+  }
+
+
+
 // -- -------------------------------------------------
 // -- TIMEFRAME ACTIVITY MANAGEMENT
 // -- -------------------------------------------------

@@ -5,6 +5,11 @@
   </div>
 
   <div class="admin_item box">
+    <div style="text-align: center;"><a href="/admin/vehicle"><span class="fa fa-truck fa-5x"></span></a></div>
+    <div class="admin_link"><a href="/admin/vehicle"><span>Voertuigen</span></a></div>
+  </div>
+
+  <div class="admin_item box">
     <div style="text-align: center;"><a href="/admin/calendar"><span class="fa fa-calendar fa-5x"></span></a></div>
     <div class="admin_link"><a href="/admin/calendar"><span>Vakantiedagen</span></a></div>
   </div>
