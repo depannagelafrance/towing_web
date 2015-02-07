@@ -166,7 +166,11 @@ class Dossier extends Page {
 
       if($voucher->voucher_number == $voucher_number) {
 
+        $voucher->vehicule              = $this->input->post('vehicule');
         $voucher->vehicule_type         = $this->input->post('vehicule_type');
+        $voucher->vehicule_color        = $this->input->post('vehicule_color');
+        $voucher->vehicule_keys_present = ($this->input->post('vehicule_keys_present') == 1);
+        
         $voucher->vehicule_licenceplate = $this->input->post('vehicule_licenceplate');
         $voucher->vehicule_country      = $this->input->post('licence_plate_country');
 

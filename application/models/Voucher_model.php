@@ -12,9 +12,12 @@ class Voucher_model  {
   public $collector_id                = null;
   public $police_signature_dt         = null;
   public $recipient_signature_dt      = null;
+  public $vehicule                    = null;
   public $vehicule_type               = null;
   public $vehicule_licenceplate       = null;
   public $vehicule_country            = null;
+  public $vehicule_color              = null;
+  public $vehicule_keys_present       = null;
   public $vehicule_collected          = null;
   public $towing_id            = null;
   public $towed_by             = null;
@@ -47,9 +50,12 @@ class Voucher_model  {
       $this->collector_id                 = $data->collector_id;
       $this->police_signature_dt          = $data->police_signature_dt;
       $this->recipient_signature_dt       = $data->recipient_signature_dt;
+      $this->vehicule                     = $data->vehicule;
       $this->vehicule_type                = $data->vehicule_type;
       $this->vehicule_licenceplate        = $data->vehicule_licenceplate;
       $this->vehicule_country             = $data->vehicule_country;
+      $this->vehicule_color               = $data->vehicule_color;
+      $this->vehicule_keys_present        = $data->vehicule_keys_present;
       $this->vehicule_collected           = $data->vehicule_collected;
       $this->towing_id                    = $data->towing_id;
       $this->towed_by                     = $data->towed_by;

@@ -324,6 +324,30 @@ $_dossier = $dossier->dossier;
       <div class="vehicule-container">
         <div class="vehicule-container__left">
           <div class="form-item-horizontal vehicule-container__vehicule">
+            <label>Voertuig:</label>
+            <?php print form_input('vehicule', $_voucher->vehicule); ?>
+          </div>
+
+          <div class="form-item-horizontal vehicule-container__license">
+            <label>Kleur:</label>
+            <?php print form_input('vehicule_color', $_voucher->vehicule_color); ?>
+          </div>
+        </div>
+
+        <div class="vehicule-container__right">
+          <div class="form-item-horizontal vehicule-container__country">
+            <label>Sleutels aanwezig?</label>
+            <?php print form_checkbox('vehicule_keys_present', 1, ($_voucher->vehicule_keys_present == 1)) ?> 
+          </div>
+
+          <div class="form-item-horizontal vehicule-container__country">
+            <label>Land:</label>
+            <?php print listbox_ajax('licence_plate_country', $_voucher->vehicule_country)?>
+          </div>
+        </div>
+
+        <div class="vehicule-container__left">
+          <div class="form-item-horizontal vehicule-container__vehicule">
             <label>Type wagen:</label>
             <?php print form_input('vehicule_type', $_voucher->vehicule_type); ?>
           </div>
@@ -334,12 +358,7 @@ $_dossier = $dossier->dossier;
           </div>
         </div>
 
-        <div class="vehicule-container__right">
-          <div class="form-item-horizontal vehicule-container__country">
-            <label>Land:</label>
-            <?php print listbox_ajax('licence_plate_country', $_voucher->vehicule_country)?>
-          </div>
-        </div>
+
       </div>
       <!-- END CAR -->
 

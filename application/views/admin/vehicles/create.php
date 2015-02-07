@@ -26,15 +26,22 @@ if($errors) {
         </div>
 
         <div class="form-item">
-        	<input type="text" placeholder="Type"
-        		value="<?php print set_value('type'); ?>" name="type" />
+          <fieldset>
+            <legend>Type</legend>
+          <?php
+          echo form_radio('type', 'SIGNA', set_value('type') == 'SIGNA') . " Signalisatiewagen <br />";
+          echo form_radio('type', 'TOWING', set_value('type') == 'TOWING') . " Takelwagen <br />";
+          echo form_radio('type', 'CRANE', set_value('type') == 'CRANE') . " Kraan <br />";
+          echo form_radio('type', 'TRUCK', set_value('type') == 'TRUCK') . " Trekker <br />";
+          ?>
+          </fieldset>
         </div>
 
 
         <div class="box form__actions">
           <div class="form__actions__cancel">
             <div class="form-item">
-              <a href="/admin/user">Annuleren</a>
+              <a href="/admin/vehicle">Annuleren</a>
             </div>
           </div>
           <div class="form__actions__save">
