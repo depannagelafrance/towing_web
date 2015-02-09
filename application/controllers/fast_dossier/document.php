@@ -27,8 +27,14 @@ class Document extends Page {
         header('Content-Transfer-Encoding: binary');
         //header('Content-Length: '.filesize($path)); // provide file size
         header('Connection: close');
-        $data = explode(',', $document->data);
-        print base64_decode($data[1]);
+
+        $data = explode(',', $document->data); //splitting of the "data:image/jpeg;base64,"" stuff
+
+        if(count($data) > 1) {
+          print base64_decode($data[1]);
+        } else {
+          print base64_decode($document->data);
+        }
 
         exit();
     }
