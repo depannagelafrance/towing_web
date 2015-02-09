@@ -335,7 +335,7 @@ $_dossier = $dossier->dossier;
         </div>
 
         <div class="vehicule-container__right">
-          <div class="form-item-horizontal vehicule-container__country">
+          <div class="form-item-horizontal vehicule-container__keypresent">
             <label>Sleutels aanwezig?</label>
             <?php print form_checkbox('vehicule_keys_present', 1, ($_voucher->vehicule_keys_present == 1)) ?> 
           </div>
