@@ -641,7 +641,7 @@ $_dossier = $dossier->dossier;
       <!-- ADDITIONAL INFORMATION -->
       <div class="dsform__clearfix dsform_seperation">
         <div class="dsform_left">
-          <div class="vehicule-container__left">
+          <div class="vehicule-container__left vehicule-extrainfo">
             <div class="form-item-horizontal">
                 <label>Extra informatie:</label>
                 <?php nl2br(print $_voucher->additional_info); ?>

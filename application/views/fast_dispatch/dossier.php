@@ -141,6 +141,11 @@ if($errors) {
             <?php print form_input('insurance_dossiernr', $_dossier->towing_vouchers[0]->insurance_dossiernr); ?>
         </div>
 
+          <div class="form-item-horizontal">
+              <label>Voertuig:</label>
+              <?php print form_input('vehicule', $_dossier->towing_vouchers[0]->vehicule); ?>
+          </div>
+
         <div class="form-item-horizontal">
             <label>Type wagen:</label>
             <?php print form_input('vehicule_type', $_dossier->towing_vouchers[0]->vehicule_type); ?>
