@@ -47,7 +47,8 @@ class User extends Page {
               $this->load->view(
                 'admin/users/create',
                 array(
-                    'roles' => $this->_getRoles()
+                    'roles' => $this->_getRoles(),
+                    'company_vehicles' => $this->_getCompanyVehicles()
                 ),
                 true
                 )
@@ -84,7 +85,8 @@ class User extends Page {
             $this->load->view(
                 'admin/users/create',
                 array(
-                    'roles' => $this->_getRoles()
+                    'roles' => $this->_getRoles(),
+                    'company_vehicles' => $this->_getCompanyVehicles()
                 ),
                 true
             )
@@ -158,13 +160,11 @@ class User extends Page {
           //return to form if validation failed
           if (!$this->form_validation->run())
           {
-              $this->_add_content(
-                      $this->load->view(
-                              'admin/users/edit',
-                              $this->input->post(),
-                              true
-                      )
-              );
+            $data = $this->input->post();
+            $data['company_vehicles'] = $this->_getCompanyVehicles();
+            $data['roles']            = $this->_getRoles();
+
+            $this->_add_content($this->load->view('admin/users/edit',$data,true));
           }
           //form is valid, send the data
           else
@@ -184,13 +184,11 @@ class User extends Page {
                       $this->_add_error(sprintf('Fout bij het wijzigen van een gebruiker (%d - %s)', $result->statusCode, $result->message));
                   }
 
-                  $this->_add_content(
-                          $this->load->view(
-                                  'admin/users/edit',
-                                  $this->input->post(),
-                                  true
-                          )
-                  );
+                  $data = $this->input->post();
+                  $data['company_vehicles'] = $this->_getCompanyVehicles();
+                  $data['roles'] = $this->_getRoles();
+
+                  $this->_add_content($this->load->view('admin/users/edit',$data,true));
               } else {
                   //yes, nicely done!
                   $this->session->set_flashdata('_INFO_MSG', "Gebruiker aangepast: " . $this->input->post('firstname') . ' ' . $this->input->post('lastname'));
@@ -215,8 +213,9 @@ class User extends Page {
                       $this->load->view(
                           'admin/users/edit',
                           array(
-                              'users' => $result,
-                              'roles' => $this->_getRoles()
+                              'users'             => $result,
+                              'roles'             => $this->_getRoles(),
+                              'company_vehicles'  => $this->_getCompanyVehicles()
                           ),
                           true
                       )
@@ -242,6 +241,15 @@ class User extends Page {
    */
   private function _getRoles(){
       return $this->admin_service->fetchAvailableRoles($this->_get_user_token());
+  }
+
+
+  /**
+  * Get available vehicles
+  * @return array of objects (stdClass)
+  */
+  private function _getCompanyVehicles() {
+    return $this->admin_service->fetchAllVehicles($this->_get_user_token());
   }
 
   /**

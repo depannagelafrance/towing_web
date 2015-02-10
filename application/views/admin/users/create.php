@@ -1,4 +1,6 @@
 <?php
+$this->load->helper('listbox');
+
 $errors = validation_errors();
 
 if($errors) {
@@ -39,13 +41,9 @@ if($errors) {
           <fieldset>
             <legend>Functies</legend>
             <div class="form-item">
-              <input type="text" placeholder="Voertuig" value="<?php print set_value('vehicule'); ?>" name="vehicule" />
+              <label>Standaard voertuig:</label>
+              <?php print listbox('vehicle_id', $company_vehicles, set_value('vehicle_id')); ?>
             </div>
-
-            <div class="form-item">
-              <input type="text" placeholder="Nummerplaat" value="<?php print set_value('licence_plate'); ?>" name="licence_plate" />
-            </div>
-
 
             <?php
             $data = array(
