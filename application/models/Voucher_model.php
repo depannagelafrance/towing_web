@@ -22,6 +22,7 @@ class Voucher_model  {
   public $towing_id            = null;
   public $towed_by             = null;
   public $towed_by_vehicle     = null;
+  public $towing_vehicle_id    = null;
   public $towing_called        = null;
   public $towing_arrival       = null;
   public $towing_start         = null;
@@ -59,6 +60,7 @@ class Voucher_model  {
       $this->vehicule_collected           = $data->vehicule_collected;
       $this->towing_id                    = $data->towing_id;
       $this->towed_by                     = $data->towed_by;
+      $this->towing_vehicle_id            = $data->towing_vehicle_id;
       $this->towed_by_vehicle             = $data->towed_by_vehicle;
       $this->towing_called                = $data->towing_called;
       $this->towing_arrival               = $data->towing_arrival;

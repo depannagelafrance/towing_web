@@ -45,4 +45,8 @@ class Vocabulary_service extends Rest_service {
   public function fetchAllTowingDrivers($token) {
     return $this->CI->rest->get(sprintf('/vocab/drivers/towing/%s', $token));
   }
+
+  public function fetchAllTowingVehicles($token) {
+    return $this->CI->rest->get(sprintf('/vocab/vehicles/towing/%s', $token));
+  }
 }

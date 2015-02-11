@@ -278,19 +278,25 @@ $_dossier = $dossier->dossier;
       <!--TOWED BY-->
       <div class="towedby-container">
         <div class="towedby-container__left">
-          <div class="form-item-horizontal towedby-container__towedby" style="width: 100%">
+          <div class="form-item-horizontal towedby-container__towedby">
             <label>Takelaar:</label>
             <?php /* print form_input('towed_by', $_voucher->towed_by);*/ ?>
             <?php print listbox_ajax('towing_id', $_voucher->towing_id); ?>
-            <?php
-            $data = array(
-              'name'        => 'towed_by_vehicle',
-              'value'       => $_voucher->towed_by_vehicle,
-              'readonly'    => 'readonly',
-              'style'       => 'background: #F0F0F0'
-            );
+          </div>
 
-            print form_hidden($data);
+          <div class="form-item-horizontal towedby-container__licenceplate">
+            <label>Voertuig:</label>
+            <?php
+            // $data = array(
+            //   'name'        => 'towed_by_vehicle',
+            //   'value'       => $_voucher->towed_by_vehicle,
+            //   'readonly'    => 'readonly',
+            //   'style'       => 'background: #F0F0F0'
+            // );
+            //
+            // print form_hidden($data);
+
+            print listbox_ajax('towing_vehicle_id', $_voucher->towing_vehicle_id);
             ?>
           </div>
         </div>
@@ -337,7 +343,7 @@ $_dossier = $dossier->dossier;
         <div class="vehicule-container__right">
           <div class="form-item-horizontal vehicule-container__keypresent">
             <label>Sleutels aanwezig?</label>
-            <?php print form_checkbox('vehicule_keys_present', 1, ($_voucher->vehicule_keys_present == 1)) ?> 
+            <?php print form_checkbox('vehicule_keys_present', 1, ($_voucher->vehicule_keys_present == 1)) ?>
           </div>
 
           <div class="form-item-horizontal vehicule-container__country">

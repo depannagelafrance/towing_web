@@ -136,6 +136,14 @@ class Ajax extends AjaxPage
     $this->_sendJson($result);
   }
 
+  public function towingVehicles() {
+    $token = $this->_get_user_token();
+
+    $result = $this->vocabulary_service->fetchAllTowingVehicles($token);
+
+    $this->_sendJson($result);
+  }
+
   public function removeActivityFromVoucher($voucher_id, $activity_id)
   {
 

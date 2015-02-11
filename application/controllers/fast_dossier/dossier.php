@@ -170,7 +170,7 @@ class Dossier extends Page {
         $voucher->vehicule_type         = $this->input->post('vehicule_type');
         $voucher->vehicule_color        = $this->input->post('vehicule_color');
         $voucher->vehicule_keys_present = ($this->input->post('vehicule_keys_present') == 1);
-        
+
         $voucher->vehicule_licenceplate = $this->input->post('vehicule_licenceplate');
         $voucher->vehicule_country      = $this->input->post('licence_plate_country');
 
@@ -200,6 +200,7 @@ class Dossier extends Page {
         $voucher->signa_arrival     = $this->convertToUnixTime($this->input->post('signa_arrival'), strtotime($dossier->dossier->call_date));
 
         $voucher->towing_id           = $this->input->post('towing_id');
+        $voucher->towing_vehicle_id   = $this->input->post('towing_vehicle_id');
         $voucher->towed_by            = $this->input->post('towed_by');
         $voucher->towed_by_vehicle    = $this->input->post('towed_by_vehicle');
         $voucher->towing_called       = $this->convertToUnixTime($this->input->post('towing_called'), strtotime($dossier->dossier->call_date));
