@@ -643,6 +643,19 @@ $_dossier = $dossier->dossier;
       <!-- END AUTOGRAPHS-->
     </div>
 
+    <!-- VEHICLE DAMAGE -->
+    <div class="dsform__clearfix dsform_seperation">
+      <div class="dsform_left">
+        <div class="vehicule-container__left vehicule-extrainfo">
+          <div class="form-item-horizontal">
+            <label>Schade aan voertuig:</label>
+            <?php nl2br(print $_voucher->vehicule_impact_remarks); ?>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- END VEHICLE DAMAGE -->
 
       <!-- ADDITIONAL INFORMATION -->
       <div class="dsform__clearfix dsform_seperation">
