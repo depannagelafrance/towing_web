@@ -14,13 +14,17 @@ class Index extends Page {
    */
   public function index()
   {
-    $this->overview('new');
+    $this->overview('all');
   }
 
   public function overview($status)
   {
 
     switch($status) {
+      case 'new':
+        $dossiers = $this->dossier_service->fetchAllNewDossiers($this->_get_user_token());
+        $title = 'Actieve dossiers';
+        break;
       case 'to_check':
         $dossiers = $this->dossier_service->fetchAllToBeCheckedDossiers($this->_get_user_token());
         $title = 'Dossiers ter controle';
@@ -37,9 +41,13 @@ class Index extends Page {
         $dossiers = $this->dossier_service->fetchAllNotCollectedDossiers($this->_get_user_token());
         $title = 'Niet afgehaalde voertuigen';
         break;
+      case 'awv':
+        $dossiers = $this->dossier_service->fetchAllAgencyDossiers($this->_get_user_token());
+        $title = 'AW&amp;V';
+        break;
       default:
-        $dossiers = $this->dossier_service->fetchAllNewDossiers($this->_get_user_token());
-        $title = 'Actieve dossiers';
+        $dossiers = $this->dossier_service->fetchAllDossiers($this->_get_user_token());
+        $title = 'Alle dossiers';
     }
 
     $this->_add_content(

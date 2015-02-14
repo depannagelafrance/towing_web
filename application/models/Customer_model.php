@@ -15,6 +15,7 @@ class Customer_model  {
   public $email           = null;
   public $phone           = null;
   public $invoice_ref     = null;
+  public $type            = 'DEFAULT';
 
   public function __construct($data = null) {
     if($data) {
@@ -32,6 +33,7 @@ class Customer_model  {
         $this->country        = $data['country'];
         $this->email          = $data['email'];
         $this->phone          = $data['phone'];
+        $this->type           = $data['type'];
        // $this->invoice_ref    = $data['invoice_ref'];
       }else{
         $this->id             = $data->id;
@@ -47,6 +49,7 @@ class Customer_model  {
         $this->country        = $data->country;
         $this->email          = $data->email;
         $this->phone          = $data->phone;
+        $this->type           = $data->type;
         // $this->invoice_ref    = $data->invoice_ref;
       }
     }

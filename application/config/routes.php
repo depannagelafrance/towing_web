@@ -52,6 +52,7 @@ $route['fast_dossier/overview/to_check']         = 'fast_dossier/index/overview/
 $route['fast_dossier/overview/for_invoice']      = 'fast_dossier/index/overview/for_invoice';
 $route['fast_dossier/overview/done']             = 'fast_dossier/index/overview/done';
 $route['fast_dossier/overview/not_collected']    = 'fast_dossier/index/overview/not_collected';
+$route['fast_dossier/overview/awv']              = 'fast_dossier/index/overview/awv';
 
 //$route['news'] = 'news';
 //$route['(:any)'] = 'pages/view/$1';

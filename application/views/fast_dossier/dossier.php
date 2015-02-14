@@ -761,6 +761,7 @@ $_dossier = $dossier->dossier;
 
       $fact_hidden = array(
         'id' => $_voucher->customer->id,
+        'type' => $_voucher->customer->type //can either be DEFAULT or AGENCY (for AW&V)
       );
 
       print form_open('','',$fact_hidden);
