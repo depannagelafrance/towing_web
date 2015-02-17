@@ -151,7 +151,10 @@ class User extends Page {
    * Render view (form) with given user and available roles
    * @param int $id
    */
-  public function edit($id){
+  public function edit($id)
+  {
+      //load the model
+      $this->load->model('user_model');
 
       if($this->input->post('submit'))
       {
@@ -160,17 +163,17 @@ class User extends Page {
           //return to form if validation failed
           if (!$this->form_validation->run())
           {
-            $data = $this->input->post();
+            $data['users']            = $this->user_model->initialise($this->input->post());
             $data['company_vehicles'] = $this->_getCompanyVehicles();
             $data['roles']            = $this->_getRoles();
 
             $this->_add_content($this->load->view('admin/users/edit',$data,true));
+            $this->_render_page();
           }
           //form is valid, send the data
           else
           {
-              //load the model
-              $this->load->model('user_model');
+
 
               $model=$this->user_model->initialise($this->input->post());
               $model->id = $id;
@@ -213,7 +216,7 @@ class User extends Page {
                       $this->load->view(
                           'admin/users/edit',
                           array(
-                              'users'             => $result,
+                              'users'             => $this->user_model->initialise($result),
                               'roles'             => $this->_getRoles(),
                               'company_vehicles'  => $this->_getCompanyVehicles()
                           ),
@@ -258,10 +261,21 @@ class User extends Page {
   private function _setFormValidationRules(){
       $this->load->library("form_validation");
 
-      $this->form_validation->set_rules('login', 'login', 'required');
-      $this->form_validation->set_rules('firstname', 'firstname', 'required');
-      $this->form_validation->set_rules('lastname', 'lastname', 'required');
-      $this->form_validation->set_rules('email', 'email', 'required');
+      $this->form_validation->set_rules('login', 'Login', 'required');
+      $this->form_validation->set_rules('firstname', 'Voornaam', 'required');
+      $this->form_validation->set_rules('lastname', 'Familienaam', 'required');
+      $this->form_validation->set_rules('email', 'E-mail', 'required');
+      $this->form_validation->set_rules('roles', 'Machtigingen', 'required|not_empty');
+  }
+
+
+  private function not_empty($data) {
+
+    if(!is_array($data) || $data == null || count($data) <= 0) {
+      return FALSE;
+    }
+
+    return TRUE;
   }
 
   /**

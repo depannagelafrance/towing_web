@@ -19,15 +19,29 @@ class User_model extends CI_Model {
   public function initialise($data = null) {
     if($data != null)
     {
-      $this->id             = array_key_exists('id', $data) ? $data['id'] : "";
-      $this->login          = array_key_exists('login', $data) ? $data['login'] : "";
-      $this->firstname      = array_key_exists('firstname', $data) ? $data['firstname'] : "";
-      $this->lastname       = array_key_exists('lastname', $data) ? $data['lastname'] : "";
-      $this->email          = array_key_exists('email', $data) ? $data['email'] : "";
-      $this->is_signa       = array_key_exists('is_signa', $data) ? $data['is_signa'] : "";
-      $this->is_towing      = array_key_exists('is_towing', $data) ? $data['is_towing'] : "";
-      $this->vehicle_id     = array_key_exists('vehicle_id', $data) ? $data['vehicle_id'] : '';
-      $this->licence_plate  = array_key_exists('licence_plate', $data) ? $data['licence_plate'] : '';
+
+      if(is_array($data)) {
+        $this->id             = array_key_exists('id', $data) ? $data['id'] : "";
+        $this->login          = array_key_exists('login', $data) ? $data['login'] : "";
+        $this->firstname      = array_key_exists('firstname', $data) ? $data['firstname'] : "";
+        $this->lastname       = array_key_exists('lastname', $data) ? $data['lastname'] : "";
+        $this->email          = array_key_exists('email', $data) ? $data['email'] : "";
+        $this->is_signa       = array_key_exists('is_signa', $data) ? $data['is_signa'] : "";
+        $this->is_towing      = array_key_exists('is_towing', $data) ? $data['is_towing'] : "";
+        $this->vehicle_id     = array_key_exists('vehicle_id', $data) ? $data['vehicle_id'] : '';
+        // $this->licence_plate  = array_key_exists('licence_plate', $data) ? $data['licence_plate'] : '';
+      } else {
+        $this->id             = $data->id;
+        $this->login          = $data->login;
+        $this->firstname      = $data->first_name;
+        $this->lastname       = $data->last_name;
+        $this->email          = $data->email;
+        $this->is_signa       = $data->is_signa;
+        $this->is_towing      = $data->is_towing;
+        $this->vehicle_id     = $data->vehicle_id;
+        // $this->licence_plate  = $data->licence_plate;
+      }
+
 
       //$this->load->model('role_model');
       //$roles = array();

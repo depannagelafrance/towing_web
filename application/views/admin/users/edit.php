@@ -22,12 +22,12 @@ if($errors) {
 
     <div class="form-item">
     	<input type="text" placeholder="Voornaam"
-    		value="<?php print set_value('firstname', $users->first_name); ?>" name="firstname" />
+    		value="<?php print set_value('firstname', $users->firstname); ?>" name="firstname" />
     </div>
 
     <div class="form-item">
     	<input type="text" placeholder="Naam"
-    		value="<?php print set_value('lastname', $users->last_name); ?>" name="lastname" />
+    		value="<?php print set_value('lastname', $users->lastname); ?>" name="lastname" />
     </div>
 
     <div class="form-item">
