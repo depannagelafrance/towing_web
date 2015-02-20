@@ -177,6 +177,13 @@ class Dossier_service extends Rest_service {
       );
     }
 
+    public function updateCustomerToAgency($voucher_id, $token)
+    {
+      return $this->CI->rest->put(
+          sprintf('/dossier/customer/agency/%s/%s', $voucher_id, $token)
+      );
+    }
+
     public function updateCauser($causer_id, $voucher_id, Causer_model $data, $token)
     {
       $_value = new stdClass();

@@ -64,6 +64,14 @@ class Ajax extends AjaxPage
     $this->_sendJson($result);
   }
 
+  public function updateAgencyCustomer($dossier_id, $voucher_id)
+  {
+    $token = $this->_get_user_token();
+
+    $result = $this->dossier_service->updateCustomerToAgency($voucher_id, $token);
+
+    $this->_sendJson($result);
+  }
 
   public function depot($dossier_id, $voucher_id)
   {

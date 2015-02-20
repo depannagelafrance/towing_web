@@ -170,11 +170,10 @@ if($errors) {
         <div class="form-item-horizontal  autograph-container__collecting__date">
             <label>Afmelding CIC:</label>
             <?php
-
             $vehicule = array(
               'name' => 'cic',
               'class' => 'datetimepicker',
-              'value' => $_dossier->towing_vouchers[0]->cic ? mdate('%d/%m/%Y %H:%i',strtotime($_dossier->towing_vouchers[0]->cic)) : ''
+              'value' => $_dossier->towing_vouchers[0]->cic ? mdate('%d/%m/%Y %H:%i',$_dossier->towing_vouchers[0]->cic) : ''
             );
 
             print form_input($vehicule);

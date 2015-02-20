@@ -335,6 +335,16 @@ $(document).ready(function() {
         });
     }
 
+    function setAgencyAsCustomer() {
+      var url = prepareAjaxUrl('/fast_dossier/ajax/updateagencycustomer');
+      return $.ajax({
+          type		: "POST",
+          cache	: false,
+          url		: url
+          //data		: {'customer' : formObj}
+      });
+    }
+
     function updateCustomerTemplates(data){
         var template = Handlebars.Templates['customer/info'];
         $('#customer_info').html(template(data));
@@ -361,13 +371,23 @@ $(document).ready(function() {
             });
         }
 
-        setCustomer(formObj).success(function(data){
-            if(data.id){
-                updateCustomerTemplates(data);
-                updateCustomerForm(data);
-                parent.$.fancybox.close();
-            }
-        });
+        if(Dossier.btnClicked == 'btnCopyCustomerAWV') {
+          setAgencyAsCustomer().success(function(data){
+              if(data.id){
+                  updateCustomerTemplates(data);
+                  updateCustomerForm(data);
+                  parent.$.fancybox.close();
+              }
+          });          
+        } else {
+            setCustomer(formObj).success(function(data){
+                if(data.id){
+                    updateCustomerTemplates(data);
+                    updateCustomerForm(data);
+                    parent.$.fancybox.close();
+                }
+            });
+        }
 
         event.preventDefault();
     });

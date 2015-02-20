@@ -848,6 +848,7 @@ $_dossier = $dossier->dossier;
       </div>
 
       <div class="form-item fancybox-form__actions__save fancybox-form__actions__twobuttons">
+        <input type="submit" value="AW&amp;V" name="btnCopyCustomerAWV" />
         <input type="submit" value="Gebruik deze gegevens ook voor hinderverwekker" name="btnCustomerCopy" />
         <input type="submit" value="Bewaren" name="btnCustomerSave"/>
       </div>
