@@ -99,5 +99,7 @@ class Dossier extends Page {
 
     $dossier->dossier->towing_vouchers[0]->insurance_id = $this->input->post('insurance_id');
     $dossier->dossier->towing_vouchers[0]->insurance_dossiernr = $this->input->post('insurance_dossiernr');
+
+    $dossier->dossier->towing_vouchers[0]->cic  = $this->input->post('cic') == '' ? null : DateTime::createFromFormat('d/m/Y H:i', $this->input->post('cic'))->getTimestamp();
   }
 }
