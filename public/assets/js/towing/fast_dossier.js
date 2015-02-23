@@ -295,6 +295,9 @@ $(document).ready(function() {
                     updateCustomerTemplates(data);
                     updateCustomerForm(data);
                 }
+                else if(data.result && data.result === 'invalid_vat') {
+                    alert('Het nummer: ' + data.vat + ' is geen geldig BTW-nummer.');
+                }                
             });
         }
 
@@ -303,6 +306,9 @@ $(document).ready(function() {
                 updateCauserTemplates(data);
                 updateCauserForm(data);
                 parent.$.fancybox.close();
+            }
+            else if(data.result && data.result === 'invalid_vat') {
+                alert('Het nummer: ' + data.vat + ' is geen geldig BTW-nummer.');
             }
         });
 
@@ -368,6 +374,9 @@ $(document).ready(function() {
                     updateCauserTemplates(data);
                     updateCauserForm(data);
                 }
+                else if(data.result && data.result === 'invalid_vat') {
+                    alert('Het nummer: ' + data.vat + ' is geen geldig BTW-nummer.');
+                }
             });
         }
 
@@ -378,13 +387,17 @@ $(document).ready(function() {
                   updateCustomerForm(data);
                   parent.$.fancybox.close();
               }
-          });          
+          });
         } else {
             setCustomer(formObj).success(function(data){
-                if(data.id){
+                if(data.id)
+                {
                     updateCustomerTemplates(data);
                     updateCustomerForm(data);
                     parent.$.fancybox.close();
+                }
+                else if(data.result && data.result === 'invalid_vat') {
+                    alert('Het nummer: ' + data.vat + ' is geen geldig BTW-nummer.');
                 }
             });
         }
