@@ -1,14 +1,9 @@
 {{#each notas}}
-<div class="nota-item">
-<h2>Nota {{inc @index}}</h2>
-<div class="nota-item-content">
-<div class="nota-item-message">
-{{message}}
-<br />
-{{cd}}
-<br />
-{{cd_by}}
-</div>
-</div>
-</div>
+    <div class="nota-item">
+        <h2>Nota {{inc @index}}</h2>
+        <div class="nota-item-content">
+            <div class="nota-item-message">{{message}}</div>
+            {{cd}} - {{cd_by}}
+        </div>
+    </div>
 {{/each}}
