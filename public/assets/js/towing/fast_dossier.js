@@ -241,6 +241,25 @@ $(document).ready(function() {
         });
         return formArr;
     }
+
+    function parseIsoDatetime(dtstr) {
+        var dt = dtstr.split(/[: T-]/).map(parseFloat);
+        var iso = new Date(dt[0], dt[1] - 1, dt[2], dt[3] || 0, dt[4] || 0, dt[5] || 0, 0);
+        var date = iso.getDate();
+        if(date < 10){
+            date = '0' + date;
+        }
+        var month = iso.getMonth() + 1;
+        if(month < 10){
+            month = 'O' + month;
+        }
+        var year = iso.getFullYear();
+        var hours = iso.getHours();
+        var sec = iso.getHours();
+
+        return date + '-' + month + '-' + year + ' ' + hours + ':' + sec;
+    }
+
     /****** END HELPERS *********/
 
 
@@ -505,6 +524,7 @@ $(document).ready(function() {
         };
 
         $.each( data, function( key, value ) {
+            value.cd = parseIsoDatetime(value.cd);
             items.notas.push(value);
         });
 
@@ -562,6 +582,7 @@ $(document).ready(function() {
         };
 
         $.each( data, function( key, value ) {
+            value.cd = parseIsoDatetime(value.cd);
             items.emails.push(value);
         });
 
