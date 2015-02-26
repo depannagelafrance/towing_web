@@ -194,6 +194,19 @@ class Dossier extends Page {
             $voucher->actions = $_actions;
         }
 
+
+        if($voucher->towing_id != $this->input->post('towing_id') && trim($this->input->post('towing_id')) != '') {
+            //either the previous towing was not set or the data has changed => send a push message
+            if(!property_exists($voucher, 'actions') || !$voucher->actions)
+              $voucher->actions = new stdClass();
+
+            $_actions = $voucher->actions;
+
+            $_actions->towing_updated_notification = 1;
+
+            $voucher->actions = $_actions;
+        }
+
         $voucher->signa_id          = $this->input->post('signa_id');
         $voucher->signa_by          = $this->input->post('signa_by');
         $voucher->signa_by_vehicle  = $this->input->post('signa_by_vehicle');

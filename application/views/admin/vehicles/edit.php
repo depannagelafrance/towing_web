@@ -33,6 +33,7 @@ if($errors) {
             echo form_radio('type', 'TOWING', $type == 'TOWING') . " Takelwagen <br />";
             echo form_radio('type', 'CRANE', $type == 'CRANE') . " Kraan <br />";
             echo form_radio('type', 'TRUCK', $type == 'TRUCK') . " Trekker <br />";
+            echo form_radio('type', 'COLLISION', set_value('type') == 'COLLISION') . " Botsabsorbeerder <br />";
             ?>
           </fieldset>
         </div>
