@@ -18,11 +18,20 @@ class Search extends Page {
   public function index()
   {
     $call_number    = $this->input->post('call_number');
-    $call_date      = $this->input->post('call_date');
     $type           = $this->input->post('type');
     $licence_plate  = $this->input->post('licence_plate');
     $name           = $this->input->post('customer_name');
     $token          = $this->_get_user_token();
+
+
+    $call_date      = $this->input->post('call_date') == '' ? null : $this->input->post('call_date');
+
+    if($call_date)  {
+      $_call_date = DateTime::createFromFormat('!d/m/Y', $this->input->post('call_date'));
+
+      $call_date = $_call_date->getTimestamp();
+    }
+
 
     $dossiers = $this->dossier_service->searchTowingVouchers($call_number, $call_date, $type, $licence_plate, $name, $token);
 
