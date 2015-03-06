@@ -253,10 +253,7 @@ $_dossier = $dossier->dossier;
             <?php
             $data = array(
               'name'        => 'signa_by_vehicle',
-              'value'       => $_voucher->signa_by_vehicle,
-              'readonly'    => 'readonly',
-              'style'       => 'background: #F0F0F0'
-            );
+              'value'       => $_voucher->signa_by_vehicle);
 
             print form_hidden($data);
             ?>
