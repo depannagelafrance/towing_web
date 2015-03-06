@@ -213,6 +213,7 @@ class Dossier extends Page {
         $voucher->signa_by          = $this->input->post('signa_by');
         $voucher->signa_by_vehicle  = $this->input->post('signa_by_vehicle');
         $voucher->signa_arrival     = $this->convertToUnixTime($this->input->post('signa_arrival'), strtotime($dossier->dossier->call_date));
+        $voucher->cic               = $this->convertToUnixTime($this->input->post('cic'), strtotime($dossier->dossier->call_date));
 
         $voucher->towing_id           = $this->input->post('towing_id');
         $voucher->towing_vehicle_id   = $this->input->post('towing_vehicle_id');

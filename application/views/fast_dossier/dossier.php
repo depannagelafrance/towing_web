@@ -269,6 +269,12 @@ $_dossier = $dossier->dossier;
 
             <?php print displayVoucherTimeField($_voucher->signa_arrival, 'signa_arrival'); ?>
           </div>
+
+          <div class="form-item-horizontal signa-container__arrival">
+            <label>Afmelding CIC:</label>
+
+            <?php print displayVoucherTimeField($_voucher->cic, 'cic'); ?>
+          </div>
         </div>
       </div>
       <!-- END SIGNA -->
