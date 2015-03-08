@@ -158,6 +158,24 @@ $_dossier = $dossier->dossier;
 
   print form_open('fast_dossier/dossier/save/' . $_dossier->dossier_number . '/' . $_voucher->voucher_number);
 
+
+  // -- dossier_id
+  $data = array(
+    'name'        => 'data_dossier_id',
+    'id'          => 'data_dossier_id',
+    'type'        => 'hidden',
+    'value'       => $_dossier->id);
+
+  print form_input($data);
+
+  // -- voucher_id
+  $data = array(
+    'name'        => 'data_voucher_id',
+    'type'        => 'hidden',
+    'id'          => 'data_voucher_id',
+    'value'       => $_voucher->id);
+
+  print form_input($data);
   ?>
 
   <div class="dossierbar">
@@ -253,9 +271,10 @@ $_dossier = $dossier->dossier;
             <?php
             $data = array(
               'name'        => 'signa_by_vehicle',
+              'type'        => 'hidden',
               'value'       => $_voucher->signa_by_vehicle);
 
-            print form_hidden($data);
+            print form_input($data);
             ?>
           </div>
         </div>
