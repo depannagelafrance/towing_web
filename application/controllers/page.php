@@ -155,7 +155,8 @@ class Page extends CI_Controller {
 
 		if($data) {
 			if(property_exists($data, 'company_depot') && $data->token) {
-				return $data->company_depot;
+				$depot = $data->company_depot;
+				return $depot;
 			}
 		}
 

@@ -163,7 +163,10 @@ class User extends Page {
           //return to form if validation failed
           if (!$this->form_validation->run())
           {
-            $data['users']            = $this->user_model->initialise($this->input->post());
+            $model = $this->user_model->initialise($this->input->post());
+            $model->id = $id;
+            
+            $data['users']            = $model;
             $data['company_vehicles'] = $this->_getCompanyVehicles();
             $data['roles']            = $this->_getRoles();
 

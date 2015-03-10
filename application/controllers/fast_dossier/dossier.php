@@ -105,12 +105,14 @@ class Dossier extends Page {
       $_voucher = $dossier->dossier->towing_vouchers[0];
     }
 
+    $view = 'fast_dossier/dossier';
 
     switch($_voucher->status) {
       case 'TO CHECK':
         $vouchers = $this->dossier_service->fetchAllToBeCheckedDossiers($token);
         break;
       case 'READY FOR INVOICE':
+        $view = 'fast_dossier/dossier_readonly';
         $vouchers = $this->dossier_service->fetchAllInvoicableDossiers($token);
         break;
       case 'NEW':
@@ -120,7 +122,7 @@ class Dossier extends Page {
 
     $this->_add_content(
       $this->load->view(
-        'fast_dossier/dossier',
+        $view,
           array(
             'dossier'                 => $dossier,
             'voucher_number'          => $voucher_number,
