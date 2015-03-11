@@ -112,7 +112,7 @@ class Dossier extends Page {
         $vouchers = $this->dossier_service->fetchAllToBeCheckedDossiers($token);
         break;
       case 'READY FOR INVOICE':
-        $view = 'fast_dossier/dossier_readonly';
+        // $view = 'fast_dossier/dossier_readonly';
         $vouchers = $this->dossier_service->fetchAllInvoicableDossiers($token);
         break;
       case 'NEW':
