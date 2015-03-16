@@ -199,7 +199,7 @@ $_dossier = $dossier->dossier;
     <div class="dossierbar__mainactions">
       <div class="dossierbar__mainaction__item">
         <div class="btn--icon--highlighted bright">
-          <a class="icon--add" href="/fast_dossier/dossier/voucher/<?=$_dossier->id?>">Add</a>
+          <a class="icon--add" href="/fast_dossier/dossier/voucher/<?=$_dossier->id?>" onclick="return confirm('Bent u zeker dat u een nieuwe takelbon wenst aan te maken?');">Add</a>
         </div>
       </div>
     </div>
