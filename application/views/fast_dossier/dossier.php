@@ -556,7 +556,7 @@ $_dossier = $dossier->dossier;
             //
 
             if($_voucher->police_signature_dt && trim($_voucher->police_signature_dt) != "") {
-              print mdate('%d/%m/%Y %H:%i',strtotime($_voucher->police_signature_dt));
+              print mdate('%d/%m/%Y %H:%i', $_voucher->police_signature_dt);
             } else {
               print "";
             }
