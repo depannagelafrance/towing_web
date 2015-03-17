@@ -57,7 +57,6 @@ class Dossier extends Page {
     // {
       if($dossier && $dossier->dossier) {
         $this->_setDossierValuesFromPostRequest($dossier, $voucher_number);
-
         $dossier = $this->dossier_service->updateDossier(new Dossier_model($dossier), $token);
 
         if($dossier)
@@ -99,18 +98,21 @@ class Dossier extends Page {
 
         if($voucher->voucher_number == $voucher_number) {
           $_voucher = $voucher;
+          $i = sizeof($dossier->dossier->towing_vouchers);
         }
       }
     } else {
       $_voucher = $dossier->dossier->towing_vouchers[0];
     }
 
+    $view = 'fast_dossier/dossier';
 
     switch($_voucher->status) {
       case 'TO CHECK':
         $vouchers = $this->dossier_service->fetchAllToBeCheckedDossiers($token);
         break;
       case 'READY FOR INVOICE':
+        // $view = 'fast_dossier/dossier_readonly';
         $vouchers = $this->dossier_service->fetchAllInvoicableDossiers($token);
         break;
       case 'NEW':
@@ -120,7 +122,7 @@ class Dossier extends Page {
 
     $this->_add_content(
       $this->load->view(
-        'fast_dossier/dossier',
+        $view,
           array(
             'dossier'                 => $dossier,
             'voucher_number'          => $voucher_number,
@@ -158,14 +160,13 @@ class Dossier extends Page {
         $dossier->dossier->traffic_lanes[] = $_traffic_lane->id;
     }
 
-
     //iterate towing vouchers and update data
     for($i = 0; $i < sizeof($dossier->dossier->towing_vouchers); $i++) {
 
       $voucher = $dossier->dossier->towing_vouchers[$i];
 
-      if($voucher->voucher_number == $voucher_number) {
-
+      if($voucher->voucher_number == $voucher_number)
+      {
         $voucher->vehicule              = $this->input->post('vehicule');
         $voucher->vehicule_type         = $this->input->post('vehicule_type');
         $voucher->vehicule_color        = $this->input->post('vehicule_color');
@@ -181,11 +182,12 @@ class Dossier extends Page {
         $voucher->insurance_dossiernr         = $this->input->post('insurance_dossiernr');
         $voucher->insurance_warranty_held_by  = $this->input->post('insurance_warranty_held_by');
 
-        $voucher->collector_id        = toIntegerValue($this->input->post('collector_id'));
+        $voucher->collector_id        = $this->input->post('collector_id');
 
         $voucher->vehicule_collected  = $this->input->post('vehicule_collected') == '' ? null : DateTime::createFromFormat('d/m/Y H:i', $this->input->post('vehicule_collected'))->getTimestamp();
 
-        if($voucher->signa_id != $this->input->post('signa_id') && trim($this->input->post('signa_id')) != '') {
+        if($voucher->signa_id != $this->input->post('signa_id') && trim($this->input->post('signa_id')) != '')
+        {
             //either the previous signa was not set or the data has changed => send a push message
             $_actions = new stdClass();
 
@@ -196,7 +198,7 @@ class Dossier extends Page {
 
 
         if(($voucher->towing_id != $this->input->post('towing_id') && trim($this->input->post('towing_id')) != '')
-            || ($voucher->towing_vehicle_id != $this->input-post('towing_vehicle_id') && trim($this->input->post('towing_vehicle_id')) != ''))
+            || ($voucher->towing_vehicle_id != $this->input->post('towing_vehicle_id') && trim($this->input->post('towing_vehicle_id')) != ''))
         {
             //either the previous towing was not set or the data has changed => send a push message
             if(!property_exists($voucher, 'actions') || !$voucher->actions)
@@ -213,6 +215,7 @@ class Dossier extends Page {
         $voucher->signa_by          = $this->input->post('signa_by');
         $voucher->signa_by_vehicle  = $this->input->post('signa_by_vehicle');
         $voucher->signa_arrival     = $this->convertToUnixTime($this->input->post('signa_arrival'), strtotime($dossier->dossier->call_date));
+        $voucher->cic               = $this->convertToUnixTime($this->input->post('cic'), strtotime($dossier->dossier->call_date));
 
         $voucher->towing_id           = $this->input->post('towing_id');
         $voucher->towing_vehicle_id   = $this->input->post('towing_vehicle_id');
@@ -234,7 +237,8 @@ class Dossier extends Page {
         $voucher->towing_payments->paid_by_debit_card              = $this->input->post('paid_by_debit_card');
         $voucher->towing_payments->paid_by_credit_card             = $this->input->post('paid_by_credit_card');
 
-        if(is_array($activity_ids)) {
+        if(is_array($activity_ids))
+        {
           $j = 0;
 
           foreach($activity_ids as $activity_id) {

@@ -18,7 +18,7 @@ class Depot_model  {
       if(is_array ($data)){
         $this->initFromPost($data);
       }else{
-        $this->id             = $data->id;
+        $this->id             = property_exists($data, 'id') ? $data->id : null;
         $this->name           = $data->name;
         $this->street         = $data->street;
         $this->street_number  = $data->street_number;

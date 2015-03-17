@@ -26,10 +26,17 @@ $(document).ready(function() {
 
     var Dossier = {};
     var url = document.URL.split('/');
-    var dossier_id = url[url.length-2];
-    var voucher_id = url[url.length-1];
+    var dossier_number = url[url.length-2];
+    var voucher_number = url[url.length-1];
+
+    var dossier_id = $('#data_dossier_id').val();
+    var voucher_id = $('#data_voucher_id').val();
+
+
     Dossier.dossier_id = dossier_id;
     Dossier.voucher_id = voucher_id;
+    Dossier.voucher_number = voucher_number;
+    Dossier.dossier_number = dossier_number;
 
     var Attachements = [];
 
@@ -45,7 +52,7 @@ $(document).ready(function() {
 
     $(document).on('change', '#voucher_switcher', function(){
         var selected = $(this).val();
-        var url = '/fast_dossier/dossier/' + Dossier.dossier_id + '/' + selected;
+        var url = '/fast_dossier/dossier/' + Dossier.dossier_number + '/' + selected;
         redirectPage(url);
     });
 
@@ -316,7 +323,7 @@ $(document).ready(function() {
                 }
                 else if(data.result && data.result === 'invalid_vat') {
                     alert('Het nummer: ' + data.vat + ' is geen geldig BTW-nummer.');
-                }                
+                }
             });
         }
 

@@ -7,9 +7,33 @@ function displayVoucherTimeField($value, $name) {
 
     return $render;
   } else {
-    return form_input($name, asTime($value));
+    return "&nbsp;";
   }
 }
+
+function displayCustomerInformation($customer) {
+  $formatted = '<div class="has_content">';
+
+
+  if($customer->company_name) {
+    $formatted .= '<div>' . $customer->company_name . '</div>';
+    $formatted .= '<div>' . $customer->company_vat . '</div>';
+  } else {
+    $formatted .= '<div>' . $customer->last_name . ' ' . $customer->first_name . '</div>';
+  }
+
+
+  $formatted .= sprintf("<div>%s %s %s <br/>%s %s <br /> %s</div>", $customer->street, $customer->street_number, $customer->street_pobox, $customer->zip, $customer->city, $customer->country);
+
+  $formatted .= sprintf("<div>T: %s</div>", $customer->phone);
+  $formatted .= sprintf("<div>E: %s</div>", $customer->email);
+
+
+  $formatted .= '</div>';
+
+  return $formatted;
+}
+
 
 
 $this->load->helper('listbox');
@@ -199,7 +223,7 @@ $_dossier = $dossier->dossier;
     <div class="dossierbar__mainactions">
       <div class="dossierbar__mainaction__item">
         <div class="btn--icon--highlighted bright">
-          <a class="icon--add" href="/fast_dossier/dossier/voucher/<?=$_dossier->id?>" onclick="return confirm('Bent u zeker dat u een nieuwe takelbon wenst aan te maken?');">Add</a>
+          <a class="icon--add" href="/fast_dossier/dossier/voucher/<?=$_dossier->id?>">Add</a>
         </div>
       </div>
     </div>
@@ -264,9 +288,7 @@ $_dossier = $dossier->dossier;
         <div class="signa-container__left">
           <div class="form-item-horizontal signa-container__signa" style="width: 100%;">
             <label>Signa:</label>
-            <?php /* print form_input('signa_by', $_voucher->signa_by);*/ ?>
-            <?php print listbox_ajax('signa_id', $_voucher->signa_id); ?>
-
+            <?php printf("%s (%s)", $_voucher->signa_by, $_voucher->signa_by_vehicle) ?>
 
             <?php
             $data = array(
@@ -288,7 +310,6 @@ $_dossier = $dossier->dossier;
 
           <div class="form-item-horizontal signa-container__arrival">
             <label>Afmelding CIC:</label>
-
             <?php print displayVoucherTimeField($_voucher->cic, 'cic'); ?>
           </div>
         </div>
@@ -302,24 +323,12 @@ $_dossier = $dossier->dossier;
         <div class="towedby-container__left">
           <div class="form-item-horizontal towedby-container__towedby">
             <label>Takelaar:</label>
-            <?php /* print form_input('towed_by', $_voucher->towed_by);*/ ?>
-            <?php print listbox_ajax('towing_id', $_voucher->towing_id); ?>
+            <?php print $_voucher->towed_by ?>
           </div>
 
           <div class="form-item-horizontal towedby-container__licenceplate">
             <label>Voertuig:</label>
-            <?php
-            // $data = array(
-            //   'name'        => 'towed_by_vehicle',
-            //   'value'       => $_voucher->towed_by_vehicle,
-            //   'readonly'    => 'readonly',
-            //   'style'       => 'background: #F0F0F0'
-            // );
-            //
-            // print form_hidden($data);
-
-            print listbox_ajax('towing_vehicle_id', $_voucher->towing_vehicle_id);
-            ?>
+            <?php print $_voucher->towed_by_vehicle ?>
           </div>
         </div>
 
@@ -353,36 +362,36 @@ $_dossier = $dossier->dossier;
         <div class="vehicule-container__left">
           <div class="form-item-horizontal vehicule-container__vehicule">
             <label>Voertuig:</label>
-            <?php print form_input('vehicule', $_voucher->vehicule); ?>
+            <?php print $_voucher->vehicule; ?>
           </div>
 
           <div class="form-item-horizontal vehicule-container__license">
             <label>Kleur:</label>
-            <?php print form_input('vehicule_color', $_voucher->vehicule_color); ?>
+            <?php print $_voucher->vehicule_color; ?>
           </div>
         </div>
 
         <div class="vehicule-container__right">
           <div class="form-item-horizontal vehicule-container__keypresent">
             <label>Sleutels aanwezig?</label>
-            <?php print form_checkbox('vehicule_keys_present', 1, ($_voucher->vehicule_keys_present == 1)) ?>
+            <?php printf('<i class="fa fa-%ssquare-o">&nbsp;</i>', ($_voucher->vehicule_keys_present == 1 ? "check-" : "")) ?>
           </div>
 
           <div class="form-item-horizontal vehicule-container__country">
             <label>Land:</label>
-            <?php print listbox_ajax('licence_plate_country', $_voucher->vehicule_country)?>
+            <?php print $_voucher->vehicule_country ?>
           </div>
         </div>
 
         <div class="vehicule-container__left">
           <div class="form-item-horizontal vehicule-container__vehicule">
             <label>Type wagen:</label>
-            <?php print form_input('vehicule_type', $_voucher->vehicule_type); ?>
+            <?php print $_voucher->vehicule_type; ?>
           </div>
 
           <div class="form-item-horizontal vehicule-container__license">
             <label>Nummerplaat:</label>
-            <?php print form_input('vehicule_licenceplate', $_voucher->vehicule_licenceplate); ?>
+            <?php print $_voucher->vehicule_licenceplate; ?>
           </div>
         </div>
 
@@ -394,10 +403,20 @@ $_dossier = $dossier->dossier;
         <div class="dsform__left">
 
         <!-- Customer Info -->
-        <div id="customer_info" class="form-item-vertical facturation-container"></div>
+        <div id="readonly_customer_info" class="form-item-vertical facturation-container">
+          <label>Facturatiegegevens:</label>
+          <div id="edit-invoice-data" class="facturation-container__info">
+            <?= displayCustomerInformation($_voucher->customer) ?>
+          </div>
+        </div>
 
         <!-- Causer Info -->
-        <div id="causer_info" class="form-item-vertical nuisance-container"></div>
+        <div id="readonly_causer_info" class="form-item-vertical nuisance-container">
+          <label>Hinderverwekker:</label>
+          <div id="edit-nuisance-data" class="nuisance-container__info">
+            <?= displayCustomerInformation($_voucher->causer) ?>
+          </div>
+        </div>
 
 
         </div>
@@ -424,14 +443,14 @@ $_dossier = $dossier->dossier;
           <!--DOSS-->
           <div class="form-item-horizontal dossiernr-container">
               <label>Dossiernr.:</label>
-              <?= form_input('insurance_dossiernr', $_voucher->insurance_dossiernr); ?>
+              <?= $_voucher->insurance_dossiernr ?>
           </div>
           <!--END DOSS-->
 
           <!--WARENTY-->
           <div class="form-item-horizontal warrenty-container">
               <label>Garantiehouder:</label>
-              <?= form_input('insurance_warranty_held_by', $_voucher->insurance_warranty_held_by); ?>
+              <?= $_voucher->insurance_warranty_held_by ?>
           </div>
           <!--END WARENTY-->
 
@@ -452,11 +471,6 @@ $_dossier = $dossier->dossier;
         <?php endif; ?>
         <div class="work-container__fields"></div>
 
-      <div class="work-container__actions">
-        <div class="work-container__add">
-          <a id="add-activity-link" class="inform-link" href="#add-activity-form" data-did="<?php print $_dossier->id; ?>" data-vid="<?php print $_voucher->id ;?>" >Activiteit toevoegen</a>
-        </div>
-      </div>
 
         <!--PAYMENT-->
         <div class="form-item-vertical payment-container">
@@ -532,6 +546,7 @@ $_dossier = $dossier->dossier;
 
 
 
+
       <!--AUTOGRAPHS-->
       <div class="autograph-container">
         <div class="autograph-container__police">
@@ -556,7 +571,7 @@ $_dossier = $dossier->dossier;
             //
 
             if($_voucher->police_signature_dt && trim($_voucher->police_signature_dt) != "") {
-              print mdate('%d/%m/%Y %H:%i', $_voucher->police_signature_dt);
+              print mdate('%d/%m/%Y %H:%i',strtotime($_voucher->police_signature_dt));
             } else {
               print "";
             }
@@ -583,7 +598,7 @@ $_dossier = $dossier->dossier;
             $vehicule = array(
                 'name' => 'vehicule_collected',
                 'class' => 'datetimepicker',
-                'value' => $_voucher->vehicule_collected ? mdate('%d/%m/%Y %H:%i',$_voucher->vehicule_collected) : ''
+                'value' => $_voucher->vehicule_collected ? mdate('%d/%m/%Y %H:%i',strtotime($_voucher->vehicule_collected)) : ''
             );
 
             print form_input($vehicule); ?>
@@ -693,17 +708,16 @@ $_dossier = $dossier->dossier;
 
       <!-- END ADDITIONAL INFORMATION -->
 
-    <!--SAVE-->
-    <div class="form__actions">
-      <div class="form__actions__cancel"></div>
-      <div class="form__actions__save">
-        <div class="form-item">
-          <input type="submit" value="Bewaren" name="btnSave" />
+      <!--SAVE-->
+      <div class="form__actions">
+        <div class="form__actions__cancel"></div>
+        <div class="form__actions__save">
+          <div class="form-item">
+            <input type="submit" value="Bewaren" name="btnSave" />
+          </div>
         </div>
       </div>
-    </div>
-    <!-- END SAVE -->
-
+      <!-- END SAVE -->
   </div>
 
 
@@ -1162,7 +1176,7 @@ $_dossier = $dossier->dossier;
 
 
 <?php
-// echo "<pre>";
-// var_dump($dossier);
-// echo "</pre>";
+ // echo "<pre>";
+ // var_dump($dossier);
+ // echo "</pre>";
 ?>
