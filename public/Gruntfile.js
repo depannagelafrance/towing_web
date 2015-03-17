@@ -147,4 +147,8 @@ module.exports = function (grunt) {
     'jshint'
   ]);
 
+    grunt.registerTask('hbs', [
+        'handlebars:all',
+    ]);
+
 };
