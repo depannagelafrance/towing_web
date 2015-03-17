@@ -45,8 +45,6 @@ this["Handlebars"]["Templates"]["activity/activitylist"] = Handlebars.template({
   return buffer + "\n\n";
 },"useData":true});
 
-
-
 this["Handlebars"]["Templates"]["activity/checkboxes"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
   var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
   return "<div class=\"form-item-checkbox\">\n<input type=\"checkbox\" name=\"activity\" value=\""
@@ -77,8 +75,6 @@ this["Handlebars"]["Templates"]["activity/checkboxes"] = Handlebars.template({"1
   return buffer + "\n\n";
 },"useData":true});
 
-
-
 this["Handlebars"]["Templates"]["attachment/overview"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
   var helper, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, functionType="function";
   return "<div class=\"attachment-item\">\n    <h2>Bijlage "
@@ -94,8 +90,6 @@ this["Handlebars"]["Templates"]["attachment/overview"] = Handlebars.template({"1
   if (stack1 != null) { return stack1; }
   else { return ''; }
   },"useData":true});
-
-
 
 this["Handlebars"]["Templates"]["causer/info"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
   return "<div class=\"has_content\">\n";
@@ -202,8 +196,6 @@ this["Handlebars"]["Templates"]["causer/info"] = Handlebars.template({"1":functi
   return buffer + "\n</div>\n<a id=\"edit-nuisance-data-link\" class=\"inform-link icon--edit--small\" href=\"#causer_form\">Bewerken</a>\n";
 },"useData":true});
 
-
-
 this["Handlebars"]["Templates"]["causer/info_short"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
   var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
   return "  <div class=\"nuisance_value\">"
@@ -264,8 +256,6 @@ this["Handlebars"]["Templates"]["causer/info_short"] = Handlebars.template({"1":
   if (stack1 != null) { buffer += stack1; }
   return buffer + "  </div>\n\n";
 },"useData":true});
-
-
 
 this["Handlebars"]["Templates"]["customer/info"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
   return "<div class=\"has_content\">\n";
@@ -372,8 +362,6 @@ this["Handlebars"]["Templates"]["customer/info"] = Handlebars.template({"1":func
   return buffer + "\n                </div>\n<a id=\"edit-invoice-data-link\" class=\"inform-link icon--edit--small\" href=\"#customer_form\">Bewerken</a>\n";
 },"useData":true});
 
-
-
 this["Handlebars"]["Templates"]["depot/info"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
   return "<div class=\"has_content\">\n";
   },"3":function(depth0,helpers,partials,data) {
@@ -416,8 +404,6 @@ this["Handlebars"]["Templates"]["depot/info"] = Handlebars.template({"1":functio
   return buffer + "<a id=\"edit-depot-link\" class=\"inform-link icon--edit--small\" href=\"#depot_form\">Bewerken</a>\n";
 },"useData":true});
 
-
-
 this["Handlebars"]["Templates"]["email/overview"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
   var helper, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, functionType="function";
   return "    <div class=\"email-item\">\n        <h2>Email "
@@ -437,8 +423,6 @@ this["Handlebars"]["Templates"]["email/overview"] = Handlebars.template({"1":fun
   if (stack1 != null) { buffer += stack1; }
   return buffer;
 },"useData":true});
-
-
 
 this["Handlebars"]["Templates"]["nota/overview"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
   var helper, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, functionType="function";

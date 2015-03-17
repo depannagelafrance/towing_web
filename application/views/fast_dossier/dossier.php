@@ -759,6 +759,22 @@ $_dossier = $dossier->dossier;
             <label>City:</label>
             <?php print form_input('city', $_voucher->depot->city); ?>
           </div>
+
+          <div class="form-item-horizontal depot-full-container__city">
+            <label>Standaard depot?</label>
+            <table border="0">
+              <tr><td>Ja</td><td>Nee</td></tr>
+              <tr><td>
+                  <?php
+                    print form_radio('default_depot', '1', $_voucher->depot->default_depot == 1);
+                  ?>
+                </td><td>
+                  <?php
+                    print form_radio('default_depot', '0', $_voucher->depot->default_depot != 1); ?>
+                </td>
+              </tr>
+            </table>
+          </div>
         </div>
       </div>
     </div>
@@ -768,7 +784,6 @@ $_dossier = $dossier->dossier;
       </div>
 
       <div class="form-item fancybox-form__actions__save fancybox-form__actions__twobuttons">
-        <?php // print form_button('use_default','Depot ' . $company_depot->name); ?>
         <input type="submit" value="Standaard Depot" name="btnDepotDefault" />
         <input type="submit" value="Bewaren" name="btnDepotSave" />
       </div>
