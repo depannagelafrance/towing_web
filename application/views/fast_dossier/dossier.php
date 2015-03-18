@@ -256,6 +256,19 @@ $_dossier = $dossier->dossier;
 
   </div>
 
+  <?php
+  if($_voucher->status === 'TO CHECK')
+  {
+  ?>
+
+  <div class="unpadded" style="background-color: #feec8a; padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px; margin-bottom: 15px; color: #7f2710;" id="validation_messages">
+
+  </div>
+
+  <?
+  }
+  ?>
+
   <div class="box unpadded dsform">
     <div class="inner_padding">
 

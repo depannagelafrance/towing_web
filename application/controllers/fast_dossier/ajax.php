@@ -263,4 +263,12 @@ class Ajax extends AjaxPage
     $this->_sendJson($result);
   }
 
+  public function fetchValidationMessages($voucher_id)
+  {
+    $token = $this->_get_user_token();
+
+    $result = $this->dossier_service->fetchAllVoucherValidationMessages($voucher_id, $token);
+
+    $this->_sendJson($result);
+  }
 }

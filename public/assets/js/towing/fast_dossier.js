@@ -1054,4 +1054,18 @@ $(document).ready(function() {
     fetchDataForListBox('#list_towing_id',                '/fast_dossier/ajax/towingdrivers',         driverDataMapper);
     fetchDataForListBox('#list_licence_plate_country',    '/fast_dossier/ajax/licenceplatecountries', licencePlateDataMapper);
     fetchDataForListBox('#list_towing_vehicle_id',        '/fast_dossier/ajax/towingvehicles',        towingVehiclesDataMapper);
+
+    /** VALIDATION MESSAGES **/
+    if($('#validation_messages').length != 0)
+    {
+      $.getJSON('/fast_dossier/ajax/fetchValidationMessages/' + Dossier.voucher_id, function(data, status, xhr) {
+        if(data) {
+          $('#validation_messages').append("<h3>Gelieve volgende elementen te controleren</h3><ul id='validation_messages_list'></ul>");
+
+          $.each(data, function(n, element) {
+            $('#validation_messages_list').append("<li>" + element.message + "</li>");
+          });
+        }
+      });
+    }
 });

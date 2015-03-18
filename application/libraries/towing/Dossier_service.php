@@ -319,5 +319,9 @@ class Dossier_service extends Rest_service {
     return $result;
   }
 
+  public function fetchAllVoucherValidationMessages($voucher_id, $token) {
+    return $this->CI->rest->get(sprintf('/dossier/voucher/validation_messages/%s/%s', $voucher_id, $token));
+  }
+
 
 }
