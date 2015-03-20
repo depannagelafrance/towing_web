@@ -1,5 +1,13 @@
+<?php
+$module = 'fast_dossier';
+
+if($this->uri->segment(1) === 'commando') {
+  $module = 'commando';
+}
+?>
+
 <div>
-  <form class="search--fast--dossier box" method="post" action="/fast_dossier/search">
+  <form class="search--fast--dossier box" method="post" action="/<?php print $module; ?>/search">
 
     <div class="search--title">Takelbon Zoeken</div>
 
@@ -42,7 +50,7 @@
     foreach($vouchers as $voucher) {
 
       $this->table->add_row(
-        sprintf('<a class="id__cell" href="/fast_dossier/dossier/%s/%s"><span class="id__cell__icon icon--ticket"></span><span class="id__cell__text">%s</span></a>', $voucher->dossier_number, $voucher->voucher_number, $voucher->voucher_number),
+        sprintf('<a class="id__cell" href="/%s/dossier/%s/%s"><span class="id__cell__icon icon--ticket"></span><span class="id__cell__text">%s</span></a>', $module, $voucher->dossier_number, $voucher->voucher_number, $voucher->voucher_number),
         $voucher->call_number,
         mdate('%d/%m/%Y %H:%i',strtotime($voucher->call_date)),
         $voucher->direction_name,

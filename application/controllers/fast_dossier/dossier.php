@@ -105,7 +105,8 @@ class Dossier extends Page {
       $_voucher = $dossier->dossier->towing_vouchers[0];
     }
 
-    $view = 'fast_dossier/dossier';
+    $view = $this->_has_role('FAST_MANAGER') ? 'fast_dossier/dossier' : 'fast_dossier/dossier_readonly';
+
 
     switch($_voucher->status) {
       case 'TO CHECK':
@@ -120,24 +121,21 @@ class Dossier extends Page {
         $vouchers = $this->dossier_service->fetchAllNewVouchers($token);
     }
 
-    $this->_add_content(
-      $this->load->view(
-        $view,
-          array(
-            'dossier'                 => $dossier,
-            'voucher_number'          => $voucher_number,
-            'vouchers'                => $vouchers,
-            'traffic_posts'           => $this->dossier_service->fetchAllTrafficPostsByAllotment($dossier->dossier->allotment_id, $token),
-            //'insurances'              => $this->vocabulary_service->fetchAllInsurances($token),
-            //'collectors'              => $this->vocabulary_service->fetchAllCollectors($token),
-            //'licence_plate_countries' => $this->vocabulary_service->fetchAllCountryLicencePlates($token),
-            'company_depot'           => $this->_get_authenticated_user()->company_depot,
-            //'signa_drivers'           => $this->vocabulary_service->fetchAllSignaDrivers($token),
-            //'towing_drivers'          => $this->vocabulary_service->fetchAllTowingDrivers($token)
-          ),
-          true
-      )
+    $data = array(
+      'dossier'                 => $dossier,
+      'voucher_number'          => $voucher_number,
+      'vouchers'                => $vouchers,
+      'traffic_posts'           => $this->dossier_service->fetchAllTrafficPostsByAllotment($dossier->dossier->allotment_id, $token),
+      'company_depot'           => property_exists($this->_get_authenticated_user(), 'company_depot') ? $this->_get_authenticated_user()->company_depot : null,
     );
+
+    if(!$this->_has_role('FAST_MANAGER'))
+    {
+      $data['collectors'] = $this->vocabulary_service->fetchAllCollectors($token);
+      $data['insurances'] = $this->vocabulary_service->fetchAllInsurances($token);
+    }
+
+    $this->_add_content($this->load->view($view, $data, true));
 
     $this->_render_page();
   }

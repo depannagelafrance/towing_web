@@ -54,6 +54,13 @@ $route['fast_dossier/overview/done']             = 'fast_dossier/index/overview/
 $route['fast_dossier/overview/not_collected']    = 'fast_dossier/index/overview/not_collected';
 $route['fast_dossier/overview/awv']              = 'fast_dossier/index/overview/awv';
 
+$route['commando/dossier/(:num)']            = 'fast_dossier/dossier/view/$1';
+$route['commando/dossier/(:num)/(:num)']     = 'fast_dossier/dossier/view/$1/$2';
+$route['commando/index']                     = 'fast_dossier/index';
+$route['commando/overview/(:any)']           = 'fast_dossier/index/overview/$1';
+$route['commando/search']                    = 'fast_dossier/search';
+$route['commando/search/voucher']            = 'fast_dossier/search/voucher';
+
 //$route['news'] = 'news';
 //$route['(:any)'] = 'pages/view/$1';
 

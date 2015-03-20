@@ -180,9 +180,6 @@ $_dossier = $dossier->dossier;
     $_voucher = $_dossier->towing_vouchers[0];
 
 
-  print form_open('fast_dossier/dossier/save/' . $_dossier->dossier_number . '/' . $_voucher->voucher_number);
-
-
   // -- dossier_id
   $data = array(
     'name'        => 'data_dossier_id',
@@ -221,11 +218,7 @@ $_dossier = $dossier->dossier;
     </div>
 
     <div class="dossierbar__mainactions">
-      <div class="dossierbar__mainaction__item">
-        <div class="btn--icon--highlighted bright">
-          <a class="icon--add" href="/fast_dossier/dossier/voucher/<?=$_dossier->id?>">Add</a>
-        </div>
-      </div>
+
     </div>
 
     <div class="dossierbar__actions">
@@ -235,7 +228,6 @@ $_dossier = $dossier->dossier;
             <span class="icon--email">Email</span>
           </div>
           <ul class="btn--dropdown--drop">
-            <li><a id="add-email-link" href="#add-email-form">Email verzenden</a></li>
             <li><a id="view-email-link" href="#view-email-container">Emails bekijken</a></li>
           </ul>
         </div>
@@ -246,7 +238,6 @@ $_dossier = $dossier->dossier;
             <span class="icon--nota">Nota</span>
           </div>
           <ul class="btn--dropdown--drop">
-            <li><a id="add-nota-link" href="#add-nota-form">Nota toevoegen</a></li>
             <li><a id="view-nota-link" href="#view-nota-container">Notas bekijken</a></li>
           </ul>
         </div>
@@ -257,7 +248,6 @@ $_dossier = $dossier->dossier;
             <span class="icon--attachement">Bijlage</span>
           </div>
           <ul class="btn--dropdown--drop">
-            <li><a id="add-attachment-link" href="#add-attachment-form">Bijlage Toevoegen</a></li>
             <li><a id="view-attachment-link" href="#view-attachment-container">Bijlages bekijken</a></li>
           </ul>
         </div>
@@ -425,12 +415,27 @@ $_dossier = $dossier->dossier;
 
 
           <!-- Depot Info -->
-          <div id="depot_info" class="form-item-horizontal depot-container"></div>
+          <div class="form-item-horizontal depot-container">
+            <label>Depot/Afvoerlocatie:</label>
+            <div id="edit-nuisance-data" class="nuisance-container__info">
+              <?= $_voucher->depot->display_name ?>
+            </div>
+          </div>
 
             <!--ASSI-->
             <div class="form-item-horizontal  assistance-container">
                 <label>Assistance:</label>
-                <?php print listbox_ajax('insurance_id', $_voucher->insurance_id); ?>
+                <?php
+                  if($_voucher->insurance_id) {
+                    foreach($insurances as $d) {
+                      if($d->id === $_voucher->insurance_id) {
+                        print $d->name;
+                      }
+                    }
+                  } else {
+                    print '-- Geen assistance toegekend --';
+                  }
+                ?>
             </div>
             <!--END ASSI-->
 
@@ -460,82 +465,64 @@ $_dossier = $dossier->dossier;
       <!--WORK-->
       <div id="added-activities" class="form-item-vertical work-container">
         <?php if(count($_voucher->towing_activities) > 0): ?>
-        <div class="work-container__header">
-          <div class="work-container__task__label"><label>Activiteiten:</label></div>
-          <div class="work-container__number__label"><label>Aantal:</label></div>
-          <div class="work-container__incl__label"><label>EHP (excl.):</label></div>
-          <div class="work-container__excl__label"><label>EHP (incl.):</label></div>
-          <div class="work-container__tot__incl__label"><label>Totaal (excl.):</label></div>
-          <div class="work-container__tot__excl__label"><label>Totaal (incl.):</label></div>
-        </div>
-        <?php endif; ?>
-        <div class="work-container__fields"></div>
 
+          <?php
+            $this->table->set_heading('Activiteit', 'Aantal', 'EHP (excl.)', 'EHP (incl.):', 'Totaal (excl.)', 'Totaal (incl.):');
+
+            foreach($_voucher->towing_activities as $_activity) {
+              $this->table->add_row(
+                    $_activity->name,
+                    $_activity->amount,
+                    sprintf("%1\$.2f", $_activity->fee_excl_vat),
+                    sprintf("%1\$.2f", $_activity->fee_incl_vat),
+                    $_activity->cal_fee_excl_vat,
+                    $_activity->cal_fee_incl_vat);
+            }
+
+            print $this->table->generate();
+          ?>
+        <?php endif; ?>
 
         <!--PAYMENT-->
         <div class="form-item-vertical payment-container">
           <div id="payment_insurance"  class="form-item-vertical payment-container__insurance">
             <label class="notbold">Garantie:</label>
-            <?php print form_input('amount_guaranteed_by_insurance', $_voucher->towing_payments->amount_guaranteed_by_insurance); ?>
+            <?php print  $_voucher->towing_payments->amount_guaranteed_by_insurance; ?>
           </div>
 
           <div id="payment_total" class="form-item-vertical payment-container__amount_customer">
             <label class="notbold">Te betalen:</label>
-            <?php
-            $data = array(
-            'name'        => 'amount_customer',
-            'value'       => $_voucher->towing_payments->amount_customer,
-            'readonly'    => 'readonly',
-            'style'       => 'background: #F0F0F0'
-            );
-            print form_input($data);
-            ?>
+            <?php print $_voucher->towing_payments->amount_customer; ?>
           </div>
 
           <div id="payment_cash" class="form-item-vertical payment-container__paid_in_cash">
             <label class="notbold">Contant:</label>
-            <?php print form_input('paid_in_cash', $_voucher->towing_payments->paid_in_cash); ?>
+            <?php print $_voucher->towing_payments->paid_in_cash; ?>
           </div>
 
           <div id="payment_bank" class="form-item-vertical payment-container__paid_by_bank_deposit">
             <label class="notbold">Overschrijving:</label>
-            <?php print form_input('paid_by_bank_deposit', $_voucher->towing_payments->paid_by_bank_deposit); ?>
+            <?php print $_voucher->towing_payments->paid_by_bank_deposit; ?>
           </div>
 
           <div id="payment_debit" class="form-item-vertical payment-container__paid_by_debit_card">
             <label class="notbold">Maestro:</label>
-            <?php print form_input('paid_by_debit_card', $_voucher->towing_payments->paid_by_debit_card); ?>
+            <?php print $_voucher->towing_payments->paid_by_debit_card; ?>
           </div>
 
           <div id="payment_credit" class="form-item-vertical payment-container__paid_by_credit_card">
             <label class="notbold">Creditcard:</label>
-            <?php print form_input('paid_by_credit_card', $_voucher->towing_payments->paid_by_credit_card); ?>
+            <?php print $_voucher->towing_payments->paid_by_credit_card; ?>
           </div>
 
           <div id="payment_paid" class="form-item-vertical payment-container__cal_amount_paid">
             <label class="notbold">Betaald:</label>
-            <?php
-            $data = array(
-              'name'        => 'cal_amount_paid',
-              'value'       => $_voucher->towing_payments->cal_amount_paid,
-              'readonly'    => 'readonly',
-              'style'       => 'background: #F0F0F0'
-            );
-            print form_input($data);
-            ?>
+            <?php print $_voucher->towing_payments->cal_amount_paid; ?>
           </div>
 
           <div id="payment_unpaid" class="form-item-vertical payment-container__cal_amount_unpaid">
             <label class="notbold">Openstaand:</label>
-            <?php
-            $data = array(
-              'name'        => 'cal_amount_unpaid',
-              'value'       => $_voucher->towing_payments->cal_amount_unpaid,
-              'readonly'    => 'readonly',
-              'style'       => 'background: #F0F0F0'
-            );
-            print form_input($data);
-            ?>
+            <?php print $_voucher->towing_payments->cal_amount_unpaid; ?>
           </div>
 
         </div>
@@ -554,21 +541,24 @@ $_dossier = $dossier->dossier;
 
           <div class="form-item-horizontal  autograph-container__police__trafficpost">
             <label class="notbold">Verkeerspost:</label>
-            <?php print listbox('traffic_post_id', $traffic_posts, $_dossier->police_traffic_post_id); ?>
+            <?php
+              if($_dossier->police_traffic_post_id) {
+                foreach($traffic_posts as $d) {
+                  if($d->id === $_dossier->police_traffic_post_id) {
+                    print $d->name;
+                  }
+                }
+              } else {
+                print '-- Geen verkeerspost toegekend --';
+              }
+
+            ?>
+
           </div>
 
           <div class="form-item-horizontal  autograph-container__police__timestamp">
             <label class="notbold">Tijdstip:</label>
             <?php
-
-            // $police_signature_dt = array(
-            //     'name' => 'police_signature_dt',
-            //     'class' => 'datetimepicker',
-            //     'value' => mdate('%d/%m/%Y %H:%i',strtotime($_voucher->police_signature_dt))
-            // );
-            //
-            // print form_input($police_signature_dt);
-            //
 
             if($_voucher->police_signature_dt && trim($_voucher->police_signature_dt) != "") {
               print mdate('%d/%m/%Y %H:%i',strtotime($_voucher->police_signature_dt));
@@ -588,20 +578,24 @@ $_dossier = $dossier->dossier;
 
           <div class="form-item-horizontal  autograph-container__collecting__collector">
             <label class="notbold">Afhaler:</label>
-            <?php print listbox_ajax('collector_id', $_voucher->collector_id); ?>
+
+            <?php
+              if($_voucher->collector_id) {
+                foreach($collectors as $d) {
+                  if($d->id === $_voucher->collector_id)
+                    print $d->name;
+                }
+              } else {
+                print "-- Geen afhaler toegekend -- ";
+              }
+            ?>
           </div>
 
           <div class="form-item-horizontal  autograph-container__collecting__date">
             <label class="notbold">Datum:</label>
             <?php
-
-            $vehicule = array(
-                'name' => 'vehicule_collected',
-                'class' => 'datetimepicker',
-                'value' => $_voucher->vehicule_collected ? mdate('%d/%m/%Y %H:%i',strtotime($_voucher->vehicule_collected)) : ''
-            );
-
-            print form_input($vehicule); ?>
+            print $_voucher->vehicule_collected ? mdate('%d/%m/%Y %H:%i',strtotime($_voucher->vehicule_collected)) : ''
+            ?>
           </div>
         </div>
       </div>
@@ -619,14 +613,7 @@ $_dossier = $dossier->dossier;
           }
           ?>
           <div class="autograph-block autograph-container__police__autograph <?php print $police_class; ?>" style="background-image: url(<?php print $police_collecting_url; ?>);">
-            <?php if($police_has_autograph): ?>
-              <!-- a id="edit-autograph-police" class="inform-link icon--edit--small" href="#"></a -->
-            <?php else: ?>
-              <a class="add_autograph" id="signature-traffic-post"
-                  data-did="<?php print $_dossier->dossier_number; ?>"
-                  data-vid="<?php print $_voucher->id; ?>"
-                  href="#">Voeg een handtekening toe</a>
-            <?php endif; ?>
+
           </div>
         </div>
 
@@ -642,14 +629,7 @@ $_dossier = $dossier->dossier;
           }
           ?>
           <div class="autograph-block autograph-container__nuisance__autograph <?php print $nuisance_class; ?>" style="background-image: url(<?php print $nuisance_collecting_url; ?>);">
-            <?php if($nuisance_has_autograph): ?>
-              <!--a id="edit-autograph-nuisance" class="inform-link icon--edit--small" href="#"></a-->
-            <?php else: ?>
-              <a class="add_autograph" id="signature-causer"
-                 data-did="<?php print $_dossier->dossier_number; ?>"
-                 data-vid="<?php print $_voucher->id; ?>"
-                 href="#">Voeg een handtekening toe</a>
-            <?php endif; ?>
+
           </div>
         </div>
 
@@ -665,14 +645,7 @@ $_dossier = $dossier->dossier;
           }
           ?>
           <div class="autograph-block autograph-container__collecting__autograph <?php print $collecting_class; ?>" style="background-image: url(<?php print $autograph_collecting_url; ?>);">
-            <?php if($collecting_has_autograph): ?>
-              <!-- a id="edit-autograph-collecting" class="inform-link icon--edit--small" href="#"></a-->
-            <?php else: ?>
-              <a class="add_autograph" id="signature-collector"
-                 data-did="<?php print $_dossier->id; ?>"
-                 data-vid="<?php print $_voucher->id; ?>"
-                 href="#">Voeg een handtekening toe</a>
-            <?php endif; ?>
+
           </div>
         </div>
       </div>
@@ -707,337 +680,9 @@ $_dossier = $dossier->dossier;
       </div>
 
       <!-- END ADDITIONAL INFORMATION -->
-
-      <!--SAVE-->
-      <div class="form__actions">
-        <div class="form__actions__cancel"></div>
-        <div class="form__actions__save">
-          <div class="form-item">
-            <input type="submit" value="Bewaren" name="btnSave" />
-          </div>
-        </div>
-      </div>
-      <!-- END SAVE -->
   </div>
 
 
-
-  </div>
-  <?php print form_close(); ?>
-
-  <!-- DEPOT -->
-  <div id="depot_form" style="display: none;">
-    <?php
-      $depot_hidden = array(
-        'id' => $_voucher->depot->id
-      );
-
-      print form_open('', '', $depot_hidden);
-    ?>
-    <div class="fancybox-form">
-      <h3>Depot Bewerken</h3
-        <!-- DEPOT -->
-      <div class="depot-full-container">
-        <div class="msg msg__error msg__hidden">Er is een fout opgetreden bij het bewaren van de gegevens</div>
-
-        <div class="depot-full-container__left">
-          <div class="form-item-horizontal depot-full-container__depot">
-            <label>Depot:</label>
-            <?php print form_input('name', $_voucher->depot->name); ?>
-            <?php print form_hidden('default_depot', $_voucher->depot->default_depot) ?>
-          </div>
-
-          <div class="form-item-horizontal depot-full-container__street">
-            <label>Straat:</label>
-            <?php print form_input('street', $_voucher->depot->street); ?>
-          </div>
-        </div>
-        <div class="depot-full-container__right">
-
-          <div class="form-item-horizontal depot-full-container__streetnr">
-            <label>Nr:</label>
-            <?php print form_input('street_number', $_voucher->depot->street_number); ?>
-          </div>
-
-          <div class="form-item-horizontal depot-full-container__streetbox">
-            <label>Box:</label>
-            <?php print form_input('street_pobox', $_voucher->depot->street_pobox); ?>
-          </div>
-
-          <div class="form-item-horizontal depot-full-container__postal">
-            <label>Zip:</label>
-            <?php print form_input('zip', $_voucher->depot->zip); ?>
-          </div>
-
-          <div class="form-item-horizontal depot-full-container__city">
-            <label>City:</label>
-            <?php print form_input('city', $_voucher->depot->city); ?>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="fancybox-form__actions">
-      <div class="form-item fancybox-form__actions__cancel">
-        <a class="close_overlay" href="#">Annuleren</a>
-      </div>
-
-      <div class="form-item fancybox-form__actions__save fancybox-form__actions__twobuttons">
-        <?php // print form_button('use_default','Depot ' . $company_depot->name); ?>
-        <input type="submit" value="Standaard Depot" name="btnDepotDefault" />
-        <input type="submit" value="Bewaren" name="btnDepotSave" />
-      </div>
-    </div>
-    <?php print form_close(); ?>
-  </div>
-
-
-  <!-- INVOICE -->
-  <div id="customer_form" style="display: none;">
-    <?php
-
-      $fact_hidden = array(
-        'id' => $_voucher->customer->id,
-        'type' => $_voucher->customer->type //can either be DEFAULT or AGENCY (for AW&V)
-      );
-
-      print form_open('','',$fact_hidden);
-    ?>
-    <div class="fancybox-form">
-      <h3>Facturatie gegevens Bewerken</h3>
-      <div class="invoice-full-container">
-        <div class="msg msg__error msg__hidden">Er is een fout opgetreden bij het bewaren van de gegevens</div>
-        <div class="invoice-full-container__name">
-          <div class="form-item-horizontal invoice-full-container__first_name">
-            <label>Voornaam:</label>
-            <?php print form_input('first_name', $_voucher->customer->first_name); ?>
-          </div>
-          <div class="form-item-horizontal invoice-full-container__last_name">
-            <label>Achternaam:</label>
-            <?php print form_input('last_name', $_voucher->customer->last_name); ?>
-          </div>
-        </div>
-
-        <div class="invoice-full-container__company">
-          <div class="form-item-horizontal invoice-full-container__company_name">
-            <label>Bedrijf:</label>
-            <?php print form_input('company_name', $_voucher->customer->company_name); ?>
-          </div>
-          <div class="form-item-horizontal invoice-full-container__company_vat">
-            <label>BTW:</label>
-            <?php print form_input('company_vat', $_voucher->customer->company_vat); ?>
-          </div>
-        </div>
-
-        <div class="invoice-full-container__address__street">
-          <div class="form-item-horizontal invoice-full-container__street">
-            <label>Straat:</label>
-            <?php print form_input('street', $_voucher->customer->street); ?>
-          </div>
-          <div class="form-item-horizontal invoice-full-container__street_number">
-            <label>Nr:</label>
-            <?php print form_input('street_number', $_voucher->customer->street_number); ?>
-          </div>
-          <div class="form-item-horizontal invoice-full-container__street_pobox">
-            <label>Bus:</label>
-            <?php print form_input('street_pobox', $_voucher->customer->street_pobox); ?>
-          </div>
-        </div>
-
-        <div class="invoice-full-container__address__city">
-          <div class="form-item-horizontal invoice-full-container__zip">
-            <label>Postcode:</label>
-            <?php print form_input('zip', $_voucher->customer->zip); ?>
-          </div>
-          <div class="form-item-horizontal invoice-full-container__city">
-            <label>Gemeente:</label>
-            <?php print form_input('city', $_voucher->customer->city); ?>
-          </div>
-        </div>
-
-        <div class="form-item-horizontal invoice-full-container__country">
-          <label>Land:</label>
-          <?php print form_input('country', $_voucher->customer->country); ?>
-        </div>
-
-        <div class="invoice-full-container__contact">
-          <div class="form-item-horizontal invoice-full-container__phone">
-            <label>Telefoon:</label>
-            <?php print form_input('phone', $_voucher->customer->phone); ?>
-          </div>
-
-          <div class="form-item-horizontal invoice-full-container__email">
-            <label>Email:</label>
-            <?php print form_input('email', $_voucher->customer->email); ?>
-          </div>
-            <!--
-          <div class="form-item-horizontal invoice-full-container__email">
-            <label>Referentie:</label>
-            <?php // print form_input('invoice_ref', $_voucher->customer->invoice_ref); ?>
-          </div>
-          -->
-        </div>
-      </div>
-    </div>
-    <div class="fancybox-form__actions">
-      <div class="form-item fancybox-form__actions__cancel">
-        <a class="close_overlay" href="#">Annuleren</a>
-      </div>
-
-      <div class="form-item fancybox-form__actions__save fancybox-form__actions__twobuttons">
-        <input type="submit" value="AW&amp;V" name="btnCopyCustomerAWV" />
-        <input type="submit" value="Gebruik deze gegevens ook voor hinderverwekker" name="btnCustomerCopy" />
-        <input type="submit" value="Bewaren" name="btnCustomerSave"/>
-      </div>
-    </div>
-    <?php print form_close(); ?>
-  </div>
-
-  <!-- NUISANCE -->
-  <div id="causer_form" style="display: none;">
-
-    <?php
-      $nuisance_hidden = array(
-        'id' => $_voucher->causer->id,
-      );
-      print form_open('','',$nuisance_hidden);
-    ?>
-    <div class="fancybox-form">
-      <h3>Hinderverwerker gegevens Bewerken</h3>
-
-      <div class="nuisance-full-container">
-        <div class="msg msg__error msg__hidden">Er is een fout opgetreden bij het bewaren van de gegevens</div>
-        <div class="nuisance-full-container__name">
-        <div class="form-item-horizontal nuisance-full-container__first_name">
-          <label>Voornaam:</label>
-          <?php print form_input('first_name', $_voucher->causer->first_name); ?>
-        </div>
-        <div class="form-item-horizontal nuisance-full-container__last_name">
-          <label>Achternaam:</label>
-          <?php print form_input('last_name', $_voucher->causer->last_name); ?>
-        </div>
-      </div>
-
-      <div class="nuisance-full-container__company">
-        <div class="form-item-horizontal nuisance-full-container__company_name">
-          <label>Bedrijf:</label>
-          <?php print form_input('company_name', $_voucher->causer->company_name); ?>
-        </div>
-        <div class="form-item-horizontal nuisance-full-container__company_vat">
-          <label>Bedrijf VAT:</label>
-          <?php print form_input('company_vat', $_voucher->causer->company_vat); ?>
-        </div>
-      </div>
-
-      <div class="nuisance-full-container__address__street">
-        <div class="form-item-horizontal nuisance-full-container__street">
-          <label>Straat:</label>
-          <?php print form_input('street', $_voucher->causer->street); ?>
-        </div>
-        <div class="form-item-horizontal nuisance-full-container__street_number">
-          <label>Nummer:</label>
-          <?php print form_input('street_number', $_voucher->causer->street_number); ?>
-        </div>
-        <div class="form-item-horizontal nuisance-full-container__street_pobox">
-          <label>Bus:</label>
-          <?php print form_input('street_pobox', $_voucher->causer->street_pobox); ?>
-        </div>
-      </div>
-
-      <div class="nuisance-full-container__address__city">
-        <div class="form-item-horizontal nuisance-full-container__zip">
-          <label>Postcode:</label>
-          <?php print form_input('zip', $_voucher->causer->zip); ?>
-        </div>
-        <div class="form-item-horizontal nuisance-full-container__city">
-          <label>Gemeente:</label>
-          <?php print form_input('city', $_voucher->causer->city); ?>
-        </div>
-      </div>
-
-      <div class="form-item-horizontal nuisance-full-container__country">
-        <label>Land:</label>
-        <?php print form_input('country', $_voucher->causer->country); ?>
-      </div>
-
-      <div class="nuisance-full-container__contact">
-        <div class="form-item-horizontal nuisance-full-container__phone">
-          <label>Telefoon:</label>
-          <?php print form_input('phone', $_voucher->causer->phone); ?>
-        </div>
-
-        <div class="form-item-horizontal nuisance-full-container__email">
-          <label>Email:</label>
-          <?php print form_input('email', $_voucher->causer->email); ?>
-        </div>
-      </div>
-
-
-      </div>
-    </div>
-    <div class="fancybox-form__actions">
-      <div class="form-item fancybox-form__actions__cancel">
-        <a class="close_overlay" href="#">Annuleren</a>
-      </div>
-
-      <div class="form-item fancybox-form__actions__save fancybox-form__actions__twobuttons">`
-        <input type="submit" value="Gebruik deze gegevens ook voor facturatie" name="btnCauserCopy"/>
-
-        <input type="submit" value="Bewaren" name="btnCauserSave" />
-      </div>
-    </div>
-    <?php print form_close(); ?>
-  </div>
-
-
-  <!-- EMAIL -->
-  <div id="add-email-form" style="display: none;">
-
-    <?php
-
-    $email_attr = array(
-      'data-vid' => $_voucher->id,
-      'data-did' => $_dossier->id
-    );
-
-    $email_hidden = array(
-        'voucher_id' => $_voucher->id,
-        'dossier_id' => $_dossier->id
-    );
-
-    print form_open('',$email_attr,$email_hidden);
-
-    ?>
-
-    <div class="fancybox-form">
-      <h3>Email versturen</h3>
-      <div class="msg msg__error msg__hidden">Er is een fout opgetreden bij het versturen van de email</div>
-      <div class="form-item-horizontal">
-        <label>Email:</label>
-        <?php print form_input('recipients'); ?>
-      </div>
-
-      <div class="form-item-horizontal">
-        <label>Onderwerp:</label>
-        <?php print form_input('subject'); ?>
-      </div>
-
-      <div class="form-item-horizontal">
-        <label>Bericht:</label>
-        <?php print form_textarea('message'); ?>
-      </div>
-
-    </div>
-    <div class="fancybox-form__actions">
-      <div class="form-item fancybox-form__actions__cancel">
-        <a class="close_overlay" href="#">Annuleren</a>
-      </div>
-
-      <div class="form-item fancybox-form__actions__save">
-        <input type="submit" value="Bewaren" name="btnEmailSave" />
-      </div>
-    </div>
-    <?= form_close(); ?>
-  </div>
 
   <div id="view-email-container"  style="display: none;">
     <div class="emails">
@@ -1051,43 +696,6 @@ $_dossier = $dossier->dossier;
   </div>
   <!-- END EMAIL -->
 
-  <!-- NOTA -->
-  <div id="add-nota-form" style="display: none;">
-    <?php
-
-    $nota_hidden = array(
-      'voucher_id' => $_voucher->id,
-      'dossier_id' =>  $_dossier->id
-    );
-
-    $nota_attr = array(
-      'data-vid' => $_voucher->id,
-      'data-did' => $_dossier->id
-    );
-
-    print form_open('',$nota_attr,$nota_hidden);
-
-    ?>
-    <div class="fancybox-form">
-      <h3>Nota toevoegen</h3>
-      <div class="msg msg__error msg__hidden">Er is een fout opgetreden bij het bewaren van de nota</div>
-      <div class="form-item-horizontal">
-        <label>Nota:</label>
-        <?php print form_textarea('message'); ?>
-      </div>
-
-    </div>
-    <div class="fancybox-form__actions">
-      <div class="form-item fancybox-form__actions__cancel">
-        <a class="close_overlay" href="#">Annuleren</a>
-      </div>
-
-      <div class="form-item fancybox-form__actions__save">
-        <input type="submit" value="Bewaren" name="btnNotaSave" />
-      </div>
-    </div>
-    <?= form_close(); ?>
-  </div>
 
   <div id="view-nota-container" style="display: none;">
     <div class="notas">
@@ -1102,62 +710,6 @@ $_dossier = $dossier->dossier;
 
   <!--END NOTA-->
 
-  <!-- WORK -->
-  <div id="add-activity-form" style="display: none;">
-    <?php print form_open(); ?>
-    <div class="fancybox-form">
-      <h3>Activiteiten toevoegen</h3>
-      <div id="add-work-form-ajaxloaded-content"></div>
-    </div>
-    <div class="fancybox-form__actions">
-      <div class="form-item fancybox-form__actions__cancel">
-        <a class="close_overlay" href="#">Annuleren</a>
-      </div>
-
-      <div class="form-item fancybox-form__actions__save">
-        <input type="submit" value="Bewaren" name="btnWorkSave" />
-      </div>
-    </div>
-    <?= form_close(); ?>
-  </div>
-
-  <!-- END WORK -->
-
-  <!-- ATTACHEMENT -->
-  <div id="add-attachment-form" style="display: none;">
-    <?php
-    print form_open_multipart('','','');
-
-    ?>
-    <div class="fancybox-form">
-      <h3>Bijlage toevoegen</h3>
-
-      <div class="form-item-horizontal">
-        <div id="attachments__errors" class="msg msg__error" style="display:none;"></div>
-      </div>
-
-      <div class="form-item-horizontal">
-        <label>Bijlage:</label>
-        <input id="attachments" type="file" name="attachment" multiple/>
-      </div>
-
-      <div class="form-item-horizontal">
-        <div id="attachments__list"></div>
-      </div>
-
-    </div>
-    <div class="fancybox-form__actions">
-      <div class="form-item fancybox-form__actions__cancel">
-        <a class="close_overlay" href="#">Annuleren</a>
-      </div>
-
-      <div class="form-item fancybox-form__actions__save">
-        <input type="submit" value="Bewaren" name="btnAttachmentSave" />
-      </div>
-    </div>
-    <?= form_close(); ?>
-  </div>
-
   <div id="view-attachment-container" style="display: none;">
     <div class="attachments">
       <!-- NOTAS LOADED BY JS -->
@@ -1169,14 +721,7 @@ $_dossier = $dossier->dossier;
     </div>
   </div>
 
-  <!--END NOTA-->
+  <!--END ATTACHMENT-->
 
 
 </div>
-
-
-<?php
- // echo "<pre>";
- // var_dump($dossier);
- // echo "</pre>";
-?>

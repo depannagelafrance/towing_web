@@ -49,6 +49,12 @@
 			  print '<script type="text/javascript" src="' . $file . '"></script>';
 		  }
 	  }
+
+		$_module = 'fast_dossier';
+
+		if($this->uri->segment(1) === 'commando') {
+			$_module = 'commando';
+		}
 	?>
 </head>
 
@@ -59,9 +65,9 @@
         <div class="logo"></div>
       </div>
         <div class="l-main-search bright">
-            <form method="post" action="/fast_dossier/search/voucher">
+            <form method="post" action="/<?php print $_module; ?>/search/voucher">
                <input type="text" value="" name="searchVoucherNumber" placeholder="Takelbon zoeken" />
-               <a class="icon--search icon" href="/fast_dossier/search"></a>
+               <a class="icon--search icon" href="/<?php print $_module; ?>/search"></a>
             </form>
         </div>
         <div class="l-user-navigation">

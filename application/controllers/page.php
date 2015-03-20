@@ -106,6 +106,20 @@ class Page extends CI_Controller {
 		return $this->session->userdata('current_user');
 	}
 
+	protected function _has_role($name) {
+		$_user = $this->_get_authenticated_user();
+
+		if(array_key_exists('user_roles', $_user)) {
+			foreach($_user->user_roles as $_role) {
+				if($_role->code === $name) {
+					return TRUE;
+				}
+			}
+		}
+
+		return FALSE;
+	}
+
 	protected function _cache_Dossier($dossier) {
 		if(!isset($_SESSION)) {
 			session_start();
