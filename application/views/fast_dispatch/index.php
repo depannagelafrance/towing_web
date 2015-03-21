@@ -1,6 +1,6 @@
 <div class="layout-actions">
   <div class="btn--icon--highlighted bright">
-    <a class="icon--add" href="/fast_dispatch/create">New Voucher</a>
+    <a class="icon--add" href="/fast_dispatch/create" onclick="return confirm('Bent u zeker dat u een nieuw dossier wenst aan te maken?');">New Voucher</a>
   </div>
 </div>
 <div class="box table_list table_list_large">
