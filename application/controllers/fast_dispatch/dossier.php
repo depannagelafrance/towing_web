@@ -26,8 +26,11 @@ class Dossier extends Page {
 
     $dossier = $this->dossier_service->fetchDossierByNumber($number, $token);
 
-    $this->_loadDossierView($token, $dossier, $voucher_number);
-
+    if(property_exists($dossier, 'statusCode') && $dossier->statusCode===404) {
+      redirect("/fast_dispatch/");
+    } else {
+      $this->_loadDossierView($token, $dossier, $voucher_number);
+    }
   }
 
   public function save($number, $voucher_number) {
