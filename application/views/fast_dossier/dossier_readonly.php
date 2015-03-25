@@ -155,7 +155,16 @@ $_dossier = $dossier->dossier;
 
          <div class="form-item-horizontal less_padded">
            <label>KM Paal&nbsp;:</label>
-           <div class="value"><?php  print $_dossier->indicator_name; ?></div>
+           <div class="value">
+             <?php
+                print $_dossier->indicator_name;
+
+                if($_dossier->indicator_zip)
+                {
+                  printf(" (%s - %s)", $_dossier->indicator_zip, $_dossier->indicator_city);
+                }
+              ?>
+           </div>
          </div>
 
          <div class="form-item-horizontal less_padded">
