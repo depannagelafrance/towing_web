@@ -30,6 +30,9 @@ class Dossier_model  {
       if(property_exists($data->dossier, 'allotment_indicator_id')) {
         $this->indicator_id                          = $data->dossier->allotment_indicator_id;
         $this->allotment_indicator_id                = $data->dossier->allotment_indicator_id;
+      } else {
+        $this->indicator_id                          = null;
+        $this->allotment_indicator_id                = null;
       }
 
       $this->traffic_lanes                         = $data->dossier->traffic_lanes;

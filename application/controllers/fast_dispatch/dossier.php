@@ -90,7 +90,13 @@ class Dossier extends Page {
     $dossier->dossier->incident_type_id       = $this->input->post('incident_type');
     $dossier->dossier->allotment_id           =  $this->input->post('allotment_id');
     $dossier->dossier->allotment_direction_id = $this->input->post('direction');
+    $dossier->dossier->direction_id           = $this->input->post('direction');
+
     $dossier->dossier->allotment_direction_indicator_id = $this->input->post('indicator');
+    $dossier->dossier->allotment_indicator_id = $this->input->post('indicator');
+    $dossier->dossier->indicator_id           = $this->input->post('indicator');
+
+
     $dossier->dossier->traffic_lanes          = $this->input->post('traffic_lane_id');
 
     $dossier->dossier->towing_vouchers[0]->vehicule               = $this->input->post('vehicule');
