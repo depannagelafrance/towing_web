@@ -1199,7 +1199,7 @@ $_dossier = $dossier->dossier;
 
 
 <?php
-echo "<pre>";
-var_dump($dossier);
-echo "</pre>";
+// echo "<pre>";
+// var_dump($dossier);
+// echo "</pre>";
 ?>
