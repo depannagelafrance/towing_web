@@ -135,7 +135,6 @@ class Dossier_service extends Rest_service {
       );
     }
 
-    //TODO: @Kris Provide service
     public function addActivitiesToVoucher($dossier_id, $voucher_id, $activities, $token)
     {
       return $this->CI->rest->put(
@@ -269,13 +268,14 @@ class Dossier_service extends Rest_service {
       return $result;
     }
 
-    public function searchTowingVouchers($call_number, $call_date, $type, $licence_plate, $name, $token)
+    public function searchTowingVouchers($call_number, $call_date, $vehicle, $type, $licence_plate, $name, $token)
     {
       $result = $this->CI->rest->post(
               sprintf('/search/%s', $token),
               json_encode(array(
                 "call_number"   => $call_number,
                 "call_date"     => $call_date,
+                "vehicle"       => $vehicle,
                 "type"          => $type,
                 "licence_plate" => $licence_plate,
                 "name"          => $name

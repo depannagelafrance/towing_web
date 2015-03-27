@@ -20,6 +20,10 @@ if($this->uri->segment(1) === 'commando') {
     </div>
 
     <div class="search--input">
+      <input type="text" value="<?php print isset($vehicle) ? $vehicle : '' ?>" name="vehicle" placeholder="Voertuig" />
+    </div>
+
+    <div class="search--input">
       <input type="text" value="<?php print isset($type) ? $type : '' ?>" name="type" placeholder="Type voertuig" />
     </div>
 
@@ -41,7 +45,6 @@ if($this->uri->segment(1) === 'commando') {
   <?php
 
   $this->load->helper('date');
-
 
   if($vouchers && sizeof($vouchers) > 0) {
 

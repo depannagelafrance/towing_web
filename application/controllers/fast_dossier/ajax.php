@@ -123,6 +123,22 @@ class Ajax extends AjaxPage
     $this->_sendJson($result);
   }
 
+  public function directions() {
+    $token = $this->_get_user_token();
+
+    $result = $this->vocabulary_service->fetchAllDirections($token);
+
+    $this->_sendJson($result);
+  }
+
+  public function indicators($direction) {
+    $token = $this->_get_user_token();
+
+    $result = $this->vocabulary_service->fetchAllIndicatorsByDirection($direction, $token);
+
+    $this->_sendJson($result);
+  }
+
   public function licencePlateCountries() {
     $token = $this->_get_user_token();
 

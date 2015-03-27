@@ -986,15 +986,19 @@ $(document).ready(function() {
 
     /******* END TRAFFIC POST ********/
 
-    function fetchDataForListBox($id, $api, cb) {
+    function fetchDataForListBox($id, $api, cb, $append_empty) {
       $.getJSON($api, function(data, status, xhr) {
         if(data) {
           $selectedValue = $($id).data('selected-id');
 
-          $($id).append($('<option/>', {
-            value: '',
-            text : '--'
-          }));
+          $($id).empty();
+
+          if($append_empty) {
+            $($id).append($('<option/>', {
+              value: '',
+              text : '--'
+            }));
+          }
 
           $.each(data, function(index, item) {
 
@@ -1048,12 +1052,25 @@ $(document).ready(function() {
       }
     }
 
-    fetchDataForListBox('#list_insurance_id',             '/fast_dossier/ajax/insurances',            defaultDataMapper);
-    fetchDataForListBox('#list_collector_id',             '/fast_dossier/ajax/collectors',            defaultDataMapper);
-    fetchDataForListBox('#list_signa_id',                 '/fast_dossier/ajax/signadrivers',          driverDataMapper);
-    fetchDataForListBox('#list_towing_id',                '/fast_dossier/ajax/towingdrivers',         driverDataMapper);
-    fetchDataForListBox('#list_licence_plate_country',    '/fast_dossier/ajax/licenceplatecountries', licencePlateDataMapper);
-    fetchDataForListBox('#list_towing_vehicle_id',        '/fast_dossier/ajax/towingvehicles',        towingVehiclesDataMapper);
+    fetchDataForListBox('#list_insurance_id',             '/fast_dossier/ajax/insurances',            defaultDataMapper, true);
+    fetchDataForListBox('#list_collector_id',             '/fast_dossier/ajax/collectors',            defaultDataMapper, true);
+    fetchDataForListBox('#list_signa_id',                 '/fast_dossier/ajax/signadrivers',          driverDataMapper, true);
+    fetchDataForListBox('#list_towing_id',                '/fast_dossier/ajax/towingdrivers',         driverDataMapper, true);
+    fetchDataForListBox('#list_licence_plate_country',    '/fast_dossier/ajax/licenceplatecountries', licencePlateDataMapper, true);
+    fetchDataForListBox('#list_towing_vehicle_id',        '/fast_dossier/ajax/towingvehicles',        towingVehiclesDataMapper, true);
+
+    fetchDataForListBox('#list_allotment_direction_id',       '/fast_dossier/ajax/directions', defaultDataMapper, false);
+
+    var direction_id = $('#list_allotment_direction_id').data('selected-id');
+    fetchDataForListBox('#list_allotment_direction_indicator_id',  '/fast_dossier/ajax/indicators/'+direction_id, defaultDataMapper, false);
+
+
+    $('#list_allotment_direction_id').change(function(){
+      var id = $('#list_allotment_direction_id option:selected').val();
+
+      fetchDataForListBox('#list_allotment_direction_indicator_id',  '/fast_dossier/ajax/indicators/'+id, defaultDataMapper, false);
+    });
+
 
     /** VALIDATION MESSAGES **/
     if($('#validation_messages').length != 0)

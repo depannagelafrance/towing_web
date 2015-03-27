@@ -140,10 +140,23 @@ class Dossier extends Page {
     $this->_render_page();
   }
 
-  private function _setDossierValuesFromPostRequest($dossier, $voucher_number) {
-
+  private function _setDossierValuesFromPostRequest($dossier, $voucher_number)
+  {
     $dossier->dossier->police_traffic_post_id = toIntegerValue($this->input->post('traffic_post_id'));
 
+    if($this->input->post('call_number'))
+      $dossier->dossier->call_number = $this->input->post('call_number');
+
+    if($this->input->post('allotment_direction_id') && trim($this->input->post('allotment_direction_id')) != '') {
+      $dossier->dossier->allotment_direction_id = $this->input->post('allotment_direction_id');
+      $dossier->dossier->direction_id = $this->input->post('allotment_direction_id');
+    }
+
+
+    if($this->input->post('allotment_direction_indicator_id') && trim($this->input->post('allotment_direction_indicator_id')) != '') {
+      $dossier->dossier->allotment_indicator_id = $this->input->post('allotment_direction_indicator_id');
+      $dossier->dossier->indicator_id           = $this->input->post('allotment_direction_indicator_id');
+    }
 
     //traffic lanes are not changed here
     $traffic_lanes = $this->dossier_service->fetchAllTrafficLanes($dossier->dossier->id, $this->_get_user_token());

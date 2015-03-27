@@ -10,6 +10,8 @@ class Dossier_model  {
   public $allotment_id = null;
   public $allotment_direction_id = null;
   public $allotment_indicator_id = null;
+  public $direction_id = null;
+  public $indicator_id = null;
   public $traffic_lanes = array();
   public $police_traffic_post_id = null;
   public $towing_vouchers = array(); //array of Voucher_model
@@ -23,7 +25,13 @@ class Dossier_model  {
       $this->incident_type_id                      = $data->dossier->incident_type_id;
       $this->allotment_id                          = $data->dossier->allotment_id;
       $this->direction_id                          = $data->dossier->allotment_direction_id;
-      $this->indicator_id                          = $data->dossier->allotment_direction_indicator_id;
+      $this->allotment_direction_id                = $data->dossier->allotment_direction_id;
+
+      if(property_exists($data->dossier, 'allotment_indicator_id')) {
+        $this->indicator_id                          = $data->dossier->allotment_indicator_id;
+        $this->allotment_indicator_id                = $data->dossier->allotment_indicator_id;
+      }
+
       $this->traffic_lanes                         = $data->dossier->traffic_lanes;
       $this->police_traffic_post_id                = $data->dossier->police_traffic_post_id;
 

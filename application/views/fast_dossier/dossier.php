@@ -72,84 +72,6 @@ $_dossier = $dossier->dossier;
     </div>
   </div>
 
-  <div class="layout-content">
-    <div class="box box--unpadded idbar">
-
-      <div class="idbar__item idbar__id bright has_icon">
-        <div class="idbar__icon icon--map"></div>
-        <div class="idbar__id__value"><?php print $_dossier->dossier_number; ?></div>
-      </div>
-
-
-      <div class="idbar__item">
-        <div class="idbar__label">
-          <div class="icon--date"></div>
-        </div>
-        <div class="idbar__value">
-          <?php print mdate('%d/%m/%Y',strtotime($_dossier->call_date)); ?>
-        </div>
-      </div>
-
-      <div class="idbar__item">
-        <div class="idbar__label">
-          <div class="icon--clock"></div>
-        </div>
-        <div class="idbar__value">
-          <?php print asTime($_dossier->call_date); ?>
-        </div>
-      </div>
-
-
-      <div class="idbar__incident">
-        <?php print $_dossier->incident_type_name; ?>
-      </div>
-  </div>
-    <div class="box detailbar">
-      <div class="detailbar__row">
-        <div class="form-item-horizontal less_padded">
-          <label>Oproepnr.&nbsp;:</label>
-          <div class="value"><?php print $_dossier->call_number; ?></div>
-        </div>
-
-        <div class="form-item-horizontal less_padded">
-          <label>Perceel&nbsp;:</label>
-          <div class="value"><?php print $_dossier->allotment_name ?></div>
-        </div>
-
-        <div class="form-item-horizontal less_padded">
-          <label>Toegewezen aan&nbsp;:</label>
-          <div class="value"><?php  print $_dossier->company_name ?></div>
-        </div>
-      </div>
-
-      <div class="detailbar__row">
-
-         <div class="form-item-horizontal less_padded">
-           <label>Richting&nbsp;:</label>
-           <div class="value"><?php  print $_dossier->direction_name; ?></div>
-         </div>
-
-         <div class="form-item-horizontal less_padded">
-           <label>KM Paal&nbsp;:</label>
-           <div class="value">
-             <?php
-                print $_dossier->indicator_name;
-
-                if($_dossier->indicator_zip)
-                {
-                  printf(" (%s - %s)", $_dossier->indicator_zip, $_dossier->indicator_city);
-                }
-              ?>
-           </div>
-         </div>
-
-         <div class="form-item-horizontal less_padded">
-           <label>Rijstrook&nbsp;:</label>
-           <div class="value"><?php  print $_dossier->traffic_lane_name; ?></div>
-         </div>
-      </div>
-
-    </div>
   <?php
   print validation_errors();
 
@@ -186,6 +108,89 @@ $_dossier = $dossier->dossier;
 
   print form_input($data);
   ?>
+
+  <div class="layout-content">
+    <div class="box box--unpadded idbar">
+
+      <div class="idbar__item idbar__id bright has_icon">
+        <div class="idbar__icon icon--map"></div>
+        <div class="idbar__id__value"><?php print $_dossier->dossier_number; ?></div>
+      </div>
+
+
+      <div class="idbar__item">
+        <div class="idbar__label">
+          <div class="icon--date"></div>
+        </div>
+        <div class="idbar__value">
+          <?php print mdate('%d/%m/%Y',strtotime($_dossier->call_date)); ?>
+        </div>
+      </div>
+
+      <div class="idbar__item">
+        <div class="idbar__label">
+          <div class="icon--clock"></div>
+        </div>
+        <div class="idbar__value">
+          <?php print asTime($_dossier->call_date); ?>
+        </div>
+      </div>
+
+
+      <div class="idbar__incident">
+        <?php print $_dossier->incident_type_name; ?>
+      </div>
+  </div>
+    <div class="box detailbar">
+      <div class="detailbar__row">
+        <div class="form-item-horizontal less_padded">
+          <label>Oproepnr.&nbsp;:</label>
+          <?php print form_input('call_number', $_dossier->call_number); ?>
+        </div>
+
+        <div class="form-item-horizontal less_padded">
+          <label>Perceel&nbsp;:</label>
+          <div class="value"><?php print $_dossier->allotment_name ?></div>
+        </div>
+
+        <div class="form-item-horizontal less_padded">
+          <label>Toegewezen aan&nbsp;:</label>
+          <div class="value"><?php  print $_dossier->company_name ?></div>
+        </div>
+      </div>
+
+      <div class="detailbar__row" style="padding-left: 15px;">
+
+         <div class="form-item-horizontal less_padded">
+           <label>Richting&nbsp;:</label>
+           <?php print listbox_ajax('allotment_direction_id', $_dossier->allotment_direction_id); ?>
+         </div>
+
+         <div class="form-item-horizontal less_padded">
+           <label>KM Paal&nbsp;:</label>
+           <?php print listbox_ajax('allotment_direction_indicator_id', $_dossier->allotment_direction_indicator_id); ?>
+         </div>
+
+         <div class="form-item-horizontal less_padded">
+           <label>Gemeente&nbsp;:</label>
+           <div class="value">
+             <?php
+                if($_dossier->indicator_zip)
+                {
+                  printf("%s - %s", $_dossier->indicator_zip, $_dossier->indicator_city);
+                }
+              ?>
+           </div>
+         </div>
+
+         <div class="form-item-horizontal less_padded">
+           <label>Rijstrook&nbsp;:</label>
+           <div class="value"><?php  print $_dossier->traffic_lane_name; ?></div>
+         </div>
+      </div>
+
+    </div>
+
 
   <div class="dossierbar">
 
@@ -1191,3 +1196,10 @@ $_dossier = $dossier->dossier;
 
 
 </div>
+
+
+<?php
+echo "<pre>";
+var_dump($dossier);
+echo "</pre>";
+?>
