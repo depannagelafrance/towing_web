@@ -1,5 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 require_once(APPPATH . '/controllers/page.php');
+require_once(APPPATH . '/models/Collector_model.php');
 
 class Collector extends Page {
 
@@ -46,9 +47,7 @@ class Collector extends Page {
           else
           {
               //load the model
-              $this->load->model('vocabulary_model');
-
-              $result = $this->admin_service->createCollector($this->vocabulary_model->initialise($this->input->post()), $this->_get_user_token());
+              $result = $this->admin_service->createCollector(new Collector_model($this->input->post()), $this->_get_user_token());
 
               if($result && property_exists($result, 'statusCode')) {
                   if($result->statusCode == 409) {
@@ -57,11 +56,10 @@ class Collector extends Page {
                       $this->_add_error(sprintf('Fout bij het aanmaken van item (%d - %s)', $result->statusCode, $result->message));
                   }
 
-
                   $this->_add_content(
                           $this->load->view(
                                   'admin/collectors/create',
-                                  array('name' => $this->input->post('name')),
+                                  $this->input->post(),
                                   true
                           )
                   );
@@ -102,10 +100,13 @@ class Collector extends Page {
           //return to form if validation failed
           if (!$this->form_validation->run())
           {
+            $data = $this->input->post();
+            $data['id'] = $id;
+
               $this->_add_content(
                       $this->load->view(
                               'admin/collectors/edit',
-                              array("name" => $this->input->post('name'), "id" => $id),
+                              $data,
                               true
                       )
               );
@@ -114,9 +115,7 @@ class Collector extends Page {
           else
           {
               //load the model
-              $this->load->model('vocabulary_model');
-
-              $model=$this->vocabulary_model->initialise($this->input->post());
+              $model= new Collector_model($this->input->post());
               $model->id = $id;
 
               $result = $this->admin_service->updateCollector($model, $this->_get_user_token());
@@ -128,11 +127,14 @@ class Collector extends Page {
                       $this->_add_error(sprintf('Fout bij het wijzigen van een item (%d - %s)', $result->statusCode, $result->message));
                   }
 
+                  $data = $this->input->post();
+                  $data['id'] = $id;
+
 
                   $this->_add_content(
                           $this->load->view(
                                   'admin/collectors/edit',
-                                  array("name" => $this->input->post('name'), "id" => $id),
+                                  $data,
                                   true
                           )
                   );
@@ -160,8 +162,15 @@ class Collector extends Page {
                       $this->load->view(
                               'admin/collectors/edit',
                               array(
-                                      'name' => $result->name,
-                                      'id' => $result->id
+                                      'name'          => $result->name,
+                                      'id'            => $result->id,
+                                      'street'        => $result->street,
+                                      'street_number' => $result->street_number,
+                                      'street_pobox'  => $result->street_pobox,
+                                      'zip'           => $result->zip,
+                                      'city'          => $result->city,
+                                      'country'       => $result->country,
+                                      'vat'           => $result->vat
                               ),
                               true
                       )

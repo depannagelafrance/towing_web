@@ -13,8 +13,43 @@ if($errors) {
         <h2 class="admin_form_title">Afhaler aanmaken</h2>
 
         <div class="form-item">
-    	     <input type="text" placeholder="Name"
+    	     <input type="text" placeholder="Naam of bedrijfsnaam"
     		     value="<?php print set_value('name'); ?>" name="name" />
+        </div>
+
+        <div class="form-item">
+    	     <input type="text" placeholder="BTW nummer"
+    		     value="<?php print set_value('vat'); ?>" name="vat" />
+        </div>
+
+        <div class="form-item">
+    	     <input type="text" placeholder="Straat"
+    		     value="<?php print set_value('street'); ?>" name="street" />
+        </div>
+
+        <div class="form-item">
+           <input type="text" placeholder="Huisnummer"
+             value="<?php print set_value('street_number'); ?>" name="street_number" />
+        </div>
+
+        <div class="form-item">
+           <input type="text" placeholder="Postbox"
+             value="<?php print set_value('street_pobox'); ?>" name="street_pobox" />
+        </div>
+
+        <div class="form-item">
+           <input type="text" placeholder="Postcode"
+             value="<?php print set_value('zip'); ?>" name="zip" />
+        </div>
+
+        <div class="form-item">
+           <input type="text" placeholder="Gemeente"
+             value="<?php print set_value('city'); ?>" name="city" />
+        </div>
+
+        <div class="form-item">
+           <input type="text" placeholder="Land"
+             value="<?php print set_value('country'); ?>" name="country" />
         </div>
     </div>
 

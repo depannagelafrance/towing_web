@@ -16,7 +16,16 @@ if($this->uri->segment(1) === 'commando') {
     </div>
 
     <div class="search--input">
-      <input type="text" value="<?php print isset($call_date) ? $call_date : '' ?>" name="call_date" placeholder="Datum oproep" />
+      <?php
+        $data = array(
+          'name' => 'call_date',
+          'class' => 'datepicker',
+          'value' => isset($call_date) ? $call_date : '',
+          'placeholder' => "Datum oproep"
+        );
+
+        print form_input($data);
+      ?>
     </div>
 
     <div class="search--input">

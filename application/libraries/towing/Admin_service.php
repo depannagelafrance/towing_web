@@ -105,12 +105,16 @@ class Admin_service extends Rest_service {
     return $this->CI->rest->get(sprintf('/admin/collector/%s/%s', $id, $token));
   }
 
-  public function createCollector(Vocabulary_model $collector, $token) {
-    return $this->CI->rest->post(sprintf('/admin/collector/%s', $token), get_object_vars($collector));
+  public function createCollector(Collector_model $collector, $token) {
+    return $this->CI->rest->post(sprintf('/admin/collector/%s', $token),
+              json_encode($collector),
+              'application/json');
   }
 
-  public function updateCollector(Vocabulary_model $collector, $token) {
-    return $this->CI->rest->put(sprintf('/admin/collector/%s/%s', $collector->id, $token), get_object_vars($collector));
+  public function updateCollector(Collector_model $collector, $token) {
+    return $this->CI->rest->put(sprintf('/admin/collector/%s/%s', $collector->id, $token),
+              json_encode($collector),
+              'application/json');
   }
 
   public function deleteCollector($id, $token) {
