@@ -1,13 +1,13 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-require_once(APPPATH . '/controllers/page.php');
-require_once(APPPATH . '/models/Collector_model.php');
+require_once(APPPATH . '/controllers/Page.php');
+require_once(APPPATH . '/models/Collector_Model.php');
 
 class Collector extends Page {
 
     public function __construct(){
       parent::__construct();
 
-      $this->load->library('towing/Admin_service');
+      $this->load->library('towing/Admin_Service');
       $this->load->library('table');
       $this->load->helper('url');
     }
@@ -47,7 +47,7 @@ class Collector extends Page {
           else
           {
               //load the model
-              $result = $this->admin_service->createCollector(new Collector_model($this->input->post()), $this->_get_user_token());
+              $result = $this->admin_service->createCollector(new Collector_Model($this->input->post()), $this->_get_user_token());
 
               if($result && property_exists($result, 'statusCode')) {
                   if($result->statusCode == 409) {
@@ -115,7 +115,7 @@ class Collector extends Page {
           else
           {
               //load the model
-              $model= new Collector_model($this->input->post());
+              $model= new Collector_Model($this->input->post());
               $model->id = $id;
 
               $result = $this->admin_service->updateCollector($model, $this->_get_user_token());

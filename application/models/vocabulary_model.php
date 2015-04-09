@@ -1,13 +1,13 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Vocabulary_model extends CI_Model  {
+class Vocabulary_Model extends CI_Model  {
   public $id   = null;
   public $name = "";
 
   public function __construct(){
       parent::__construct();
   }
-  
+
   public function initialise($data = null) {
     if($data) {
       $this->id = array_key_exists('id', $data) ? $data['id'] : null;

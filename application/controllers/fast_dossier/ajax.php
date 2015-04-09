@@ -1,10 +1,10 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 require_once(APPPATH . '/controllers/ajaxpage.php');
-require_once(APPPATH . '/models/Depot_model.php');
-require_once(APPPATH . '/models/Causer_model.php');
-require_once(APPPATH . '/models/Customer_model.php');
-require_once(APPPATH . '/models/File_model.php');
+require_once(APPPATH . '/models/Depot_Model.php');
+require_once(APPPATH . '/models/Causer_Model.php');
+require_once(APPPATH . '/models/Customer_Model.php');
+require_once(APPPATH . '/models/File_Model.php');
 
 
 class Ajax extends AjaxPage
@@ -13,8 +13,8 @@ class Ajax extends AjaxPage
   {
     parent::__construct();
 
-    $this->load->library('towing/Dossier_service');
-    $this->load->library('towing/Vocabulary_service');
+    $this->load->library('towing/Dossier_Service');
+    $this->load->library('towing/Vocabulary_Service');
   }
 
   public function updateDepot($dossier_id, $voucher_id)
@@ -22,7 +22,7 @@ class Ajax extends AjaxPage
 
     $token = $this->_get_user_token();
 
-    $depot = new Depot_model($this->input->post('depot'));
+    $depot = new Depot_Model($this->input->post('depot'));
     $depot_id = $depot->id;
 
     $result = $this->dossier_service->updateTowingDepot($depot_id, $voucher_id, $depot, $token);
@@ -35,7 +35,7 @@ class Ajax extends AjaxPage
     $_depot = $this->input->post('depot');
 
     $token = $this->_get_user_token();
-    $depot = new Depot_model($this->_get_company_depot());
+    $depot = new Depot_Model($this->_get_company_depot());
     $depot->default_depot = 1;
     $depot->id = $_depot['id'];
     $depot_id = $depot->id;
@@ -49,7 +49,7 @@ class Ajax extends AjaxPage
   {
     $token = $this->_get_user_token();
 
-    $causer = new Causer_model($this->input->post('causer'));
+    $causer = new Causer_Model($this->input->post('causer'));
 
     $result = $this->dossier_service->updateCauser($causer->id, $voucher_id, $causer, $token);
 
@@ -60,7 +60,7 @@ class Ajax extends AjaxPage
   {
     $token = $this->_get_user_token();
 
-    $customer = new Customer_model($this->input->post('customer'));
+    $customer = new Customer_Model($this->input->post('customer'));
 
     $result = $this->dossier_service->updateCustomer($customer->id, $voucher_id, $customer, $token);
 
@@ -200,7 +200,7 @@ class Ajax extends AjaxPage
   {
     $token = $this->_get_user_token();
 
-    $model = new Communication_model($this->input->post('communication'));
+    $model = new Communication_Model($this->input->post('communication'));
 
     $result = $this->dossier_service->addInternalCommunication($model, $token);
 
@@ -220,7 +220,7 @@ class Ajax extends AjaxPage
   {
     $token = $this->_get_user_token();
 
-    $model = new Communication_model($this->input->post('communication'));
+    $model = new Communication_Model($this->input->post('communication'));
 
     $result = $this->dossier_service->addEmailCommunication($model, $token);
 
@@ -265,7 +265,7 @@ class Ajax extends AjaxPage
   public function addAttachment($dossier_id, $voucher_id)
   {
     $token = $this->_get_user_token();
-    $file = new File_model($this->input->post('file'));
+    $file = new File_Model($this->input->post('file'));
     $result = $this->dossier_service->addAttachment($dossier_id, $voucher_id, $file, $token);
     $this->_sendJson($result);
   }

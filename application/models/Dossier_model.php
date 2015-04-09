@@ -1,8 +1,8 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-require_once(APPPATH . '/models/Voucher_model.php');
+require_once(APPPATH . '/models/Voucher_Model.php');
 
-class Dossier_model  {
+class Dossier_Model  {
   public $id   = null;
   public $call_number = null;
   public $company_id = null;
@@ -14,7 +14,7 @@ class Dossier_model  {
   public $indicator_id = null;
   public $traffic_lanes = array();
   public $police_traffic_post_id = null;
-  public $towing_vouchers = array(); //array of Voucher_model
+  public $towing_vouchers = array(); //array of Voucher_Model
 
 
   public function __construct($data = null) {
@@ -41,7 +41,7 @@ class Dossier_model  {
 
       if($data->dossier->towing_vouchers && is_array($data->dossier->towing_vouchers)) {
         foreach($data->dossier->towing_vouchers as $voucher) {
-          $this->towing_vouchers[] = new Voucher_model($voucher);
+          $this->towing_vouchers[] = new Voucher_Model($voucher);
         }
       }
     }

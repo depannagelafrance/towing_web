@@ -1,12 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-require_once(APPPATH . '/controllers/page.php');
-require_once(APPPATH . '/models/Dossier_model.php');
+require_once(APPPATH . '/controllers/Page.php');
+require_once(APPPATH . '/models/Dossier_Model.php');
 
 class Report extends Page {
     public function __construct(){
       parent::__construct();
 
-      $this->load->library('towing/Report_service');
+      $this->load->library('towing/Report_Service');
     }
 
   /**
@@ -21,7 +21,7 @@ class Report extends Page {
     header('Pragma: public');     // required
     header('Expires: 0');         // no cache
     header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-    header('Last-Modified: '.gmdate ('D, d M Y H:i:s', mktime()).' GMT');
+    header('Last-Modified: '.gmdate ('D, d M Y H:i:s', time()).' GMT');
     header('Cache-Control: private',false);
     header('Content-Type: '.$report->content_type);  // Add the mime type from Code igniter.
     header('Content-Disposition: attachment; filename="'.$report->filename.'"');  // Add the file name

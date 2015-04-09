@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-require_once(APPPATH . '/controllers/page.php');
-require_once(APPPATH . '/models/Calendar_model.php');
+require_once(APPPATH . '/controllers/Page.php');
+require_once(APPPATH . '/models/Calendar_Model.php');
 
 class Calendar extends Page {
     public function __construct(){
@@ -13,7 +13,7 @@ class Calendar extends Page {
               'template' => $this->_calendarTemplate()
       );
 
-      $this->load->library('towing/Admin_service');
+      $this->load->library('towing/Admin_Service');
       $this->load->library('calendar', $calendarConfig);
     }
 
@@ -70,7 +70,7 @@ class Calendar extends Page {
 
   public function create($timestamp, $token)
   {
-    $model = new Calendar_model();
+    $model = new Calendar_Model();
 
     $model->name = 'Feestdag';
     $model->date = $timestamp;

@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Company_model
+class Company_Model
 {
   public $id              = null;
   public $name            = null;

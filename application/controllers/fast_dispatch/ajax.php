@@ -1,14 +1,14 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 require_once(APPPATH . '/controllers/ajaxpage.php');
-require_once(APPPATH . '/models/Dossier_model.php');
+require_once(APPPATH . '/models/Dossier_Model.php');
 
 class Ajax extends AjaxPage {
     public function __construct(){
       parent::__construct();
 
-      $this->load->library('towing/Vocabulary_service');
-      $this->load->library('towing/Dossier_service');
+      $this->load->library('towing/Vocabulary_Service');
+      $this->load->library('towing/Dossier_Service');
     }
 
   public function indicators($direction_id)

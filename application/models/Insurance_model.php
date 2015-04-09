@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Insurance_model {
+class Insurance_Model {
   public $id            = null;
   public $name          = null;
   public $vat           = null;

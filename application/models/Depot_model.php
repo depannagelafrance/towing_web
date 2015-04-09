@@ -1,8 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-// require_once(APPPATH . '/models/Depot_model.php');
 
-class Depot_model  {
+class Depot_Model  {
   public $id              = null;
   public $name            = null;
   public $street          = null;
@@ -46,6 +45,8 @@ class Depot_model  {
     $this->street_pobox   = $data[$prefix . 'street_pobox'];
     $this->zip            = $data[$prefix . 'zip'];
     $this->city           = $data[$prefix . 'city'];
-    $this->default_depot  = $data['default_depot'];
+
+    if(array_key_exists('default_depot', $data))
+      $this->default_depot  = $data['default_depot'];
   }
 }

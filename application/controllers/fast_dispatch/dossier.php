@@ -1,13 +1,13 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-require_once(APPPATH . '/controllers/page.php');
-require_once(APPPATH . '/models/Dossier_model.php');
+require_once(APPPATH . '/controllers/Page.php');
+require_once(APPPATH . '/models/Dossier_Model.php');
 
 class Dossier extends Page {
     public function __construct(){
       parent::__construct();
 
-      $this->load->library('towing/Dossier_service');
-      $this->load->library('towing/Vocabulary_service');
+      $this->load->library('towing/Dossier_Service');
+      $this->load->library('towing/Vocabulary_Service');
 
       $this->load->library('table');
       $this->load->library('form_validation');
@@ -54,7 +54,7 @@ class Dossier extends Page {
       if($dossier && $dossier->dossier) {
         $this->_setDossierValuesFromPostRequest($dossier);
 
-        $dossier = $this->dossier_service->updateDossier(new Dossier_model($dossier), $token);
+        $dossier = $this->dossier_service->updateDossier(new Dossier_Model($dossier), $token);
         if($dossier) {
           redirect(sprintf("/fast_dispatch/dossier/%s/%s", $dossier->dossier->dossier_number, $voucher_number));
         }

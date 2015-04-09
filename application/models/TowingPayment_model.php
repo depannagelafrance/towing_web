@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class TowingPayment_model  {
+class TowingPayment_Model  {
   public $id                              = null;
   public $towing_voucher_id               = null;
   public $amount_guaranteed_by_insurance  = null;
@@ -27,4 +27,4 @@ class TowingPayment_model  {
       $this->cal_amount_unpaid                = $data->cal_amount_unpaid;
     }
   }
-}  
+}

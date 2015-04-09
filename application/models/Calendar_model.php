@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Calendar_model  {
+class Calendar_Model  {
   public $id   = null;
   public $name = null;
   public $date = null;

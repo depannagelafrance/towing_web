@@ -1,12 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-require_once(APPPATH . '/controllers/page.php');
-require_once(APPPATH . '/models/Insurance_model.php');
+require_once(APPPATH . '/controllers/Page.php');
+require_once(APPPATH . '/models/Insurance_Model.php');
 
 class Insurance extends Page {
     public function __construct(){
       parent::__construct();
 
-      $this->load->library('towing/Admin_service');
+      $this->load->library('towing/Admin_Service');
       $this->load->library('table');
       $this->load->library('session');
     }
@@ -47,9 +47,9 @@ class Insurance extends Page {
           else
           {
               //load the model
-              $this->load->model('vocabulary_model');
+              $this->load->model('Vocabulary_Model');
 
-              $model = new Insurance_model($this->input->post());
+              $model = new Insurance_Model($this->input->post());
 
               $result = $this->admin_service->createInsurance($model, $this->_get_user_token());
 
@@ -125,7 +125,7 @@ class Insurance extends Page {
           {
               //load the model
 
-              $model=new Insurance_model($this->input->post());
+              $model=new Insurance_Model($this->input->post());
               $model->id = $id;
 
               $result = $this->admin_service->updateInsurance($model, $this->_get_user_token());

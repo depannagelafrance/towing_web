@@ -1,5 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-require_once(APPPATH . '/controllers/page.php');
+require_once(APPPATH . '/controllers/Page.php');
+require_once(APPPATH . '/models/User_Model.php');
 
 class User extends Page {
 
@@ -9,7 +10,7 @@ class User extends Page {
     public function __construct(){
       parent::__construct();
 
-      $this->load->library('towing/Admin_service');
+      $this->load->library('towing/Admin_Service');
       $this->load->library('table');
       $this->load->helper('url');
     }
@@ -56,8 +57,9 @@ class User extends Page {
           }
           else
           {
-              $this->load->model('user_model');
-              $result = $this->admin_service->createUser($this->user_model->initialise($this->input->post()), $this->_get_user_token());
+              $user_model = new User_Model();
+
+              $result = $this->admin_service->createUser($user_model->initialise($this->input->post()), $this->_get_user_token());
 
               if($result && $result != 'ok' && property_exists($result, 'statusCode')){
                   $this->_status = $result->statusCode;
@@ -153,9 +155,6 @@ class User extends Page {
    */
   public function edit($id)
   {
-      //load the model
-      $this->load->model('user_model');
-
       if($this->input->post('submit'))
       {
           $this->_setFormValidationRules();
@@ -163,9 +162,10 @@ class User extends Page {
           //return to form if validation failed
           if (!$this->form_validation->run())
           {
-            $model = $this->user_model->initialise($this->input->post());
+            $user_model = new User_Model();
+            $model = $user_model->initialise($this->input->post());
             $model->id = $id;
-            
+
             $data['users']            = $model;
             $data['company_vehicles'] = $this->_getCompanyVehicles();
             $data['roles']            = $this->_getRoles();
@@ -176,9 +176,8 @@ class User extends Page {
           //form is valid, send the data
           else
           {
-
-
-              $model=$this->user_model->initialise($this->input->post());
+              $user_model = new User_Model();
+              $model=$user_model->initialise($this->input->post());
               $model->id = $id;
 
               $result = $this->admin_service->updateUser($model, $this->_get_user_token());
@@ -215,11 +214,13 @@ class User extends Page {
           }
           else
           {
+            $user_model = new User_Model();
+
               $this->_add_content(
                       $this->load->view(
                           'admin/users/edit',
                           array(
-                              'users'             => $this->user_model->initialise($result),
+                              'users'             => $user_model->initialise($result),
                               'roles'             => $this->_getRoles(),
                               'company_vehicles'  => $this->_getCompanyVehicles()
                           ),
@@ -268,7 +269,7 @@ class User extends Page {
       $this->form_validation->set_rules('firstname', 'Voornaam', 'required');
       $this->form_validation->set_rules('lastname', 'Familienaam', 'required');
       $this->form_validation->set_rules('email', 'E-mail', 'required');
-      $this->form_validation->set_rules('roles', 'Machtigingen', 'required|not_empty');
+      // $this->form_validation->set_rules('roles', 'Machtigingen', 'required|not_empty');
   }
 
 

@@ -1,8 +1,8 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-require_once(APPPATH . '/models/Depot_model.php');
+require_once(APPPATH . '/models/Depot_Model.php');
 
-class File_model  {
+class File_Model  {
   public $file_name       = null;
   public $file_size       = null;
   public $content_type    = null;

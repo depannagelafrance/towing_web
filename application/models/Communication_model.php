@@ -1,12 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 
-class Communication_model  {
+class Communication_Model  {
   public $dossier_id  = "";
   public $voucher_id  = "";
   public $subject     = "";
   public $message     = "";
-  public $recipients  = array(); //array of Recipient_model
+  public $recipients  = array(); //array of Recipient_Model
 
   public function __construct($data = null) {
     if($data) {

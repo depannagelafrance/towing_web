@@ -1,6 +1,8 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class User_model extends CI_Model {
+require_once(APPPATH . '/models/Role_Model.php');
+
+class User_Model {
   public $id            = "";
   public $login         = "";
   public $firstname     = "";
@@ -10,10 +12,9 @@ class User_model extends CI_Model {
   public $is_towing     = false;
   public $vehicle_id    = null;
 
-  public $user_roles  = array(); //array of Role_model
+  public $user_roles  = array(); //array of Role_Model
 
   public function __construct(){
-      parent::__construct();
   }
 
   public function initialise($data = null) {
@@ -29,7 +30,10 @@ class User_model extends CI_Model {
         $this->is_signa       = array_key_exists('is_signa', $data) ? $data['is_signa'] : "";
         $this->is_towing      = array_key_exists('is_towing', $data) ? $data['is_towing'] : "";
         $this->vehicle_id     = array_key_exists('vehicle_id', $data) ? $data['vehicle_id'] : '';
-        // $this->licence_plate  = array_key_exists('licence_plate', $data) ? $data['licence_plate'] : '';
+
+        if(array_key_exists('user_roles', $data)) {
+          $this->user_roles = $data['user_roles'];
+        }
       } else {
         $this->id             = $data->id;
         $this->login          = $data->login;
@@ -39,21 +43,12 @@ class User_model extends CI_Model {
         $this->is_signa       = $data->is_signa;
         $this->is_towing      = $data->is_towing;
         $this->vehicle_id     = $data->vehicle_id;
-        // $this->licence_plate  = $data->licence_plate;
-      }
 
-
-      //$this->load->model('role_model');
-      //$roles = array();
-      if(array_key_exists('roles', $data) && is_array($data['roles']))
-      {
-        foreach($data['roles'] as $role)
-        {
-            //array_push($roles, $role);
-            $this->user_roles[] = $role;
+        if(property_exists($data, 'user_roles')) {
+          $this->user_roles = $data->user_roles;
         }
       }
-
+      
       return $this;
     }
   }

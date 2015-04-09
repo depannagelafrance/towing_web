@@ -1,12 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-require_once(APPPATH . '/controllers/page.php');
+require_once(APPPATH . '/controllers/Page.php');
 
 class Search extends Page {
   public function __construct()
   {
     parent::__construct();
 
-    $this->load->library('towing/Dossier_service');
+    $this->load->library('towing/Dossier_Service');
     $this->load->library('table');
     $this->load->helper('url');
   }

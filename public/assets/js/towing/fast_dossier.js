@@ -267,6 +267,23 @@ $(document).ready(function() {
         return date + '-' + month + '-' + year + ' ' + hours + ':' + sec;
     }
 
+    function formatUnixTimestampAsDatetime(unix_ts) {
+      var t = new Date(parseInt(unix_ts)*1000);
+      var formatted = t.getDate()
+                + "/"
+                + (t.getMonth() + 1)
+                + "/"
+                + t.getFullYear()
+                + " "
+                + t.getHours()
+                + ":"
+                + t.getMinutes()
+                + ":"
+                + t.getSeconds();
+
+      return formatted;
+    }
+
     /****** END HELPERS *********/
 
 
@@ -544,7 +561,7 @@ $(document).ready(function() {
         };
 
         $.each( data, function( key, value ) {
-            value.cd = parseIsoDatetime(value.cd);
+            value.cd = formatUnixTimestampAsDatetime(value.cd);
             items.notas.push(value);
         });
 
@@ -602,7 +619,7 @@ $(document).ready(function() {
         };
 
         $.each( data, function( key, value ) {
-            value.cd = parseIsoDatetime(value.cd);
+            value.cd = formatUnixTimestampAsDatetime(value.cd);
             items.emails.push(value);
         });
 

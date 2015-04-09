@@ -15,14 +15,14 @@ class Admin_service extends Rest_service {
     return $this->CI->rest->get(sprintf('/admin/users/%s/%s', $id, $token));
   }
 
-  public function createUser(User_model $user, $token) {
+  public function createUser(User_Model $user, $token) {
     return $this->CI->rest->post(
                   sprintf('/admin/users/%s', $token),
                   json_encode($user),
                   'application/json');
   }
 
-  public function updateUser(User_model $user, $token) {
+  public function updateUser(User_Model $user, $token) {
     return $this->CI->rest->put(sprintf('/admin/users/%s/%s', $user->id, $token),
                   json_encode($user),
                   'application/json');
@@ -55,11 +55,11 @@ class Admin_service extends Rest_service {
     return $this->CI->rest->get(sprintf('/admin/calendar/id/%s/%s', $id, $token));
   }
 
-  public function createCalendar(Calendar_model $calendar, $token) {
+  public function createCalendar(Calendar_Model $calendar, $token) {
     return $this->CI->rest->post(sprintf('/admin/calendar/%s', $token), get_object_vars($calendar));
   }
 
-  public function updateCalendar(Calendar_model $calendar, $token) {
+  public function updateCalendar(Calendar_Model $calendar, $token) {
     return $this->CI->rest->put(sprintf('/admin/calendar/%s/%s', $calendar->id, $token), get_object_vars($calendar));
   }
 
@@ -79,11 +79,11 @@ class Admin_service extends Rest_service {
     return $this->CI->rest->get(sprintf('/admin/insurance/%s/%s', $id, $token));
   }
 
-  public function createInsurance(Insurance_model $insurance, $token) {
+  public function createInsurance(Insurance_Model $insurance, $token) {
     return $this->CI->rest->post(sprintf('/admin/insurance/%s', $token), get_object_vars($insurance));
   }
 
-  public function updateInsurance(Insurance_model $insurance, $token) {
+  public function updateInsurance(Insurance_Model $insurance, $token) {
     $result = $this->CI->rest->put(sprintf('/admin/insurance/%s/%s', $insurance->id, $token), get_object_vars($insurance));
 
     return $result;
@@ -105,13 +105,13 @@ class Admin_service extends Rest_service {
     return $this->CI->rest->get(sprintf('/admin/collector/%s/%s', $id, $token));
   }
 
-  public function createCollector(Collector_model $collector, $token) {
+  public function createCollector(Collector_Model $collector, $token) {
     return $this->CI->rest->post(sprintf('/admin/collector/%s', $token),
               json_encode($collector),
               'application/json');
   }
 
-  public function updateCollector(Collector_model $collector, $token) {
+  public function updateCollector(Collector_Model $collector, $token) {
     return $this->CI->rest->put(sprintf('/admin/collector/%s/%s', $collector->id, $token),
               json_encode($collector),
               'application/json');
@@ -134,11 +134,11 @@ class Admin_service extends Rest_service {
     return $this->CI->rest->get(sprintf('/admin/vehicle/%s/%s', $id, $token));
   }
 
-  public function createVehicle(Vehicle_model $data, $token) {
+  public function createVehicle(Vehicle_Model $data, $token) {
     return $this->CI->rest->post(sprintf('/admin/vehicle/%s', $token), get_object_vars($data));
   }
 
-  public function updateVehicle(Vehicle_model $data, $token) {
+  public function updateVehicle(Vehicle_Model $data, $token) {
     return $this->CI->rest->put(sprintf('/admin/vehicle/%s/%s', $data->id, $token), get_object_vars($data));
   }
 
@@ -181,7 +181,7 @@ class Admin_service extends Rest_service {
     return $this->CI->rest->get(sprintf('/admin/company/depot/%s', $token));
   }
 
-  public function updateCompany(Company_model $company_model, $token)
+  public function updateCompany(Company_Model $company_model, $token)
   {
     return $this->CI->rest->put(
                           sprintf('/admin/company/%s', $token),
@@ -189,7 +189,7 @@ class Admin_service extends Rest_service {
                           'application/json');
   }
 
-  public function updateCompanyDepot(Depot_model $depot_model, $token)
+  public function updateCompanyDepot(Depot_Model $depot_model, $token)
   {
     return $this->CI->rest->put(
                           sprintf('/admin/company/depot/%s', $token),

@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Collector_model  {
+class Collector_Model  {
   public $id   = null;
   public $name = null;
   public $street = null;

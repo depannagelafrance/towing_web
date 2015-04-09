@@ -1,10 +1,10 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-require_once(APPPATH . '/models/Depot_model.php');
-require_once(APPPATH . '/models/TowingActivity_model.php');
-require_once(APPPATH . '/models/TowingPayment_model.php');
+require_once(APPPATH . '/models/Depot_Model.php');
+require_once(APPPATH . '/models/TowingActivity_Model.php');
+require_once(APPPATH . '/models/TowingPayment_Model.php');
 
-class Voucher_model  {
+class Voucher_Model  {
   public $id                          = null;
   public $insurance_id                = null;
   public $insurance_dossiernr         = null;
@@ -37,7 +37,7 @@ class Voucher_model  {
   public $additional_info      = null;
   public $actions              = null;
 
-  public $depot = null; //instance of Depot_model
+  public $depot = null; //instance of Depot_Model
 
   public $towing_activities     = array(); //array of TowingActivy_model
 
@@ -80,20 +80,20 @@ class Voucher_model  {
         $this->actions = $data->actions;
 
       if(property_exists($data, 'depot') && $data->depot) {
-        $this->depot = new Depot_model($data->depot);
+        $this->depot = new Depot_Model($data->depot);
       } else {
-        $this->depot = new Depot_model();
+        $this->depot = new Depot_Model();
       }
 
       if(property_exists($data, 'towing_payments') && $data->towing_payments) {
-        $this->towing_payments = new TowingPayment_model($data->towing_payments);
+        $this->towing_payments = new TowingPayment_Model($data->towing_payments);
       } else {
-        $this->towing_payments = new TowingPayment_model();
+        $this->towing_payments = new TowingPayment_Model();
       }
 
       if($data->towing_activities && is_array($data->towing_activities)) {
         foreach($data->towing_activities as $activity) {
-          $this->towing_activities[] = new TowingActivity_model($activity);
+          $this->towing_activities[] = new TowingActivity_Model($activity);
         }
       }
 

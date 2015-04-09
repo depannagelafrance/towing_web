@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-require_once(APPPATH . '/controllers/page.php');
-require_once(APPPATH . '/models/Vehicle_model.php');
+require_once(APPPATH . '/controllers/Page.php');
+require_once(APPPATH . '/models/Vehicle_Model.php');
 
 class Vehicle extends Page {
 
@@ -10,7 +10,7 @@ class Vehicle extends Page {
   public function __construct(){
     parent::__construct();
 
-    $this->load->library('towing/Admin_service');
+    $this->load->library('towing/Admin_Service');
     $this->load->library('table');
     $this->load->helper('url');
   }
@@ -47,7 +47,7 @@ class Vehicle extends Page {
       }
       else
       {
-        $result = $this->admin_service->createVehicle(new Vehicle_model($this->input->post()), $this->_get_user_token());
+        $result = $this->admin_service->createVehicle(new Vehicle_Model($this->input->post()), $this->_get_user_token());
 
         if($result && property_exists($result, 'statusCode'))
         {
@@ -113,13 +113,13 @@ class Vehicle extends Page {
         $data['id'] = $id;
 
         $this->_add_content($this->load->view('admin/vehicles/edit',$data,true));
-        
+
         $this->_render_page();
       }
       //form is valid, send the data
       else
       {
-        $model = new Vehicle_model($this->input->post());
+        $model = new Vehicle_Model($this->input->post());
         $model->id = $id;
 
         $result = $this->admin_service->updateVehicle($model, $this->_get_user_token());

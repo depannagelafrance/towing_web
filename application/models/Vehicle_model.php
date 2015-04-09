@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 
-class Vehicle_model  {
+class Vehicle_Model  {
   public $id              = null;
   public $name            = null;
   public $licence_plate   = null;

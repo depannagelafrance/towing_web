@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-require_once('page.php');
-//require_once(APPPATH . 'models/Vocabulary_model.php');
+require_once('Page.php');
+//require_once(APPPATH . 'models/Vocabulary_Model.php');
 
 class Login extends Page {
 
@@ -12,7 +12,7 @@ class Login extends Page {
 
    	$this->load->library('form_validation');
 
-    $this->load->library('towing/Login_service');
+    $this->load->library('towing/Login_Service');
   }
 
 	/**

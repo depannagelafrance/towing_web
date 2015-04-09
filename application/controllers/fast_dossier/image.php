@@ -1,11 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-require_once(APPPATH . '/controllers/page.php');
+require_once(APPPATH . '/controllers/Page.php');
 
 class Image extends Page {
     public function __construct(){
       parent::__construct();
 
-      $this->load->library('towing/Document_service');
+      $this->load->library('towing/Document_Service');
     }
 
   /**
@@ -25,7 +25,7 @@ class Image extends Page {
       header('Pragma: public');     // required
       header('Expires: 0');         // no cache
       header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-      header('Last-Modified: '.gmdate ('D, d M Y H:i:s', mktime()).' GMT');
+      header('Last-Modified: '.gmdate ('D, d M Y H:i:s', time()).' GMT');
       header('Cache-Control: private',false);
       header('Content-Type: '.$f->content_type);  // Add the mime type from Code igniter.
 

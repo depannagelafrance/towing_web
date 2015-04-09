@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-require_once(APPPATH . '/controllers/page.php');
-require_once(APPPATH . '/models/Depot_model.php');
-require_once(APPPATH . '/models/Company_model.php');
+require_once(APPPATH . '/controllers/Page.php');
+require_once(APPPATH . '/models/Depot_Model.php');
+require_once(APPPATH . '/models/Company_Model.php');
 
 class Company extends Page {
 
@@ -9,7 +9,7 @@ class Company extends Page {
     {
       parent::__construct();
 
-      $this->load->library('towing/Admin_service');
+      $this->load->library('towing/Admin_Service');
       $this->load->library('table');
       $this->load->helper('url');
     }
@@ -54,8 +54,8 @@ class Company extends Page {
                     $this->load->view(
                             'admin/company/edit',
                             array(
-                              "company" => new Company_model($this->input->post()),
-                              "depot" => new Depot_model($this->input->post())
+                              "company" => new Company_Model($this->input->post()),
+                              "depot" => new Depot_Model($this->input->post())
                             ),
                             true
                     )
@@ -67,8 +67,8 @@ class Company extends Page {
         else
         {
             //load the model
-            $company_model = new Company_model($this->input->post());
-            $depot_model = new Depot_model($this->input->post());
+            $company_model = new Company_Model($this->input->post());
+            $depot_model = new Depot_Model($this->input->post());
 
             $resultCompany = $this->admin_service->updateCompany($company_model, $this->_get_user_token());
             $resultDepot   = $this->admin_service->updateCompanyDepot($depot_model, $this->_get_user_token());
@@ -78,8 +78,8 @@ class Company extends Page {
                 $this->load->view(
                   'admin/company/edit',
                   array(
-                    "company" => new Company_model($this->input->post()),
-                    "depot" => new Depot_model($this->input->post())
+                    "company" => new Company_Model($this->input->post()),
+                    "depot" => new Depot_Model($this->input->post())
                   ),
                   true
                 )

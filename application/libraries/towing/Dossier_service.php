@@ -1,11 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-require_once(APPPATH . '/models/Dossier_model.php');
-require_once(APPPATH . '/models/Depot_model.php');
-require_once(APPPATH . '/models/File_model.php');
-require_once(APPPATH . '/models/Causer_model.php');
-require_once(APPPATH . '/models/Customer_model.php');
-require_once(APPPATH . '/models/Communication_model.php');
+require_once(APPPATH . '/models/Dossier_Model.php');
+require_once(APPPATH . '/models/Depot_Model.php');
+require_once(APPPATH . '/models/File_Model.php');
+require_once(APPPATH . '/models/Causer_Model.php');
+require_once(APPPATH . '/models/Customer_Model.php');
+require_once(APPPATH . '/models/Communication_Model.php');
 
 require_once(APPPATH . '/libraries/towing/Rest_service.php');
 
@@ -123,7 +123,7 @@ class Dossier_service extends Rest_service {
       return $this->CI->rest->post(sprintf('/dossier/voucher/%s/%s', $dossier_id, $token));
     }
 
-    public function updateDossier(Dossier_model $dossier, $token)
+    public function updateDossier(Dossier_Model $dossier, $token)
     {
       $_dossier = new stdClass();
       $_dossier->dossier = $dossier;
@@ -152,7 +152,7 @@ class Dossier_service extends Rest_service {
       );
     }
 
-    public function updateTowingDepot($depot_id, $voucher_id, Depot_model $depot, $token)
+    public function updateTowingDepot($depot_id, $voucher_id, Depot_Model $depot, $token)
     {
       $_depot = new stdClass();
       $_depot->depot = $depot;
@@ -164,7 +164,7 @@ class Dossier_service extends Rest_service {
       );
     }
 
-    public function updateCustomer($customer_id, $voucher_id, Customer_model $data, $token)
+    public function updateCustomer($customer_id, $voucher_id, Customer_Model $data, $token)
     {
       $_value = new stdClass();
       $_value->customer = $data;
@@ -183,7 +183,7 @@ class Dossier_service extends Rest_service {
       );
     }
 
-    public function updateCauser($causer_id, $voucher_id, Causer_model $data, $token)
+    public function updateCauser($causer_id, $voucher_id, Causer_Model $data, $token)
     {
       $_value = new stdClass();
       $_value->causer = $data;
@@ -196,7 +196,7 @@ class Dossier_service extends Rest_service {
     }
 
     //TODO: remove $voucher_id from query string and place into file_model
-    public function addInsuranceDocumentToVoucher($voucher_id, File_model $file, $token)
+    public function addInsuranceDocumentToVoucher($voucher_id, File_Model $file, $token)
     {
       return $this->CI->rest->post(
           sprintf('/voucher/attachment/insurance_document/%s/%s', $voucher_id, $token),
@@ -215,7 +215,7 @@ class Dossier_service extends Rest_service {
       return $this->CI->rest->get(sprintf('/dossier/communication/email/%s/%s/%s', $dossier_id, $voucher_id, $token));
     }
 
-    public function addInternalCommunication(Communication_model $model, $token)
+    public function addInternalCommunication(Communication_Model $model, $token)
     {
       return $this->CI->rest->post(
           sprintf('/dossier/communication/internal/%s', $token),
@@ -224,7 +224,7 @@ class Dossier_service extends Rest_service {
       );
     }
 
-    public function addEmailCommunication(Communication_model $model, $token)
+    public function addEmailCommunication(Communication_Model $model, $token)
     {
       $result = $this->CI->rest->post(
           sprintf('/dossier/communication/email/%s', $token),

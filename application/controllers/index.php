@@ -1,5 +1,5 @@
 <?php
-require("page.php");
+require("Page.php");
 
 class Index extends Page {
 	/**

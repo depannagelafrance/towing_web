@@ -8,13 +8,12 @@
 <?php
 
 //set table headers
-$this->table->set_heading('Login', 'Voornaam', 'Naam', 'E-mail', 'Signa?', 'Takel?',  'Locked?', 'Datum lock', '&nbsp;', '&nbsp;', '&nbsp;');
+$this->table->set_heading('Login', 'Naam', 'E-mail', 'Signa?', 'Takel?',  'Locked?', 'Datum lock', '&nbsp;', '&nbsp;', '&nbsp;');
 //add table row(s)
 foreach ($users as $user){
     $this->table->add_row(
             $user->login,
-            $user->first_name,
-            $user->last_name,
+            sprintf("%s, %s", $user->last_name, $user->first_name),
             $user->email,
             sprintf('<i class="fa fa-%ssquare-o fa-2x">&nbsp;</i>', ($user->is_signa == 1 ? "check-" : "")),
             sprintf('<i class="fa fa-%ssquare-o fa-2x">&nbsp;</i>', ($user->is_towing == 1 ? "check-" : "")),

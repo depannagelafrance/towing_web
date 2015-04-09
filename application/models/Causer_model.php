@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Causer_model  {
+class Causer_Model  {
   public $id              = null;
   public $first_name      = null;
   public $last_name       = null;
