@@ -7,9 +7,9 @@ require_once(APPPATH . '/models/Causer_Model.php');
 require_once(APPPATH . '/models/Customer_Model.php');
 require_once(APPPATH . '/models/Communication_Model.php');
 
-require_once(APPPATH . '/libraries/towing/Rest_service.php');
+require_once(APPPATH . '/libraries/towing/Rest_Service.php');
 
-class Dossier_service extends Rest_service {
+class Dossier_Service extends Rest_Service {
     public function __construct() {
       parent::__construct();
     }
