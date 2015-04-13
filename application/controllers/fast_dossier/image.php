@@ -5,7 +5,7 @@ class Image extends Page {
     public function __construct(){
       parent::__construct();
 
-      $this->load->library('towing/Document_Service');
+      $this->load->library('towing/Document_service');
     }
 
   /**

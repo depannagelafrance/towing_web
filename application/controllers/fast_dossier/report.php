@@ -6,7 +6,7 @@ class Report extends Page {
     public function __construct(){
       parent::__construct();
 
-      $this->load->library('towing/Report_Service');
+      $this->load->library('towing/Report_service');
     }
 
   /**

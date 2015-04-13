@@ -6,8 +6,8 @@ class Dossier extends Page {
     public function __construct(){
       parent::__construct();
 
-      $this->load->library('towing/Dossier_Service');
-      $this->load->library('towing/Vocabulary_Service');
+      $this->load->library('towing/Dossier_service');
+      $this->load->library('towing/Vocabulary_service');
 
       $this->load->library('table');
       $this->load->library('form_validation');

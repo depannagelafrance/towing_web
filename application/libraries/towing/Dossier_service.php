@@ -7,9 +7,9 @@ require_once(APPPATH . '/models/Causer_Model.php');
 require_once(APPPATH . '/models/Customer_Model.php');
 require_once(APPPATH . '/models/Communication_Model.php');
 
-require_once(APPPATH . '/libraries/towing/Rest_Service.php');
+require_once(APPPATH . '/libraries/towing/Rest_service.php');
 
-class Dossier_Service extends Rest_Service {
+class Dossier_service extends Rest_service {
     public function __construct() {
       parent::__construct();
     }
@@ -300,7 +300,7 @@ class Dossier_Service extends Rest_Service {
   public function fetchAllAttachments($dossier_id, $voucher_id, $token)
   {
       //the ID veld dat teruggeven wordt in de lijst van documenten kan je gebruiken
-      //om de Document_Service aan te roepen. Deze wordt al gebruikt om de signatures
+      //om de Document_service aan te roepen. Deze wordt al gebruikt om de signatures
       //op te halen.
 
       return $this->CI->rest->get(sprintf('/dossier/voucher/attachment/%s/%s', $voucher_id, $token));

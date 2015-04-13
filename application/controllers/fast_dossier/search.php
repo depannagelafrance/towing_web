@@ -6,7 +6,7 @@ class Search extends Page {
   {
     parent::__construct();
 
-    $this->load->library('towing/Dossier_Service');
+    $this->load->library('towing/Dossier_service');
     $this->load->library('table');
     $this->load->helper('url');
   }

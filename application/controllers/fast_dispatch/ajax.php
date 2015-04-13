@@ -7,8 +7,8 @@ class Ajax extends AjaxPage {
     public function __construct(){
       parent::__construct();
 
-      $this->load->library('towing/Vocabulary_Service');
-      $this->load->library('towing/Dossier_Service');
+      $this->load->library('towing/Vocabulary_service');
+      $this->load->library('towing/Dossier_service');
     }
 
   public function indicators($direction_id)

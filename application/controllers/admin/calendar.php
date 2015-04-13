@@ -13,7 +13,7 @@ class Calendar extends Page {
               'template' => $this->_calendarTemplate()
       );
 
-      $this->load->library('towing/Admin_Service');
+      $this->load->library('towing/Admin_service');
       $this->load->library('calendar', $calendarConfig);
     }
 

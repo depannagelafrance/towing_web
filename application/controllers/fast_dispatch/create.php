@@ -6,7 +6,7 @@ class Create extends Page {
       parent::__construct();
 
       $this->load->helper('url');
-      $this->load->library('towing/Dossier_Service');
+      $this->load->library('towing/Dossier_service');
     }
 
   public function index()

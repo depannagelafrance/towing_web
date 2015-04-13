@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Rest_Service {
+class Rest_service {
     protected $CI = null;
 
     public function __construct() {

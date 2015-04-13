@@ -13,8 +13,8 @@ class Ajax extends AjaxPage
   {
     parent::__construct();
 
-    $this->load->library('towing/Dossier_Service');
-    $this->load->library('towing/Vocabulary_Service');
+    $this->load->library('towing/Dossier_service');
+    $this->load->library('towing/Vocabulary_service');
   }
 
   public function updateDepot($dossier_id, $voucher_id)
