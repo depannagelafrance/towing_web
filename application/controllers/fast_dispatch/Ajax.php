@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-require_once(APPPATH . '/controllers/ajaxpage.php');
+require_once(APPPATH . '/controllers/Ajaxpage.php');
 require_once(APPPATH . '/models/Dossier_Model.php');
 
 class Ajax extends AjaxPage {

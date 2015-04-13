@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-require_once(APPPATH . '/controllers/ajaxpage.php');
+require_once(APPPATH . '/controllers/Ajaxpage.php');
 require_once(APPPATH . '/models/Depot_Model.php');
 require_once(APPPATH . '/models/Causer_Model.php');
 require_once(APPPATH . '/models/Customer_Model.php');
