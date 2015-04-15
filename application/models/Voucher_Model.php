@@ -34,6 +34,7 @@ class Voucher_Model  {
   public $signa_by_vehicle     = null;
   public $signa_arrival        = null;
   public $cic                  = null;
+  public $causer_not_present   = null;
   public $additional_info      = null;
   public $actions              = null;
 
@@ -71,6 +72,7 @@ class Voucher_Model  {
       $this->signa_arrival                = $data->signa_arrival;
       $this->signa_by_vehicle             = $data->signa_by_vehicle;
       $this->cic                          = $data->cic;
+      $this->causer_not_present           = $data->causer_not_present;
 
       if(property_exists($data, 'additional_info'))
         $this->additional_info = $data->additional_info;

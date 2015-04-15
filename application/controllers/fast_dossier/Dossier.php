@@ -239,6 +239,8 @@ class Dossier extends Page {
 
         $voucher->police_signature_dt = $this->convertToUnixTime($this->input->post('police_signature_dt'), strtotime($dossier->dossier->call_date));
 
+        $voucher->causer_not_present = $this->input->post('causer_not_present');
+
         $activity_ids = $this->input->post('activity_id');
         $activity_amounts = $this->input->post('amount');
 

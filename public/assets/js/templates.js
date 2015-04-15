@@ -244,7 +244,9 @@ this["Handlebars"]["Templates"]["causer/info_short"] = Handlebars.template({"1":
     + " "
     + escapeExpression(((helper = (helper = helpers.city || (depth0 != null ? depth0.city : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"city","hash":{},"data":data}) : helper)))
     + "</div>\n";
-},"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+},"13":function(depth0,helpers,partials,data) {
+  return "checked";
+  },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   var stack1, buffer = "<label>Bevestiging hinderverwekker:</label>\n<div class=\"causer_short_info_wrapper\">\n";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.company_name : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.program(3, data),"data":data});
   if (stack1 != null) { buffer += stack1; }
@@ -254,7 +256,10 @@ this["Handlebars"]["Templates"]["causer/info_short"] = Handlebars.template({"1":
   buffer += "\n";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.city : depth0), {"name":"if","hash":{},"fn":this.program(10, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
-  return buffer + "  </div>\n\n";
+  buffer += "</div>\n<div class=\"nuisance_value\">\n  <label class=\"notbold\">Hinderverwekker afwezig?</label>\n  <input type=\"checkbox\" name=\"causer_not_present\" id=\"causer_not_present\" value=\"1\" ";
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.causer_not_present : depth0), {"name":"if","hash":{},"fn":this.program(13, data),"inverse":this.noop,"data":data});
+  if (stack1 != null) { buffer += stack1; }
+  return buffer + "/>\n</div>\n";
 },"useData":true});
 
 this["Handlebars"]["Templates"]["customer/info"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
