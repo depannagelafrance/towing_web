@@ -47,8 +47,6 @@ class Insurance extends Page {
           else
           {
               //load the model
-              $this->load->model('Vocabulary_Model');
-
               $model = new Insurance_Model($this->input->post());
 
               $result = $this->admin_service->createInsurance($model, $this->_get_user_token());
