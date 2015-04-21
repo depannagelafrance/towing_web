@@ -297,6 +297,16 @@ class Dossier_service extends Rest_service {
     return $result;
   }
 
+  public function searchCustomer($search, $token) {
+    $result = $this->CI->rest->post(
+          sprintf('/search/customer/%s', $token),
+          json_encode(array("search" => $search)),
+          'application/json'
+    );
+
+    return $result;
+  }
+
   public function fetchAllAttachments($dossier_id, $voucher_id, $token)
   {
       //the ID veld dat teruggeven wordt in de lijst van documenten kan je gebruiken
@@ -323,5 +333,29 @@ class Dossier_service extends Rest_service {
     return $this->CI->rest->get(sprintf('/dossier/voucher/validation_messages/%s/%s', $voucher_id, $token));
   }
 
+  /**
+   * Fetch the addications costs for the requested voucher
+   *
+   * @param $dossier_id the unique id of the dossier
+   * @param $voucher_id the unique id of the voucher (not the number, as it is not unique)
+   * @param $token the token of the user currently executing the request
+   *
+   * @return an array of json objects containing the information of the additional costs
+   */
+  public function fetchAllVoucherAdditionalCosts($dossier_id, $voucher_id, $token) {
+    return $this->CI->rest->get(sprintf('/dossier/list/additional_costs/%s/%s/%s', $dossier_id, $voucher_id, $token));
+  }
 
+  /**
+   * Remove an additional cost entry from a voucher
+   *
+   * @param $cost_id the unique id of the additional cost
+   * @param $voucher_id the unique id of the voucher (not the number, as the number is not unique)
+   * @param $token the token of the user currently executing the request
+   *
+   * @return a JSON object containing either an "ok" or an error
+   */
+  public function removeVoucherAdditionalCost($cost_id,  $voucher_id, $token) {
+    return $this->CI->rest->delete(sprintf('/dossier/voucher/%s/additional_cost/%s/%s', $voucher_id, $cost_id, $token));
+  }
 }
