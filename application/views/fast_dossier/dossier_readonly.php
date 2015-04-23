@@ -579,7 +579,17 @@ $_dossier = $dossier->dossier;
         </div>
 
         <!-- Causer Short Info -->
-        <div id="causer_info_short" class="autograph-container__nuisance"></div>
+        <div id="causer_info_readonly" class="autograph-container__nuisance">
+          <label>Bevestiging hinderverwekker:</label>
+          <br />
+          <?php
+          print displayCustomerInformation($_voucher->causer);
+
+          if($_voucher->causer->causer_not_present) {
+            print "<br /><strong>Hinderverwekker niet beschikbaar voor handtekening</strong>";
+          }
+          ?>
+        </div>
 
 
         <div class="autograph-container__collecting">
