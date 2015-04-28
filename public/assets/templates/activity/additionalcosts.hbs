@@ -1,0 +1,21 @@
+{{#each costs}}
+<div class="additional-costs-container__field" data-id="{{id}}" data-incl="{{fee_incl_vat}}" data-excl="{{fee_excl_vat}}">
+<div class="form-item-vertical additional-costs-container__task">
+<input type="text" name="cost_name[]" value="{{name}}">
+<input type="hidden" name="cost_id[]" value="{{id}}">
+</div>
+<div class="form-item-vertical additional-costs-container__excl">
+<input type="text" name="cost_fee_excl_vat[]" value="{{formatNumber fee_excl_vat}}">
+</div>
+<div class="form-item-vertical additional-costs-container__incl">
+<input type="text" name="cost_incl_vat[]" value="{{formatNumber fee_incl_vat}}">
+</div>
+<div class="form-item-vertical additional-costs-container__remove" data-id="{{id}}">
+<div class="additional-costs-container__remove__btn">
+<div class="btn--icon--small">
+<a class="icon--remove--small" href="#">Remove</a>
+</div>
+</div>
+</div>
+</div>
+{{/each}}

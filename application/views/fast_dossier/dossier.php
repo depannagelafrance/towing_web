@@ -462,7 +462,7 @@ $_dossier = $dossier->dossier;
 
       <!--WORK-->
       <div id="added-activities" class="form-item-vertical work-container">
-        <?php if(count($_voucher->towing_activities) > 0): ?>
+        <!-- ACTIVITIES -->
         <div class="work-container__header">
           <div class="work-container__task__label"><label>Activiteiten:</label></div>
           <div class="work-container__number__label"><label>Aantal:</label></div>
@@ -471,14 +471,27 @@ $_dossier = $dossier->dossier;
           <div class="work-container__tot__incl__label"><label>Totaal (excl.):</label></div>
           <div class="work-container__tot__excl__label"><label>Totaal (incl.):</label></div>
         </div>
-        <?php endif; ?>
+
         <div class="work-container__fields"></div>
 
-      <div class="work-container__actions">
-        <div class="work-container__add">
-          <a id="add-activity-link" class="inform-link" href="#add-activity-form" data-did="<?php print $_dossier->id; ?>" data-vid="<?php print $_voucher->id ;?>" >Activiteit toevoegen</a>
+        <div class="work-container__actions">
+          <div class="work-container__add">
+            <a id="add-activity-link" class="inform-link" href="#add-activity-form" data-did="<?php print $_dossier->id; ?>" data-vid="<?php print $_voucher->id ;?>" >Activiteit toevoegen</a>
+          </div>
         </div>
-      </div>
+
+        <!-- ADDITIONAL COSTS -->
+        <div class="additional-costs-container__header">
+          <div class="additional-costs-container__task__label"><label>Extra kosten:</label></div>
+          <div class="additional-costs-container__incl__label"><label>EHP (excl.):</label></div>
+          <div class="additional-costs-container__excl__label"><label>EHP (incl.):</label></div>
+        </div>
+
+        <div class="additional-costs-container__fields"></div>
+
+        <div class="additional-costs-container__actions">
+        </div>        
+
 
         <!--PAYMENT-->
         <div class="form-item-vertical payment-container">
