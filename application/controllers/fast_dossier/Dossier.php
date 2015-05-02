@@ -277,6 +277,48 @@ class Dossier extends Page {
           }
         }
 
+        // ---------------------------------------------------------------------
+        // PREPARE THE TOWING VOUCHER COSTS
+        // ---------------------------------------------------------------------
+        $cost_ids       = $this->input->post('cost_id');
+        $cost_fees_incl = $this->input->post('cost_fee_incl_vat');
+        $cost_fees_excl = $this->input->post('cost_fee_excl_vat');
+        $cost_names     = $this->input->post('cost_name');
+
+        if(is_array($cost_ids))
+        {
+          for($i = 0; $i < count($cost_ids); $i++)
+          {
+            $cost_id = $cost_ids[$i];
+
+            $found = false;
+
+            foreach($voucher->towing_additional_costs as $towing_additional_cost)
+            {
+              if($towing_additional_cost->id === $cost_id)
+              {
+                $found = true;
+                //$cost.name, $cost.fee_excl_vat, $cost.fee_incl_vat
+                $towing_additional_cost->name = $cost_names[$i];
+                $towing_additional_cost->fee_excl_vat = $cost_fees_incl[$i];
+                $towing_additional_cost->fee_incl_vat = $cost_fees_excl[$i];
+              }
+            }
+
+            if(!$found)
+            {
+              if(!is_array($voucher->towing_additional_costs))
+                $voucher->towing_additional_costs = array();
+
+              $cost = new stdClass();
+              $cost->name = $cost_names[$i];
+              $cost->fee_excl_vat = $cost_fees_incl[$i];
+              $cost->fee_incl_vat = $cost_fees_excl[$i];
+
+              $voucher->towing_additional_costs[] = $cost;
+            }
+          }
+        }
 
         $dossier->dossier->towing_vouchers[$i] = $voucher;
       }
