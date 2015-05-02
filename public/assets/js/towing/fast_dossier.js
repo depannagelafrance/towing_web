@@ -179,6 +179,10 @@ $(document).ready(function() {
         updateActivityTemplates(data);
     });
 
+    getAdditionalCosts().success(function(data) {
+        updateAdditionalCostsTemplate(data);
+    });
+
     getAvailableActivities().success(function(data){
         updateActivityForm(data);
     });
@@ -773,7 +777,7 @@ $(document).ready(function() {
 
 
 
-    /*******  ACTIVITIES *******/
+    /*******  ACTIVITIES AND ADDITIONAL COSTS *******/
 
     function getActivities(){
         var url = prepareAjaxUrl('/fast_dossier/ajax/activities');
@@ -783,6 +787,16 @@ $(document).ready(function() {
             url: url,
             data: {}
         });
+    }
+
+    function getAdditionalCosts() {
+      var url = prepareAjaxUrl('/fast_dossier/ajax/additionalCosts');
+      return $.ajax({
+          type: "POST",
+          cache: false,
+          url: url,
+          data: {}
+      });
     }
 
     function getAvailableActivities(){
@@ -854,6 +868,10 @@ $(document).ready(function() {
         updateActivityList(data);
     }
 
+    function updateAdditionalCostsTemplate(data) {
+        updateAdditionalCostsList(data);
+    }
+
     function updateActivityList(data){
         var items = {
             activities : []
@@ -865,6 +883,19 @@ $(document).ready(function() {
 
         var template = Handlebars.Templates['activity/activitylist'];
         $('#added-activities .work-container__fields').html(template(items));
+    }
+
+    function updateAdditionalCostsList(data){
+        var items = {
+            costs : []
+        };
+
+        $.each( data, function( key, value ) {
+            items.costs.push(value);
+        });
+
+        var template = Handlebars.Templates['activity/additionalcosts'];
+        $('#added-activities .additional-costs-container__fields').html(template(items));
     }
 
     function updateActivityForm(data){
