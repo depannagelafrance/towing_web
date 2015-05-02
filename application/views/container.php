@@ -10,12 +10,14 @@
   <link rel="stylesheet" type="text/css" href="/public/bower_components/chosen/chosen.min.css" />
   <link rel="stylesheet" type="text/css" href="/public/bower_components/fancyBox/source/jquery.fancybox.css" />
   <link rel="stylesheet" type="text/css" href="/public/bower_components/datetimepicker/jquery.datetimepicker.css" />
+  <link rel="stylesheet" type="text/css" href="/public/bower_components/jquery-ui/themes/base/all.css" />
   <link rel="stylesheet" type="text/css" href="/public/assets/stylesheets/towing.style.css" />
 
 	<!-- TODO: put in LESS/BOWER config -->
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
   <script src="/public/bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="/public/bower_components/jquery-ui/jquery-ui.min.js"></script>
   <script src="/public/bower_components/datetimepicker/jquery.datetimepicker.js"></script>
 
   <script src="/public/bower_components/handlebars/handlebars.min.js"></script>

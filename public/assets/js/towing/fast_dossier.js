@@ -135,32 +135,75 @@ $(document).ready(function() {
         step: 15
     });
 
-    var thread = null;
-    $('#search').keyup(function() {
-        clearTimeout(thread);
-        var target = $(this);
-        thread = setTimeout(function() {
-            searchCustomer(target.val()).success(function(data){
-                console.log(data);
+    var searchResults = [];
+    $("#search").autocomplete({
+        source: function( request, response ) {
+            var url = prepareAjaxUrl('/fast_dossier/ajax/searchcustomer');
+            return $.ajax({
+                url		: url,
+                type	: 'POST',
+                cache	: false,
+                data		: {
+                    'search' : request.term
+                },
+                success: function( data ) {
+                    searchResults = data;
+                    var search = [];
+                    var count = 0;
+                    $.each( data, function( index, value ) {
+                        var item = '';
+                        var multiple = false;
+                        if(value.first_name && value.last_name){
+                            item += value.first_name + ' ' + value.last_name;
+                            multiple = true;
+                        }
+
+                        if(value.company_name && value.company_vat){
+                            if(multiple){
+                                item += ' - ';
+                            }
+                            item += value.company_name + ' [' + value.company_vat + ']';
+                            multiple = true;
+                        }
+
+                        if(value.street && value.city){
+                            if(multiple){
+                                item += ' - ';
+                            }
+                            item += value.street + ' ' + value.street_number  + ', ' + value.zip + ' ' + value.city + ' ' + value.country;
+                            multiple = true;
+                        }
+
+                        search.push({'label': item,'value': count});
+                        count++;
+                    });
+                    response(search);
+                }
             });
-        }, 500);
+        },
+        minLength: 1,
+        select: function( event, ui ) {
+            var id = ui.item.value;
+            var selected = searchResults[id];
+            $('#search_firstname').val(selected.first_name);
+            $('#search_lastname').val(selected.last_name);
+            $('#search_company_name').val(selected.company_name);
+            $('#search_company_vat').val(selected.company_vat);
+            $('#search_street').val(selected.street);
+            $('#search_street_nr').val(selected.street_number);
+            $('#search_street_pobox').val(selected.street_pobox);
+            $('#search_zip').val(selected.zip);
+            $('#search_city').val(selected.city);
+            $('#search_country').val(selected.country);
+            $('#search_phone').val(selected.phone);
+            $('#search_email').val(selected.email);
+        },
+        close: function(event, ui){
+            $(this).val('');
+        }
     });
 
-    function findPerson(str){
-        console.log(str);
-    }
-
     /****** Customer *********/
-    function searchCustomer(search){
-        var url = prepareAjaxUrl('/fast_dossier/ajax/searchcustomer');
-        return $.ajax({
-            type		: "POST",
-            cache	: false,
-            url		: url,
-            data		: {'search' : search}
-        });
-    }
-
     getCauser().success(function(data){
         updateCauserTemplates(data);
         updateCauserForm(data);
