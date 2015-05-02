@@ -135,6 +135,31 @@ $(document).ready(function() {
         step: 15
     });
 
+    var thread = null;
+    $('#search').keyup(function() {
+        clearTimeout(thread);
+        var target = $(this);
+        thread = setTimeout(function() {
+            searchCustomer(target.val()).success(function(data){
+                console.log(data);
+            });
+        }, 500);
+    });
+
+    function findPerson(str){
+        console.log(str);
+    }
+
+    /****** Customer *********/
+    function searchCustomer(search){
+        var url = prepareAjaxUrl('/fast_dossier/ajax/searchcustomer');
+        return $.ajax({
+            type		: "POST",
+            cache	: false,
+            url		: url,
+            data		: {'search' : search}
+        });
+    }
 
     getCauser().success(function(data){
         updateCauserTemplates(data);
