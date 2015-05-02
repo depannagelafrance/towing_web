@@ -135,8 +135,9 @@ $(document).ready(function() {
         step: 15
     });
 
-    var searchResults = [];
-    $("#search").autocomplete({
+    //Customer Search
+    var customerSearchResults = [];
+    $("#customersearch").autocomplete({
         source: function( request, response ) {
             var url = prepareAjaxUrl('/fast_dossier/ajax/searchcustomer');
             return $.ajax({
@@ -147,7 +148,7 @@ $(document).ready(function() {
                     'search' : request.term
                 },
                 success: function( data ) {
-                    searchResults = data;
+                    customerSearchResults = data;
                     var search = [];
                     var count = 0;
                     $.each( data, function( index, value ) {
@@ -184,19 +185,88 @@ $(document).ready(function() {
         minLength: 1,
         select: function( event, ui ) {
             var id = ui.item.value;
-            var selected = searchResults[id];
-            $('#search_firstname').val(selected.first_name);
-            $('#search_lastname').val(selected.last_name);
-            $('#search_company_name').val(selected.company_name);
-            $('#search_company_vat').val(selected.company_vat);
-            $('#search_street').val(selected.street);
-            $('#search_street_nr').val(selected.street_number);
-            $('#search_street_pobox').val(selected.street_pobox);
-            $('#search_zip').val(selected.zip);
-            $('#search_city').val(selected.city);
-            $('#search_country').val(selected.country);
-            $('#search_phone').val(selected.phone);
-            $('#search_email').val(selected.email);
+            var selected = customerSearchResults[id];
+            $('#customer_search_firstname').val(selected.first_name);
+            $('#customer_search_lastname').val(selected.last_name);
+            $('#customer_search_company_name').val(selected.company_name);
+            $('#customer_search_company_vat').val(selected.company_vat);
+            $('#customer_search_street').val(selected.street);
+            $('#customer_search_street_nr').val(selected.street_number);
+            $('#customer_search_street_pobox').val(selected.street_pobox);
+            $('#customer_search_zip').val(selected.zip);
+            $('#customer_search_city').val(selected.city);
+            $('#customer_search_country').val(selected.country);
+            $('#customer_search_phone').val(selected.phone);
+            $('#customer_search_email').val(selected.email);
+        },
+        close: function(event, ui){
+            $(this).val('');
+        }
+    });
+
+    //Causer Search
+    var causerSearchResults = [];
+    $("#causersearch").autocomplete({
+        source: function( request, response ) {
+            var url = prepareAjaxUrl('/fast_dossier/ajax/searchcustomer');
+            return $.ajax({
+                url		: url,
+                type	: 'POST',
+                cache	: false,
+                data		: {
+                    'search' : request.term
+                },
+                success: function( data ) {
+                    causerSearchResults = data;
+                    var search = [];
+                    var count = 0;
+                    $.each( data, function( index, value ) {
+                        var item = '';
+                        var multiple = false;
+                        if(value.first_name && value.last_name){
+                            item += value.first_name + ' ' + value.last_name;
+                            multiple = true;
+                        }
+
+                        if(value.company_name && value.company_vat){
+                            if(multiple){
+                                item += ' - ';
+                            }
+                            item += value.company_name + ' [' + value.company_vat + ']';
+                            multiple = true;
+                        }
+
+                        if(value.street && value.city){
+                            if(multiple){
+                                item += ' - ';
+                            }
+                            item += value.street + ' ' + value.street_number  + ', ' + value.zip + ' ' + value.city + ' ' + value.country;
+                            multiple = true;
+                        }
+
+                        search.push({'label': item,'value': count});
+                        count++;
+                    });
+                    response(search);
+                }
+            });
+        },
+        minLength: 1,
+        select: function( event, ui ) {
+            var id = ui.item.value;
+            var selected = causerSearchResults[id];
+            $('#causer_search_firstname').val(selected.first_name);
+            $('#causer_search_lastname').val(selected.last_name);
+            $('#causer_search_company_name').val(selected.company_name);
+            $('#causer_search_company_vat').val(selected.company_vat);
+            $('#causer_search_street').val(selected.street);
+            $('#causer_search_street_nr').val(selected.street_number);
+            $('#causer_search_street_pobox').val(selected.street_pobox);
+            $('#causer_search_zip').val(selected.zip);
+            $('#causer_search_city').val(selected.city);
+            $('#causer_search_country').val(selected.country);
+            $('#causer_search_phone').val(selected.phone);
+            $('#causer_search_email').val(selected.email);
         },
         close: function(event, ui){
             $(this).val('');
