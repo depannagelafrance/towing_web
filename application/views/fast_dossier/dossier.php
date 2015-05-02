@@ -840,6 +840,8 @@ $_dossier = $dossier->dossier;
     ?>
     <div class="fancybox-form">
       <h3>Facturatie gegevens Bewerken</h3>
+      <?php print form_input('search','', 'id=search'); ?>
+
       <div class="invoice-full-container">
         <div class="msg msg__error msg__hidden">Er is een fout opgetreden bij het bewaren van de gegevens</div>
         <div class="invoice-full-container__name">

@@ -67,6 +67,16 @@ class Ajax extends AjaxPage
     $this->_sendJson($result);
   }
 
+  public function searchCustomer()
+  {
+    $token = $this->_get_user_token();
+
+    $find = $this->input->post('search');
+    $result = $this->dossier_service->searchCustomer($find, $token);
+
+    $this->_sendJson($result);
+  }
+
   public function updateAgencyCustomer($dossier_id, $voucher_id)
   {
     $token = $this->_get_user_token();
