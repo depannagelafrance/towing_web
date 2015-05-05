@@ -47,26 +47,22 @@ this["Handlebars"]["Templates"]["activity/activitylist"] = Handlebars.template({
 
 this["Handlebars"]["Templates"]["activity/additionalcosts"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
   var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
-  return "<div class=\"additional-costs-container__field\" data-id=\""
-    + escapeExpression(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"id","hash":{},"data":data}) : helper)))
-    + "\" data-incl=\""
-    + escapeExpression(((helper = (helper = helpers.fee_incl_vat || (depth0 != null ? depth0.fee_incl_vat : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"fee_incl_vat","hash":{},"data":data}) : helper)))
-    + "\" data-excl=\""
-    + escapeExpression(((helper = (helper = helpers.fee_excl_vat || (depth0 != null ? depth0.fee_excl_vat : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"fee_excl_vat","hash":{},"data":data}) : helper)))
-    + "\">\n<div class=\"form-item-vertical additional-costs-container__task\">\n<input type=\"text\" name=\"cost_name[]\" value=\""
+  return "<div class=\"additional-costs-container__field\">\n  <div class=\"form-item-vertical additional-costs-container__task\">\n    <input type=\"text\" name=\"cost_name[]\" value=\""
     + escapeExpression(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"name","hash":{},"data":data}) : helper)))
-    + "\">\n<input type=\"hidden\" name=\"cost_id[]\" value=\""
+    + "\">\n    <input type=\"hidden\" name=\"cost_id[]\" value=\""
     + escapeExpression(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"id","hash":{},"data":data}) : helper)))
-    + "\">\n</div>\n<div class=\"form-item-vertical additional-costs-container__excl\">\n<input type=\"text\" name=\"cost_fee_excl_vat[]\" value=\""
+    + "\">\n  </div>\n  <div class=\"form-item-vertical additional-costs-container__excl\">\n    <input type=\"text\" name=\"cost_fee_excl_vat[]\" value=\""
     + escapeExpression(((helpers.formatNumber || (depth0 && depth0.formatNumber) || helperMissing).call(depth0, (depth0 != null ? depth0.fee_excl_vat : depth0), {"name":"formatNumber","hash":{},"data":data})))
-    + "\">\n</div>\n<div class=\"form-item-vertical additional-costs-container__incl\">\n<input type=\"text\" name=\"cost_incl_vat[]\" value=\""
+    + "\">\n  </div>\n  <div class=\"form-item-vertical additional-costs-container__incl\">\n    <input type=\"text\" name=\"cost_fee_incl_vat[]\" value=\""
     + escapeExpression(((helpers.formatNumber || (depth0 && depth0.formatNumber) || helperMissing).call(depth0, (depth0 != null ? depth0.fee_incl_vat : depth0), {"name":"formatNumber","hash":{},"data":data})))
-    + "\">\n</div>\n<div class=\"form-item-vertical additional-costs-container__remove\" data-id=\""
+    + "\">\n  </div>\n  <div class=\"form-item-vertical additional-costs-container__remove\" data-id=\""
     + escapeExpression(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"id","hash":{},"data":data}) : helper)))
-    + "\">\n<div class=\"additional-costs-container__remove__btn\">\n<div class=\"btn--icon--small\">\n<a class=\"icon--remove--small\" href=\"#\">Remove</a>\n</div>\n</div>\n</div>\n</div>\n";
-},"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+    + "\">\n    <div class=\"additional-costs-container__remove__btn\">\n      <div class=\"btn--icon--small\">\n        <a class=\"icon--remove--small\" href=\"#\">Remove</a>\n      </div>\n    </div>\n  </div>\n</div>\n";
+},"3":function(depth0,helpers,partials,data) {
+  return "<div class=\"additional-costs-container__field\">\n  <div class=\"form-item-vertical additional-costs-container__task\">\n    <input type=\"text\" name=\"cost_name[]\" value=\"\">\n    <input type=\"hidden\" name=\"cost_id[]\" value=\"\">\n  </div>\n  <div class=\"form-item-vertical additional-costs-container__excl\">\n    <input type=\"text\" name=\"cost_fee_excl_vat[]\" value=\"\">\n  </div>\n  <div class=\"form-item-vertical additional-costs-container__incl\">\n    <input type=\"text\" name=\"cost_fee_incl_vat[]\" value=\"\">\n  </div>\n</div>\n";
+  },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   var stack1, buffer = "";
-  stack1 = helpers.each.call(depth0, (depth0 != null ? depth0.costs : depth0), {"name":"each","hash":{},"fn":this.program(1, data),"inverse":this.noop,"data":data});
+  stack1 = helpers.each.call(depth0, (depth0 != null ? depth0.costs : depth0), {"name":"each","hash":{},"fn":this.program(1, data),"inverse":this.program(3, data),"data":data});
   if (stack1 != null) { buffer += stack1; }
   return buffer;
 },"useData":true});

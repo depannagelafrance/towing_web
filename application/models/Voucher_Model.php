@@ -42,6 +42,8 @@ class Voucher_Model  {
 
   public $towing_activities     = array(); //array of TowingActivy_model
 
+  public $towing_additional_costs = array(); //array
+
 
   public function __construct($data = null) {
     if($data) {
@@ -98,6 +100,9 @@ class Voucher_Model  {
           $this->towing_activities[] = new TowingActivity_Model($activity);
         }
       }
+
+      if(property_exists($data, 'towing_additional_costs') && is_array($data->towing_additional_costs))
+        $this->towing_additional_costs = $data->towing_additional_costs;
 
     }
   }

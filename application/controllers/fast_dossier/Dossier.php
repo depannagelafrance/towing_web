@@ -285,23 +285,28 @@ class Dossier extends Page {
         $cost_fees_excl = $this->input->post('cost_fee_excl_vat');
         $cost_names     = $this->input->post('cost_name');
 
+
+        // if(!property_exists($voucher, 'towing_additional_costs') || $voucher->towing_additional_costs == null) {
+        //   $voucher->towing_additional_costs = array();
+        // }
+
         if(is_array($cost_ids))
         {
-          for($i = 0; $i < count($cost_ids); $i++)
+          for($j = 0; $j < count($cost_ids); $j++)
           {
-            $cost_id = $cost_ids[$i];
+            $cost_id = $cost_ids[$j];
 
             $found = false;
 
             foreach($voucher->towing_additional_costs as $towing_additional_cost)
             {
-              if($towing_additional_cost->id === $cost_id)
+              if($towing_additional_cost != null && $towing_additional_cost->id === $cost_id)
               {
                 $found = true;
                 //$cost.name, $cost.fee_excl_vat, $cost.fee_incl_vat
-                $towing_additional_cost->name = $cost_names[$i];
-                $towing_additional_cost->fee_excl_vat = $cost_fees_incl[$i];
-                $towing_additional_cost->fee_incl_vat = $cost_fees_excl[$i];
+                $towing_additional_cost->name = $cost_names[$j];
+                $towing_additional_cost->fee_excl_vat = $cost_fees_incl[$j];
+                $towing_additional_cost->fee_incl_vat = $cost_fees_excl[$j];
               }
             }
 
@@ -310,12 +315,16 @@ class Dossier extends Page {
               if(!is_array($voucher->towing_additional_costs))
                 $voucher->towing_additional_costs = array();
 
-              $cost = new stdClass();
-              $cost->name = $cost_names[$i];
-              $cost->fee_excl_vat = $cost_fees_incl[$i];
-              $cost->fee_incl_vat = $cost_fees_excl[$i];
+              if(trim($cost_id) == "" && trim($cost_names[$i]) != "")
+              {
+                $cost = new stdClass();
+                $cost->name = $cost_names[$j];
+                $cost->fee_excl_vat = $cost_fees_incl[$j];
+                $cost->fee_incl_vat = $cost_fees_excl[$j];
+                $cost->id = ($cost_id == "" ? null : $cost_id);
 
-              $voucher->towing_additional_costs[] = $cost;
+                $voucher->towing_additional_costs[] = $cost;
+              }
             }
           }
         }

@@ -1,21 +1,34 @@
 {{#each costs}}
 <div class="additional-costs-container__field">
-<div class="form-item-vertical additional-costs-container__task">
-<input type="text" name="cost_name[]" value="{{name}}">
-<input type="hidden" name="cost_id[]" value="{{id}}">
+  <div class="form-item-vertical additional-costs-container__task">
+    <input type="text" name="cost_name[]" value="{{name}}">
+    <input type="hidden" name="cost_id[]" value="{{id}}">
+  </div>
+  <div class="form-item-vertical additional-costs-container__excl">
+    <input type="text" name="cost_fee_excl_vat[]" value="{{formatNumber fee_excl_vat}}">
+  </div>
+  <div class="form-item-vertical additional-costs-container__incl">
+    <input type="text" name="cost_fee_incl_vat[]" value="{{formatNumber fee_incl_vat}}">
+  </div>
+  <div class="form-item-vertical additional-costs-container__remove" data-id="{{id}}">
+    <div class="additional-costs-container__remove__btn">
+      <div class="btn--icon--small">
+        <a class="icon--remove--small" href="#">Remove</a>
+      </div>
+    </div>
+  </div>
 </div>
-<div class="form-item-vertical additional-costs-container__excl">
-<input type="text" name="cost_fee_excl_vat[]" value="{{formatNumber fee_excl_vat}}">
-</div>
-<div class="form-item-vertical additional-costs-container__incl">
-<input type="text" name="cost_incl_vat[]" value="{{formatNumber fee_incl_vat}}">
-</div>
-<div class="form-item-vertical additional-costs-container__remove" data-id="{{id}}">
-<div class="additional-costs-container__remove__btn">
-<div class="btn--icon--small">
-<a class="icon--remove--small" href="#">Remove</a>
-</div>
-</div>
-</div>
+{{else}}
+<div class="additional-costs-container__field">
+  <div class="form-item-vertical additional-costs-container__task">
+    <input type="text" name="cost_name[]" value="">
+    <input type="hidden" name="cost_id[]" value="">
+  </div>
+  <div class="form-item-vertical additional-costs-container__excl">
+    <input type="text" name="cost_fee_excl_vat[]" value="">
+  </div>
+  <div class="form-item-vertical additional-costs-container__incl">
+    <input type="text" name="cost_fee_incl_vat[]" value="">
+  </div>
 </div>
 {{/each}}

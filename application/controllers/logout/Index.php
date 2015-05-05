@@ -9,16 +9,26 @@ class Index extends Page {
     $this->load->helper('url');
   }
 
+  private function is_session_started()
+  {
+    if ( php_sapi_name() !== 'cli' ) {
+        if ( version_compare(phpversion(), '5.4.0', '>=') ) {
+            return session_status() === PHP_SESSION_ACTIVE ? TRUE : FALSE;
+        } else {
+            return session_id() === '' ? FALSE : TRUE;
+        }
+    }
+    return FALSE;
+  }
+
   /**
    * Index Page for this controller.
    */
   public function index()
   {
       // Initialize the session.
-      if(!isset($_SESSION)) {
-        // If you are using session_name("something"), don't forget it now!
-        session_start();
-      }
+
+      if ( is_session_started() === FALSE ) session_start();
 
       // Unset all of the session variables.
       $_SESSION = array();
@@ -34,7 +44,10 @@ class Index extends Page {
       }
 
       // Finally, destroy the session.
-      session_destroy();
+      if ( is_session_started() === TRUE ) {
+        session_unset();
+        session_destroy();
+      }
 
       $session_data = $this->session->all_userdata();
 
