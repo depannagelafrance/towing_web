@@ -490,7 +490,7 @@ $_dossier = $dossier->dossier;
         <div class="additional-costs-container__fields"></div>
 
         <div class="additional-costs-container__actions">
-        </div>        
+        </div>
 
 
         <!--PAYMENT-->
@@ -819,6 +819,7 @@ $_dossier = $dossier->dossier;
       </div>
 
       <div class="form-item fancybox-form__actions__save fancybox-form__actions__twobuttons">
+        <input type="submit" value="AW&amp;V" name="btnDepotAWV" />
         <input type="submit" value="Standaard Depot" name="btnDepotDefault" />
         <input type="submit" value="Bewaren" name="btnDepotSave" />
       </div>

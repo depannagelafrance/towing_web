@@ -628,6 +628,19 @@ $(document).ready(function() {
         });
     }
 
+    function setDepotAWV(formObj){
+        var url = prepareAjaxUrl('/fast_dossier/ajax/updatedepottoagency');
+
+        formObj.default_depot = 0;
+
+        return $.ajax({
+            type		: "POST",
+            cache	: false,
+            url		: url,
+            data		: {'depot' : formObj}
+        });
+    }
+
     function updateDepotTemplates(data){
         var info = Handlebars.Templates['depot/info'];
         $('#depot_info').html(info(data));
@@ -654,16 +667,25 @@ $(document).ready(function() {
                     parent.$.fancybox.close();
                 }
             });
-        }else{
-            if(Dossier.btnClicked == 'btnDepotSave'){
-                setDepot(formObj).success(function(data){
-                    if(data.id){
-                        updateDepotTemplates(data);
-                        updateDepotForm(data);
-                        parent.$.fancybox.close();
-                    }
-                });
-            }
+        }
+        else if(Dossier.btnClicked == 'btnDepotSave')
+        {
+            setDepot(formObj).success(function(data){
+                if(data.id){
+                    updateDepotTemplates(data);
+                    updateDepotForm(data);
+                    parent.$.fancybox.close();
+                }
+            });
+        }
+        else if(Dossier.btnClicked == 'btnDepotAWV') {
+          setDepotAWV(formObj).success(function(data){
+              if(data.id){
+                  updateDepotTemplates(data);
+                  updateDepotForm(data);
+                  parent.$.fancybox.close();
+              }
+          });
         }
 
         event.preventDefault();

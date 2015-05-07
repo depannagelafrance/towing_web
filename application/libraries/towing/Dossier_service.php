@@ -164,6 +164,11 @@ class Dossier_service extends Rest_service {
       );
     }
 
+    public function updateTowingDepotToAgency($depot_id, $voucher_id, $token)
+    {
+      return $this->CI->rest->put(sprintf('/dossier/depot_agency/%s/%s/%s', $depot_id, $voucher_id, $token));
+    }
+
     public function updateCustomer($customer_id, $voucher_id, Customer_Model $data, $token)
     {
       $_value = new stdClass();
