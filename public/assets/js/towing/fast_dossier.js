@@ -972,14 +972,25 @@ $(document).ready(function() {
             $('.work-container__tot__incl input').each(function() {
                 total += parseFloat($(this).val());
             });
+            $('.additional-costs-container__incl input').each(function() {
+                if($.isNumeric($(this).val())) {
+                    total += parseFloat($(this).val());
+                }
+            });
             $('#payment_total input').val(total.toFixed(2));
         }else{
             $('.work-container__tot__excl input').each(function() {
                 total += parseFloat($(this).val());
             });
+            $('.additional-costs-container__excl input').each(function() {
+                if($.isNumeric($(this).val())) {
+                    total += parseFloat($(this).val());
+                }
+            });
             $('#payment_total input').val(total.toFixed(2));
         }
 
+        $('#payment_total').trigger('change');
     }
 
     function recalcuteActivityPrice(){
@@ -1127,6 +1138,7 @@ $(document).ready(function() {
         }
         $(this).parents('.additional-costs-container__field').find('.additional-costs-container__incl').find('input').val(incl);
         $(this).parents('.additional-costs-container__field').find('.additional-costs-container__excl').find('input').val(excl);
+        updateActivityTotalPrice();
     });
 
     //EXCL
@@ -1142,6 +1154,7 @@ $(document).ready(function() {
         }
         $(this).parents('.additional-costs-container__field').find('.additional-costs-container__incl').find('input').val(incl);
         $(this).parents('.additional-costs-container__field').find('.additional-costs-container__excl').find('input').val(excl);
+        updateActivityTotalPrice();
     });
 
         //RECALCULATE ON CHANGE
