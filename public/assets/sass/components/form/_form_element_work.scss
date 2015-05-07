@@ -1,5 +1,5 @@
 .work-container{
-  @include clearfix;
+  @include clearfix();
 
   position: relative;
   padding-bottom: 0px;
@@ -97,7 +97,7 @@
 }
 
 .work-container__header{
-  @include clearfix;
+  @include clearfix();
   margin-top: 5px;
   margin-bottom: 10px;
 }
@@ -105,11 +105,11 @@
 .work-container__fields{
   width: 100%;
   float: left;
-  @include clearfix;
+  @include clearfix();
 }
 
 .work-container__field{
-  @include clearfix;
+  @include clearfix();
   .form-item-vertical{
     margin-top: 0;
     margin-bottom: 0;
@@ -117,5 +117,5 @@
 }
 
 .work-container__actions{
-  @include clearfix;
+  @include clearfix();
 }
