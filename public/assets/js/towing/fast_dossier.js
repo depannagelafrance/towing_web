@@ -1116,7 +1116,7 @@ $(document).ready(function() {
     //CHANGE ADDITIONAL COSTS
     // INCL
     $(document).on('change','.additional-costs-container__field .additional-costs-container__incl input', function() {
-        var incl = $(this).val();
+        var incl = $(this).val().replace(',', '.');
         var excl = '';
         if(!$.isNumeric(incl)){
             incl = '';
@@ -1131,7 +1131,7 @@ $(document).ready(function() {
 
     //EXCL
     $(document).on('change','.additional-costs-container__field .additional-costs-container__excl input', function() {
-        var excl = $(this).val();
+        var excl = $(this).val().replace(',', '.');
         var incl = '';
         if(!$.isNumeric(excl)){
             incl = '';
