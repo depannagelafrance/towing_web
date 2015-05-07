@@ -1113,7 +1113,38 @@ $(document).ready(function() {
         recalcuteActivityPrice();
     });
 
-    //RECALCULATE ON CHANGE
+    //CHANGE ADDITIONAL COSTS
+    // INCL
+    $(document).on('change','.additional-costs-container__field .additional-costs-container__incl input', function() {
+        var incl = $(this).val();
+        var excl = '';
+        if(!$.isNumeric(incl)){
+            incl = '';
+            excl = '';
+        }else{
+            incl = parseFloat(incl).toFixed(2);
+            excl = (incl / 1.21).toFixed(2);
+        }
+        $(this).parents('.additional-costs-container__field').find('.additional-costs-container__incl').find('input').val(incl);
+        $(this).parents('.additional-costs-container__field').find('.additional-costs-container__excl').find('input').val(excl);
+    });
+
+    //EXCL
+    $(document).on('change','.additional-costs-container__field .additional-costs-container__excl input', function() {
+        var excl = $(this).val();
+        var incl = '';
+        if(!$.isNumeric(excl)){
+            incl = '';
+            excl = '';
+        }else{
+            excl = parseFloat(excl).toFixed(2);
+            incl = (excl * 1.21).toFixed(2);
+        }
+        $(this).parents('.additional-costs-container__field').find('.additional-costs-container__incl').find('input').val(incl);
+        $(this).parents('.additional-costs-container__field').find('.additional-costs-container__excl').find('input').val(excl);
+    });
+
+        //RECALCULATE ON CHANGE
     $('#payment_insurance, #payment_credit, #payment_debit, #payment_cash, #payment_bank, #payment_total').change(function(){
         recalcuteActivityPrice();
     });
