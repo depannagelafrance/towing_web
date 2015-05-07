@@ -300,13 +300,13 @@ class Dossier extends Page {
 
             foreach($voucher->towing_additional_costs as $towing_additional_cost)
             {
-              if($towing_additional_cost != null && $towing_additional_cost->id === $cost_id)
+              if($towing_additional_cost != null && $towing_additional_cost->id == $cost_id)
               {
                 $found = true;
                 //$cost.name, $cost.fee_excl_vat, $cost.fee_incl_vat
                 $towing_additional_cost->name = $cost_names[$j];
-                $towing_additional_cost->fee_excl_vat = $cost_fees_incl[$j];
-                $towing_additional_cost->fee_incl_vat = $cost_fees_excl[$j];
+                $towing_additional_cost->fee_excl_vat = $cost_fees_excl[$j];
+                $towing_additional_cost->fee_incl_vat = $cost_fees_incl[$j];
               }
             }
 
@@ -319,8 +319,8 @@ class Dossier extends Page {
               {
                 $cost = new stdClass();
                 $cost->name = $cost_names[$j];
-                $cost->fee_excl_vat = $cost_fees_incl[$j];
-                $cost->fee_incl_vat = $cost_fees_excl[$j];
+                $cost->fee_excl_vat = $cost_fees_excl[$j];
+                $cost->fee_incl_vat = $cost_fees_incl[$j];
                 $cost->id = ($cost_id == "" ? null : $cost_id);
 
                 $voucher->towing_additional_costs[] = $cost;
