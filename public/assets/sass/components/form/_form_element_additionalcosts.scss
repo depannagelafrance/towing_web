@@ -45,3 +45,25 @@
 .additional-costs-container__actions{
   @include clearfix();
 }
+
+.additional-costs-container__remove{
+  float: left;
+  width: 5%;
+}
+
+.additional-costs-container__remove__btn{
+  margin-bottom: 5px;
+
+  .btn--icon--small{
+    background-color: $gray_light;
+    border: 1px solid #CCC;
+    @include border-radius(2px);
+
+    &:hover{
+      background-color: darken($gray_light, 5%);
+      border: 1px solid #CCC;
+    }
+
+  }
+
+}
