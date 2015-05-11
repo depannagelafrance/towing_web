@@ -212,6 +212,20 @@ class Ajax extends AjaxPage
     );
   }
 
+  public function removeAdditionalCostFromVoucher($voucher_id, $cost_id)
+  {
+
+    $_cost_id = intval ($cost_id);
+
+    $this->_sendJson(
+      $this->dossier_service->removeVoucherAdditionalCost(
+        $_cost_id,
+        $voucher_id,
+        $this->_get_user_token()
+      )
+    );
+  }
+
   public function addActivitiesToVoucher($dossier_id, $voucher_id)
   {
     $token = $this->_get_user_token();

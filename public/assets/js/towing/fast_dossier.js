@@ -965,6 +965,18 @@ $(document).ready(function() {
         });
     }
 
+    function removeAdditionalCost(aid)
+    {
+      var url = '/fast_dossier/ajax/removeAdditionalCostFromVoucher/' + Dossier.voucher_id + '/' + aid;
+
+      return $.ajax({
+          type: "POST",
+          cache: false,
+          url: url,
+          data: {}
+      });
+    }
+
     function updateActivityTotalPrice(){
         var total = 0;
         var btw_from_belgium = true;
@@ -1160,6 +1172,27 @@ $(document).ready(function() {
         //RECALCULATE ON CHANGE
     $('#payment_insurance, #payment_credit, #payment_debit, #payment_cash, #payment_bank, #payment_total').change(function(){
         recalcuteActivityPrice();
+    });
+
+    //REMOVE ADDITIONAL COST FROM VOUCHER
+    $(document).on('click','.additional-costs-container__remove', function(){
+        var aid =$(this).data('id');
+
+        if(confirm('Bent u zeker dat u deze kost wenst te verwijderen?'))
+        {
+          removeAdditionalCost(aid).success(function(data){
+              updateAdditionalCostsTemplate(data);
+              updateActivityTotalPrice();
+              recalcuteActivityPrice();
+
+              getAdditionalCosts().success(function(costs){
+                updateAdditionalCostsTemplate(costs);
+              });
+          });
+        }
+
+
+        return false;
     });
 
     /*******  END ACTIVITIES *******/
