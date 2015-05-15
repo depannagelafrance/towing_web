@@ -31,8 +31,8 @@ class User_Model {
         $this->is_towing      = array_key_exists('is_towing', $data) ? $data['is_towing'] : "";
         $this->vehicle_id     = array_key_exists('vehicle_id', $data) ? $data['vehicle_id'] : '';
 
-        if(array_key_exists('user_roles', $data)) {
-          $this->user_roles = $data['user_roles'];
+        if(array_key_exists('roles', $data)) {
+          $this->user_roles = $data['roles'];
         }
       } else {
         $this->id             = $data->id;
@@ -48,7 +48,7 @@ class User_Model {
           $this->user_roles = $data->user_roles;
         }
       }
-      
+
       return $this;
     }
   }

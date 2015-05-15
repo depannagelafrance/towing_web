@@ -54,6 +54,10 @@ $route['fast_dossier/overview/done']             = 'fast_dossier/index/overview/
 $route['fast_dossier/overview/not_collected']    = 'fast_dossier/index/overview/not_collected';
 $route['fast_dossier/overview/awv']              = 'fast_dossier/index/overview/awv';
 
+$route['invoicing']                              = 'invoicing/index/overview/for_invoice';
+$route['invoicing/overview/for_invoice']         = 'invoicing/index/overview/for_invoice';
+$route['invoicing/overview/done']                = 'invoicing/index/overview/done';
+
 $route['commando/dossier/(:num)']            = 'fast_dossier/dossier/view/$1';
 $route['commando/dossier/(:num)/(:num)']     = 'fast_dossier/dossier/view/$1/$2';
 $route['commando/index']                     = 'fast_dossier/index';

@@ -28,7 +28,7 @@ class Index extends Page {
   {
       // Initialize the session.
 
-      if ( is_session_started() === FALSE ) session_start();
+      if ($this->is_session_started() === FALSE ) session_start();
 
       // Unset all of the session variables.
       $_SESSION = array();
@@ -44,18 +44,18 @@ class Index extends Page {
       }
 
       // Finally, destroy the session.
-      if ( is_session_started() === TRUE ) {
+      if ($this->is_session_started() === TRUE ) {
         session_unset();
         session_destroy();
       }
 
-      $session_data = $this->session->all_userdata();
-
-      foreach($session_data as $key => $value) {
-        $this->session->unset_userdata($key);
-      }
-
-      $this->session->sess_destroy();
+      // $session_data = $this->session->all_userdata();
+      //
+      // foreach($session_data as $key => $value) {
+      //   $this->session->unset_userdata($key);
+      // }
+      //
+      // $this->session->sess_destroy();
 
       redirect("/", 302);
   }
