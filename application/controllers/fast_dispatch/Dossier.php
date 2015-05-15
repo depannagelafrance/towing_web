@@ -43,7 +43,7 @@ class Dossier extends Page {
     $this->form_validation->set_rules('call_number', 'Oproepnummer', 'required');
     //$this->form_validation->set_rules('vehicule_type', 'Type wagen', 'required');
     $this->form_validation->set_rules('company_id', 'Takeldienst', 'required');
-    $this->form_validation->set_rules('allotment_id', 'Perceel', 'required');
+    $this->form_validation->set_rules('allotment_id', 'Perceel', 'required|numeric');
 
     if ($this->form_validation->run() === FALSE)
     {
