@@ -5,7 +5,7 @@ class Initbatch extends Page {
     public function __construct(){
       parent::__construct();
 
-      $this->load->library('towing/Dossier_service');
+      $this->load->library('towing/Invoice_service');
       $this->load->library('table');
     }
 
@@ -14,6 +14,8 @@ class Initbatch extends Page {
    */
   public function index()
   {
-    redirect("/invoicing/?ref=xyz", 302);
+    $result = $this->invoice_service->createInvoiceBatch($this->_get_user_token());
+
+    redirect("/invoicing/overview/batch/?id=" . $result->invoice_batch_id, 302);
   }
 }

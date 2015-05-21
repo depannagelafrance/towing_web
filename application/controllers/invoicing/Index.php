@@ -20,25 +20,30 @@ class Index extends Page {
   public function overview($status)
   {
 
+    $data = array();
+    $template = 'invoicing/index';
+
     switch($status) {
       case 'done':
-        $dossiers = $this->dossier_service->fetchAllClosedDossiers($this->_get_user_token());
-        $title = 'Afgesloten dossiers';
+        $data['dossiers'] = $this->dossier_service->fetchAllClosedDossiers($this->_get_user_token());
+        $data['title'] = 'Afgesloten dossiers';
+        break;
+      case 'batch':
+        $template = 'invoicing/index_batches';
+        $data['batches'] = array();
+        $data['title'] = 'Facturatie runs';
         break;
       case 'for_invoice':
       default:
-        $dossiers = $this->dossier_service->fetchAllInvoicableDossiers($this->_get_user_token());
-        $title = 'Dossiers voor facturatie';
+        $data['dossiers'] = $this->dossier_service->fetchAllInvoicableDossiers($this->_get_user_token());
+        $data['title'] = 'Dossiers voor facturatie';
         break;
     }
 
     $this->_add_content(
       $this->load->view(
-        'invoicing/index',
-        array(
-          'dossiers' => $dossiers,
-          'title' => $title
-        ),
+        $template,
+        $data,
         true
       )
     );

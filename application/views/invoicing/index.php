@@ -9,6 +9,7 @@ $module = $this->uri->segment(1);
 <div class="status--indication">
   <a class="<?php print $active_tab == 'for_invoice' || $active_tab == 'index' || $active_tab == '' ? 'active' : '';  ?>" href="/<?=$module?>/overview/for_invoice">Ter facturatie</a>
   <a class="<?php print $active_tab == 'done' ? 'active' : '';  ?>" href="/<?=$module?>/overview/done">Afgesloten</a>
+  <a class="<?php print $active_tab == 'batch' ? 'active' : '';  ?>" href="/<?=$module?>/overview/batch">Facturatie runs</a>
 </div>
 
 
