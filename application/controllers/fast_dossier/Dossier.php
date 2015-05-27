@@ -107,6 +107,15 @@ class Dossier extends Page {
 
     $view = $this->_has_role('FAST_MANAGER') ? 'fast_dossier/dossier' : 'fast_dossier/dossier_readonly';
 
+    // set the data
+    $data = array(
+      'dossier'                 => $dossier,
+      'voucher_number'          => $voucher_number,
+      'traffic_posts'           => $this->dossier_service->fetchAllTrafficPostsByAllotment($dossier->dossier->allotment_id, $token),
+      'company_depot'           => property_exists($this->_get_authenticated_user(), 'company_depot') ? $this->_get_authenticated_user()->company_depot : null,
+    );
+
+    $collectors = null;
 
     switch($_voucher->status) {
       case 'TO CHECK':
@@ -116,24 +125,29 @@ class Dossier extends Page {
         // $view = 'fast_dossier/dossier_readonly';
         $vouchers = $this->dossier_service->fetchAllInvoicableDossiers($token);
         break;
+      case 'INVOICED':
+        //TODO: maybe list all invoiced dossiers?
+        $vouchers   = $this->dossier_service->fetchAllClosedDossiers($token);
+        $collectors = $this->vocabulary_service->fetchAllCollectors($token);
+        $view = 'fast_dossier/dossier_readonly';
+        break;
       case 'NEW':
       default:
         $vouchers = $this->dossier_service->fetchAllNewVouchers($token);
     }
 
-    $data = array(
-      'dossier'                 => $dossier,
-      'voucher_number'          => $voucher_number,
-      'vouchers'                => $vouchers,
-      'traffic_posts'           => $this->dossier_service->fetchAllTrafficPostsByAllotment($dossier->dossier->allotment_id, $token),
-      'company_depot'           => property_exists($this->_get_authenticated_user(), 'company_depot') ? $this->_get_authenticated_user()->company_depot : null,
-    );
+    $data['vouchers'] = $vouchers;
 
     if(!$this->_has_role('FAST_MANAGER'))
     {
-      $data['collectors'] = $this->vocabulary_service->fetchAllCollectors($token);
+      if($collectors == null)
+        $collectors = $this->vocabulary_service->fetchAllCollectors($token);
+
       $data['insurances'] = $this->vocabulary_service->fetchAllInsurances($token);
     }
+
+    if($collectors != null)
+      $data['collectors'] = $collectors;
 
     $this->_add_content($this->load->view($view, $data, true));
 

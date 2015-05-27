@@ -1,7 +1,10 @@
 (function($){
     $(document).ready(function() {
         $('.table_list tr').click(function(){
-            window.location.href = $(this).find('a').attr('href');
+            var $_href = $(this).find('a').attr('href');
+
+            if($_href)
+              window.location.href = $_href;
         });
         /*
         $('.dossierbar__id').click(function(){

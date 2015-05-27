@@ -75,7 +75,6 @@
     </div>
 
 <?php
-//TODO: @Gert, voorzien van een correcte styling voor de form errors!
 
 $errors = validation_errors();
 

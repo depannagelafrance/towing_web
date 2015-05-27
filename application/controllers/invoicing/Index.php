@@ -6,6 +6,7 @@ class Index extends Page {
       parent::__construct();
 
       $this->load->library('towing/Dossier_service');
+      $this->load->library('towing/Invoice_service');
       $this->load->library('table');
     }
 
@@ -29,9 +30,9 @@ class Index extends Page {
         $data['title'] = 'Afgesloten dossiers';
         break;
       case 'batch':
-        $template = 'invoicing/index_batches';
-        $data['batches'] = array();
-        $data['title'] = 'Facturatie runs';
+        $template = 'invoicing/index_invoices';
+        $data['invoices'] = $this->invoice_service->fetchAllInvoices($this->_get_user_token());
+        $data['title'] = 'Facturen';
         break;
       case 'for_invoice':
       default:

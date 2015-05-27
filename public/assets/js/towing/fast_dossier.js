@@ -1370,4 +1370,26 @@ $(document).ready(function() {
         }
       });
     }
+
+    /** INVOICE */
+    $('#create-invoice-button').on('click', function(){
+        if(confirm('Bent u zeker dat u een factuur wenst aan te maken?')) {
+          $.ajax({
+              type: "POST",
+              cache: false,
+              url: '/invoicing/ajax/createInvoiceForVoucher/' + Dossier.voucher_id,
+              data: {}
+          }).success(function(data) {
+            if(data.result && data.result == 'ok') {
+              alert('De factuur zal binnen enkele momenten beschikbaar zijn in de bijlagen van deze takelbon.');
+              location.reload();
+            } else {
+              alert('Er is iets fout gegaan bij het aanmaken van de factuur!');
+            }
+          });
+
+        }
+    });
+
+
 });

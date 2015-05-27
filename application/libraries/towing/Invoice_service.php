@@ -18,4 +18,43 @@ class Invoice_service extends Rest_service {
       return $this->CI->rest->post(sprintf('/invoice/batch/%s', $token));
     }
 
+    public function createExpertMInvoiceExport($ids, $token) {
+      return $this->CI->rest->post(
+                  sprintf('/invoice/export/expertm/%s', $token),
+                  json_encode($ids),
+                  'application/json');
+    }
+
+
+    /**
+     * Fetch the invoice batches from the back-end
+     *
+     * @param $token (required) the token of the current user
+     */
+    public function fetchAllInvoiceBatches($token)
+    {
+      return $this->CI->rest->get(sprintf('/invoice/batch/%s', $token));
+    }
+
+
+    /**
+     * Fetch the invoices  from the back-end
+     *
+     * @param $token (required) the token of the current user
+     */
+    public function fetchAllInvoices($token)
+    {
+      return $this->CI->rest->get(sprintf('/invoice/%s', $token));
+    }
+
+    /**
+     * Create an invoice for a specific voucher
+     * @param $voucher_id
+     * @param $token
+     */
+    public function createInvoiceForVoucher($voucher_id, $token)
+    {
+      return $this->CI->rest->post(sprintf('/invoice/voucher/%s/%s', $voucher_id, $token));
+    }
+
 }
