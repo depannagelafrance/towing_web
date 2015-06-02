@@ -23,7 +23,7 @@ $module = $this->uri->segment(1);
 
 $this->load->helper('date');
 
-$this->table->set_heading('Factuurnummer', 'Factuurdatum', 'Takelbon', 'Klant', 'Acties');
+$this->table->set_heading('Factuurnummer', 'Factuurdatum', 'Takelbon', 'Klant', '&nbsp;', '&nbsp;');
 
 $prev = '';
 if($invoices && sizeof($invoices) > 0) {
@@ -44,6 +44,7 @@ if($invoices && sizeof($invoices) > 0) {
         mdate('%d/%m/%Y', $invoice->invoice_date),
         $invoice->voucher_number,
         $_customer,
+        ($invoice->document_id ? sprintf('<a href="/%s/document/download/%s"><i class="fa fa-download fa-2x"></i></a>', $module, $invoice->document_id) : '&nbsp;'),
         form_checkbox('selected_invoice_id[]', $invoice->invoice_id)
       );
   }

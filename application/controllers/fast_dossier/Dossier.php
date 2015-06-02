@@ -138,12 +138,12 @@ class Dossier extends Page {
 
     $data['vouchers'] = $vouchers;
 
+    $data['insurances'] = $this->vocabulary_service->fetchAllInsurances($token);
+
     if(!$this->_has_role('FAST_MANAGER'))
     {
       if($collectors == null)
         $collectors = $this->vocabulary_service->fetchAllCollectors($token);
-
-      $data['insurances'] = $this->vocabulary_service->fetchAllInsurances($token);
     }
 
     if($collectors != null)

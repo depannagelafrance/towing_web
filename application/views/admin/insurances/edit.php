@@ -47,6 +47,19 @@ if($errors) {
       <label>Stad: </label>
       <?php print form_input('city', $city); ?>
     </div>
+
+    <div class="form-item-horizontal">
+      <label>Niet automatisch factureren? </label>
+      <?php
+        $data = array(
+          'name'        => 'invoice_excluded',
+          'value'       => 1,
+          'checked'     => ($invoice_excluded == 1)
+        );
+
+        print form_checkbox($data);
+      ?>
+    </div>
   </div>
 
 

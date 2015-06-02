@@ -58,6 +58,8 @@ $route['invoicing']                              = 'invoicing/index/overview/for
 $route['invoicing/overview/for_invoice']         = 'invoicing/index/overview/for_invoice';
 $route['invoicing/overview/done']                = 'invoicing/index/overview/done';
 $route['invoicing/overview/batch']               = 'invoicing/index/overview/batch';
+$route['invoicing/dossier/(:num)']               = 'fast_dossier/dossier/view/$1';
+$route['invoicing/dossier/(:num)/(:num)']        = 'fast_dossier/dossier/view/$1/$2';
 
 $route['commando/dossier/(:num)']            = 'fast_dossier/dossier/view/$1';
 $route['commando/dossier/(:num)/(:num)']     = 'fast_dossier/dossier/view/$1/$2';

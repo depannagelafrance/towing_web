@@ -220,7 +220,7 @@ $_dossier = $dossier->dossier;
 
     <div class="dossierbar__actions">
       <?php
-        if($_v->status === 'READY FOR INVOICE') {
+        if($_voucher->status === 'READY FOR INVOICE') {
           ?>
           <div class="dossierbar__action__item">
             <input type="button" value="Factuur aanmaken" id="create-invoice-button" />
