@@ -170,7 +170,8 @@ class Collector extends Page {
                                       'zip'           => $result->zip,
                                       'city'          => $result->city,
                                       'country'       => $result->country,
-                                      'vat'           => $result->vat
+                                      'vat'           => $result->vat,
+                                      'customer_number' => $result->customer_number
                               ),
                               true
                       )

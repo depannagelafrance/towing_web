@@ -6,11 +6,11 @@
 
 <div class="box">
 <?php
-$this->table->set_heading('ID', 'Name', 'BTW-nummer', 'Adres', '&nbsp;', '&nbsp;');
+$this->table->set_heading('Klantnummer', 'Name', 'BTW-nummer', 'Adres', '&nbsp;', '&nbsp;');
 
 foreach ($insurances as $insurance){
     $this->table->add_row(
-            $insurance->id,
+            $insurance->customer_number,
             $insurance->name,
             $insurance->vat,
             sprintf("%s %s, %s %s", $insurance->street, $insurance->street_number, $insurance->zip, $insurance->city),

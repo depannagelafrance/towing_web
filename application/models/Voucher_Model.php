@@ -9,6 +9,7 @@ class Voucher_Model  {
   public $insurance_id                = null;
   public $insurance_dossiernr         = null;
   public $insurance_warranty_held_by  = null;
+  public $insurance_invoice_number    = null;
   public $collector_id                = null;
   public $police_signature_dt         = null;
   public $recipient_signature_dt      = null;
@@ -51,6 +52,7 @@ class Voucher_Model  {
       $this->insurance_id                 = $data->insurance_id;
       $this->insurance_dossiernr          = $data->insurance_dossiernr;
       $this->insurance_warranty_held_by   = $data->insurance_warranty_held_by;
+      $this->insurance_invoice_number     = $data->insurance_invoice_number;
       $this->collector_id                 = $data->collector_id;
       $this->police_signature_dt          = $data->police_signature_dt;
       $this->recipient_signature_dt       = $data->recipient_signature_dt;

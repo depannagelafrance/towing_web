@@ -8,11 +8,12 @@
 <div class="box">
 <?php
 //set table headers
-$this->table->set_heading('Naam', 'BTW-nummer', 'Adres', '&nbsp;', '&nbsp;');
+$this->table->set_heading('Klantnummer', 'Naam', 'BTW-nummer', 'Adres', '&nbsp;', '&nbsp;');
 
 // add table row(s)
 foreach ($collectors as $collector){
     $this->table->add_row(
+            $collector->customer_number,
             $collector->name,
             $collector->vat,
             sprintf("%s %s %s %s %s %s", $collector->street, $collector->street_number, $collector->street_pobox, $collector->zip, $collector->city, $collector->country),

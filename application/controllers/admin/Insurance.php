@@ -87,7 +87,8 @@ class Insurance extends Page {
                               "street_pobox"  => "",
                               "zip"           => "",
                               "city"          => "",
-                              'invoice_excluded' => null
+                              'invoice_excluded' => null,
+                              'customer_number' => ''
                           ),
                           true
                   )
@@ -175,7 +176,8 @@ class Insurance extends Page {
                     'street_pobox'  => $result->street_pobox,
                     'zip'           => $result->zip,
                     'city'          => $result->city,
-                    'invoice_excluded' => $result->invoice_excluded
+                    'invoice_excluded' => $result->invoice_excluded,
+                    'customer_number'  => $result->customer_number
                 ),
                 true
             )

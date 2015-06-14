@@ -51,6 +51,11 @@ if($errors) {
            <input type="text" placeholder="Land"
              value="<?php print set_value('country'); ?>" name="country" />
         </div>
+
+        <div class="form-item">
+          <label>Klantnummer: </label>
+          <?php print form_input('customer_number', $customer_number); ?>
+        </div>
     </div>
 
         <div class="form__actions">

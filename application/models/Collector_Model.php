@@ -9,6 +9,7 @@ class Collector_Model  {
   public $zip = null;
   public $city = null;
   public $country = null;
+  public $customer_number = null;
 
 
   public function __construct($data = null) {
@@ -23,6 +24,8 @@ class Collector_Model  {
       $this->zip = array_key_exists('zip', $data) ? $data['zip'] : "";
       $this->city = array_key_exists('city', $data) ? $data['city'] : "";
       $this->country = array_key_exists('country', $data) ? $data['country'] : "";
+
+      $this->customer_number = array_key_exists('customer_number', $data) ? $data['customer_number'] : null;
     }
     return $this;
   }

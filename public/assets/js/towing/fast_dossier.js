@@ -1361,12 +1361,14 @@ $(document).ready(function() {
     if($('#validation_messages').length != 0)
     {
       $.getJSON('/fast_dossier/ajax/fetchValidationMessages/' + Dossier.voucher_id, function(data, status, xhr) {
-        if(data) {
+        if(data && data.length > 0) {
           $('#validation_messages').append("<h3>Gelieve volgende elementen te controleren</h3><ul id='validation_messages_list'></ul>");
 
           $.each(data, function(n, element) {
             $('#validation_messages_list').append("<li>" + element.message + "</li>");
           });
+        } else {
+          $('#validation_messages').hide();
         }
       });
     }
@@ -1381,7 +1383,10 @@ $(document).ready(function() {
               data: {}
           }).success(function(data) {
             if(data.result && data.result == 'ok') {
-              alert('De factuur zal binnen enkele momenten beschikbaar zijn in de bijlagen van deze takelbon.');
+              //alert('De factuur zal binnen enkele momenten beschikbaar zijn in de bijlagen van deze takelbon.');
+              //location.reload();
+              location.href='/invoicing/overview/batch';
+            } else if(data.result && data.result == 'validation_errors') {
               location.reload();
             } else {
               alert('Er is iets fout gegaan bij het aanmaken van de factuur!');
@@ -1390,6 +1395,29 @@ $(document).ready(function() {
 
         }
     });
+
+    $('#create-invoice-storage-button').on('click', function(){
+        if(confirm('Bent u zeker dat u een factuur wenst aan te maken?')) {
+          $.ajax({
+              type: "POST",
+              cache: false,
+              url: '/invoicing/ajax/createStorageInvoiceForVoucher/' + Dossier.voucher_id,
+              data: {}
+          }).success(function(data) {
+            if(data.result && data.result == 'ok') {
+              //alert('De factuur zal binnen enkele momenten beschikbaar zijn in de bijlagen van deze takelbon.');
+              //location.reload();
+              location.href='/invoicing/overview/batch';
+            } else if(data.result && data.result == 'validation_errors') {
+              location.reload();
+            } else {
+              alert('Er is iets fout gegaan bij het aanmaken van de factuur!');
+            }
+          });
+
+        }
+    });
+
 
 
 });

@@ -60,6 +60,11 @@ if($errors) {
         print form_checkbox($data);
       ?>
     </div>
+
+    <div class="form-item-horizontal">
+      <label>Klantnummer: </label>
+      <?php print form_input('customer_number', $customer_number); ?>
+    </div>    
   </div>
 
 

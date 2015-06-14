@@ -231,6 +231,15 @@ $_dossier = $dossier->dossier;
     </div>
 
     <div class="dossierbar__actions">
+      <?php
+        if($_voucher->status === 'INVOICED WITHOUT STORAGE') {
+          ?>
+          <div class="dossierbar__action__item">
+            <input type="button" value="Factuur stallingskosten aanmaken" id="create-invoice-storage-button" />
+          </div>
+          <?php
+        }
+      ?>
       <div class="dossierbar__action__item">
         <div class="btn--dropdown">
           <div class="btn--dropdown--btn btn--icon">
@@ -431,29 +440,36 @@ $_dossier = $dossier->dossier;
             </div>
           </div>
 
-            <!--ASSI-->
-            <div class="form-item-horizontal  assistance-container">
-                <label>Assistance:</label>
-                <?php
-                  if($_voucher->insurance_id) {
-                    foreach($insurances as $d) {
-                      if($d->id === $_voucher->insurance_id) {
-                        print $d->name;
-                      }
-                    }
-                  } else {
-                    print '-- Geen assistance toegekend --';
-                  }
-                ?>
-            </div>
-            <!--END ASSI-->
-
         </div>
       </div>
 
-      <div style="width: 64%;margin-bottom: 30px;">
 
+      <div class="dsform__clearfix dsform_seperation">
+        <div class="dsform__left">
+          <!--ASSI-->
+          <div class="form-item-horizontal dossiernr-container" style="padding-right: 15px;">
+            <label>Assistance:</label>
+            <?php
+              if($_voucher->insurance_id) {
+                foreach($insurances as $d) {
+                  if($d->id === $_voucher->insurance_id) {
+                    print $d->name;
+                  }
+                }
+              } else {
+                print '-- Geen assistance toegekend --';
+              }
+            ?>
+          </div>
+          <!--END ASSI-->
 
+          <div class="form-item-horizontal dossiernr-container" style="padding-right: 15px;">
+              <label>Factuurnummer assistance:</label>
+              <?php print $_voucher->insurance_invoice_number ?>
+          </div>
+        </div>
+
+        <div class="dsform__right">
           <!--DOSS-->
           <div class="form-item-horizontal dossiernr-container">
               <label>Dossiernr.:</label>
@@ -461,13 +477,13 @@ $_dossier = $dossier->dossier;
           </div>
           <!--END DOSS-->
 
-          <!--WARENTY-->
+          <!--WARRANTY-->
           <div class="form-item-horizontal warrenty-container">
               <label>Garantiehouder:</label>
               <?= $_voucher->insurance_warranty_held_by ?>
           </div>
           <!--END WARENTY-->
-
+        </div>
       </div>
 
 

@@ -44,7 +44,7 @@ if($invoices && sizeof($invoices) > 0) {
         mdate('%d/%m/%Y', $invoice->invoice_date),
         $invoice->voucher_number,
         $_customer,
-        ($invoice->document_id ? sprintf('<a href="/%s/document/download/%s"><i class="fa fa-download fa-2x"></i></a>', $module, $invoice->document_id) : '&nbsp;'),
+        ($invoice->document_id ? sprintf('<a class="download_invoice" data-document_id="%s"><i class="fa fa-download fa-2x"></i></a>', $invoice->document_id) : '&nbsp;'), //href="/%s/document/download/%s"
         form_checkbox('selected_invoice_id[]', $invoice->invoice_id)
       );
   }

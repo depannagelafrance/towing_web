@@ -280,7 +280,7 @@ $_dossier = $dossier->dossier;
   </div>
 
   <?php
-  if($_voucher->status === 'TO CHECK')
+  if($_voucher->status === 'TO CHECK' || $_voucher->status === 'READY FOR INVOICE')
   {
     print '<div class="unpadded" style="background-color: #feec8a; padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px; margin-bottom: 15px; color: #7f2710;" id="validation_messages"></div>';
   }
@@ -433,25 +433,27 @@ $_dossier = $dossier->dossier;
 
         </div>
         <div class="dsform__right">
-
-
-
           <!-- Depot Info -->
           <div id="depot_info" class="form-item-horizontal depot-container"></div>
-
-            <!--ASSI-->
-            <div class="form-item-horizontal  assistance-container">
-                <label>Assistance:</label>
-                <?php print listbox_ajax('insurance_id', $_voucher->insurance_id); ?>
-            </div>
-            <!--END ASSI-->
-
         </div>
       </div>
 
-      <div style="width: 64%;margin-bottom: 30px;">
+      <div class="dsform__clearfix dsform_seperation">
+        <div class="dsform__left">
+          <!--ASSI-->
+          <div class="form-item-horizontal dossiernr-container" style="padding-right: 15px;">
+              <label>Assistance:</label>
+              <?php print listbox_ajax('insurance_id', $_voucher->insurance_id); ?>
+          </div>
+          <!--END ASSI-->
 
+          <div class="form-item-horizontal dossiernr-container" style="padding-right: 15px;">
+              <label>Factuurnummer assistance:</label>
+              <?php print form_input('insurance_invoice_number', $_voucher->insurance_invoice_number); ?>
+          </div>
+        </div>
 
+        <div class="dsform__right">
           <!--DOSS-->
           <div class="form-item-horizontal dossiernr-container">
               <label>Dossiernr.:</label>
@@ -465,7 +467,7 @@ $_dossier = $dossier->dossier;
               <?= form_input('insurance_warranty_held_by', $_voucher->insurance_warranty_held_by); ?>
           </div>
           <!--END WARENTY-->
-
+        </div>
       </div>
 
 

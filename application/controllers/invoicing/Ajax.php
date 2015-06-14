@@ -10,12 +10,15 @@ class Ajax extends AjaxPage
     $this->load->library('towing/Invoice_service');
   }
 
-  /**
-   * Index Page for this controller.
-   */
-  public function createInvoiceForVoucher($voucher_number)
+  public function createInvoiceForVoucher($voucher_id)
   {
-    $result = $this->invoice_service->createInvoiceForVoucher($voucher_number, $this->_get_user_token());
+    $result = $this->invoice_service->createInvoiceForVoucher($voucher_id, $this->_get_user_token());
+
+    $this->_sendJson($result);
+  }
+
+  public function createStorageInvoiceForVoucher($voucher_id) {
+    $result = $this->invoice_service->createStorageInvoiceForVoucher($voucher_id, $this->_get_user_token());
 
     $this->_sendJson($result);
   }

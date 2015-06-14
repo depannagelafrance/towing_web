@@ -126,8 +126,8 @@ class Dossier extends Page {
         $vouchers = $this->dossier_service->fetchAllInvoicableDossiers($token);
         break;
       case 'INVOICED':
-        //TODO: maybe list all invoiced dossiers?
-        $vouchers   = $this->dossier_service->fetchAllClosedDossiers($token);
+      case 'INVOICED WITHOUT STORAGE':
+        $vouchers   = $this->dossier_service->fetchAllInvoicedDossiers($token);
         $collectors = $this->vocabulary_service->fetchAllCollectors($token);
         $view = 'fast_dossier/dossier_readonly';
         break;
@@ -206,6 +206,7 @@ class Dossier extends Page {
         $voucher->insurance_id                = toIntegerValue($this->input->post('insurance_id'));
         $voucher->insurance_dossiernr         = $this->input->post('insurance_dossiernr');
         $voucher->insurance_warranty_held_by  = $this->input->post('insurance_warranty_held_by');
+        $voucher->insurance_invoice_number    = $this->input->post('insurance_invoice_number');
 
         $voucher->collector_id        = $this->input->post('collector_id');
 

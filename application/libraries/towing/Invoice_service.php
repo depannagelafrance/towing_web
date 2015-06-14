@@ -49,12 +49,24 @@ class Invoice_service extends Rest_service {
 
     /**
      * Create an invoice for a specific voucher
+     *
      * @param $voucher_id
      * @param $token
      */
     public function createInvoiceForVoucher($voucher_id, $token)
     {
       return $this->CI->rest->post(sprintf('/invoice/voucher/%s/%s', $voucher_id, $token));
+    }
+
+    /**
+     * Create a storage invoice for a specific voucher
+     *
+     * @param $voucher_id
+     * @param $token
+     */
+    public function createStorageInvoiceForVoucher($voucher_id, $token)
+    {
+      return $this->CI->rest->post(sprintf('/invoice/storage/%s/%s', $voucher_id, $token));
     }
 
 }

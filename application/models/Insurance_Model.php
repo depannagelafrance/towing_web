@@ -10,6 +10,7 @@ class Insurance_Model {
   public $zip           = null;
   public $city          = null;
   public $invoice_excluded = null;
+  public $customer_number  = null;
 
 
   public function __construct($data = null)
@@ -24,6 +25,7 @@ class Insurance_Model {
       $this->zip            = array_key_exists('zip', $data) ? $data['zip'] : "";
       $this->city           = array_key_exists('city', $data) ? $data['city'] : "";
       $this->invoice_excluded = array_key_exists('invoice_excluded', $data) ? $data['invoice_excluded'] : null;
+      $this->customer_number  = array_key_exists('customer_number', $data) ? $data['customer_number'] : null;
     }
 
     return $this;
