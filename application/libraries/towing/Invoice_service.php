@@ -21,7 +21,7 @@ class Invoice_service extends Rest_service {
     public function createExpertMInvoiceExport($ids, $token) {
       return $this->CI->rest->post(
                   sprintf('/invoice/export/expertm/%s', $token),
-                  json_encode($ids),
+                  json_encode(array('invoices' => $ids)),
                   'application/json');
     }
 
@@ -51,11 +51,15 @@ class Invoice_service extends Rest_service {
      * Create an invoice for a specific voucher
      *
      * @param $voucher_id
+     * @param $message
      * @param $token
      */
-    public function createInvoiceForVoucher($voucher_id, $token)
+    public function createInvoiceForVoucher($voucher_id, $message, $token)
     {
-      return $this->CI->rest->post(sprintf('/invoice/voucher/%s/%s', $voucher_id, $token));
+      return $this->CI->rest->post(
+          sprintf('/invoice/voucher/%s/%s', $voucher_id, $token),
+          json_encode(array('message' => $message)),
+          'application/json');
     }
 
     /**

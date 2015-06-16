@@ -65,6 +65,8 @@ $(document).ready(function() {
     initFancyBox('#add-nota-link');
     initFancyBox('#add-activity-link');
     initFancyBox('#add-attachment-link');
+    initFancyBox('#generate-invoice-link');
+
 
     $('#view-nota-link').fancybox({
         'scrolling'		: 'no',
@@ -1374,7 +1376,7 @@ $(document).ready(function() {
     }
 
     /** INVOICE */
-    $('#create-invoice-button').on('click', function(){
+    $('#btnInvoiceGenerate').on('click', function(){
         if(confirm('Bent u zeker dat u een factuur wenst aan te maken?')) {
           $.ajax({
               type: "POST",
@@ -1395,6 +1397,42 @@ $(document).ready(function() {
 
         }
     });
+
+
+    $('#generate-invoice-form form').submit(function(event) {
+        var inputs = $(this).serializeArray();
+
+        var formObj = {};
+        formObj = serializeFormInputs(inputs);
+
+        generateInvoice(formObj).success(function(data){
+          parent.$.fancybox.close();
+
+          if(data.result && data.result == 'ok') {
+            //alert('De factuur zal binnen enkele momenten beschikbaar zijn in de bijlagen van deze takelbon.');
+            //location.reload();
+            location.href='/invoicing/overview/batch';
+          } else if(data.result && data.result == 'validation_errors') {
+            location.reload();
+          } else {
+            alert('Er is iets fout gegaan bij het aanmaken van de factuur!');
+          }
+        });
+
+        event.preventDefault();
+    });
+
+
+    function generateInvoice(formObj){
+        var url = '/invoicing/ajax/createInvoiceForVoucher';
+        return $.ajax({
+            type		: "POST",
+            cache	: false,
+            url		: url,
+            data		: formObj
+        });
+    }
+
 
     $('#create-invoice-storage-button').on('click', function(){
         if(confirm('Bent u zeker dat u een factuur wenst aan te maken?')) {

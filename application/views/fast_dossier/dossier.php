@@ -223,7 +223,12 @@ $_dossier = $dossier->dossier;
         if($_voucher->status === 'READY FOR INVOICE') {
           ?>
           <div class="dossierbar__action__item">
-            <input type="button" value="Factuur aanmaken" id="create-invoice-button" />
+            <!-- <input type="button" value="Factuur aanmaken" id="create-invoice-button" /> -->
+            <div class="btn--dropdown">
+              <div class="btn--icon">
+                <span class="icon--invoice"><a id="generate-invoice-link" href="#generate-invoice-form">Factuur aanmaken</a></span>
+              </div>
+            </div>
           </div>
           <?php
         }
@@ -1224,6 +1229,47 @@ $_dossier = $dossier->dossier;
 
   <!--END NOTA-->
 
+  <!-- INVOICE -->
+  <?php
+    if($_voucher->status === 'READY FOR INVOICE') {
+  ?>
+  <div id="generate-invoice-form" style="display: none;">
+    <?php
+
+    $invoice_hidden = array(
+      'voucher_id' => $_voucher->id,
+      'dossier_id' =>  $_dossier->id
+    );
+
+    $invoice_attr = array(
+      'data-vid' => $_voucher->id,
+      'data-did' => $_dossier->id
+    );
+
+    print form_open('',$nota_attr,$nota_hidden);
+
+    ?>
+    <div class="fancybox-form">
+      <h3>Factuur aanmaken</h3>
+      <div class="form-item-horizontal">
+        <label>Commentaar:</label>
+        <?php print form_textarea('message'); ?>
+      </div>
+
+    </div>
+    <div class="fancybox-form__actions">
+      <div class="form-item fancybox-form__actions__cancel">
+        <a class="close_overlay" href="#">Annuleren</a>
+      </div>
+
+      <div class="form-item fancybox-form__actions__save">
+        <input type="submit" value="Aanmaken" name="btnInvoiceGenerate" />
+      </div>
+    </div>
+    <?= form_close(); ?>
+  </div>
+  <?php } ?>
+  <!-- END INVOICE -->
 
 </div>
 

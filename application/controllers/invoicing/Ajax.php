@@ -10,9 +10,12 @@ class Ajax extends AjaxPage
     $this->load->library('towing/Invoice_service');
   }
 
-  public function createInvoiceForVoucher($voucher_id)
+  public function createInvoiceForVoucher()
   {
-    $result = $this->invoice_service->createInvoiceForVoucher($voucher_id, $this->_get_user_token());
+    $voucher_id = $this->input->post('voucher_id');
+    $message    = $this->input->post('message');
+
+    $result = $this->invoice_service->createInvoiceForVoucher($voucher_id, $message, $this->_get_user_token());
 
     $this->_sendJson($result);
   }
