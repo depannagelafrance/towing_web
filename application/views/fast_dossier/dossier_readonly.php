@@ -232,7 +232,7 @@ $_dossier = $dossier->dossier;
 
     <div class="dossierbar__actions">
       <?php
-        if($_voucher->status === 'INVOICED WITHOUT STORAGE') {
+        if($_voucher->status === 'INVOICED WITHOUT STORAGE' && $IS_FAST_MANAGER) {
           ?>
           <div class="dossierbar__action__item">
             <input type="button" value="Factuur stallingskosten aanmaken" id="create-invoice-storage-button" />
@@ -608,31 +608,66 @@ $_dossier = $dossier->dossier;
         </div>
 
 
-        <div class="autograph-container__collecting">
-          <label>Bevestiging afhaler:</label>
+        <?php
+          if($_voucher->status === 'INVOICED WITHOUT STORAGE' && $IS_FAST_MANAGER) {
+            print form_open('fast_dossier/dossier/save_collector/' . $_dossier->dossier_number . '/' . $_voucher->voucher_number);
+        ?>
+          <div class="autograph-container__collecting">
+            <label>Bevestiging afhaler:</label>
 
-          <div class="form-item-horizontal  autograph-container__collecting__collector">
-            <label class="notbold">Afhaler:</label>
+            <div class="form-item-horizontal  autograph-container__collecting__collector">
+              <label class="notbold">Afhaler:</label>
+              <?php print listbox_ajax('collector_id', $_voucher->collector_id); ?>
+            </div>
 
-            <?php
-              if($_voucher->collector_id) {
-                foreach($collectors as $d) {
-                  if($d->id === $_voucher->collector_id)
-                    print $d->name;
-                }
-              } else {
-                print "-- Geen afhaler toegekend -- ";
-              }
-            ?>
+            <div class="form-item-horizontal  autograph-container__collecting__date">
+              <label class="notbold">Datum:</label>
+              <?php
+
+              $vehicule = array(
+                  'name' => 'vehicule_collected',
+                  'class' => 'datetimepicker',
+                  'value' => $_voucher->vehicule_collected ? mdate('%d/%m/%Y %H:%i',$_voucher->vehicule_collected) : ''
+              );
+
+              print form_input($vehicule); ?>
+            </div>
+            <div class="form-item-horizontal  autograph-container__collecting__date">
+              <input type="submit" value="Bewaren" name="btnSaveCollectionInformation">
+            </div>
           </div>
+        <?php
+            print form_close();
+          } else {
+        ?>
+            <div class="autograph-container__collecting">
+              <label>Bevestiging afhaler:</label>
 
-          <div class="form-item-horizontal  autograph-container__collecting__date">
-            <label class="notbold">Datum:</label>
-            <?php
-            print $_voucher->vehicule_collected ? mdate('%d/%m/%Y %H:%i',strtotime($_voucher->vehicule_collected)) : ''
-            ?>
-          </div>
-        </div>
+              <div class="form-item-horizontal  autograph-container__collecting__collector">
+                <label class="notbold">Afhaler:</label>
+
+                <?php
+                  if($_voucher->collector_id) {
+                    foreach($collectors as $d) {
+                      if($d->id === $_voucher->collector_id)
+                        print $d->name;
+                    }
+                  } else {
+                    print "-- Geen afhaler toegekend -- ";
+                  }
+                ?>
+              </div>
+
+              <div class="form-item-horizontal  autograph-container__collecting__date">
+                <label class="notbold">Datum:</label>
+                <?php
+                print $_voucher->vehicule_collected ? mdate('%d/%m/%Y %H:%i',strtotime($_voucher->vehicule_collected)) : ''
+                ?>
+              </div>
+            </div>
+        <?php
+          }
+        ?>
       </div>
       <!-- AUTHOGRAPH BUTTONS -->
       <div class="autograph-container-buttons">
@@ -680,7 +715,14 @@ $_dossier = $dossier->dossier;
           }
           ?>
           <div class="autograph-block autograph-container__collecting__autograph <?php print $collecting_class; ?>" style="background-image: url(<?php print $autograph_collecting_url; ?>);">
-
+            <?php if($collecting_has_autograph || !$IS_FAST_MANAGER): ?>
+              <!-- a id="edit-autograph-collecting" class="inform-link icon--edit--small" href="#"></a-->
+            <?php else: ?>
+              <a class="add_autograph" id="signature-collector"
+                 data-did="<?php print $_dossier->id; ?>"
+                 data-vid="<?php print $_voucher->id; ?>"
+                 href="#">Voeg een handtekening toe</a>
+            <?php endif; ?>
           </div>
         </div>
       </div>

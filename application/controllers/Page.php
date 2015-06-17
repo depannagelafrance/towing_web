@@ -120,7 +120,7 @@ class Page extends CI_Controller {
 		return FALSE;
 	}
 
-	protected function _cache_Dossier($dossier) {
+	protected function _cache_dossier($dossier) {
 		if(!isset($_SESSION)) {
 			session_start();
 		}

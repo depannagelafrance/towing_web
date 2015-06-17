@@ -62,7 +62,7 @@ class Dossier extends Page {
         if($dossier)
         {
           //for performance improvements, put the dossier in the flash data cache
-          //$this->_cache_Dossier($dossier);
+          $this->_cache_dossier($dossier);
 
           //redirect to the view
           redirect(sprintf("/fast_dossier/dossier/%s/%s", $dossier->dossier->dossier_number, $voucher_number));
@@ -71,13 +71,41 @@ class Dossier extends Page {
     // }
   }
 
+  public function save_collector($number, $voucher_number) {
+    $token = $this->_get_user_token();
+
+    $dossier = $this->dossier_service->fetchDossierByNumber($number, $token);
+    $this->form_validation->set_rules('collector_id', 'Afhaler', 'required');
+    $this->form_validation->set_rules('vehicule_collected', 'Datum afhaling', 'required');
+
+
+    if ($this->form_validation->run() === FALSE)
+    {
+      redirect(sprintf("/fast_dossier/dossier/%s/%s", $dossier->dossier->dossier_number, $voucher_number));
+    }
+    else
+    {
+      if($dossier && $dossier->dossier) {
+        $this->dossier_service->updateDossierCollectionInformation(
+          $voucher_number,
+          $this->input->post('collector_id'),
+          $this->input->post('vehicule_collected') == '' ? null : DateTime::createFromFormat('d/m/Y H:i', $this->input->post('vehicule_collected'))->getTimestamp(),
+          $token
+        );
+        if($dossier) {
+          redirect(sprintf("/fast_dossier/dossier/%s/%s", $dossier->dossier->dossier_number, $voucher_number));
+        }
+      }
+    }
+  }
+
 
   public function voucher($dossier_id) {
     $dossier = $this->dossier_service->createTowingVoucherForDossier($dossier_id, $this->_get_user_token());
 
     if($dossier) {
       //for performance improvements, put the dossier in the flash data cache
-      $this->_cache_Dossier($dossier);
+      $this->_cache_dossier($dossier);
 
       $voucher = end($dossier->dossier->towing_vouchers)->voucher_number;
 
@@ -113,6 +141,7 @@ class Dossier extends Page {
       'voucher_number'          => $voucher_number,
       'traffic_posts'           => $this->dossier_service->fetchAllTrafficPostsByAllotment($dossier->dossier->allotment_id, $token),
       'company_depot'           => property_exists($this->_get_authenticated_user(), 'company_depot') ? $this->_get_authenticated_user()->company_depot : null,
+      'IS_FAST_MANAGER'         => $this->_has_role('FAST_MANAGER')
     );
 
     $collectors = null;

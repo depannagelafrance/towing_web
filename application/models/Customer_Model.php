@@ -33,7 +33,9 @@ class Customer_Model  {
         $this->country        = $data['country'];
         $this->email          = $data['email'];
         $this->phone          = $data['phone'];
-        $this->type           = $data['type'];
+          
+        if(array_key_exists('type', $data))
+          $this->type           = $data['type'];
        // $this->invoice_ref    = $data['invoice_ref'];
       }else{
         $this->id             = $data->id;

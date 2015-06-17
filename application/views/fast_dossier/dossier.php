@@ -854,6 +854,7 @@ $_dossier = $dossier->dossier;
       );
 
       print form_open('','',$fact_hidden);
+      print form_input(array('name' => 'type', 'type' => 'hidden', 'value' => $_voucher->customer->type, 'id' => 'customer_search_type'));
     ?>
     <div class="fancybox-form">
       <h3>Facturatie gegevens Bewerken</h3>
@@ -925,7 +926,8 @@ $_dossier = $dossier->dossier;
             <label>Email:</label>
             <?php print form_input(array('name' => 'email', 'value' => $_voucher->customer->email, 'id' => 'customer_search_email')); ?>
           </div>
-            <!--
+
+          <!--
           <div class="form-item-horizontal invoice-full-container__email">
             <label>Referentie:</label>
             <?php // print form_input('invoice_ref', $_voucher->customer->invoice_ref); ?>

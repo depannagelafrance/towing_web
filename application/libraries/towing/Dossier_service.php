@@ -140,6 +140,19 @@ class Dossier_service extends Rest_service {
       );
     }
 
+    public function updateDossierCollectionInformation($voucher_number, $collector_id, $vehicule_collected, $token)
+    {
+      return $this->CI->rest->put(
+          sprintf('/dossier/collector/%s', $token),
+          json_encode(array(
+            'voucher_number' => $voucher_number,
+            'collector_id' => $collector_id,
+            'vehicule_collected' => $vehicule_collected
+          )),
+          'application/json'
+      );
+    }
+
     public function addActivitiesToVoucher($dossier_id, $voucher_id, $activities, $token)
     {
       return $this->CI->rest->put(
