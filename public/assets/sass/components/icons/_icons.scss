@@ -472,3 +472,23 @@
   }
 
 }
+
+
+// .icon--invoice
+//
+// Markup:
+// <div class="icon--invoice"></div>
+//
+// Styleguide 1.0.23
+
+.icon--invoice{
+  @extend .icon;
+  background-position: -504px -276px;
+
+  .bright & {
+
+    background-position: -504px -339px;
+
+  }
+
+}
