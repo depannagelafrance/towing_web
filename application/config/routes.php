@@ -68,6 +68,11 @@ $route['commando/overview/(:any)']           = 'fast_dossier/index/overview/$1';
 $route['commando/search']                    = 'fast_dossier/search';
 $route['commando/search/voucher']            = 'fast_dossier/search/voucher';
 
+$route['awv/overview/to_check']         = 'awv/index/overview/to_check';
+$route['awv/overview/approved']         = 'awv/index/overview/approved';
+$route['awv/dossier/(:num)']               = 'fast_dossier/dossier/view/$1';
+$route['awv/dossier/(:num)/(:num)']        = 'fast_dossier/dossier/view/$1/$2';
+
 //$route['news'] = 'news';
 //$route['(:any)'] = 'pages/view/$1';
 

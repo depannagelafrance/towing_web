@@ -39,6 +39,14 @@ class Dossier_service extends Rest_service {
       return $this->CI->rest->get(sprintf('/dossier/list/invoiced/%s', $token));
     }
 
+    public function fetchAllDossiersForAWVApproval($token) {
+      return $this->CI->rest->get(sprintf('/dossier/list/awaiting_awv_approval/%s', $token));
+    }
+
+    public function fetchAllDossiersWithAWVApproval($token) {
+      return $this->CI->rest->get(sprintf('/dossier/list/awv_approved/%s', $token));
+    }
+
     public function fetchAllClosedDossiers($token)
     {
       return $this->CI->rest->get(sprintf('/dossier/list/done/%s', $token));
@@ -365,7 +373,8 @@ class Dossier_service extends Rest_service {
    *
    * @return an array of json objects containing the information of the additional costs
    */
-  public function fetchAllVoucherAdditionalCosts($dossier_id, $voucher_id, $token) {
+  public function fetchAllVoucherAdditionalCosts($dossier_id, $voucher_id, $token)
+  {
     return $this->CI->rest->get(sprintf('/dossier/list/additional_costs/%s/%s/%s', $dossier_id, $voucher_id, $token));
   }
 
@@ -378,7 +387,38 @@ class Dossier_service extends Rest_service {
    *
    * @return a JSON object containing either an "ok" or an error
    */
-  public function removeVoucherAdditionalCost($cost_id,  $voucher_id, $token) {
+  public function removeVoucherAdditionalCost($cost_id,  $voucher_id, $token)
+  {
     return $this->CI->rest->delete(sprintf('/dossier/voucher/%s/additional_cost/%s/%s', $voucher_id, $cost_id, $token));
+  }
+
+  /**
+   * Approve a voucher for AWV export and letter generation
+   *
+   * @param $voucher_id the id of the voucher
+   * @param $token the token of the current user
+   *
+   * @return a json object containing an "ok" or an error
+   */
+  public function approveVoucher($voucher_id, $token)
+  {
+    return $this->CI->rest->post(sprintf('/dossier/voucher/approve/%s/%s', $voucher_id, $token));
+  }
+
+  /**
+   * Export the vouchers awaiting approval to Excel
+   *
+   * @param $token the token of the current user
+   *
+   * @return a base64 stream representing the excel file
+   */
+  public function exportVouchersAwaitingApprovalToExcel($token)
+  {
+    return $this->CI->rest->post(sprintf('/dossier/export/vouchersAwaitingApproval/%s', $token));
+  }
+
+  public function startLetterRenderingOfAWVApprovedVouchers($token)
+  {
+    return $this->CI->rest->post(sprintf('/dossier/render/awv_letter/%s', $token));
   }
 }

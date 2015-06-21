@@ -51,7 +51,7 @@ $_dossier = $dossier->dossier;
       $last = $this->uri->total_segments();
       $url_dossier_id = $this->uri->segment($last - 1);
       $url_takelbon_id = $this->uri->segment($last);
-
+      $module = $this->uri->segment(1);
 
       $this->load->helper('date');
 
@@ -74,7 +74,7 @@ $_dossier = $dossier->dossier;
 
             $this->table->add_row(
                   array('class' => $class,
-                        'data' => sprintf('<a class="id__cell" href="/fast_dossier/dossier/%s/%s">
+                        'data' => sprintf('<a class="id__cell" href="/%s/dossier/%s/%s">
                                               <span class="id__cell__icon icon--map"></span>
                                               <span class="id__cell__text__type">%s</span>
                                               <span class="id__cell__text">
@@ -83,7 +83,7 @@ $_dossier = $dossier->dossier;
                                                   <span class="id__cell__text__nr">%s</span>
                                                   <span class="id__cell__text__info">%s %s</span>
                                                 </span>
-                                              </span></a>', $voucher->dossier_number, $voucher->voucher_number, $voucher->dossier_number, $voucher->call_number, $voucher->incident_type, $voucher->direction_name , $voucher->indicator_name))
+                                              </span></a>', $module, $voucher->dossier_number, $voucher->voucher_number, $voucher->dossier_number, $voucher->call_number, $voucher->incident_type, $voucher->direction_name , $voucher->indicator_name))
             );
 
           }
@@ -507,6 +507,26 @@ $_dossier = $dossier->dossier;
             print $this->table->generate();
           ?>
         <?php endif; ?>
+
+        <!-- ADDITIONAL COSTS -->
+        <div class="additional-costs-container__header">
+
+          <?php if(count($_voucher->towing_additional_costs) > 0): ?>
+
+            <?php
+              $this->table->set_heading('Extra kost',  'EHP (excl.)', 'EHP (incl.):');
+
+              foreach($_voucher->towing_additional_costs as $_activity) {
+                $this->table->add_row(
+                      $_activity->name,
+                      sprintf("%1\$.2f", $_activity->fee_excl_vat),
+                      sprintf("%1\$.2f", $_activity->fee_incl_vat));
+              }
+
+              print $this->table->generate();
+            ?>
+          <?php endif; ?>
+        </div>
 
         <!--PAYMENT-->
         <div class="form-item-vertical payment-container">
