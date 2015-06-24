@@ -29,6 +29,14 @@ class Index extends Page {
         $data['dossiers'] = $this->dossier_service->fetchAllDossiersWithAWVApproval($this->_get_user_token());
         $data['title'] = 'Goedgekeurde dossiers';
         break;
+      case 'closed':
+        $data['dossiers'] = $this->dossier_service->fetchAllClosedDossiers($this->_get_user_token());
+        $data['title'] = 'Goedgekeurde dossiers';
+        $template = 'awv/closed';
+        break;
+      case 'batches':
+        $data['batches'] = $this->dossier_service->fetchAllAWVLetterBatches($this->_get_user_token());
+        $template = 'awv/batches';
       default:
         $data['dossiers'] = $this->dossier_service->fetchAllDossiersForAWVApproval($this->_get_user_token());
         $data['title'] = 'Dossiers ter controle';

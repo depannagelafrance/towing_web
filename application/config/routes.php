@@ -60,6 +60,7 @@ $route['invoicing/overview/done']                = 'invoicing/index/overview/don
 $route['invoicing/overview/batch']               = 'invoicing/index/overview/batch';
 $route['invoicing/dossier/(:num)']               = 'fast_dossier/dossier/view/$1';
 $route['invoicing/dossier/(:num)/(:num)']        = 'fast_dossier/dossier/view/$1/$2';
+$route['invoicing/document/download/(:num)']     = 'fast_dossier/document/download/$1';
 
 $route['commando/dossier/(:num)']            = 'fast_dossier/dossier/view/$1';
 $route['commando/dossier/(:num)/(:num)']     = 'fast_dossier/dossier/view/$1/$2';
@@ -68,10 +69,14 @@ $route['commando/overview/(:any)']           = 'fast_dossier/index/overview/$1';
 $route['commando/search']                    = 'fast_dossier/search';
 $route['commando/search/voucher']            = 'fast_dossier/search/voucher';
 
-$route['awv/overview/to_check']         = 'awv/index/overview/to_check';
-$route['awv/overview/approved']         = 'awv/index/overview/approved';
-$route['awv/dossier/(:num)']               = 'fast_dossier/dossier/view/$1';
-$route['awv/dossier/(:num)/(:num)']        = 'fast_dossier/dossier/view/$1/$2';
+$route['awv/overview/to_check']             = 'awv/index/overview/to_check';
+$route['awv/overview/approved']             = 'awv/index/overview/approved';
+$route['awv/overview/closed']               = 'awv/index/overview/closed';
+$route['awv/overview/batches']              = 'awv/index/overview/batches';
+$route['awv/dossier/(:num)']                = 'fast_dossier/dossier/view/$1';
+$route['awv/dossier/(:num)/(:num)']         = 'fast_dossier/dossier/view/$1/$2';
+$route['awv/document/download/(:num)']      = 'fast_dossier/document/download/$1';
+
 
 //$route['news'] = 'news';
 //$route['(:any)'] = 'pages/view/$1';

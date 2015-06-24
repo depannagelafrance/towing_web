@@ -52,11 +52,15 @@ $module = $this->uri->segment(1);
 
 $to_check_active = $active_tab == 'to_check' || $active_tab == 'index' || $active_tab == '';
 $approved_active = $active_tab == 'approved';
+$closed_active   = $active_tab == 'closed';
+$batches_active  = $active_tab == 'batches';
 ?>
 
 <div class="status--indication">
   <a class="<?php print $to_check_active  ? 'active' : '';  ?>" href="/<?=$module?>/overview/to_check">Ter controle</a>
   <a class="<?php print $approved_active ? 'active' : '';  ?>" href="/<?=$module?>/overview/approved">Goedgekeurd</a>
+  <a class="<?php print $closed_active ? 'active' : '';  ?>" href="/<?=$module?>/overview/closed">Afgesloten</a>
+  <a class="<?php print $batches_active ? 'active' : '';  ?>" href="/<?=$module?>/overview/batches">Geconsolideerde brieven</a>
 </div>
 
 

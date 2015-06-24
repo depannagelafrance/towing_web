@@ -225,9 +225,12 @@ $_dossier = $dossier->dossier;
           <div class="dossierbar__action__item">
             <!-- <input type="button" value="Factuur aanmaken" id="create-invoice-button" /> -->
             <div class="btn--dropdown">
-              <div class="btn--icon">
-                <span class="icon--invoice"><a id="generate-invoice-link" href="#generate-invoice-form">Factuur aanmaken</a></span>
+              <div class="btn--dropdown--btn btn--icon">
+                <span class="icon--invoice">Facturatie</span>
               </div>
+              <ul class="btn--dropdown--drop">
+                <li><a id="generate-invoice-link" href="#generate-invoice-form">Factuur aanmaken</a></li>
+              </ul>
             </div>
           </div>
           <?php

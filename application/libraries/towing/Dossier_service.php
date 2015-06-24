@@ -421,4 +421,9 @@ class Dossier_service extends Rest_service {
   {
     return $this->CI->rest->post(sprintf('/dossier/render/awv_letter/%s', $token));
   }
+
+  public function fetchAllAWVLetterBatches($token)
+  {
+    return $this->CI->rest->get(sprintf('/dossier/list/awv/letter/batches/%s', $token));
+  }
 }
