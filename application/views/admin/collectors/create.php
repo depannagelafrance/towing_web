@@ -53,8 +53,17 @@ if($errors) {
         </div>
 
         <div class="form-item">
-          <label>Klantnummer: </label>
-          <?php print form_input('customer_number', $customer_number); ?>
+          <input type="text" placeholder="Klantnummer"
+            value="<?php print set_value('customer_number'); ?>" name="customer_number" />
+        </div>
+
+        <div class="form-item-horizontal">
+          <label>Factuur aan:</label>
+          <?php
+            $options = $collector_types;
+
+            echo form_dropdown('type', $options, set_value('type'));
+          ?>
         </div>
     </div>
 

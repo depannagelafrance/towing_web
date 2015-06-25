@@ -37,6 +37,13 @@ if($invoices && sizeof($invoices) > 0) {
       if($invoice->company_vat != null && trim($invoice->company_vat) != '')
         $_customer .= " (" . $invoice->company_vat . ")";
 
+      if($invoice->first_name != null && $invoice->company_name != null
+          && $invoice->first_name != '' && $invoice->company_name != '')
+          $_customer .= ", tav. ";
+
+      if($invoice->first_name != null && $invoice->first_name != '')
+        $_customer .= sprintf("%s, %s -", strtoupper($invoice->last_name), $invoice->first_name);
+
       $_customer .= sprintf(" %s %s %s %s", $invoice->street, $invoice->street_number, $invoice->zip, $invoice->city);
 
       $this->table->add_row(

@@ -48,6 +48,15 @@
           <label>Klantnummer: </label>
           <?php print form_input('customer_number', $customer_number); ?>
         </div>
+
+        <div class="form-item-horizontal">
+          <label>Factureren aan: </label>
+          <?php
+            $options = $collector_types;
+
+            echo form_dropdown('type', $options, $type);
+          ?>
+        </div>
     </div>
 
       <div class="box form__actions">

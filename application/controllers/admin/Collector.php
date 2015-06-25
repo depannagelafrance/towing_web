@@ -38,7 +38,7 @@ class Collector extends Page {
               $this->_add_content(
                       $this->load->view(
                               'admin/collectors/create',
-                              array("name" => ""),
+                              array("name" => "", 'collector_types' => $this->_get_collector_types()),
                               true
                       )
               );
@@ -56,10 +56,13 @@ class Collector extends Page {
                       $this->_add_error(sprintf('Fout bij het aanmaken van item (%d - %s)', $result->statusCode, $result->message));
                   }
 
+                  $data = $this->input->post();
+                  $data['collector_types'] = $this->_get_collector_types();
+
                   $this->_add_content(
                           $this->load->view(
                                   'admin/collectors/create',
-                                  $this->input->post(),
+                                  $data,
                                   true
                           )
                   );
@@ -76,7 +79,7 @@ class Collector extends Page {
           $this->_add_content(
                   $this->load->view(
                           'admin/collectors/create',
-                          array("name" => ""),
+                          array("name" => "", 'collector_types' => $this->_get_collector_types()),
                           true
                   )
           );
@@ -102,6 +105,7 @@ class Collector extends Page {
           {
             $data = $this->input->post();
             $data['id'] = $id;
+            $data['collector_types'] = $this->_get_collector_types();
 
               $this->_add_content(
                       $this->load->view(
@@ -129,7 +133,7 @@ class Collector extends Page {
 
                   $data = $this->input->post();
                   $data['id'] = $id;
-
+                  $data['collector_types'] = $this->_get_collector_types();
 
                   $this->_add_content(
                           $this->load->view(
@@ -171,7 +175,9 @@ class Collector extends Page {
                                       'city'          => $result->city,
                                       'country'       => $result->country,
                                       'vat'           => $result->vat,
-                                      'customer_number' => $result->customer_number
+                                      'customer_number' => $result->customer_number,
+                                      'type'          => $result->type,
+                                      'collector_types' => $this->_get_collector_types()
                               ),
                               true
                       )
@@ -234,6 +240,13 @@ class Collector extends Page {
    */
   private function _getCollectorById($id){
       return $this->admin_service->fetchCollectorById($id, $this->_get_user_token());
+  }
+
+  private function _get_collector_types() {
+    return array(
+      "OTHER"    => "Factuur aan afhaler",
+      "CUSTOMER" => "Factuur aan klant"
+    );
   }
 
 }

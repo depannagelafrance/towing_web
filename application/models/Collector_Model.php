@@ -1,6 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Collector_Model  {
+class Collector_Model
+{
   public $id   = null;
   public $name = null;
   public $street = null;
@@ -10,10 +11,13 @@ class Collector_Model  {
   public $city = null;
   public $country = null;
   public $customer_number = null;
+  public $type = "OTHER";
 
 
-  public function __construct($data = null) {
-    if($data) {
+  public function __construct($data = null)
+  {
+    if($data)
+    {
       $this->id = array_key_exists('id', $data) ? $data['id'] : null;
       $this->name = array_key_exists('name', $data) ? $data['name'] : "";
       $this->vat = array_key_exists('vat', $data) ? $data['vat'] : "";
@@ -26,7 +30,10 @@ class Collector_Model  {
       $this->country = array_key_exists('country', $data) ? $data['country'] : "";
 
       $this->customer_number = array_key_exists('customer_number', $data) ? $data['customer_number'] : null;
+
+      $this->type = array_key_exists('type', $data) ? $data['type'] : 'OTHER';
     }
+
     return $this;
   }
 }
