@@ -631,6 +631,12 @@ $_dossier = $dossier->dossier;
           </div>
 
           <div class="form-item-horizontal  autograph-container__collecting__date">
+            <label class="notbold">Naam:</label>
+            <?php
+            print $_voucher->collector_name ?>
+          </div>
+
+          <div class="form-item-horizontal  autograph-container__collecting__date">
             <label class="notbold">Datum:</label>
             <?php
 
