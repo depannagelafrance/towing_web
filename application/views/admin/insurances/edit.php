@@ -54,7 +54,7 @@ if($errors) {
         $data = array(
           'name'        => 'invoice_excluded',
           'value'       => 1,
-          'checked'     => ($invoice_excluded == 1)
+          'checked'     => (isset($invoice_excluded) ? $invoice_excluded == 1 : 0)
         );
 
         print form_checkbox($data);
@@ -64,7 +64,7 @@ if($errors) {
     <div class="form-item-horizontal">
       <label>Klantnummer: </label>
       <?php print form_input('customer_number', $customer_number); ?>
-    </div>    
+    </div>
   </div>
 
 
