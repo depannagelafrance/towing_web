@@ -187,7 +187,12 @@ $(document).ready(function() {
         minLength: 1,
         select: function( event, ui ) {
             var id = ui.item.value;
-            var selected = customerSearchResults[id];
+            // Fix for only 1 result.
+            if(customerSearchResults.length == 1){
+                var selected = customerSearchResults[0];
+            }else{
+                var selected = customerSearchResults[id];
+            }
             $('#customer_search_firstname').val(selected.first_name);
             $('#customer_search_lastname').val(selected.last_name);
             $('#customer_search_company_name').val(selected.company_name);
@@ -256,7 +261,12 @@ $(document).ready(function() {
         minLength: 1,
         select: function( event, ui ) {
             var id = ui.item.value;
-            var selected = causerSearchResults[id];
+            // Fix for only 1 result.
+            if(customerSearchResults.length == 1){
+                var selected = customerSearchResults[0];
+            }else{
+                var selected = customerSearchResults[id];
+            }
             $('#causer_search_firstname').val(selected.first_name);
             $('#causer_search_lastname').val(selected.last_name);
             $('#causer_search_company_name').val(selected.company_name);
