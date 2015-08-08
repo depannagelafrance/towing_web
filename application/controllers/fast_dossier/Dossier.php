@@ -156,6 +156,7 @@ class Dossier extends Page {
         break;
       case 'INVOICED':
       case 'INVOICED WITHOUT STORAGE':
+      case 'CLOSED':
         $vouchers   = $this->dossier_service->fetchAllInvoicedDossiers($token);
         $collectors = $this->vocabulary_service->fetchAllCollectors($token);
         $view = 'fast_dossier/dossier_readonly';

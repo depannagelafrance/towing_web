@@ -15,6 +15,9 @@ class Ajax extends AjaxPage
     $voucher_id = $this->input->post('voucher_id');
     $message    = $this->input->post('message');
 
+var_dump($this->input->post());
+    die();
+
     $result = $this->invoice_service->createInvoiceForVoucher($voucher_id, $message, $this->_get_user_token());
 
     $this->_sendJson($result);

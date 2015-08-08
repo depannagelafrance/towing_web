@@ -1,11 +1,20 @@
+<table>
+  <thead>
+      <tr>
+        <th>#</th>
+        <th>&nbsp;</th>
+        <th>Naam</th>
+        <th>&nbsp;</th>
+      </tr>
+  </thead>
+  <tbody>
 {{#each attachments}}
-<div class="attachment-item">
-    <h2>Bijlage {{inc @index}}</h2>
-    <div class="attachment-item-content">
-        <div class="attachment-item-link">{{name}}</div>
-        <div class="attachment-item-link-actions">
-            <a href="/fast_dossier/document/{{id}}">Download</a>
-        </div>
-    </div>
-</div>
+  <tr>
+    <td>{{inc @index}}.</td>
+    <td><i class="fa fa-file-o"></i></td>
+    <td style="text-align: left;">{{name}}</td>
+    <td><a href="/fast_dossier/document/{{id}}">Download</a></td>
+  </tr>
 {{/each}}
+  </tbody>
+</table>

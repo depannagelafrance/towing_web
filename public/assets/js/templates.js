@@ -99,19 +99,19 @@ this["Handlebars"]["Templates"]["activity/checkboxes"] = Handlebars.template({"1
 
 this["Handlebars"]["Templates"]["attachment/overview"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
   var helper, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, functionType="function";
-  return "<div class=\"attachment-item\">\n    <h2>Bijlage "
+  return "  <tr>\n    <td>"
     + escapeExpression(((helpers.inc || (depth0 && depth0.inc) || helperMissing).call(depth0, (data && data.index), {"name":"inc","hash":{},"data":data})))
-    + "</h2>\n    <div class=\"attachment-item-content\">\n        <div class=\"attachment-item-link\">"
+    + ".</td>\n    <td><i class=\"fa fa-file-o\"></i></td>\n    <td style=\"text-align: left;\">"
     + escapeExpression(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"name","hash":{},"data":data}) : helper)))
-    + "</div>\n        <div class=\"attachment-item-link-actions\">\n            <a href=\"/fast_dossier/document/"
+    + "</td>\n    <td><a href=\"/fast_dossier/document/"
     + escapeExpression(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"id","hash":{},"data":data}) : helper)))
-    + "\">Download</a>\n        </div>\n    </div>\n</div>\n";
+    + "\">Download</a></td>\n  </tr>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-  var stack1;
+  var stack1, buffer = "<table>\n  <thead>\n      <tr>\n        <th>#</th>\n        <th>&nbsp;</th>\n        <th>Naam</th>\n        <th>&nbsp;</th>\n      </tr>\n  </thead>\n  <tbody>\n";
   stack1 = helpers.each.call(depth0, (depth0 != null ? depth0.attachments : depth0), {"name":"each","hash":{},"fn":this.program(1, data),"inverse":this.noop,"data":data});
-  if (stack1 != null) { return stack1; }
-  else { return ''; }
-  },"useData":true});
+  if (stack1 != null) { buffer += stack1; }
+  return buffer + "  </tbody>\n</table>\n";
+},"useData":true});
 
 this["Handlebars"]["Templates"]["causer/info"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
   return "<div class=\"has_content\">\n";

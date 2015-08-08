@@ -1229,7 +1229,7 @@ $_dossier = $dossier->dossier;
 
   <div id="view-attachment-container" style="display: none;">
     <div class="attachments">
-      <!-- NOTAS LOADED BY JS -->
+      <!-- ATTACHMENTS LOADED BY JS -->
     </div>
     <div class="fancybox-form__actions">
       <div class="form-item fancybox-form__actions__save">
@@ -1257,11 +1257,55 @@ $_dossier = $dossier->dossier;
       'data-did' => $_dossier->id
     );
 
-    print form_open('',$nota_attr,$nota_hidden);
+    print form_open('',$invoice_attr,$invoice_hidden);
+
+    $payment_types = array(
+      "" => 'Niet betaald',
+      "OTHER" => 'Betalingswijze onbekend',
+      "CASH" => 'Contant',
+      "MAESTRO" => 'Maestro/Bancontact',
+      "CREDITCARD" => 'Visa/Kredietkaart',
+      "BANK" => 'Overschrijving'
+    );
 
     ?>
     <div class="fancybox-form">
       <h3>Factuur aanmaken</h3>
+      <div class="form-item-horizontal">
+        <label>Betalingsinformatie:</label>
+        <table>
+          <!-- <thead>
+            <tr>
+              <th>Ter attentie van:</th>
+              <th>Betaald:</th>
+              <th>Betalingswijze:</th>
+            </tr>
+          </thead> -->
+          <tbody>
+            <tr>
+              <td>Klant</td>
+              <td>
+                <?= form_input(array('name' => "invoice_payment_amount_customer", 'value' => ''))?>
+              </td>
+              <td style="padding-right: 15px;"><?= form_dropdown("invoice_payment_type_customer", $payment_types, 'OTHER');?></td>
+            </tr>
+            <tr>
+              <td>Assistance</td>
+              <td>
+                <?= form_input(array('name' => "invoice_payment_amount_assurance", 'value' => ''))?>
+              </td>
+              <td style="padding-right: 15px;"><?= form_dropdown("invoice_payment_type_assurance", $payment_types, 'OTHER');?></td>
+            </tr>
+            <tr>
+              <td>Afhaler</td>
+              <td>
+                <?= form_input(array('name' => "invoice_payment_amount_collector", 'value' => ''))?>
+              </td>
+              <td style="padding-right: 15px;"><?= form_dropdown("invoice_payment_type_collector", $payment_types, 'OTHER');?></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <div class="form-item-horizontal">
         <label>Commentaar:</label>
         <?php print form_textarea('message'); ?>
