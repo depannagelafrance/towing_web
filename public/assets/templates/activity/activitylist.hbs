@@ -1,7 +1,7 @@
 {{#each activities}}
 <div class="work-container__field" data-id="{{activity_id}}" data-incl="{{fee_incl_vat}}" data-excl="{{fee_excl_vat}}">
 <div class="form-item-vertical work-container__task">
-<input type="text" name="name[]" value="{{name}}" readonly="readonly" style="background: #F0F0F0">
+<input type="text" name="name[]" value="{{name}} ({{timeframe_name}})" readonly="readonly" style="background: #F0F0F0">
 <input type="hidden" name="activity_id[]" value="{{activity_id}}">
 </div>
 <div class="form-item-vertical work-container__number">
@@ -33,5 +33,3 @@
 </div>
 </div>
 {{/each}}
-
-

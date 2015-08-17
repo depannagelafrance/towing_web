@@ -14,5 +14,9 @@
     <div class="form-item">
       <input type="submit" name="submit" value="Log in" />
     </div>
+
+    <div class="form-item" style="text-align: right;">
+      <a style="color:white;" href="/changepassword">Wachtwoord aanpassen</a>
+    </div>
   </form>
 </div>

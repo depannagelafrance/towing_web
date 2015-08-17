@@ -16,6 +16,17 @@ class Login_service extends Rest_service {
       return $result;
     }
 
+    public function change_password($username, $password, $new_password)
+    {
+        $result = $this->CI->rest->post('/login/change_password', array(
+          "login" => $username,
+          "password" => $password,
+          "new_password" => $new_password
+        ));
+
+        return $result;
+    }
+
     public function authenticateToken($token) {
       $result = $this->CI->rest->post('/login/token', array(
         "token" => $token

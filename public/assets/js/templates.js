@@ -10,7 +10,9 @@ this["Handlebars"]["Templates"]["activity/activitylist"] = Handlebars.template({
     + escapeExpression(((helper = (helper = helpers.fee_excl_vat || (depth0 != null ? depth0.fee_excl_vat : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"fee_excl_vat","hash":{},"data":data}) : helper)))
     + "\">\n<div class=\"form-item-vertical work-container__task\">\n<input type=\"text\" name=\"name[]\" value=\""
     + escapeExpression(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"name","hash":{},"data":data}) : helper)))
-    + "\" readonly=\"readonly\" style=\"background: #F0F0F0\">\n<input type=\"hidden\" name=\"activity_id[]\" value=\""
+    + " ("
+    + escapeExpression(((helper = (helper = helpers.timeframe_name || (depth0 != null ? depth0.timeframe_name : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"timeframe_name","hash":{},"data":data}) : helper)))
+    + ")\" readonly=\"readonly\" style=\"background: #F0F0F0\">\n<input type=\"hidden\" name=\"activity_id[]\" value=\""
     + escapeExpression(((helper = (helper = helpers.activity_id || (depth0 != null ? depth0.activity_id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"activity_id","hash":{},"data":data}) : helper)))
     + "\">\n</div>\n<div class=\"form-item-vertical work-container__number\">\n";
   stack1 = ((helpers.equal || (depth0 && depth0.equal) || helperMissing).call(depth0, (depth0 != null ? depth0.is_modifiable : depth0), 1, {"name":"equal","hash":{},"fn":this.program(2, data),"inverse":this.noop,"data":data}));
@@ -42,7 +44,7 @@ this["Handlebars"]["Templates"]["activity/activitylist"] = Handlebars.template({
   var stack1, buffer = "";
   stack1 = helpers.each.call(depth0, (depth0 != null ? depth0.activities : depth0), {"name":"each","hash":{},"fn":this.program(1, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
-  return buffer + "\n\n";
+  return buffer;
 },"useData":true});
 
 this["Handlebars"]["Templates"]["activity/additionalcosts"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
@@ -105,7 +107,7 @@ this["Handlebars"]["Templates"]["attachment/overview"] = Handlebars.template({"1
     + escapeExpression(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"name","hash":{},"data":data}) : helper)))
     + "</td>\n    <td><a href=\"/fast_dossier/document/"
     + escapeExpression(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"id","hash":{},"data":data}) : helper)))
-    + "\">Download</a></td>\n  </tr>\n";
+    + "\"><i class=\"fa fa-download\"> Download</i></a>\n    </td>\n  </tr>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   var stack1, buffer = "<table>\n  <thead>\n      <tr>\n        <th>#</th>\n        <th>&nbsp;</th>\n        <th>Naam</th>\n        <th>&nbsp;</th>\n      </tr>\n  </thead>\n  <tbody>\n";
   stack1 = helpers.each.call(depth0, (depth0 != null ? depth0.attachments : depth0), {"name":"each","hash":{},"fn":this.program(1, data),"inverse":this.noop,"data":data});

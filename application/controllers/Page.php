@@ -35,8 +35,16 @@ class Page extends CI_Controller {
 			$this->load->helper('url');
 			$uri = uri_string();
 
-			if(substr($uri,0,5) !== 'login') {
-				redirect("/login");
+			switch($uri)
+			{
+				//prohibit redirect in case of "login" or "changepassword"
+				case 'login':
+				case 'login/perform':
+				case 'changepassword':
+				case 'changepassword/perform':
+					break;
+				default:
+					redirect('/login');
 			}
 		}
 		else

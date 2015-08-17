@@ -148,23 +148,24 @@ class Dossier extends Page {
 
     switch($_voucher->status) {
       case 'TO CHECK':
-        $vouchers = $this->dossier_service->fetchAllToBeCheckedDossiers($token);
+        // $vouchers = $this->dossier_service->fetchAllToBeCheckedDossiers($token);
         break;
       case 'READY FOR INVOICE':
         // $view = 'fast_dossier/dossier_readonly';
-        $vouchers = $this->dossier_service->fetchAllInvoicableDossiers($token);
+        // $vouchers = $this->dossier_service->fetchAllInvoicableDossiers($token);
         break;
       case 'INVOICED':
       case 'INVOICED WITHOUT STORAGE':
       case 'CLOSED':
-        $vouchers   = $this->dossier_service->fetchAllInvoicedDossiers($token);
+        // $vouchers   = $this->dossier_service->fetchAllInvoicedDossiers($token);
         $collectors = $this->vocabulary_service->fetchAllCollectors($token);
         $view = 'fast_dossier/dossier_readonly';
         break;
       case 'NEW':
       default:
-        $vouchers = $this->dossier_service->fetchAllNewVouchers($token);
+        // $vouchers = $this->dossier_service->fetchAllNewVouchers($token);
     }
+    $vouchers = $this->dossier_service->fetchAllDossiers($token);
 
     $data['vouchers'] = $vouchers;
 
