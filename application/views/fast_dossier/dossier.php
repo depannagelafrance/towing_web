@@ -44,9 +44,9 @@ $_dossier = $dossier->dossier;
             $class = 'inactive';
           }
 
-          if($prev !== $voucher->dossier_number){
+          // if($prev !== $voucher->dossier_number){
 
-            $prev = $voucher->dossier_number;
+            // $prev = $voucher->dossier_number;
 
             $this->table->add_row(
                   array('class' => $class,
@@ -59,10 +59,10 @@ $_dossier = $dossier->dossier;
                                                   <span class="id__cell__text__nr">%s</span>
                                                   <span class="id__cell__text__info">%s %s</span>
                                                 </span>
-                                              </span></a>', $voucher->dossier_number, $voucher->voucher_number, $voucher->dossier_number, $voucher->call_number, $voucher->incident_type, $voucher->direction_name , $voucher->indicator_name))
+                                              </span></a>', $voucher->dossier_number, $voucher->voucher_number, $voucher->voucher_number, $voucher->call_number, $voucher->incident_type, $voucher->direction_name , $voucher->indicator_name))
             );
 
-          }
+          // }
         }
       }
 
@@ -1242,7 +1242,45 @@ $_dossier = $dossier->dossier;
 
   <!-- INVOICE -->
   <?php
-    if($_voucher->status === 'READY FOR INVOICE') {
+    if($_voucher->status === 'READY FOR INVOICE')
+    {
+      $_activities = $_voucher->towing_activities;
+      $_additional_costs = $_voucher->towing_additional_costs;
+
+      $_collector_cost = 0.0;
+      $_customer_cost = 0.0;
+      $_customer_ptype = 'OTHER';
+
+      //iterate activites and propose the cost
+      foreach ($_activities as $_activity)
+      {
+        if($_activity->code === 'STALLING')
+        {
+          $_collector_cost = $_activity->cal_fee_incl_vat;
+        }
+        else
+        {
+          $_customer_cost += ($_activity->amount * $_activity->fee_incl_vat);
+        }
+      }
+
+      // var_dump($_customer_cost);
+      // var_dump($_activities);
+
+      if($_voucher->towing_payments->paid_in_cash > 0)
+        $_customer_ptype = 'CASH';
+      else if($_voucher->towing_payments->paid_by_bank_deposit > 0)
+        $_customer_ptype = 'BANK';
+      else if($_voucher->towing_payments->paid_by_debit_card > 0)
+        $_customer_ptype = 'MAESTRO';
+      else if($_voucher->towing_payments->paid_by_credit_card > 0)
+        $_customer_ptype = 'CREDITCARD';
+
+      //iterate the additional costs and assign them to the collector
+      foreach ($_additional_costs as $_cost)
+      {
+        $_collector_cost += $_cost->fee_incl_vat;
+      }
   ?>
   <div id="generate-invoice-form" style="display: none;">
     <?php
@@ -1274,34 +1312,27 @@ $_dossier = $dossier->dossier;
       <div class="form-item-horizontal">
         <label>Betalingsinformatie:</label>
         <table>
-          <!-- <thead>
-            <tr>
-              <th>Ter attentie van:</th>
-              <th>Betaald:</th>
-              <th>Betalingswijze:</th>
-            </tr>
-          </thead> -->
           <tbody>
             <tr>
               <td>Klant</td>
               <td>
-                <?= form_input(array('name' => "invoice_payment_amount_customer", 'value' => ''))?>
+                <?= form_input(array('name' => "invoice_payment_amount_customer", 'value' => $_customer_cost))?>
               </td>
-              <td style="padding-right: 15px;"><?= form_dropdown("invoice_payment_type_customer", $payment_types, 'OTHER');?></td>
+              <td style="padding-right: 15px;"><?= form_dropdown("invoice_payment_type_customer", $payment_types, $_customer_ptype);?></td>
             </tr>
             <tr>
               <td>Assistance</td>
               <td>
-                <?= form_input(array('name' => "invoice_payment_amount_assurance", 'value' => ''))?>
+                <?= form_input(array('name' => "invoice_payment_amount_assurance", 'value' => $_voucher->towing_payments->amount_guaranteed_by_insurance))?>
               </td>
-              <td style="padding-right: 15px;"><?= form_dropdown("invoice_payment_type_assurance", $payment_types, 'OTHER');?></td>
+              <td style="padding-right: 15px;"><?= form_dropdown("invoice_payment_type_assurance", $payment_types, '');?></td>
             </tr>
             <tr>
               <td>Afhaler</td>
               <td>
-                <?= form_input(array('name' => "invoice_payment_amount_collector", 'value' => ''))?>
+                <?= form_input(array('name' => "invoice_payment_amount_collector", 'value' => $_collector_cost))?>
               </td>
-              <td style="padding-right: 15px;"><?= form_dropdown("invoice_payment_type_collector", $payment_types, 'OTHER');?></td>
+              <td style="padding-right: 15px;"><?= form_dropdown("invoice_payment_type_collector", $payment_types, $_customer_ptype);?></td>
             </tr>
           </tbody>
         </table>

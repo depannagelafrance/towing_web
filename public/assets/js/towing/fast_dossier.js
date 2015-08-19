@@ -1415,6 +1415,20 @@ $(document).ready(function() {
         var formObj = {};
         formObj = serializeFormInputs(inputs);
 
+        console.log(formObj);
+
+        if(formObj.invoice_payment_amount_assurance != '' && !isFloat(formObj.invoice_payment_amount_assurance)) {
+          alert('Gelieve het bedrag voor de assistance na te kijken.'); return false;
+        }
+
+        if(formObj.invoice_payment_amount_collector != '' && !isFloat(formObj.invoice_payment_amount_collector)) {
+          alert('Gelieve het bedrag voor de afhaler na te kijken.'); return false;
+        }
+
+        if(formObj.invoice_payment_amount_customer != '' && !isFloat(formObj.invoice_payment_amount_customer)) {
+          alert('Gelieve het bedrag voor de klant na te kijken.'); return false;
+        }
+
         generateInvoice(formObj).success(function(data){
           parent.$.fancybox.close();
 
@@ -1441,6 +1455,19 @@ $(document).ready(function() {
             url		: url,
             data		: formObj
         });
+    }
+
+    function isFloat(val)
+    {
+      // var floatRegex = /^-?\d+(?:[.,]\d*?)?$/;
+      var floatRegex = /^-?\d+(?:[.]\d*?)?$/;
+      if (!floatRegex.test(val))
+          return false;
+
+      val = parseFloat(val);
+      if (isNaN(val))
+          return false;
+      return true;
     }
 
 

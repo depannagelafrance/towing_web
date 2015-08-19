@@ -361,7 +361,7 @@ class Dossier extends Page {
               if(!is_array($voucher->towing_additional_costs))
                 $voucher->towing_additional_costs = array();
 
-              if(trim($cost_id) == "" && trim($cost_names[$i]) != "")
+              if(trim($cost_id) == "" && trim($cost_names[$j]) != "")
               {
                 $cost = new stdClass();
                 $cost->name = $cost_names[$j];
