@@ -766,10 +766,18 @@ $_dossier = $dossier->dossier;
 
   </div>
 
+  <?php
+  echo "<pre>";
+  var_dump($dossier);
+  echo "</pre>";
+  ?>
 
 
   </div>
   <?php print form_close(); ?>
+
+
+
 
   <!-- DEPOT -->
   <div id="depot_form" style="display: none;">
@@ -1254,15 +1262,17 @@ $_dossier = $dossier->dossier;
       //iterate activites and propose the cost
       foreach ($_activities as $_activity)
       {
-        if($_activity->code === 'STALLING')
+        if($_activity->code === 'STALLING' && $_voucher->collector_type !== 'CUSTOMER')
         {
-          $_collector_cost = $_activity->cal_fee_incl_vat;
+          $_collector_cost = tofloat(($_voucher->collector_foreign_vat ? $_activity->cal_fee_excl_vat : $_activity->cal_fee_incl_vat));
         }
         else
         {
-          $_customer_cost += ($_activity->amount * $_activity->fee_incl_vat);
+          $_customer_cost += ($_activity->amount * tofloat($_voucher->customer->company_vat_foreign_country ? $_activity->fee_excl_vat : $_activity->fee_incl_vat));
         }
       }
+
+      // $_customer_cost = tofloat($_voucher->towing_payments->amount_customer);
 
       // var_dump($_customer_cost);
       // var_dump($_activities);
@@ -1275,11 +1285,20 @@ $_dossier = $dossier->dossier;
         $_customer_ptype = 'MAESTRO';
       else if($_voucher->towing_payments->paid_by_credit_card > 0)
         $_customer_ptype = 'CREDITCARD';
+      else if($_voucher->towing_payments->paid_in_cash <= 0
+                && $_voucher->towing_payments->paid_by_bank_deposit <= 0
+                && $_voucher->towing_payments->paid_by_debit_card <= 0
+                && $_voucher->towing_payments->paid_by_credit_card <= 0)
+        $_customer_ptype = '';
 
       //iterate the additional costs and assign them to the collector
       foreach ($_additional_costs as $_cost)
       {
-        $_collector_cost += $_cost->fee_incl_vat;
+        $_collector_cost += ($_voucher->collector_foreign_vat ? $_cost->fee_excl_vat : $_cost->fee_incl_vat);
+      }
+
+      if($_collector_cost && $_collector_cost > 0.0 && $_collector_cost <= $_customer_cost) {
+        //$_customer_cost -= $_collector_cost;
       }
   ?>
   <div id="generate-invoice-form" style="display: none;">
@@ -1359,9 +1378,20 @@ $_dossier = $dossier->dossier;
 
 </div>
 
-
 <?php
-// echo "<pre>";
-// var_dump($dossier);
-// echo "</pre>";
+function tofloat($num) {
+    $dotPos = strrpos($num, '.');
+    $commaPos = strrpos($num, ',');
+    $sep = (($dotPos > $commaPos) && $dotPos) ? $dotPos :
+        ((($commaPos > $dotPos) && $commaPos) ? $commaPos : false);
+
+    if (!$sep) {
+        return floatval(preg_replace("/[^0-9]/", "", $num));
+    }
+
+    return floatval(
+        preg_replace("/[^0-9]/", "", substr($num, 0, $sep)) . '.' .
+        preg_replace("/[^0-9]/", "", substr($num, $sep+1, strlen($num)))
+    );
+}
 ?>

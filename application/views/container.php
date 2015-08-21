@@ -104,6 +104,7 @@
   </div>
   <div class="container">
     <div class="layout-full">
+
       <div class="layout-center">
 				<?php
 					if(isset($error) && $error !== "")

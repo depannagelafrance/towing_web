@@ -73,7 +73,7 @@ if($to_check_active) {
   <button id="download"><i class="fa fa-download fa-3"></i>&nbsp; Download</button>
 </div>
 <?php
-} else if ($approved_active) {
+} else if ($approved_active && true == false) {
 ?>
 <div class="layout-actions" style="float: right;">
   <button id="render"><i class="fa fa-file fa-3"></i>&nbsp; Maak brieven</button>

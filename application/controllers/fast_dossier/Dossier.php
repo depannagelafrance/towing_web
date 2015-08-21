@@ -402,7 +402,7 @@ class Dossier extends Page {
         $min = $te[1];
 
         if(($hour >= 0 && $hour <= 23) && ($min >= 0 && $min <= 59)) {
-          return mktime($hour, $min, $sec, $month, $day, $year);
+          return mktime($hour, $min, $sec, $month+1, $day, $year);
         } else return null;
     }
     else
