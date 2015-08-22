@@ -55,7 +55,7 @@ class Password extends Page {
         if(!$result || array_key_exists('statusCode', $result))
         {
           $this->_add_error('Authentication failed');
-          $this->_add_content($this->load->view('changepassword', '', true));
+          $this->_add_content($this->load->view('password', '', true));
           $this->_render_page('login_container');
         }
         else
