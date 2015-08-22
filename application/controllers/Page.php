@@ -37,11 +37,11 @@ class Page extends CI_Controller {
 
 			switch($uri)
 			{
-				//prohibit redirect in case of "login" or "changepassword"
+				//prohibit redirect in case of "login" or "password"
 				case 'login':
 				case 'login/perform':
-				case 'changepassword':
-				case 'changepassword/perform':
+				case 'password':
+				case 'password/perform':
 					break;
 				default:
 					redirect('/login');

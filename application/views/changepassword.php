@@ -14,7 +14,7 @@
   ?>
 
 
-  <?php echo form_open('/changepassword/perform') ?>
+  <?php echo form_open('/password/perform') ?>
    <div class="form-item">
      <input type="text" placeholder="<?php print 'Gebruikersnaam'; ?>" value="<?php print set_value('login'); ?>" name="login" />
    </div>

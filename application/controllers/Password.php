@@ -2,7 +2,7 @@
 require_once('Page.php');
 //require_once(APPPATH . 'models/Vocabulary_Model.php');
 
-class ChangePassword extends Page {
+class Password extends Page {
 
   public function __construct(){
     parent::__construct();
@@ -28,7 +28,7 @@ class ChangePassword extends Page {
     $data = array();
     $data['title'] = 'Wachtwoord aanpassen';
 
-    $this->_add_content($this->load->view('changepassword', $data, true));
+    $this->_add_content($this->load->view('password', $data, true));
     $this->_render_page('login_container');
   }
 
@@ -41,7 +41,7 @@ class ChangePassword extends Page {
 
     	if ($this->form_validation->run() === FALSE)
     	{
-        $this->_add_content($this->load->view('changepassword', '', true));
+        $this->_add_content($this->load->view('password', '', true));
         $this->_render_page('login_container');
       }
     	else
