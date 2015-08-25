@@ -98,6 +98,20 @@ $(document).ready(function() {
         }
     });
 
+    $('#send-voucher-email-awv-link').on('click', function() {
+        if(confirm('Bent u zeker dat u deze takelbon wenst te versturen naar AW&V?'))
+        {
+          $.ajax({
+              url		: prepareAjaxUrl('/fast_dossier/ajax/sendVoucherEmailToAWV'),
+              type	: 'POST',
+              cache	: false,
+              success: function( data ) {
+                  console.log("seems ok");
+              }
+          });
+        }
+    });
+
     //INIT DATETIMEPICKERS
     var times = [
         '06:00', '06:15', '06:30', '06:45',

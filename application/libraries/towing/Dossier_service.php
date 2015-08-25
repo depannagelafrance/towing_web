@@ -266,6 +266,20 @@ class Dossier_service extends Rest_service {
       return $result;
     }
 
+    public function sendVoucherEmailToAWV($dossier_id, $voucher_id, $token)
+    {
+      $result = $this->CI->rest->post(
+          sprintf('/dossier/communication/awv_voucher_email/%s', $token),
+          json_encode(array(
+            "dossier_id" => $dossier_id,
+            "voucher_id" => $voucher_id,
+          )),
+          'application/json'
+      );
+
+      return $result;
+    }
+
     public function requestCollectorSignature($dossier_id, $voucher_id, $token)
     {
       $result = $this->CI->rest->post(

@@ -244,6 +244,7 @@ $_dossier = $dossier->dossier;
           <ul class="btn--dropdown--drop">
             <li><a id="add-email-link" href="#add-email-form">Email verzenden</a></li>
             <li><a id="view-email-link" href="#view-email-container">Emails bekijken</a></li>
+            <li><a id="send-voucher-email-awv-link" href="#send-voucher-email-awv-container">Takelbon verzenden naar AW&amp;V</a></li>
           </ul>
         </div>
       </div>
@@ -767,9 +768,9 @@ $_dossier = $dossier->dossier;
   </div>
 
   <?php
-  echo "<pre>";
-  var_dump($dossier);
-  echo "</pre>";
+  // echo "<pre>";
+  // var_dump($dossier);
+  // echo "</pre>";
   ?>
 
 

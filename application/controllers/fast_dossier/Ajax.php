@@ -277,6 +277,14 @@ class Ajax extends AjaxPage
     $this->_sendJson($result);
   }
 
+  public function sendVoucherEmailToAWV($dossier_id, $voucher_id)
+  {
+    $token = $this->_get_user_token();
+
+    $result = $this->dossier_service->sendVoucherEmailToAWV($dossier_id, $voucher_id, $token);
+
+    $this->_sendJson($result);
+  }
 
   public function requestCollectorSignature($dossier_id, $voucher_id) {
     $token = $this->_get_user_token();
