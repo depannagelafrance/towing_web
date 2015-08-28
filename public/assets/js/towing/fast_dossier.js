@@ -1429,8 +1429,6 @@ $(document).ready(function() {
         var formObj = {};
         formObj = serializeFormInputs(inputs);
 
-        console.log(formObj);
-
         if(formObj.invoice_payment_amount_assurance != '' && !isFloat(formObj.invoice_payment_amount_assurance)) {
           alert('Gelieve het bedrag voor de assistance na te kijken.'); return false;
         }

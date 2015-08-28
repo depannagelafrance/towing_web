@@ -1317,14 +1317,7 @@ $_dossier = $dossier->dossier;
 
     print form_open('',$invoice_attr,$invoice_hidden);
 
-    $payment_types = array(
-      "" => 'Niet betaald',
-      "OTHER" => 'Betalingswijze onbekend',
-      "CASH" => 'Contant',
-      "MAESTRO" => 'Maestro/Bancontact',
-      "CREDITCARD" => 'Visa/Kredietkaart',
-      "BANK" => 'Overschrijving'
-    );
+    $payment_types = $this->invoice_service->fetchAvailablePaymentTypes();
 
     ?>
     <div class="fancybox-form">

@@ -96,4 +96,35 @@ class Invoice_service extends Rest_service {
       return $this->CI->rest->post(sprintf('/invoice/storage/%s/%s', $voucher_id, $token));
     }
 
+    /**
+     * Fetch an invoice by its unique id
+     */
+    public function fetchInvoiceById($invoice_id, $token)
+    {
+      return $this->CI->rest->get(sprintf('/invoice/%d/%s', $invoice_id, $token));
+    }
+
+    /**
+     * Update the invoice information
+     */
+    public function updateInvoice($invoice, $token)
+    {
+      return $this->CI->rest->put(
+        sprintf('/invoice/%d/%s', $invoice->id, $token),
+        json_encode(array("invoice" => $invoice)),
+        'application/json'
+      );
+    }
+
+    public function fetchAvailablePaymentTypes() {
+      return array(
+        "" => 'Niet betaald',
+        "OTHER" => 'Betalingswijze onbekend',
+        "CASH" => 'Contant',
+        "MAESTRO" => 'Maestro/Bancontact',
+        "CREDITCARD" => 'Visa/Kredietkaart',
+        "BANK" => 'Overschrijving'
+      );
+    }
+
 }
