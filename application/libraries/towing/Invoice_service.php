@@ -116,6 +116,14 @@ class Invoice_service extends Rest_service {
       );
     }
 
+    /* Remove an item from an invoice */
+    public function removeInvoiceItem($invoice, $item, $token)
+    {
+      return $this->CI->rest->delete(
+        sprintf('/invoice/%d/item/%d/%s', $invoice, $item, $token)
+      );
+    }
+
     public function fetchAvailablePaymentTypes() {
       return array(
         "" => 'Niet betaald',

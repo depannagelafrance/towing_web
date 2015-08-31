@@ -9,6 +9,14 @@
   echo form_open('invoicing/invoice/edit/' . urlencode($invoice->id))
 ?>
 
+<script type="text/javascript">
+  $(document).ready(function() {
+    $(".remove-invoice-item").on('click', function() {
+      return confirm('Bent u zeker dat u dit item wenst te verwijderen?');
+    });
+  });
+</script>
+
 <style media="screen">
 .invoice_lines td {
   padding: 5px;
@@ -146,11 +154,35 @@
                         'style'       => 'background: #F0F0F0'
                 )),
 
-                sprintf('<a href="/invoicing/invoice/removeline/%s/%s"><i class="fa fa-trash-o fa-2x">&nbsp;</i></a>
+                sprintf('<a href="/invoicing/invoice/removeline/%s/%s" class="remove-invoice-item"><i class="fa fa-trash-o fa-2x">&nbsp;</i></a>
                         <input type="hidden" name="item_id[]" value="%d">', $invoice->id, $item->id, $item->id)
               );
         }
 
+        //add new entry
+        $this->table->add_row(
+          form_input(array(
+                  'name'        => "item[]",
+                  'value'       => ''
+          )),
+          form_input(array(
+                  'name'        => "item_amount[]",
+                  'value'       => ''
+          )),
+          form_input(array(
+                  'name'        => "item_price_excl_vat[]",
+                  'value'       => ''
+          )),
+          form_input(array(
+                  'name'        => "item_price_incl_vat[]",
+                  'value'       => ''
+          )),
+          '&nbsp;',
+          '&nbsp;',
+          '<input type="hidden" name="item_id[]" value="">'
+        );
+
+        //invoice total
         $this->table->add_row(
           '&nbsp;',
           '&nbsp;',

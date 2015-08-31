@@ -18,6 +18,13 @@ class Invoice extends Page {
     die();
   }
 
+  public function removeline($invoice_id, $item_id)
+  {
+    $this->invoice_service->removeInvoiceItem($invoice_id, $item_id, $this->_get_user_token());
+
+    redirect("/invoicing/invoice/edit/" . $invoice_id);
+  }
+
   public function edit($invoice_id)
   {
     $data = array();
@@ -55,20 +62,38 @@ class Invoice extends Page {
 
         foreach($item_ids as $key => $item_id)
         {
-          foreach ($invoice->invoice_lines as $index => $il)
+          //check if it is a new item to add
+          if($item_id == '')
           {
-            if($il->id == $item_id)
+            if($items[$key] != '')
             {
+              $il = new stdClass();
+
+              $il->id = null;
               $il->item = $items[$key];
               $il->item_amount = $item_amounts[$key];
               $il->item_price_excl_vat = $item_price_excl_vats[$key];
               $il->item_price_incl_vat = $item_price_incl_vats[$key];
 
-              $invoice->invoice_lines[$index] = $il;
+              $invoice->invoice_lines[] = $il;
+            }
+          }
+          else
+          {
+            foreach ($invoice->invoice_lines as $index => $il)
+            {
+              if($il->id == $item_id)
+              {
+                $il->item = $items[$key];
+                $il->item_amount = $item_amounts[$key];
+                $il->item_price_excl_vat = $item_price_excl_vats[$key];
+                $il->item_price_incl_vat = $item_price_incl_vats[$key];
+
+                $invoice->invoice_lines[$index] = $il;
+              }
             }
           }
         }
-
 
         $invoice = $this->invoice_service->updateInvoice($invoice, $this->_get_user_token());
 
