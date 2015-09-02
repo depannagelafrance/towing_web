@@ -116,6 +116,26 @@ class Invoice_service extends Rest_service {
       );
     }
 
+    /* close the invoice and create a pdf for it */
+    public function closeInvoice($invoice_id, $token)
+    {
+      return $this->CI->rest->post(
+        sprintf('/invoice/render/%d/%s', $invoice_id, $token),
+        json_encode(array()),
+        'application/json'
+      );
+    }
+
+    /* create a CN for this invoice */
+    public function creditInvoice($invoice_id, $token)
+    {
+      return $this->CI->rest->post(
+        sprintf('/invoice/credit/%d/%s', $invoice_id, $token),
+        json_encode(array()),
+        'application/json'
+      );
+    }
+
     /* Remove an item from an invoice */
     public function removeInvoiceItem($invoice, $item, $token)
     {

@@ -25,6 +25,33 @@ class Invoice extends Page {
     redirect("/invoicing/invoice/edit/" . $invoice_id);
   }
 
+  public function view($invoice_id)
+  {
+    $data = array();
+    $template = 'invoicing/view';
+
+    $invoice = $this->invoice_service->fetchInvoiceById($invoice_id, $this->_get_user_token());
+
+    $data['invoice'] = $invoice;
+
+    $this->_add_content(
+      $this->load->view(
+        $template,
+        $data,
+        true
+      )
+    );
+
+    $this->_render_page();
+  }
+
+  public function credit($invoice_id)
+  {
+    $this->invoice_service->creditInvoice($invoice_id, $this->_get_user_token());
+
+    redirect('/invoicing/overview/batch');
+  }
+
   public function edit($invoice_id)
   {
     $data = array();
@@ -97,7 +124,16 @@ class Invoice extends Page {
 
         $invoice = $this->invoice_service->updateInvoice($invoice, $this->_get_user_token());
 
-        redirect("/invoicing/invoice/edit/" . $invoice_id);
+        if($this->input->post('close_invoice') == '1')
+        {
+          $this->invoice_service->closeInvoice($invoice_id, $this->_get_user_token());
+
+          redirect("/invoicing/invoice/view/" . $invoice_id);
+        }
+        else
+        {
+          redirect("/invoicing/invoice/edit/" . $invoice_id);
+        }
       }
       else
       {

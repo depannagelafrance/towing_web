@@ -7,13 +7,6 @@
               window.location.href = $_href;
         });
 
-        $('.download_invoice').click(function() {
-          var $document_id = $(this).data('document_id');
-
-          if($document_id)
-            window.location.href = '/invoicing/document/download/' + $document_id;
-        });
-        
         /*
         $('.dossierbar__id').click(function(){
             window.location.href = $(this).find('a').attr('href');

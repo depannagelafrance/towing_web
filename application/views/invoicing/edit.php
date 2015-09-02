@@ -14,6 +14,12 @@
     $(".remove-invoice-item").on('click', function() {
       return confirm('Bent u zeker dat u dit item wenst te verwijderen?');
     });
+
+    $("#btnSaveAndClose").on('click', function() {
+      return confirm('Bent u zeker dat u deze factuur wenst af te sluiten?');
+    });
+
+
   });
 </script>
 
