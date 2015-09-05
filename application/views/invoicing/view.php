@@ -134,50 +134,53 @@
           '&nbsp;',
           '&nbsp;',
           '&nbsp;',
-          'Factuur totaal:',
+          ($invoice->invoice_type == 'CN' ? 'Totaal Creditnota' : 'Factuur totaal:'),
           $invoice->invoice_total_excl_vat,
           $invoice->invoice_total_incl_vat
         );
 
-        if($invoice->vat_foreign_country)
+        if($invoice->invoice_type != 'CN')
         {
-          $this->table->add_row(
-            '&nbsp;',
-            '&nbsp;',
-            '&nbsp;',
-            'Betaald:',
-            $invoice->invoice_amount_paid,
-            resolvePaymentType($invoice->invoice_payment_type, $payment_types) //form_input(array('name' => 'invoice_payment_type', 'value' => $invoice->invoice_payment_type, 'id' => 'invoice_payment_type')),
-          );
+          if($invoice->vat_foreign_country)
+          {
+            $this->table->add_row(
+              '&nbsp;',
+              '&nbsp;',
+              '&nbsp;',
+              'Betaald:',
+              $invoice->invoice_amount_paid,
+              resolvePaymentType($invoice->invoice_payment_type, $payment_types) //form_input(array('name' => 'invoice_payment_type', 'value' => $invoice->invoice_payment_type, 'id' => 'invoice_payment_type')),
+            );
 
-          $this->table->add_row(
-            '&nbsp;',
-            '&nbsp;',
-            '&nbsp;',
-            'Openstaand saldo:',
-            $invoice->invoice_total_excl_vat - $invoice->invoice_amount_paid,
-            '&nbsp;'
-          );
-        }
-        else
-        {
-          $this->table->add_row(
-            '&nbsp;',
-            '&nbsp;',
-            '&nbsp;',
-            'Betaald:',
-            resolvePaymentType($invoice->invoice_payment_type, $payment_types), //form_input(array('name' => 'invoice_payment_type', 'value' => $invoice->invoice_payment_type, 'id' => 'invoice_payment_type')),
-            $invoice->invoice_amount_paid
-          );
+            $this->table->add_row(
+              '&nbsp;',
+              '&nbsp;',
+              '&nbsp;',
+              'Openstaand saldo:',
+              $invoice->invoice_total_excl_vat - $invoice->invoice_amount_paid,
+              '&nbsp;'
+            );
+          }
+          else
+          {
+            $this->table->add_row(
+              '&nbsp;',
+              '&nbsp;',
+              '&nbsp;',
+              'Betaald:',
+              resolvePaymentType($invoice->invoice_payment_type, $payment_types), //form_input(array('name' => 'invoice_payment_type', 'value' => $invoice->invoice_payment_type, 'id' => 'invoice_payment_type')),
+              $invoice->invoice_amount_paid
+            );
 
-          $this->table->add_row(
-            '&nbsp;',
-            '&nbsp;',
-            '&nbsp;',
-            'Openstaand saldo:',
-            '&nbsp;',
-            $invoice->invoice_total_incl_vat - $invoice->invoice_amount_paid
-          );
+            $this->table->add_row(
+              '&nbsp;',
+              '&nbsp;',
+              '&nbsp;',
+              'Openstaand saldo:',
+              '&nbsp;',
+              $invoice->invoice_total_incl_vat - $invoice->invoice_amount_paid
+            );
+          }
         }
 
         echo $this->table->generate();
