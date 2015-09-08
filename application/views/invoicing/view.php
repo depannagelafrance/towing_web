@@ -20,6 +20,15 @@
 }
 </style>
 
+<script type="text/javascript">
+  $(document).ready(function() {
+    $(".credit_invoice").on('click', function() {
+      return confirm('Bent u zeker dat u deze factuur wenst te crediteren?');
+    });
+  });
+</script>
+
+
 <div class="unpadded dsform admin_form">
   <div class="box box--unpadded idbar">
     <div class="idbar__item idbar__id bright has_icon">
@@ -33,6 +42,40 @@
       </div>
       <div class="idbar__value">
         <?= mdate('%d/%m/%Y',strtotime($invoice->invoice_date)); ?>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="dossierbar">
+
+    <div class="dossierbar__mainactions">
+    </div>
+
+    <div class="dossierbar__actions">
+      <?php if($invoice->invoice_type !=='CN' && $invoice->invoice_ref_id == null) {?>
+        <div class="dossierbar__action__item">
+          <div class="btn--dropdown">
+            <div class="btn--dropdown--btn btn--icon">
+              <span class="icon--invoice">Facturatie</span>
+            </div>
+            <ul class="btn--dropdown--drop">
+              <li><a class="credit_invoice" href="/invoicing/invoice/credit/<?=$invoice->id?>">Creditnota aanmaken</a></li>
+            </ul>
+          </div>
+        </div>
+      <?php } ?>
+
+      <div class="dossierbar__action__item">
+        <div class="btn--dropdown">
+          <div class="btn--dropdown--btn btn--icon">
+            <span class="icon--print">Print</span>
+          </div>
+          <ul class="btn--dropdown--drop">
+            <li><a href="/invoicing/document/download/<?=$invoice->document_id?>"><?php print ($invoice->invoice_type =='CN' ? 'Creditnota' : 'Factuur')?> ophalen</a></li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
