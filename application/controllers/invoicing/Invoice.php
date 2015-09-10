@@ -18,6 +18,9 @@ class Invoice extends Page {
     die();
   }
 
+  /**
+    REMOVE A LINE FROM THE INVOICE
+   */
   public function removeline($invoice_id, $item_id)
   {
     $this->invoice_service->removeInvoiceItem($invoice_id, $item_id, $this->_get_user_token());
@@ -25,6 +28,9 @@ class Invoice extends Page {
     redirect("/invoicing/invoice/edit/" . $invoice_id);
   }
 
+  /**
+    VIEW THE DETAIL OF THE INVOICE
+  */
   public function view($invoice_id)
   {
     $data = array();
@@ -45,6 +51,9 @@ class Invoice extends Page {
     $this->_render_page();
   }
 
+  /**
+    CREDIT AN INVOICE
+   */
   public function credit($invoice_id)
   {
     $this->invoice_service->creditInvoice($invoice_id, $this->_get_user_token());
@@ -52,6 +61,26 @@ class Invoice extends Page {
     redirect('/invoicing/overview/batch');
   }
 
+  /**
+  CREATE AN EMPTY INVOICE
+  */
+  public function create()
+  {
+    $invoice = $this->invoice_service->createInvoice($this->_get_user_token());
+
+    if($invoice != null && $invoice->id != null)
+    {
+      redirect('/invoicing/invoice/edit/' . $invoice->id);
+    }
+    else
+    {
+      redirect('/invoicing/overview/batch');
+    }
+  }
+
+  /**
+  EDIT AN EXISTING INVOICE
+  */
   public function edit($invoice_id)
   {
     $data = array();

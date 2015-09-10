@@ -8,6 +8,12 @@ class Invoice_service extends Rest_service {
       parent::__construct();
     }
 
+    /** CREATE A NEW EMPTY INVOICE **/
+    public function createInvoice($token)
+    {
+      return $this->CI->rest->post(sprintf('/invoice/%s', $token));
+    }
+
     /**
      * Create a new invoice batch and start it
      *

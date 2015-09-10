@@ -10,11 +10,21 @@ $module = $this->uri->segment(1);
     $(".credit_invoice").on('click', function() {
       return confirm('Bent u zeker dat u deze factuur wenst te crediteren?');
     });
+    $(".invoice_checkbox").on('click', function(event) {
+      event.stopPropagation();
+    })
   });
 </script>
+
 <div class="status--indication">
   <a class="<?php print $active_tab == 'for_invoice' || $active_tab == 'index' || $active_tab == '' ? 'active' : '';  ?>" href="/<?=$module?>/overview/for_invoice">Ter facturatie</a>
   <a class="<?php print $active_tab == 'batch' ? 'active' : '';  ?>" href="/<?=$module?>/overview/batch">Facturen</a>
+</div>
+
+<div class="layout-actions">
+  <div class="btn--icon--highlighted bright">
+    <a class="icon--add" href="/invoicing/invoice/create" onclick="return confirm('Bent u zeker dat u een nieuwe factuur wenst aan te maken?');">Nieuwe factuur aanmaken</a>
+  </div>
 </div>
 
 <form method="post" action="/invoicing/export/expertm">
@@ -52,6 +62,12 @@ if($invoices && sizeof($invoices) > 0) {
 
       $_customer .= sprintf(" %s %s %s %s", $invoice->street, $invoice->street_number, $invoice->zip, $invoice->city);
 
+      $data_checkbox = array(
+          'name'        => 'selected_invoice_id[]',
+          'value'       => $invoice->invoice_id,
+          'class'       => 'invoice_checkbox',
+      );
+
       $this->table->add_row(
         sprintf('<a href="/invoicing/invoice/%s/%d">%s</a>', (!$invoice->document_id && !$invoice->invoice_type=='CN' ? "edit" : "view"), $invoice->invoice_id, $invoice->invoice_number_display ),
         sprintf($invoice->invoice_type == 'CN' ? 'Creditnota' : 'Factuur'),
@@ -61,7 +77,7 @@ if($invoices && sizeof($invoices) > 0) {
         (!$invoice->document_id && $invoice->invoice_type != 'CN' ? sprintf('<a href="/invoicing/invoice/edit/%d"><i class="fa fa-pencil-square-o fa-2x"></i></a>', $invoice->invoice_id) : '&nbsp;'),
         ($invoice->document_id ? sprintf('<a class="download_invoice" href="/invoicing/document/download/%s"><i class="fa fa-download"></i>&nbsp; Download</a>', $invoice->document_id) : '&nbsp;'), //href="/%s/document/download/%s"
         ($invoice->document_id && $invoice->invoice_type != 'CN' && $invoice->invoice_ref_id == null? sprintf('<a class="credit_invoice" href="/invoicing/invoice/credit/%d"><i class="fa fa-chain-broken fa-2x"></i></a>', $invoice->invoice_id) : '&nbsp;'), //href="/%s/document/download/%s"
-        form_checkbox('selected_invoice_id[]', $invoice->invoice_id)
+        form_checkbox($data_checkbox)
       );
   }
 }

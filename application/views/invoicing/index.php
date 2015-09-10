@@ -12,6 +12,12 @@ $module = $this->uri->segment(1);
 </div>
 
 
+<div class="layout-actions">
+  <div class="btn--icon--highlighted bright">
+    <a class="icon--add" href="/invoicing/invoice/create" onclick="return confirm('Bent u zeker dat u een nieuwe factuur wenst aan te maken?');">New Voucher</a>
+  </div>
+</div>
+
 <?php
 // if($active_tab === 'for_invoice' || $active_tab == 'index' || $active_tab == '') {
 //
