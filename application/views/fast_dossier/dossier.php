@@ -581,6 +581,58 @@ $_dossier = $dossier->dossier;
 
         </div>
 
+        <div class="form-item-vertical">
+            <div style="float: left; font-weight: bold; width:10%;"><label>Categorie:</label></div>
+            <div style="float: left; font-weight: bold; width:10%;"><label>Vrij van BTW? </label></div>
+            <div style="float: left; font-weight: bold; width:10%;"><label>Bedrag (excl. BTW): </label></div>
+            <div style="float: left; font-weight: bold; width:10%;"><label>Bedrag (incl. BTW):</label> </div>
+            <div style="float: left; font-weight: bold; width:10%;"><label>Contant:</label> </div>
+            <div style="float: left; font-weight: bold; width:10%;"><label>Overschrijving: </label></div>
+            <div style="float: left; font-weight: bold; width:10%;"><label>Maestro:</label> </div>
+            <div style="float: left; font-weight: bold; width:10%;"><label>Visa: </label></div>
+            <div style="float: left; font-weight: bold; width:10%;"><label>Openstaand (excl. BTW): </label></div>
+            <div style="float: left; font-weight: bold; width:10%;"><label>Openstaand (incl. BTW):</label></div>
+        </div>
+        <?php
+          $data_foreign_vat = array(
+            1 => "Ja",
+            0 => "Nee"
+          )
+        ?>
+        <?php foreach($_voucher->towing_payment_details as $detail) { ?>
+          <div class="form-item-vertical">
+              <div style="float: left; width:10%; padding-right: 3px;">
+                <?= $detail->category ?>
+                <?= form_hidden('payment_detail_id[]', $detail->id) ?>
+                <?= form_hidden('towing_voucher_payment_id[]', $detail->towing_voucher_payment_id) ?>
+              </div>
+              <div style="float: left; width:10%; padding-right: 3px;"><?= form_dropdown('payment_detail_foreign_vat[]', $data_foreign_vat, $detail->foreign_vat) ?></div>
+              <div style="float: left; width:10%; padding-right: 3px;"><?= form_input('payment_detail_amount_excl_vat[]', $detail->amount_excl_vat) ?></div>
+              <div style="float: left; width:10%; padding-right: 3px;"><?= form_input('payment_detail_amount_incl_vat[]', $detail->amount_incl_vat) ?></div>
+              <div style="float: left; width:10%; padding-right: 3px;"><?= form_input('payment_detail_paid_cash[]', $detail->amount_paid_cash) ?></div>
+              <div style="float: left; width:10%; padding-right: 3px;"><?= form_input('payment_detail_paid_bankdeposit[]', $detail->amount_paid_bankdeposit) ?></div>
+              <div style="float: left; width:10%; padding-right: 3px;"><?= form_input('payment_detail_maestro[]', $detail->amount_paid_maestro) ?></div>
+              <div style="float: left; width:10%; padding-right: 3px;"><?= form_input('payment_detail_visa[]', $detail->amount_paid_visa) ?></div>
+              <div style="float: left; width:10%; padding-right: 3px;">
+                  <?= form_input(array(
+                    'name'        => 'payment_detail_amount_unpaid_excl_vat[]',
+                    'value'       => $detail->amount_unpaid_excl_vat,
+                    'readonly'    => 'readonly',
+                    'style'       => 'background: #F0F0F0'
+                  )) ?>
+              </div>
+              <div style="float: left; width:10%;">
+                <?= form_input(array(
+                  'name'        => 'payment_detail_amount_unpaid_incl_vat[]',
+                  'value'       => $detail->amount_unpaid_incl_vat,
+                  'readonly'    => 'readonly',
+                  'style'       => 'background: #F0F0F0'
+                )) ?>
+              </div>
+            </div>
+            <?
+          }
+        ?>
 
       </div>
       <!-- END WORK-->
@@ -1253,72 +1305,23 @@ $_dossier = $dossier->dossier;
   <?php
     if($_voucher->status === 'READY FOR INVOICE')
     {
-      $_activities = $_voucher->towing_activities;
-      $_additional_costs = $_voucher->towing_additional_costs;
+      $invoice_hidden = array(
+        'voucher_id' => $_voucher->id,
+        'dossier_id' =>  $_dossier->id
+      );
 
-      $_collector_cost = 0.0;
-      $_customer_cost = 0.0;
-      $_customer_ptype = 'OTHER';
+      $invoice_attr = array(
+        'data-vid' => $_voucher->id,
+        'data-did' => $_dossier->id
+      );
 
-      //iterate activites and propose the cost
-      foreach ($_activities as $_activity)
-      {
-        if($_activity->code === 'STALLING' && $_voucher->collector_type !== 'CUSTOMER')
-        {
-          $_collector_cost = tofloat(($_voucher->collector_foreign_vat ? $_activity->cal_fee_excl_vat : $_activity->cal_fee_incl_vat));
-        }
-        else
-        {
-          $_customer_cost += ($_activity->amount * tofloat($_voucher->customer->company_vat_foreign_country ? $_activity->fee_excl_vat : $_activity->fee_incl_vat));
-        }
-      }
+      $payment_types = $this->invoice_service->fetchAvailablePaymentTypes();
 
-      // $_customer_cost = tofloat($_voucher->towing_payments->amount_customer);
-
-      // var_dump($_customer_cost);
-      // var_dump($_activities);
-
-      if($_voucher->towing_payments->paid_in_cash > 0)
-        $_customer_ptype = 'CASH';
-      else if($_voucher->towing_payments->paid_by_bank_deposit > 0)
-        $_customer_ptype = 'BANK';
-      else if($_voucher->towing_payments->paid_by_debit_card > 0)
-        $_customer_ptype = 'MAESTRO';
-      else if($_voucher->towing_payments->paid_by_credit_card > 0)
-        $_customer_ptype = 'CREDITCARD';
-      else if($_voucher->towing_payments->paid_in_cash <= 0
-                && $_voucher->towing_payments->paid_by_bank_deposit <= 0
-                && $_voucher->towing_payments->paid_by_debit_card <= 0
-                && $_voucher->towing_payments->paid_by_credit_card <= 0)
-        $_customer_ptype = '';
-
-      //iterate the additional costs and assign them to the collector
-      foreach ($_additional_costs as $_cost)
-      {
-        $_collector_cost += ($_voucher->collector_foreign_vat ? $_cost->fee_excl_vat : $_cost->fee_incl_vat);
-      }
-
-      if($_collector_cost && $_collector_cost > 0.0 && $_collector_cost <= $_customer_cost) {
-        //$_customer_cost -= $_collector_cost;
-      }
   ?>
+
   <div id="generate-invoice-form" style="display: none;">
     <?php
-
-    $invoice_hidden = array(
-      'voucher_id' => $_voucher->id,
-      'dossier_id' =>  $_dossier->id
-    );
-
-    $invoice_attr = array(
-      'data-vid' => $_voucher->id,
-      'data-did' => $_dossier->id
-    );
-
     print form_open('',$invoice_attr,$invoice_hidden);
-
-    $payment_types = $this->invoice_service->fetchAvailablePaymentTypes();
-
     ?>
     <div class="fancybox-form">
       <h3>Factuur aanmaken</h3>
@@ -1326,27 +1329,43 @@ $_dossier = $dossier->dossier;
         <label>Betalingsinformatie:</label>
         <table>
           <tbody>
-            <tr>
-              <td>Klant</td>
-              <td>
-                <?= form_input(array('name' => "invoice_payment_amount_customer", 'value' => $_customer_cost))?>
-              </td>
-              <td style="padding-right: 15px;"><?= form_dropdown("invoice_payment_type_customer", $payment_types, $_customer_ptype);?></td>
-            </tr>
-            <tr>
-              <td>Assistance</td>
-              <td>
-                <?= form_input(array('name' => "invoice_payment_amount_assurance", 'value' => $_voucher->towing_payments->amount_guaranteed_by_insurance))?>
-              </td>
-              <td style="padding-right: 15px;"><?= form_dropdown("invoice_payment_type_assurance", $payment_types, '');?></td>
-            </tr>
-            <tr>
-              <td>Afhaler</td>
-              <td>
-                <?= form_input(array('name' => "invoice_payment_amount_collector", 'value' => $_collector_cost))?>
-              </td>
-              <td style="padding-right: 15px;"><?= form_dropdown("invoice_payment_type_collector", $payment_types, $_customer_ptype);?></td>
-            </tr>
+            <?php
+            foreach($_voucher->towing_payment_details as $detail) {
+                $category_key = '';
+                $label = '';
+
+                switch($detail->category) {
+                  case 'CUSTOMER':
+                    $label='Klant';
+                    $category_key='customer'; break;
+                  case 'INSURANCE':
+                    $label = 'Assistance';
+                    $category_key='assurance'; break;
+                  case 'COLLECTOR':
+                    $label = 'Afhaler';
+                    $category_key='collector'; break;
+                }
+
+                $amount = $detail->amount_incl_vat;
+
+                if($detail->foreign_vat) {
+                  $amount = $detail->amount_excl_vat;
+                }
+            ?>
+              <tr>
+                  <td>
+                      <?= $label ?>
+                  </td>
+                  <td style="padding-right: 25px;">
+                    <?= form_input(array('name' => "invoice_payment_amount_$category_key",
+                                         'value' => $amount,
+                                         'readonly'    => 'readonly',
+                                         'style'       => 'background: #F0F0F0'))?>
+                  </td>
+              </tr>
+                <?
+              }
+            ?>
           </tbody>
         </table>
       </div>

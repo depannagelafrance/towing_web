@@ -3,6 +3,7 @@
 require_once(APPPATH . '/models/Depot_Model.php');
 require_once(APPPATH . '/models/TowingActivity_Model.php');
 require_once(APPPATH . '/models/TowingPayment_Model.php');
+require_once(APPPATH . '/models/TowingPaymentDetail_Model.php');
 
 class Voucher_Model  {
   public $id                          = null;
@@ -30,6 +31,7 @@ class Voucher_Model  {
   public $towing_completed     = null;
   public $towing_depot         = null;
   public $towing_payment       = null;
+  public $towing_payment_details = array(); //array of TowingPayment_Model
   public $signa_id             = null;
   public $signa_by             = null;
   public $signa_by_vehicle     = null;
@@ -95,6 +97,14 @@ class Voucher_Model  {
         $this->towing_payments = new TowingPayment_Model($data->towing_payments);
       } else {
         $this->towing_payments = new TowingPayment_Model();
+      }
+
+      if(property_exists($data, 'towing_payment_details') && $data->towing_payment_details) {
+        $this->towing_payment_details = [];
+
+        foreach ($data->towing_payment_details as $detail) {
+          $this->towing_payment_details[] = new TowingPaymentDetail_Model($detail);
+        }
       }
 
       if($data->towing_activities && is_array($data->towing_activities)) {

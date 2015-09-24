@@ -58,6 +58,9 @@ class Dossier extends Page {
     // {
       if($dossier && $dossier->dossier) {
         $this->_setDossierValuesFromPostRequest($dossier, $voucher_number);
+        // echo "<pre>";
+        // var_dump($dossier);
+        // die("</pre>");
         $dossier = $this->dossier_service->updateDossier(new Dossier_Model($dossier), $token);
 
         if($dossier)
@@ -301,7 +304,8 @@ class Dossier extends Page {
         {
           $j = 0;
 
-          foreach($activity_ids as $activity_id) {
+          foreach($activity_ids as $activity_id)
+          {
             $found = false;
 
             foreach($voucher->towing_activities as $towing_activity) {
@@ -322,6 +326,48 @@ class Dossier extends Page {
 
             $j++;
           }
+        }
+
+        // ---------------------------------------------------------------------
+        // PREPARE THE PAYMENT DETAILS
+        // ---------------------------------------------------------------------
+        $payment_detail_ids = $this->input->post('payment_detail_id');
+        $towing_voucher_payment_id = $this->input->post('towing_voucher_payment_id');
+        $payment_detail_foreign_vat = $this->input->post('payment_detail_foreign_vat');
+        $payment_detail_amount_excl_vat = $this->input->post('payment_detail_amount_excl_vat');
+        $payment_detail_amount_incl_vat = $this->input->post('payment_detail_amount_incl_vat');
+        $payment_detail_paid_cash = $this->input->post('payment_detail_paid_cash');
+        $payment_detail_paid_bankdeposit = $this->input->post('payment_detail_paid_bankdeposit');
+        $payment_detail_maestro = $this->input->post('payment_detail_maestro');
+        $payment_detail_visa = $this->input->post('payment_detail_visa');
+        $payment_detail_amount_unpaid_excl_vat = $this->input->post('payment_detail_amount_unpaid_excl_vat');
+        $payment_detail_amount_unpaid_incl_vat = $this->input->post('payment_detail_amount_unpaid_incl_vat');
+
+        if(is_array($payment_detail_ids))
+        {
+            $j = 0;
+
+            foreach($payment_detail_ids as $payment_detail_id)
+            {
+              foreach($voucher->towing_payment_details as $payment_detail)
+              {
+                if($payment_detail_id == $payment_detail->id)
+                {
+                  $payment_detail->towing_voucher_payment_id  = $towing_voucher_payment_id[$j];
+                  $payment_detail->foreign_vat                = $payment_detail_foreign_vat[$j];
+                  $payment_detail->amount_excl_vat            = $payment_detail_amount_excl_vat[$j];
+                  $payment_detail->amount_incl_vat            = $payment_detail_amount_incl_vat[$j];
+                  $payment_detail->amount_paid_cash           = $payment_detail_paid_cash[$j];
+                  $payment_detail->amount_paid_bankdeposit    = $payment_detail_paid_bankdeposit[$j];
+                  $payment_detail->amount_paid_maestro        = $payment_detail_maestro[$j];
+                  $payment_detail->amount_paid_visa           = $payment_detail_visa[$j];
+                  $payment_detail->amount_unpaid_excl_vat     = $payment_detail_amount_unpaid_excl_vat[$j];
+                  $payment_detail->amount_unpaid_incl_vat     = $payment_detail_amount_unpaid_incl_vat[$j];
+                }
+              }
+
+              $j++;
+            }
         }
 
         // ---------------------------------------------------------------------
