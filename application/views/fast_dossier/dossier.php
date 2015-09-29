@@ -512,75 +512,6 @@ $_dossier = $dossier->dossier;
         <div class="additional-costs-container__actions">
         </div>
 
-
-        <!--PAYMENT-->
-        <div class="form-item-vertical payment-container">
-          <div id="payment_insurance"  class="form-item-vertical payment-container__insurance">
-            <label class="notbold">Garantie:</label>
-            <?php print form_input('amount_guaranteed_by_insurance', $_voucher->towing_payments->amount_guaranteed_by_insurance); ?>
-          </div>
-
-          <div id="payment_total" class="form-item-vertical payment-container__amount_customer">
-            <label class="notbold">Te betalen:</label>
-            <?php
-            $data = array(
-            'name'        => 'amount_customer',
-            'value'       => $_voucher->towing_payments->amount_customer,
-            'readonly'    => 'readonly',
-            'style'       => 'background: #F0F0F0'
-            );
-            print form_input($data);
-            ?>
-          </div>
-
-          <div id="payment_cash" class="form-item-vertical payment-container__paid_in_cash">
-            <label class="notbold">Contant:</label>
-            <?php print form_input('paid_in_cash', $_voucher->towing_payments->paid_in_cash); ?>
-          </div>
-
-          <div id="payment_bank" class="form-item-vertical payment-container__paid_by_bank_deposit">
-            <label class="notbold">Overschrijving:</label>
-            <?php print form_input('paid_by_bank_deposit', $_voucher->towing_payments->paid_by_bank_deposit); ?>
-          </div>
-
-          <div id="payment_debit" class="form-item-vertical payment-container__paid_by_debit_card">
-            <label class="notbold">Maestro:</label>
-            <?php print form_input('paid_by_debit_card', $_voucher->towing_payments->paid_by_debit_card); ?>
-          </div>
-
-          <div id="payment_credit" class="form-item-vertical payment-container__paid_by_credit_card">
-            <label class="notbold">Creditcard:</label>
-            <?php print form_input('paid_by_credit_card', $_voucher->towing_payments->paid_by_credit_card); ?>
-          </div>
-
-          <div id="payment_paid" class="form-item-vertical payment-container__cal_amount_paid">
-            <label class="notbold">Betaald:</label>
-            <?php
-            $data = array(
-              'name'        => 'cal_amount_paid',
-              'value'       => $_voucher->towing_payments->cal_amount_paid,
-              'readonly'    => 'readonly',
-              'style'       => 'background: #F0F0F0'
-            );
-            print form_input($data);
-            ?>
-          </div>
-
-          <div id="payment_unpaid" class="form-item-vertical payment-container__cal_amount_unpaid">
-            <label class="notbold">Openstaand:</label>
-            <?php
-            $data = array(
-              'name'        => 'cal_amount_unpaid',
-              'value'       => $_voucher->towing_payments->cal_amount_unpaid,
-              'readonly'    => 'readonly',
-              'style'       => 'background: #F0F0F0'
-            );
-            print form_input($data);
-            ?>
-          </div>
-
-        </div>
-
         <div class="form-item-vertical">
             <div style="float: left; font-weight: bold; width:10%;"><label>Categorie:</label></div>
             <div style="float: left; font-weight: bold; width:10%;"><label>Vrij van BTW? </label></div>
@@ -602,7 +533,13 @@ $_dossier = $dossier->dossier;
         <?php foreach($_voucher->towing_payment_details as $detail) { ?>
           <div class="form-item-vertical">
               <div style="float: left; width:10%; padding-right: 3px;">
-                <?= $detail->category ?>
+                <?
+                  switch($detail->category) {
+                    case 'COLLECTOR': print "Afhaler"; break;
+                    case 'CUSTOMER' : print "Klant"; break;
+                    case 'INSURANCE' : print "Assurance"; break;
+                  }
+                ?>
                 <?= form_hidden('payment_detail_id[]', $detail->id) ?>
                 <?= form_hidden('towing_voucher_payment_id[]', $detail->towing_voucher_payment_id) ?>
               </div>
