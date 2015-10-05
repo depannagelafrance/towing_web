@@ -168,6 +168,7 @@ $(document).ready(function() {
                     customerSearchResults = data;
                     var search = [];
                     var count = 0;
+
                     $.each( data, function( index, value ) {
                         var item = '';
                         var multiple = false;
@@ -192,7 +193,7 @@ $(document).ready(function() {
                             multiple = true;
                         }
 
-                        search.push({'label': item,'value': count});
+                        search.push({'label': item,'value': 'ID#' + count});
                         count++;
                     });
                     response(search);
@@ -202,18 +203,16 @@ $(document).ready(function() {
         minLength: 1,
         select: function( event, ui ) {
             var id = ui.item.value;
-            // Fix for only 1 result.
-            if(customerSearchResults.length == 1){
-                var selected = customerSearchResults[0];
-            }else{
-                var selected = customerSearchResults[id];
-            }
+            id = id.replace('ID#','');
+
+            var selected = customerSearchResults[id];
+
             $('#customer_search_firstname').val(selected.first_name);
             $('#customer_search_lastname').val(selected.last_name);
             $('#customer_search_company_name').val(selected.company_name);
             $('#customer_search_company_vat').val(selected.company_vat);
             $('#customer_search_street').val(selected.street);
-            $('#customer_search_street_nr').val(selected.street_number);
+            $('#customer_search_street_number').val(selected.street_number);
             $('#customer_search_street_pobox').val(selected.street_pobox);
             $('#customer_search_zip').val(selected.zip);
             $('#customer_search_city').val(selected.city);
@@ -266,7 +265,7 @@ $(document).ready(function() {
                             multiple = true;
                         }
 
-                        search.push({'label': item,'value': count});
+                        search.push({'label': item,'value': 'ID#' + count});
                         count++;
                     });
                     response(search);
@@ -276,18 +275,16 @@ $(document).ready(function() {
         minLength: 1,
         select: function( event, ui ) {
             var id = ui.item.value;
-            // Fix for only 1 result.
-            if(customerSearchResults.length == 1){
-                var selected = customerSearchResults[0];
-            }else{
-                var selected = customerSearchResults[id];
-            }
+            id = id.replace('ID#', ''); // this fix is required because JS considers null == '' == 0 == false, ergo it thinks that no ID value is set
+
+            var selected = customerSearchResults[id];
+
             $('#causer_search_firstname').val(selected.first_name);
             $('#causer_search_lastname').val(selected.last_name);
             $('#causer_search_company_name').val(selected.company_name);
             $('#causer_search_company_vat').val(selected.company_vat);
             $('#causer_search_street').val(selected.street);
-            $('#causer_search_street_nr').val(selected.street_number);
+            $('#causer_search_street_number').val(selected.street_number);
             $('#causer_search_street_pobox').val(selected.street_pobox);
             $('#causer_search_zip').val(selected.zip);
             $('#causer_search_city').val(selected.city);
@@ -1273,7 +1270,7 @@ $(document).ready(function() {
     $(document).on('change', '.paymentdetail-field, .paymentdetail-vat-field', function(){
         recalcuteActivityPrice();
     });
-    // 
+    //
     // $(document).on('change', '.paymentdetail-vat-field', function(){
     //     recalcuteActivityPrice();
     // });
