@@ -99,6 +99,45 @@ this["Handlebars"]["Templates"]["activity/checkboxes"] = Handlebars.template({"1
   return buffer + "\n\n";
 },"useData":true});
 
+this["Handlebars"]["Templates"]["activity/paymentdetails"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
+  var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "\n<div class=\"form-item-vertical\">\n    <div style=\"float: left; width:10%; padding-right: 3px;\">\n      "
+    + escapeExpression(((helper = (helper = helpers.category_display_name || (depth0 != null ? depth0.category_display_name : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"category_display_name","hash":{},"data":data}) : helper)))
+    + "\n      <input type=\"hidden\" name=\"payment_detail_id[]\" value=\""
+    + escapeExpression(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"id","hash":{},"data":data}) : helper)))
+    + "\">\n      <input type=\"hidden\" name=\"towing_voucher_payment_id[]\" value=\""
+    + escapeExpression(((helper = (helper = helpers.towing_voucher_payment_id || (depth0 != null ? depth0.towing_voucher_payment_id : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"towing_voucher_payment_id","hash":{},"data":data}) : helper)))
+    + "\">\n    </div>\n    <div style=\"float: left; width:10%; padding-right: 3px;\">\n      <select name=\"payment_detail_foreign_vat[]\" class=\"paymentdetail-vat-field\">\n        <option value=\"1\" ";
+  stack1 = ((helpers.equal || (depth0 && depth0.equal) || helperMissing).call(depth0, (depth0 != null ? depth0.foreign_vat : depth0), 1, {"name":"equal","hash":{},"fn":this.program(2, data),"inverse":this.noop,"data":data}));
+  if (stack1 != null) { buffer += stack1; }
+  buffer += ">Ja</option>\n        <option value=\"0\" ";
+  stack1 = ((helpers.equal || (depth0 && depth0.equal) || helperMissing).call(depth0, (depth0 != null ? depth0.foreign_vat : depth0), 0, {"name":"equal","hash":{},"fn":this.program(2, data),"inverse":this.noop,"data":data}));
+  if (stack1 != null) { buffer += stack1; }
+  return buffer + ">Nee</option>\n      </select>\n    </div>\n    <div style=\"float: left; width:10%; padding-right: 3px;\"><input type=\"text\" class=\"paymentdetail-field\" value=\""
+    + escapeExpression(((helper = (helper = helpers.amount_excl_vat || (depth0 != null ? depth0.amount_excl_vat : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"amount_excl_vat","hash":{},"data":data}) : helper)))
+    + "\" name=\"payment_detail_amount_excl_vat[]\"></div>\n    <div style=\"float: left; width:10%; padding-right: 3px;\"><input type=\"text\" class=\"paymentdetail-field\" value=\""
+    + escapeExpression(((helper = (helper = helpers.amount_incl_vat || (depth0 != null ? depth0.amount_incl_vat : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"amount_incl_vat","hash":{},"data":data}) : helper)))
+    + "\" name=\"payment_detail_amount_incl_vat[]\"></div>\n    <div style=\"float: left; width:10%; padding-right: 3px;\"><input type=\"text\" class=\"paymentdetail-field\" value=\""
+    + escapeExpression(((helper = (helper = helpers.amount_paid_cash || (depth0 != null ? depth0.amount_paid_cash : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"amount_paid_cash","hash":{},"data":data}) : helper)))
+    + "\" name=\"payment_detail_paid_cash[]\" ></div>\n    <div style=\"float: left; width:10%; padding-right: 3px;\"><input type=\"text\" class=\"paymentdetail-field\" value=\""
+    + escapeExpression(((helper = (helper = helpers.amount_paid_bankdeposit || (depth0 != null ? depth0.amount_paid_bankdeposit : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"amount_paid_bankdeposit","hash":{},"data":data}) : helper)))
+    + "\" name=\"payment_detail_paid_bankdeposit[]\"></div>\n    <div style=\"float: left; width:10%; padding-right: 3px;\"><input type=\"text\" class=\"paymentdetail-field\" value=\""
+    + escapeExpression(((helper = (helper = helpers.amount_paid_maestro || (depth0 != null ? depth0.amount_paid_maestro : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"amount_paid_maestro","hash":{},"data":data}) : helper)))
+    + "\" name=\"payment_detail_maestro[]\"></div>\n    <div style=\"float: left; width:10%; padding-right: 3px;\"><input type=\"text\" class=\"paymentdetail-field\" value=\""
+    + escapeExpression(((helper = (helper = helpers.amount_paid_visa || (depth0 != null ? depth0.amount_paid_visa : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"amount_paid_visa","hash":{},"data":data}) : helper)))
+    + "\" name=\"payment_detail_visa[]\"></div>\n    <div style=\"float: left; width:10%; padding-right: 3px;\">\n        <input type=\"text\" class=\"paymentdetail-field\" value=\""
+    + escapeExpression(((helper = (helper = helpers.amount_unpaid_excl_vat || (depth0 != null ? depth0.amount_unpaid_excl_vat : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"amount_unpaid_excl_vat","hash":{},"data":data}) : helper)))
+    + "\" name=\"payment_detail_amount_unpaid_excl_vat[]\" readonly=\"readonly\" style=\"background: #F0F0F0;\">\n    </div>\n    <div style=\"float: left; width:10%;\">\n      <input type=\"text\" class=\"paymentdetail-field\" value=\""
+    + escapeExpression(((helper = (helper = helpers.amount_unpaid_incl_vat || (depth0 != null ? depth0.amount_unpaid_incl_vat : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"amount_unpaid_incl_vat","hash":{},"data":data}) : helper)))
+    + "\" name=\"payment_detail_amount_unpaid_incl_vat[]\" readonly=\"readonly\" style=\"background: #F0F0F0;\">\n    </div>\n  </div>\n";
+},"2":function(depth0,helpers,partials,data) {
+  return "selected=\"selected\"";
+  },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+  var stack1, buffer = "";
+  stack1 = helpers.each.call(depth0, (depth0 != null ? depth0.details : depth0), {"name":"each","hash":{},"fn":this.program(1, data),"inverse":this.noop,"data":data});
+  if (stack1 != null) { buffer += stack1; }
+  return buffer;
+},"useData":true});
+
 this["Handlebars"]["Templates"]["attachment/overview"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
   var helper, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, functionType="function";
   return "  <tr>\n    <td>"

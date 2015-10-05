@@ -529,48 +529,52 @@ $_dossier = $dossier->dossier;
         </div>
 
         <!--PAYMENT-->
-        <div class="form-item-vertical payment-container">
-          <div id="payment_insurance"  class="form-item-vertical payment-container__insurance">
-            <label class="notbold">Garantie:</label>
-            <?php print  $_voucher->towing_payments->amount_guaranteed_by_insurance; ?>
-          </div>
-
-          <div id="payment_total" class="form-item-vertical payment-container__amount_customer">
-            <label class="notbold">Te betalen:</label>
-            <?php print $_voucher->towing_payments->amount_customer; ?>
-          </div>
-
-          <div id="payment_cash" class="form-item-vertical payment-container__paid_in_cash">
-            <label class="notbold">Contant:</label>
-            <?php print $_voucher->towing_payments->paid_in_cash; ?>
-          </div>
-
-          <div id="payment_bank" class="form-item-vertical payment-container__paid_by_bank_deposit">
-            <label class="notbold">Overschrijving:</label>
-            <?php print $_voucher->towing_payments->paid_by_bank_deposit; ?>
-          </div>
-
-          <div id="payment_debit" class="form-item-vertical payment-container__paid_by_debit_card">
-            <label class="notbold">Maestro:</label>
-            <?php print $_voucher->towing_payments->paid_by_debit_card; ?>
-          </div>
-
-          <div id="payment_credit" class="form-item-vertical payment-container__paid_by_credit_card">
-            <label class="notbold">Creditcard:</label>
-            <?php print $_voucher->towing_payments->paid_by_credit_card; ?>
-          </div>
-
-          <div id="payment_paid" class="form-item-vertical payment-container__cal_amount_paid">
-            <label class="notbold">Betaald:</label>
-            <?php print $_voucher->towing_payments->cal_amount_paid; ?>
-          </div>
-
-          <div id="payment_unpaid" class="form-item-vertical payment-container__cal_amount_unpaid">
-            <label class="notbold">Openstaand:</label>
-            <?php print $_voucher->towing_payments->cal_amount_unpaid; ?>
-          </div>
-
+        <div class="form-item-vertical">
+            <div style="float: left; font-weight: bold; width:10%;"><label>&nbsp;</label></div>
+            <div style="float: left; font-weight: bold; width:10%;"><label>Vrij van BTW? </label></div>
+            <div style="float: left; font-weight: bold; width:10%;"><label>Bedrag<br />(excl. BTW): </label></div>
+            <div style="float: left; font-weight: bold; width:10%;"><label>Bedrag<br />(incl. BTW):</label> </div>
+            <div style="float: left; font-weight: bold; width:10%;"><label>Contant:</label> </div>
+            <div style="float: left; font-weight: bold; width:10%;"><label>Overschrijving: </label></div>
+            <div style="float: left; font-weight: bold; width:10%;"><label>Maestro:</label> </div>
+            <div style="float: left; font-weight: bold; width:10%;"><label>Visa: </label></div>
+            <div style="float: left; font-weight: bold; width:10%;"><label>Openstaand<br />(excl. BTW): </label></div>
+            <div style="float: left; font-weight: bold; width:10%;"><label>Openstaand<br />(incl. BTW):</label></div>
         </div>
+        <?php
+          $data_foreign_vat = array(
+            1 => "Ja",
+            0 => "Nee"
+          )
+        ?>
+        <?php foreach($_voucher->towing_payment_details as $detail) { ?>
+          <div class="form-item-vertical">
+              <div style="float: left; width:10%; padding-right: 3px;">
+                <?
+                  switch($detail->category) {
+                    case 'COLLECTOR': print "Afhaler"; break;
+                    case 'CUSTOMER' : print "Klant"; break;
+                    case 'INSURANCE' : print "Assurance"; break;
+                  }
+                ?>
+                <?= form_hidden('payment_detail_id[]', $detail->id) ?>
+                <?= form_hidden('towing_voucher_payment_id[]', $detail->towing_voucher_payment_id) ?>
+              </div>
+              <div style="float: left; width:10%; padding-right: 3px;"><?= sprintf('<i class="fa fa-%ssquare-o">&nbsp;</i>', ($detail->foreign_vat == 1 ? "check-" : "")) ?></div>
+              <div style="float: left; width:10%; padding-right: 3px;"><?= $detail->amount_excl_vat ?></div>
+              <div style="float: left; width:10%; padding-right: 3px;"><?= $detail->amount_incl_vat ?></div>
+              <div style="float: left; width:10%; padding-right: 3px;"><?= $detail->amount_paid_cash ?></div>
+              <div style="float: left; width:10%; padding-right: 3px;"><?= $detail->amount_paid_bankdeposit ?></div>
+              <div style="float: left; width:10%; padding-right: 3px;"><?= $detail->amount_paid_maestro ?></div>
+              <div style="float: left; width:10%; padding-right: 3px;"><?= $detail->amount_paid_visa ?></div>
+              <div style="float: left; width:10%; padding-right: 3px;"><?= $detail->amount_unpaid_excl_vat ?></div>
+              <div style="float: left; width:10%;"><?= $detail->amount_unpaid_incl_vat ?></div>
+            </div>
+            <?
+          }
+        ?>
+
+      </div>
 
 
       </div>

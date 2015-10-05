@@ -524,52 +524,8 @@ $_dossier = $dossier->dossier;
             <div style="float: left; font-weight: bold; width:10%;"><label>Openstaand (excl. BTW): </label></div>
             <div style="float: left; font-weight: bold; width:10%;"><label>Openstaand (incl. BTW):</label></div>
         </div>
-        <?php
-          $data_foreign_vat = array(
-            1 => "Ja",
-            0 => "Nee"
-          )
-        ?>
-        <?php foreach($_voucher->towing_payment_details as $detail) { ?>
-          <div class="form-item-vertical">
-              <div style="float: left; width:10%; padding-right: 3px;">
-                <?
-                  switch($detail->category) {
-                    case 'COLLECTOR': print "Afhaler"; break;
-                    case 'CUSTOMER' : print "Klant"; break;
-                    case 'INSURANCE' : print "Assurance"; break;
-                  }
-                ?>
-                <?= form_hidden('payment_detail_id[]', $detail->id) ?>
-                <?= form_hidden('towing_voucher_payment_id[]', $detail->towing_voucher_payment_id) ?>
-              </div>
-              <div style="float: left; width:10%; padding-right: 3px;"><?= form_dropdown('payment_detail_foreign_vat[]', $data_foreign_vat, $detail->foreign_vat) ?></div>
-              <div style="float: left; width:10%; padding-right: 3px;"><?= form_input('payment_detail_amount_excl_vat[]', $detail->amount_excl_vat) ?></div>
-              <div style="float: left; width:10%; padding-right: 3px;"><?= form_input('payment_detail_amount_incl_vat[]', $detail->amount_incl_vat) ?></div>
-              <div style="float: left; width:10%; padding-right: 3px;"><?= form_input('payment_detail_paid_cash[]', $detail->amount_paid_cash) ?></div>
-              <div style="float: left; width:10%; padding-right: 3px;"><?= form_input('payment_detail_paid_bankdeposit[]', $detail->amount_paid_bankdeposit) ?></div>
-              <div style="float: left; width:10%; padding-right: 3px;"><?= form_input('payment_detail_maestro[]', $detail->amount_paid_maestro) ?></div>
-              <div style="float: left; width:10%; padding-right: 3px;"><?= form_input('payment_detail_visa[]', $detail->amount_paid_visa) ?></div>
-              <div style="float: left; width:10%; padding-right: 3px;">
-                  <?= form_input(array(
-                    'name'        => 'payment_detail_amount_unpaid_excl_vat[]',
-                    'value'       => $detail->amount_unpaid_excl_vat,
-                    'readonly'    => 'readonly',
-                    'style'       => 'background: #F0F0F0'
-                  )) ?>
-              </div>
-              <div style="float: left; width:10%;">
-                <?= form_input(array(
-                  'name'        => 'payment_detail_amount_unpaid_incl_vat[]',
-                  'value'       => $detail->amount_unpaid_incl_vat,
-                  'readonly'    => 'readonly',
-                  'style'       => 'background: #F0F0F0'
-                )) ?>
-              </div>
-            </div>
-            <?
-          }
-        ?>
+
+        <div class="payment-detail-container__fields"></div>
 
       </div>
       <!-- END WORK-->

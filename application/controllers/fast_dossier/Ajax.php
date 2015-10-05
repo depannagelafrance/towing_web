@@ -125,6 +125,16 @@ class Ajax extends AjaxPage
     $this->_sendJson($result);
   }
 
+  public function paymentDetails($dossier_id, $voucher_id)
+  {
+    $token = $this->_get_user_token();
+    $result = $this->dossier_service->fetchVoucherPaymentDetails($dossier_id, $voucher_id, $token);
+    $this->_sendJson($result);
+  }
+
+
+
+
   public function availableActivities($dossier_id, $voucher_id)
   {
     $token = $this->_get_user_token();

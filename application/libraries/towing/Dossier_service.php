@@ -392,6 +392,11 @@ class Dossier_service extends Rest_service {
     return $this->CI->rest->get(sprintf('/dossier/list/additional_costs/%s/%s/%s', $dossier_id, $voucher_id, $token));
   }
 
+  public function fetchVoucherPaymentDetails($dossier_id, $voucher_id, $token)
+  {
+      return $this->CI->rest->get(sprintf('/dossier/list/payment_details/%s/%s/%s', $dossier_id, $voucher_id, $token));
+  }
+
   /**
    * Remove an additional cost entry from a voucher
    *

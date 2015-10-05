@@ -1,3 +1,4 @@
+const VAT_PERCENTAGE = 1.21;
 /*
 $('#list_direction').change(function(){
   var id = $('#list_direction option:selected').val();
@@ -328,6 +329,10 @@ $(document).ready(function() {
 
     getAttachement().success(function(data){
         updateAttachementTemplates(data);
+    });
+
+    getPaymentDetails().success(function(data) {
+      updatePaymentDetailsTemplate(data)
     });
 
 
@@ -960,6 +965,17 @@ $(document).ready(function() {
       });
     }
 
+    function getPaymentDetails() {
+      var url = prepareAjaxUrl('/fast_dossier/ajax/paymentDetails');
+
+      return $.ajax({
+          type: "POST",
+          cache: false,
+          url: url,
+          data: {}
+      });
+    }
+
     function getAvailableActivities(){
         var url = prepareAjaxUrl('/fast_dossier/ajax/availableActivities');
         return $.ajax({
@@ -1003,48 +1019,81 @@ $(document).ready(function() {
       });
     }
 
-    function updateActivityTotalPrice(){
-        var total = 0;
-        var btw_from_belgium = true;
-        if(btw_from_belgium){
-            $('.work-container__tot__incl input').each(function() {
-                total += parseFloat($(this).val());
-            });
-            $('.additional-costs-container__incl input').each(function() {
-                if($.isNumeric($(this).val())) {
-                    total += parseFloat($(this).val());
-                }
-            });
-            $('#payment_total input').val(total.toFixed(2));
-        }else{
-            $('.work-container__tot__excl input').each(function() {
-                total += parseFloat($(this).val());
-            });
-            $('.additional-costs-container__excl input').each(function() {
-                if($.isNumeric($(this).val())) {
-                    total += parseFloat($(this).val());
-                }
-            });
-            $('#payment_total input').val(total.toFixed(2));
-        }
-
-        $('#payment_total').trigger('change');
-    }
+    // function updateActivityTotalPrice(){
+    //     var total = 0;
+    //     var btw_from_belgium = true;
+    //     if(btw_from_belgium){
+    //         $('.work-container__tot__incl input').each(function() {
+    //             total += parseFloat($(this).val());
+    //         });
+    //         $('.additional-costs-container__incl input').each(function() {
+    //             if($.isNumeric($(this).val())) {
+    //                 total += parseFloat($(this).val());
+    //             }
+    //         });
+    //         $('#payment_total input').val(total.toFixed(2));
+    //     }else{
+    //         $('.work-container__tot__excl input').each(function() {
+    //             total += parseFloat($(this).val());
+    //         });
+    //         $('.additional-costs-container__excl input').each(function() {
+    //             if($.isNumeric($(this).val())) {
+    //                 total += parseFloat($(this).val());
+    //             }
+    //         });
+    //         $('#payment_total input').val(total.toFixed(2));
+    //     }
+    //
+    //     $('#payment_total').trigger('change');
+    // }
 
     function recalcuteActivityPrice(){
-        var insurance = $('#payment_insurance input').val() || 0;
-        var cash      = $('#payment_cash input').val() || 0;
-        var bank      = $('#payment_bank input').val() || 0;
-        var debit     = $('#payment_debit input').val() || 0;
-        var credit    = $('#payment_credit input').val() || 0;
-        var total     = $('#payment_total input').val() || 0;
+        // var insurance = $('#payment_insurance input').val() || 0;
+        // var cash      = $('#payment_cash input').val() || 0;
+        // var bank      = $('#payment_bank input').val() || 0;
+        // var debit     = $('#payment_debit input').val() || 0;
+        // var credit    = $('#payment_credit input').val() || 0;
+        // var total     = $('#payment_total input').val() || 0;
+        //
+        // var topay     = total - insurance - cash - bank - debit - credit;
+        // var paid      = (total - topay).toFixed(2);
+        // var unpaid    = topay.toFixed(2);
+        //
+        // $('#payment_paid input').val(paid);
+        // $('#payment_unpaid input').val(unpaid);
 
-        var topay     = total - insurance - cash - bank - debit - credit;
-        var paid      = (total - topay).toFixed(2);
-        var unpaid    = topay.toFixed(2);
+        $('input[name="payment_detail_id[]"]').each(function($i, $id_element){
+          var $selectedVatTypeOptions =$('select[name="payment_detail_foreign_vat[]"]').get($i).options;
+          var $selectedVatType = $selectedVatTypeOptions[$selectedVatTypeOptions.selectedIndex];
+          var $is_foreign_vat = $selectedVatType.value == 1;
 
-        $('#payment_paid input').val(paid);
-        $('#payment_unpaid input').val(unpaid);
+          var $amount_excl_vat = $('input[name="payment_detail_amount_excl_vat[]"]').get($i).value;
+          var $amount_incl_vat = $('input[name="payment_detail_amount_incl_vat[]"]').get($i).value;
+          var $amount_paid_cash = $('input[name="payment_detail_paid_cash[]"]').get($i).value;
+          var $amount_paid_bankdeposit = $('input[name="payment_detail_paid_bankdeposit[]"]').get($i).value;
+          var $amount_paid_maestro = $('input[name="payment_detail_maestro[]"]').get($i).value;
+          var $amount_paid_visa = $('input[name="payment_detail_visa[]"]').get($i).value;
+
+          var $unpaid_excl_vat = 0;
+          var $unpaid_incl_vat = 0;
+
+          if($is_foreign_vat)
+          {
+            $unpaid_excl_vat = $amount_excl_vat - $amount_paid_cash - $amount_paid_bankdeposit - $amount_paid_maestro - $amount_paid_visa;
+            $unpaid_incl_vat = $unpaid_excl_vat * VAT_PERCENTAGE;
+          }
+          else
+          {
+            $unpaid_incl_vat = $amount_incl_vat - $amount_paid_cash - $amount_paid_bankdeposit - $amount_paid_maestro - $amount_paid_visa;
+            $unpaid_excl_vat = $unpaid_incl_vat / VAT_PERCENTAGE
+          }
+
+          $unpaid_incl_vat = $unpaid_incl_vat < 0 ? 0.0 : $unpaid_incl_vat;
+          $unpaid_excl_vat = $unpaid_excl_vat < 0 ? 0.0 : $unpaid_excl_vat;
+
+          $('input[name="payment_detail_amount_unpaid_excl_vat[]"]').get($i).value = $unpaid_excl_vat.toFixed(2);
+          $('input[name="payment_detail_amount_unpaid_incl_vat[]"]').get($i).value = $unpaid_incl_vat.toFixed(2);
+        });
     }
 
 
@@ -1054,6 +1103,10 @@ $(document).ready(function() {
 
     function updateAdditionalCostsTemplate(data) {
         updateAdditionalCostsList(data);
+    }
+
+    function updatePaymentDetailsTemplate(data) {
+        updatePaymentDetailsList(data);
     }
 
     function updateActivityList(data){
@@ -1082,6 +1135,19 @@ $(document).ready(function() {
         $('#added-activities .additional-costs-container__fields').html(template(items));
     }
 
+    function updatePaymentDetailsList(data){
+        var items = {
+            details : []
+        };
+
+        $.each( data, function( key, value ) {
+            items.details.push(value);
+        });
+
+        var template = Handlebars.Templates['activity/paymentdetails'];
+        $('#added-activities .payment-detail-container__fields').html(template(items));
+    }
+
     function updateActivityForm(data){
         if(data.length > 0){
             var items = {
@@ -1106,11 +1172,15 @@ $(document).ready(function() {
 
         removeActivity(aid).success(function(data){
             updateActivityTemplates(data);
-            updateActivityTotalPrice();
+            // updateActivityTotalPrice();
             recalcuteActivityPrice();
 
             getAvailableActivities().success(function(available){
                 updateActivityForm(available);
+            });
+
+            getPaymentDetails().success(function(data) {
+              updatePaymentDetailsTemplate(data)
             });
         });
 
@@ -1125,12 +1195,16 @@ $(document).ready(function() {
 
         addActivities(formObj).success(function(data){
                 updateActivityTemplates(data);
-                updateActivityTotalPrice();
+                // updateActivityTotalPrice();
                 recalcuteActivityPrice();
                 parent.$.fancybox.close();
 
                 getAvailableActivities().success(function(available){
                     updateActivityForm(available);
+                });
+
+                getPaymentDetails().success(function(data) {
+                  updatePaymentDetailsTemplate(data)
                 });
         });
 
@@ -1158,7 +1232,7 @@ $(document).ready(function() {
         $(this).parents('.work-container__field').find('.work-container__tot__incl').find('input').val(new_incl);
         $(this).parents('.work-container__field').find('.work-container__tot__excl').find('input').val(new_excl);
 
-        updateActivityTotalPrice();
+        //updateActivityTotalPrice();
         recalcuteActivityPrice();
     });
 
@@ -1172,11 +1246,11 @@ $(document).ready(function() {
             excl = '';
         }else{
             incl = parseFloat(incl).toFixed(2);
-            excl = (incl / 1.21).toFixed(2);
+            excl = (incl / VAT_PERCENTAGE).toFixed(2);
         }
         $(this).parents('.additional-costs-container__field').find('.additional-costs-container__incl').find('input').val(incl);
         $(this).parents('.additional-costs-container__field').find('.additional-costs-container__excl').find('input').val(excl);
-        updateActivityTotalPrice();
+        //updateActivityTotalPrice();
     });
 
     //EXCL
@@ -1188,17 +1262,21 @@ $(document).ready(function() {
             excl = '';
         }else{
             excl = parseFloat(excl).toFixed(2);
-            incl = (excl * 1.21).toFixed(2);
+            incl = (excl * VAT_PERCENTAGE).toFixed(2);
         }
         $(this).parents('.additional-costs-container__field').find('.additional-costs-container__incl').find('input').val(incl);
         $(this).parents('.additional-costs-container__field').find('.additional-costs-container__excl').find('input').val(excl);
-        updateActivityTotalPrice();
+        //updateActivityTotalPrice();
     });
 
         //RECALCULATE ON CHANGE
-    $('#payment_insurance, #payment_credit, #payment_debit, #payment_cash, #payment_bank, #payment_total').change(function(){
+    $(document).on('change', '.paymentdetail-field, .paymentdetail-vat-field', function(){
         recalcuteActivityPrice();
     });
+    // 
+    // $(document).on('change', '.paymentdetail-vat-field', function(){
+    //     recalcuteActivityPrice();
+    // });
 
     //REMOVE ADDITIONAL COST FROM VOUCHER
     $(document).on('click','.additional-costs-container__remove', function(){
@@ -1208,11 +1286,15 @@ $(document).ready(function() {
         {
           removeAdditionalCost(aid).success(function(data){
               updateAdditionalCostsTemplate(data);
-              updateActivityTotalPrice();
+              //updateActivityTotalPrice();
               recalcuteActivityPrice();
 
               getAdditionalCosts().success(function(costs){
                 updateAdditionalCostsTemplate(costs);
+              });
+
+              getPaymentDetails().success(function(data) {
+                updatePaymentDetailsTemplate(data);
               });
           });
         }
