@@ -8,6 +8,13 @@ $module = $this->uri->segment(1);
 
 <div class="status--indication">
   <a class="<?php print $active_tab == 'index' ? 'active' : '';  ?>" href="/<?=$module?>/index">Alle</a>
+  <?php
+  if($hasSearchResults) {
+    ?>
+      <a class="<?php print $active_tab == 'searchresults' ? 'active' : '';  ?>" href="/<?=$module?>/overview/searchresults">Zoekresultaten</a>
+    <?
+  }
+  ?>
   <a class="<?php print $active_tab == 'new' ? 'active' : '';  ?>" href="/<?=$module?>/overview/new">Nieuw</a>
   <a class="<?php print $active_tab == 'to_check' ? 'active' : '';  ?>" href="/<?=$module?>/overview/to_check">Ter controle</a>
   <a class="<?php print $active_tab == 'for_invoice' ? 'active' : '';  ?>" href="/<?=$module?>/overview/for_invoice">Ter facturatie</a>

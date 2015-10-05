@@ -18,6 +18,14 @@ class Page extends CI_Controller {
 		$this->load->helper('cookie');
 		$this->load->library('session');
 
+		if(isset($_GET['do'])) {
+			switch($_GET['do']) {
+				case 'clearSearchResults': $this->_clear_search_results(); break;
+				default:
+					//ignore
+			}
+		}
+
 		if(!$this->data) {
 			$this->data = array();
 		}
@@ -136,6 +144,28 @@ class Page extends CI_Controller {
 		$_SESSION['dossier_cache'] = $dossier;
 
 		//$this->session->set_userdata('dossier_cache', $dossier);
+	}
+
+	protected function _cache_search_results($dossiers) {
+		if(!isset($_SESSION)) {
+			session_start();
+		}
+
+		$_SESSION['dossier_search_results'] = $dossiers;
+	}
+
+	protected function _clear_search_results() {
+		if(isset($_SESSION) && isset($_SESSION['dossier_search_results']) && array_key_exists('dossier_search_results', $_SESSION)) {
+			unset($_SESSION['dossier_search_results']);
+		}
+	}
+
+	protected function _cached_search_results() {
+		if(isset($_SESSION) && array_key_exists('dossier_search_results', $_SESSION)) {
+			return $_SESSION['dossier_search_results'];
+		} else {
+			return array();
+		}
 	}
 
 	protected function _pop_dossier_cache() {

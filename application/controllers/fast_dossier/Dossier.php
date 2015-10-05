@@ -28,7 +28,7 @@ class Dossier extends Page {
   {
     $token = $this->_get_user_token();
     //a dossier might be set in the cached data when an update occured. So no need to refetch.
-    $dossier = $this->_pop_Dossier_cache();
+    $dossier = $this->_pop_dossier_cache();
 
     if(!$dossier) {
       $dossier = $this->dossier_service->fetchDossierByNumber($dossier_number, $token);
@@ -169,9 +169,12 @@ class Dossier extends Page {
       default:
         // $vouchers = $this->dossier_service->fetchAllNewVouchers($token);
     }
+
     $vouchers = $this->dossier_service->fetchAllDossiers($token);
+    $search_results = $this->_cached_search_results();
 
     $data['vouchers'] = $vouchers;
+    $data['search_results'] = $search_results;
 
     $data['insurances'] = $this->vocabulary_service->fetchAllInsurances($token);
 
@@ -290,6 +293,7 @@ class Dossier extends Page {
         $voucher->police_signature_dt = $this->convertToUnixTime($this->input->post('police_signature_dt'), strtotime($dossier->dossier->call_date));
 
         $voucher->causer_not_present = $this->input->post('causer_not_present');
+        $voucher->police_not_present = $this->input->post('police_not_present');
 
         $activity_ids = $this->input->post('activity_id');
         $activity_amounts = $this->input->post('amount');

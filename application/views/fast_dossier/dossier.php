@@ -23,50 +23,17 @@ $_dossier = $dossier->dossier;
     <div class="box table_list table_list_small">
 
       <?php
-
-      $last = $this->uri->total_segments();
-      $url_dossier_id = $this->uri->segment($last - 1);
-      $url_takelbon_id = $this->uri->segment($last);
-
-
       $this->load->helper('date');
 
-      $this->table->set_heading('Dossier');
-
-      //d.id, d.id as 'dossier_id', t.id as 'voucher_id', d.call_number, d.call_date, t.voucher_number, ad.name 'direction_name',
-      //adi.name 'indicator_name', c.code as `towing_service`, ip.name as `incident_type`
-      $prev = '';
-      if($vouchers && sizeof($vouchers) > 0) {
-        foreach($vouchers as $voucher) {
-          if($voucher->dossier_number === $url_dossier_id){
-            $class = 'active bright';
-          }else{
-            $class = 'inactive';
-          }
-
-          // if($prev !== $voucher->dossier_number){
-
-            // $prev = $voucher->dossier_number;
-
-            $this->table->add_row(
-                  array('class' => $class,
-                        'data' => sprintf('<a class="id__cell" href="/fast_dossier/dossier/%s/%s">
-                                              <span class="id__cell__icon icon--map"></span>
-                                              <span class="id__cell__text__type">%s</span>
-                                              <span class="id__cell__text">
-                                                <span class="id__cell__text__data">
-                                                  <span class="id__cell__text__info">Oproepnummer: %s</span>
-                                                  <span class="id__cell__text__nr">%s</span>
-                                                  <span class="id__cell__text__info">%s %s</span>
-                                                </span>
-                                              </span></a>', $voucher->dossier_number, $voucher->voucher_number, $voucher->voucher_number, $voucher->call_number, $voucher->incident_type, $voucher->direction_name , $voucher->indicator_name))
-            );
-
-          // }
-        }
+      print showDossierList($this, $search_results, 'Zoekresultaten');
+      if(sizeof($search_results) > 0) {
+        ?>
+          <div style="padding-top: 15px; padding-bottom: 15px;background-color: #f0f0f0">
+            <input type="button" value="Wis zoekresultaten" id="btn_delete_search_results">
+          </div>
+        <?php
       }
-
-      echo $this->table->generate();
+      print showDossierList($this, $vouchers, 'Dossiers');
 
       ?>
     </div>
@@ -540,6 +507,11 @@ $_dossier = $dossier->dossier;
           <div class="form-item-horizontal  autograph-container__police__trafficpost">
             <label class="notbold">Verkeerspost:</label>
             <?php print listbox('traffic_post_id', $traffic_posts, $_dossier->police_traffic_post_id); ?>
+          </div>
+
+          <div class="form-item-horizontal  autograph-container__police__trafficpost">
+            <label class="notbold">Handtekening afwezig?</label>
+            <input type="checkbox" name="police_not_present" id="police_not_present" value="1" <?php if($_voucher->police_not_present) print 'checked="checked"'; ?>/>
           </div>
 
           <div class="form-item-horizontal  autograph-container__police__timestamp">
@@ -1299,5 +1271,56 @@ function tofloat($num) {
         preg_replace("/[^0-9]/", "", substr($num, 0, $sep)) . '.' .
         preg_replace("/[^0-9]/", "", substr($num, $sep+1, strlen($num)))
     );
+}
+
+function showDossierList($ctx, $data, $title) {
+  if(sizeof($data) > 0)
+  {
+    $last = $ctx->uri->total_segments();
+    $url_dossier_id = $ctx->uri->segment($last - 1);
+    $url_takelbon_id = $ctx->uri->segment($last);
+
+
+    $ctx->table->set_heading($title);
+
+    //d.id, d.id as 'dossier_id', t.id as 'voucher_id', d.call_number, d.call_date, t.voucher_number, ad.name 'direction_name',
+    //adi.name 'indicator_name', c.code as `towing_service`, ip.name as `incident_type`
+    $prev = '';
+    $vouchers = $data;
+
+    if($vouchers && sizeof($vouchers) > 0) {
+      foreach($vouchers as $voucher) {
+        if($voucher->dossier_number === $url_dossier_id){
+          $class = 'active bright';
+        }else{
+          $class = 'inactive';
+        }
+
+        // if($prev !== $voucher->dossier_number){
+
+          // $prev = $voucher->dossier_number;
+
+          $ctx->table->add_row(
+                array('class' => $class,
+                      'data' => sprintf('<a class="id__cell" href="/fast_dossier/dossier/%s/%s">
+                                            <span class="id__cell__icon icon--map"></span>
+                                            <span class="id__cell__text__type">%s</span>
+                                            <span class="id__cell__text">
+                                              <span class="id__cell__text__data">
+                                                <span class="id__cell__text__info">Oproepnummer: %s</span>
+                                                <span class="id__cell__text__nr">%s</span>
+                                                <span class="id__cell__text__info">%s %s</span>
+                                              </span>
+                                            </span></a>', $voucher->dossier_number, $voucher->voucher_number, $voucher->voucher_number, $voucher->call_number, $voucher->incident_type, $voucher->direction_name , $voucher->indicator_name))
+          );
+
+        // }
+      }
+    }
+
+    return $ctx->table->generate();
+  }
+
+  return '';
 }
 ?>

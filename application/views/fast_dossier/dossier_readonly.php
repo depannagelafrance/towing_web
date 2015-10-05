@@ -614,6 +614,10 @@ $_dossier = $dossier->dossier;
             } else {
               print "";
             }
+
+            if($_voucher->police_not_present) {
+              print "<br /><strong>Verkeerspost niet beschikbaar voor handtekening</strong>";
+            }
            ?>
           </div>
         </div>

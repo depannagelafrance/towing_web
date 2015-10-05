@@ -51,6 +51,7 @@ class Search extends Page {
     }
     else
     {
+      $this->_cache_search_results($dossiers);
       $this->_displaySearchResults($dossiers);
     }
   }

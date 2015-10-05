@@ -19,6 +19,7 @@ class Index extends Page {
 
   public function overview($status)
   {
+    $hasSearchResults = sizeof($this->_cached_search_results()) > 0;
 
     switch($status) {
       case 'new':
@@ -45,6 +46,10 @@ class Index extends Page {
         $dossiers = $this->dossier_service->fetchAllAgencyDossiers($this->_get_user_token());
         $title = 'AW&amp;V';
         break;
+      case 'searchresults':
+        $dossiers = $this->_cached_search_results();
+        $title = 'Zoekresultaten';
+        break;
       default:
         $dossiers = $this->dossier_service->fetchAllDossiers($this->_get_user_token());
         $title = 'Alle dossiers';
@@ -55,7 +60,8 @@ class Index extends Page {
         'fast_dossier/index',
         array(
           'dossiers' => $dossiers,
-          'title' => $title
+          'title' => $title,
+          'hasSearchResults' => $hasSearchResults
         ),
         true
       )

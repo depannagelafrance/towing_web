@@ -113,6 +113,14 @@ $(document).ready(function() {
         }
     });
 
+    $('#btn_delete_search_results').on('click', function() {
+      var $url = window.location.href;
+
+      $url += "?do=clearSearchResults";
+
+      window.location.href=$url;
+    })
+
     //INIT DATETIMEPICKERS
     var times = [
         '06:00', '06:15', '06:30', '06:45',
