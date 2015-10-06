@@ -107,7 +107,7 @@ $(document).ready(function() {
               type	: 'POST',
               cache	: false,
               success: function( data ) {
-                  console.log("seems ok");
+                  //console.log("seems ok");
               }
           });
         }
@@ -119,7 +119,29 @@ $(document).ready(function() {
       $url += "?do=clearSearchResults";
 
       window.location.href=$url;
-    })
+    });
+
+    $(document).on('click', '.attachment-delete-link', function(event) {
+      var docid = $(this).data('docid');
+
+
+      if(confirm('Bent u zeker dat u deze bijlage wenst te verwijderen?')) {
+        var url = prepareAjaxUrl('/fast_dossier/ajax/deleteAttachment');
+
+        return $.ajax({
+            type		: "POST",
+            cache	: false,
+            url		: url,
+            data		: {'document_id' : docid},
+            success : function(data) {
+              parent.$.fancybox.close();
+            }
+        });
+      }
+
+      event.preventDefault();
+      return false;
+    });
 
     //INIT DATETIMEPICKERS
     var times = [

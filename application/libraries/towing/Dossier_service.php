@@ -374,6 +374,11 @@ class Dossier_service extends Rest_service {
     return $result;
   }
 
+  public function deleteAttachment($dossier_id, $voucher_id, $docid, $token)
+  {
+    return $this->CI->rest->delete(sprintf('/dossier/voucher/attachment/%s/%s/%s', $voucher_id, $docid, $token));
+  }
+
   public function fetchAllVoucherValidationMessages($voucher_id, $token) {
     return $this->CI->rest->get(sprintf('/dossier/voucher/validation_messages/%s/%s', $voucher_id, $token));
   }

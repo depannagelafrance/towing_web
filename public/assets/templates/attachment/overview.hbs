@@ -5,6 +5,7 @@
         <th>&nbsp;</th>
         <th>Naam</th>
         <th>&nbsp;</th>
+        <th>&nbsp;</th>
       </tr>
   </thead>
   <tbody>
@@ -14,6 +15,7 @@
     <td><i class="fa fa-file-o"></i></td>
     <td style="text-align: left;">{{name}}</td>
     <td><a href="/fast_dossier/document/{{id}}"><i class="fa fa-download"> Download</i></a>
+    <td><a href="#" class="attachment-delete-link" data-docid="{{id}}"><i class="fa fa-trash"> Verwijder</i></a>
     </td>
   </tr>
 {{/each}}

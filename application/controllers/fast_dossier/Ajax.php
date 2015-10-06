@@ -338,6 +338,16 @@ class Ajax extends AjaxPage
     $this->_sendJson($result);
   }
 
+  public function deleteAttachment($dossier_id, $voucher_id) {
+    $token = $this->_get_user_token();
+    $docid = $this->input->post('document_id');
+
+    $result = $this->dossier_service->deleteAttachment($dossier_id, $voucher_id, $docid, $token);
+
+    $this->_sendJson($result);
+  }
+
+
   public function fetchValidationMessages($voucher_id)
   {
     $token = $this->_get_user_token();
