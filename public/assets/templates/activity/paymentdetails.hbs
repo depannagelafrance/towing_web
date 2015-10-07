@@ -12,8 +12,23 @@
         <option value="0" {{#equal foreign_vat 0}}selected="selected"{{/equal}}>Nee</option>
       </select>
     </div>
+    {{#equal category "INSURANCE"}}
+    <div style="float: left; width:10%; padding-right: 3px;"><input type="text" class="paymentdetail-field" value="{{amount_excl_vat}}" name="payment_detail_amount_excl_vat[]"></div>
+    <div style="float: left; width:10%; padding-right: 3px;"><input type="text" class="paymentdetail-field" value="{{amount_incl_vat}}" name="payment_detail_amount_incl_vat[]"></div>
+    {{/equal}}
+
+    {{#equal category "CUSTOMER"}}
     <div style="float: left; width:10%; padding-right: 3px;"><input type="text" class="paymentdetail-field" value="{{amount_excl_vat}}" name="payment_detail_amount_excl_vat[]" readonly="readonly" style="background: #F0F0F0;"></div>
     <div style="float: left; width:10%; padding-right: 3px;"><input type="text" class="paymentdetail-field" value="{{amount_incl_vat}}" name="payment_detail_amount_incl_vat[]" readonly="readonly" style="background: #F0F0F0;"></div>
+    {{/equal}}
+
+    {{#equal category "COLLECTOR"}}
+    <div style="float: left; width:10%; padding-right: 3px;"><input type="text" class="paymentdetail-field" value="{{amount_excl_vat}}" name="payment_detail_amount_excl_vat[]" readonly="readonly" style="background: #F0F0F0;"></div>
+    <div style="float: left; width:10%; padding-right: 3px;"><input type="text" class="paymentdetail-field" value="{{amount_incl_vat}}" name="payment_detail_amount_incl_vat[]" readonly="readonly" style="background: #F0F0F0;"></div>
+    {{/equal}}
+
+
+
     <div style="float: left; width:10%; padding-right: 3px;"><input type="text" class="paymentdetail-field" value="{{amount_paid_cash}}" name="payment_detail_paid_cash[]" ></div>
     <div style="float: left; width:10%; padding-right: 3px;"><input type="text" class="paymentdetail-field" value="{{amount_paid_bankdeposit}}" name="payment_detail_paid_bankdeposit[]"></div>
     <div style="float: left; width:10%; padding-right: 3px;"><input type="text" class="paymentdetail-field" value="{{amount_paid_maestro}}" name="payment_detail_maestro[]"></div>

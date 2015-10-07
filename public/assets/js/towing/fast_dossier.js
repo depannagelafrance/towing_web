@@ -1104,6 +1104,15 @@ $(document).ready(function() {
           var $unpaid_excl_vat = 0;
           var $unpaid_incl_vat = 0;
 
+          if(($amount_excl_vat == '' && $amount_incl_vat != '') /* || ($amount_excl_vat > 0 && ($amount_incl_vat == 0 || $amount_incl_vat == '')) */) {
+            $amount_excl_vat = parseFloat($amount_incl_vat) / VAT_PERCENTAGE;
+            $('input[name="payment_detail_amount_excl_vat[]"]').get($i).value = $amount_excl_vat.toFixed(2);
+          }
+          else if(($amount_incl_vat == '' && $amount_excl_vat != '') /* || ($amount_incl_vat > 0 && ($amount_excl_vat == 0 || $amount_excl_vat == '')) */) {
+            $amount_incl_vat = parseFloat($amount_excl_vat) * VAT_PERCENTAGE;
+            $('input[name="payment_detail_amount_incl_vat[]"]').get($i).value = $amount_incl_vat.toFixed(2);
+          }
+
           if($is_foreign_vat)
           {
             $unpaid_excl_vat = $amount_excl_vat - $amount_paid_cash - $amount_paid_bankdeposit - $amount_paid_maestro - $amount_paid_visa;
