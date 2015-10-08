@@ -1148,28 +1148,11 @@ $_dossier = $dossier->dossier;
 
                     <?php
                     foreach ($_voucher->towing_payment_details as $k => $detail) {
-                        $category_key = '';
-                        $label = '';
-                        $amount = 0.0;
-
-                        switch ($detail->category) {
-                            case 'CUSTOMER':
-                                $label = 'Klant';
-                                $category_key = 'customer';
-                                break;
-                            case 'INSURANCE':
-                                $label = 'Assistance';
-                                $category_key = 'assurance';
-                                break;
-                            case 'COLLECTOR':
-                                $label = 'Afhaler';
-                                $category_key = 'collector';
-                                break;
-                            default:
-                                $label = 'Onbekend';
-                        }
-
+                        $category_key =  strtolower($detail->category);
                         $amount = $detail->amount_incl_vat;
+
+                        if($detail->category == 'INSURANCE')
+                            $category_key = 'assurance';
 
                         if ($detail->foreign_vat) {
                             $amount = $detail->amount_excl_vat;
@@ -1177,7 +1160,7 @@ $_dossier = $dossier->dossier;
 
 
                         printf('<tr><td>%s</td><td style="padding-right: 25px;">%s</td></tr>',
-                                $label,
+                                $detail->category_display_name,
                                 form_input(array('name' => "invoice_payment_amount_" . $category_key,
                                     'value' => $amount,
                                     'readonly' => 'readonly',
