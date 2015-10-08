@@ -1066,6 +1066,54 @@ $_dossier = $dossier->dossier;
     </div>
 
     <!-- END WORK -->
+
+    <!-- ATTACHEMENT -->
+    <div id="add-attachment-form" style="display: none;">
+        <?php
+        print form_open_multipart('', '', '');
+
+        ?>
+        <div class="fancybox-form">
+            <h3>Bijlage toevoegen</h3>
+
+            <div class="form-item-horizontal">
+                <div id="attachments__errors" class="msg msg__error" style="display:none;"></div>
+            </div>
+
+            <div class="form-item-horizontal">
+                <label>Bijlage:</label>
+                <input id="attachments" type="file" name="attachment" multiple/>
+            </div>
+
+            <div class="form-item-horizontal">
+                <div id="attachments__list"></div>
+            </div>
+
+        </div>
+        <div class="fancybox-form__actions">
+            <div class="form-item fancybox-form__actions__cancel">
+                <a class="close_overlay" href="#">Annuleren</a>
+            </div>
+
+            <div class="form-item fancybox-form__actions__save">
+                <input type="submit" value="Bewaren" name="btnAttachmentSave"/>
+            </div>
+        </div>
+        <?php print form_close(); ?>
+    </div>
+
+    <div id="view-attachment-container" style="display: none;">
+        <div class="attachments">
+            <!-- ATTACHMENTS LOADED BY JS -->
+        </div>
+        <div class="fancybox-form__actions">
+            <div class="form-item fancybox-form__actions__save">
+                <a class="close_overlay" href="#">Sluiten</a>
+            </div>
+        </div>
+    </div>
+
+    <!--END ATTACHMENT-->
 <?php
 function tofloat($num)
 {
