@@ -180,7 +180,7 @@ $_dossier = $dossier->dossier;
     <div class="dossierbar__mainactions">
       <div class="dossierbar__mainaction__item">
         <div class="btn--icon--highlighted bright">
-          <a class="icon--add" href="/fast_dossier/dossier/voucher/<?=$_dossier->id?>" onclick="return confirm('Bent u zeker dat u een nieuwe takelbon wenst aan te maken?');">Add</a>
+          <a class="icon--add" href="/fast_dossier/dossier/voucher/<?php print $_dossier->id; ?>" onclick="return confirm('Bent u zeker dat u een nieuwe takelbon wenst aan te maken?');">Add</a>
         </div>
       </div>
     </div>
@@ -243,10 +243,10 @@ $_dossier = $dossier->dossier;
             <span class="icon--print">Print</span>
           </div>
           <ul class="btn--dropdown--drop">
-            <li><a href="/fast_dossier/report/voucher/towing/<?=$_dossier->id?>/<?=$_voucher->id?>">Exemplaar Takeldienst</a></li>
-            <li><a href="/fast_dossier/report/voucher/collector/<?=$_dossier->id?>/<?=$_voucher->id?>">Exemplaar Afhaler</a></li>
-            <li><a href="/fast_dossier/report/voucher/customer/<?=$_dossier->id?>/<?=$_voucher->id?>">Exemplaar Klant</a></li>
-            <li><a href="/fast_dossier/report/voucher/other/<?=$_dossier->id?>/<?=$_voucher->id?>">Exemplaar op Aanvraag</a></li>
+            <li><a href="/fast_dossier/report/voucher/towing/<?php print $_dossier->id; ?>/<?php print $_voucher->id; ?>">Exemplaar Takeldienst</a></li>
+            <li><a href="/fast_dossier/report/voucher/collector/<?php print $_dossier->id; ?>/<?php print $_voucher->id; ?>">Exemplaar Afhaler</a></li>
+            <li><a href="/fast_dossier/report/voucher/customer/<?php print $_dossier->id; ?>/<?php print $_voucher->id; ?>">Exemplaar Klant</a></li>
+            <li><a href="/fast_dossier/report/voucher/other/<?php print $_dossier->id; ?>/<?php print $_voucher->id; ?>">Exemplaar op Aanvraag</a></li>
           </ul>
         </div>
       </div>
@@ -433,14 +433,14 @@ $_dossier = $dossier->dossier;
           <!--DOSS-->
           <div class="form-item-horizontal dossiernr-container">
               <label>Dossiernr.:</label>
-              <?= form_input('insurance_dossiernr', $_voucher->insurance_dossiernr); ?>
+              <?php print form_input('insurance_dossiernr', $_voucher->insurance_dossiernr); ?>
           </div>
           <!--END DOSS-->
 
           <!--WARENTY-->
           <div class="form-item-horizontal warrenty-container">
               <label>Garantiehouder:</label>
-              <?= form_input('insurance_warranty_held_by', $_voucher->insurance_warranty_held_by); ?>
+              <?php print form_input('insurance_warranty_held_by', $_voucher->insurance_warranty_held_by); ?>
           </div>
           <!--END WARENTY-->
         </div>
@@ -1031,7 +1031,7 @@ $_dossier = $dossier->dossier;
         <input type="submit" value="Bewaren" name="btnEmailSave" />
       </div>
     </div>
-    <?= form_close(); ?>
+    <?php print form_close(); ?>
   </div>
 
   <div id="view-email-container"  style="display: none;">
@@ -1081,7 +1081,7 @@ $_dossier = $dossier->dossier;
         <input type="submit" value="Bewaren" name="btnNotaSave" />
       </div>
     </div>
-    <?= form_close(); ?>
+    <?php print form_close(); ?>
   </div>
 
   <div id="view-nota-container" style="display: none;">
@@ -1113,7 +1113,7 @@ $_dossier = $dossier->dossier;
         <input type="submit" value="Bewaren" name="btnWorkSave" />
       </div>
     </div>
-    <?= form_close(); ?>
+    <?php print form_close(); ?>
   </div>
 
   <!-- END WORK -->
@@ -1150,7 +1150,7 @@ $_dossier = $dossier->dossier;
         <input type="submit" value="Bewaren" name="btnAttachmentSave" />
       </div>
     </div>
-    <?= form_close(); ?>
+    <?php print form_close(); ?>
   </div>
 
   <div id="view-attachment-container" style="display: none;">
@@ -1219,13 +1219,13 @@ $_dossier = $dossier->dossier;
             ?>
               <tr>
                   <td>
-                      <?= $label ?>
+                      <?php print $label; ?>
                   </td>
                   <td style="padding-right: 25px;">
-                    <?= form_input(array('name' => "invoice_payment_amount_$category_key",
-                                         'value' => $amount,
-                                         'readonly'    => 'readonly',
-                                         'style'       => 'background: #F0F0F0'))?>
+                    <?php print form_input(array('name' => "invoice_payment_amount_$category_key",
+                                                 'value' => $amount,
+                                                 'readonly'    => 'readonly',
+                                                 'style'       => 'background: #F0F0F0'));?>
                   </td>
               </tr>
                 <?
@@ -1249,7 +1249,7 @@ $_dossier = $dossier->dossier;
         <input type="submit" value="Aanmaken" name="btnInvoiceGenerate" />
       </div>
     </div>
-    <?= form_close(); ?>
+    <?php print form_close(); ?>
   </div>
   <?php } ?>
   <!-- END INVOICE -->
