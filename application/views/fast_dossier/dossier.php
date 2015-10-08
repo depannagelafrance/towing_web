@@ -1137,6 +1137,47 @@ $_dossier = $dossier->dossier;
         <?php
         print form_open('', $invoice_attr, $invoice_hidden);
         ?>
+
+        <div class="fancybox-form">
+            <h3>Factuur aanmaken</h3>
+
+            <div class="form-item-horizontal">
+                <label>Betalingsinformatie:</label>
+                <table>
+                    <tbody>
+
+                    <?php
+                    foreach ($_voucher->towing_payment_details as $k => $detail) {
+                        $category_key = '';
+                        $label = '';
+                        $amount = 0.0;
+
+                        ?>
+                        <tr>
+                            <td>
+                                <?php
+                                echo $label;
+                                ?>
+                            </td>
+                            <td style="padding-right: 25px;">
+                                <?php
+                                print form_input(array('name' => "invoice_payment_amount_" . $category_key,
+                                    'value' => $amount,
+                                    'readonly' => 'readonly',
+                                    'style' => 'background: #F0F0F0'));
+                                ?>
+                            </td>
+                        </tr>
+                        <?
+                    }
+                    ?>
+
+
+                    </tbody>
+                </table>
+            </div>
+
+
         <div class="form-item-horizontal">
             <label>Commentaar:</label>
             <?php print form_textarea('message'); ?>
