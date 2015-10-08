@@ -1,3 +1,7 @@
+<?php phpinfo(); ?>
+<?php die(); ?>
+
+
 <?php
 
 function displayVoucherTimeField($value, $name)
@@ -48,7 +52,7 @@ $_dossier = $dossier->dossier;
     $_voucher = null;
 
     foreach ($_dossier->towing_vouchers as $_v) {
-        if ($_v->voucher_number == $voucher_number) {
+        if ($_v->voucher_number === $voucher_number) {
             $_voucher = $_v;
         }
     }
@@ -210,10 +214,7 @@ $_dossier = $dossier->dossier;
         </div>
 
         <?php
-        if ($_voucher->status == 'TO CHECK' || $_voucher->status == 'READY FOR INVOICE') {
-            print '<div class="unpadded" style="background-color: #feec8a; padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px; margin-bottom: 15px; color: #7f2710;" id="validation_messages"></div>';
-        }
-
+            print generateValidationMessagesBlock($_voucher->status);
         ?>
 
         <div class="box unpadded dsform">
@@ -591,14 +592,12 @@ $_dossier = $dossier->dossier;
                         <div
                             class="autograph-block autograph-container__collecting__autograph <?php print $collecting_class; ?>"
                             style="background-image: url(<?php print $autograph_collecting_url; ?>);">
-                            <?php if ($collecting_has_autograph): ?>
-                                <!-- a id="edit-autograph-collecting" class="inform-link icon--edit--small" href="#"></a-->
-                            <?php else: ?>
+                            <?php if (!$collecting_has_autograph) { ?>
                                 <a class="add_autograph" id="signature-collector"
                                    data-did="<?php print $_dossier->id; ?>"
                                    data-vid="<?php print $_voucher->id; ?>"
                                    href="#">Voeg een handtekening toe</a>
-                            <?php endif; ?>
+                            <?php }  ?>
                         </div>
                     </div>
                 </div>
@@ -1381,5 +1380,13 @@ function generateVoucherReportDropdownButton($dossier_id, $voucher_id)
                     $dossier_id, $voucher_id,
                     $dossier_id, $voucher_id,
                     $dossier_id, $voucher_id);
+}
+
+function generateValidationMessagesBlock($status) {
+    if ($status === 'TO CHECK' || $status == 'READY FOR INVOICE') {
+        return '<div class="unpadded" style="background-color: #feec8a; padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px; margin-bottom: 15px; color: #7f2710;" id="validation_messages"></div>';
+    }
+
+    return '';
 }
 ?>
