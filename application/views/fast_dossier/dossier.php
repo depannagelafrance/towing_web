@@ -599,6 +599,53 @@ $_dossier = $dossier->dossier;
                 <!-- END AUTOGRAPH BUTTONS -->
                 <!-- END AUTOGRAPHS-->
             </div>
+
+
+            <!-- VEHICLE DAMAGE -->
+            <div class="dsform__clearfix dsform_seperation">
+                <div class="dsform_left">
+                    <div class="vehicule-container__left vehicule-extrainfo">
+                        <div class="form-item-horizontal">
+                            <label>Schade aan voertuig:</label>
+                            <?php print nl2br($_voucher->vehicule_impact_remarks); ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- END VEHICLE DAMAGE -->
+
+            <!-- ADDITIONAL INFORMATION -->
+            <div class="dsform__clearfix dsform_seperation">
+                <div class="dsform_left">
+                    <div class="vehicule-container__left vehicule-extrainfo">
+                        <div class="form-item-horizontal">
+                            <label>Extra informatie:</label>
+                            <?php print nl2br($_voucher->additional_info); ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- END ADDITIONAL INFORMATION -->
+
+            <!--SAVE-->
+            <div class="form__actions">
+                <div class="form__actions__cancel"></div>
+                <div class="form__actions__save">
+                    <div class="form-item">
+                        <input type="submit" value="Bewaren" name="btnSave"/>
+                    </div>
+                </div>
+            </div>
+            <!-- END SAVE -->
+
+        </div>
+
+    </div>
+    <?php
+        print form_close();
+    ?>
 <?php
 function tofloat($num)
 {
