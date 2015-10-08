@@ -163,7 +163,7 @@ class Dossier extends Page {
       case 'CLOSED':
         // $vouchers   = $this->dossier_service->fetchAllInvoicedDossiers($token);
         $collectors = $this->vocabulary_service->fetchAllCollectors($token);
-        $view = 'fast_dossier/dossier_readonly';
+        //TODO: re-enable this $view = 'fast_dossier/dossier_readonly';
         break;
       case 'NEW':
       default:
