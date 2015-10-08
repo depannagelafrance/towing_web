@@ -1175,10 +1175,11 @@ $_dossier = $dossier->dossier;
                             $amount = $detail->amount_excl_vat;
                         }
 
+
+                        printf("<tr><td>%s</td>", $label);
+
                     }
                     ?>
-
-
                     </tbody>
                 </table>
             </div>
