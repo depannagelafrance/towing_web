@@ -1114,6 +1114,105 @@ $_dossier = $dossier->dossier;
     </div>
 
     <!--END ATTACHMENT-->
+
+    <!-- INVOICE -->
+    <?php
+    if ($_voucher->status === 'READY FOR INVOICE') {
+        $invoice_hidden = array(
+            'voucher_id' => $_voucher->id,
+            'dossier_id' => $_dossier->id
+        );
+
+        $invoice_attr = array(
+            'data-vid' => $_voucher->id,
+            'data-did' => $_dossier->id
+        );
+
+        $payment_types = $this->invoice_service->fetchAvailablePaymentTypes();
+
+        ?>
+
+        <div id="generate-invoice-form" style="display: none;">
+            <?php
+            print form_open('', $invoice_attr, $invoice_hidden);
+            ?>
+            <div class="fancybox-form">
+                <h3>Factuur aanmaken</h3>
+
+                <div class="form-item-horizontal">
+                    <label>Betalingsinformatie:</label>
+                    <table>
+                        <tbody>
+                        <?php
+                        foreach ($_voucher->towing_payment_details as $detail) {
+                            $category_key = '';
+                            $label = '';
+
+                            switch ($detail->category) {
+                                case 'CUSTOMER':
+                                    $label = 'Klant';
+                                    $category_key = 'customer';
+                                    break;
+                                case 'INSURANCE':
+                                    $label = 'Assistance';
+                                    $category_key = 'assurance';
+                                    break;
+                                case 'COLLECTOR':
+                                    $label = 'Afhaler';
+                                    $category_key = 'collector';
+                                    break;
+                                default:
+                                    $label = 'Onbekend';
+                            }
+
+                            $amount = $detail->amount_incl_vat;
+
+                            if ($detail->foreign_vat) {
+                                $amount = $detail->amount_excl_vat;
+                            }
+                            ?>
+                            <tr>
+                                <td>
+                                    <?php print $label; ?>
+                                </td>
+                                <td style="padding-right: 25px;">
+                                    <?php
+                                    print form_input(array('name' => "invoice_payment_amount_" . $category_key,
+                                        'value' => $amount,
+                                        'readonly' => 'readonly',
+                                        'style' => 'background: #F0F0F0'));
+                                    ?>
+                                </td>
+                            </tr>
+                            <?
+                        }
+                        ?>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="form-item-horizontal">
+                    <label>Commentaar:</label>
+                    <?php print form_textarea('message'); ?>
+                </div>
+
+            </div>
+            <div class="fancybox-form__actions">
+                <div class="form-item fancybox-form__actions__cancel">
+                    <a class="close_overlay" href="#">Annuleren</a>
+                </div>
+
+                <div class="form-item fancybox-form__actions__save">
+                    <input type="submit" value="Aanmaken" name="btnInvoiceGenerate"/>
+                </div>
+            </div>
+            <?php print form_close(); ?>
+        </div>
+    <?php } ?>
+    <!-- END INVOICE -->
+
+</div>
+
+
 <?php
 function tofloat($num)
 {
