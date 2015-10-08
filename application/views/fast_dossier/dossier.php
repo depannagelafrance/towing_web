@@ -118,13 +118,13 @@ $_dossier = $dossier->dossier;
                 <div class="form-item-horizontal less_padded">
                     <label>Perceel&nbsp;:</label>
 
-                    <div class="value"><?php print $_dossier->allotment_name ?></div>
+                    <div class="value"><?php print $_dossier->allotment_name; ?></div>
                 </div>
 
                 <div class="form-item-horizontal less_padded">
                     <label>Toegewezen aan&nbsp;:</label>
 
-                    <div class="value"><?php print $_dossier->company_name ?></div>
+                    <div class="value"><?php print $_dossier->company_name; ?></div>
                 </div>
             </div>
 
