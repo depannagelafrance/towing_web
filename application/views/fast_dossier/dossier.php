@@ -386,12 +386,12 @@ $_dossier = $dossier->dossier;
                     <div class="vehicule-container__right">
                         <div class="form-item-horizontal vehicule-container__keypresent">
                             <label>Sleutels aanwezig?</label>
-                            <?php print form_checkbox('vehicule_keys_present', 1, ($_voucher->vehicule_keys_present == 1)) ?>
+                            <?php print form_checkbox('vehicule_keys_present', 1, ($_voucher->vehicule_keys_present == 1)); ?>
                         </div>
 
                         <div class="form-item-horizontal vehicule-container__country">
                             <label>Land:</label>
-                            <?php print listbox_ajax('licence_plate_country', $_voucher->vehicule_country) ?>
+                            <?php print listbox_ajax('licence_plate_country', $_voucher->vehicule_country); ?>
                         </div>
                     </div>
 
@@ -570,7 +570,7 @@ $_dossier = $dossier->dossier;
                         <div class="form-item-horizontal  autograph-container__collecting__date">
                             <label class="notbold">Naam:</label>
                             <?php
-                            print $_voucher->collector_name ?>
+                            print $_voucher->collector_name; ?>
                         </div>
 
                         <div class="form-item-horizontal  autograph-container__collecting__date">
@@ -740,7 +740,7 @@ $_dossier = $dossier->dossier;
                     <div class="form-item-horizontal depot-full-container__depot">
                         <label>Depot:</label>
                         <?php print form_input('name', $_voucher->depot->name); ?>
-                        <?php print form_hidden('default_depot', $_voucher->depot->default_depot) ?>
+                        <?php print form_hidden('default_depot', $_voucher->depot->default_depot); ?>
                     </div>
 
                     <div class="form-item-horizontal depot-full-container__street">
@@ -890,13 +890,6 @@ $_dossier = $dossier->dossier;
                         <label>Email:</label>
                         <?php print form_input(array('name' => 'email', 'value' => $_voucher->customer->email, 'id' => 'customer_search_email')); ?>
                     </div>
-
-                    <!--
-          <div class="form-item-horizontal invoice-full-container__email">
-            <label>Referentie:</label>
-            <?php // print form_input('invoice_ref', $_voucher->customer->invoice_ref); ?>
-          </div>
-          -->
                 </div>
             </div>
         </div>
@@ -1327,31 +1320,31 @@ function showDossierList($ctx, $data, $title)
 
         if ($vouchers && sizeof($vouchers) > 0) {
             foreach ($vouchers as $voucher) {
+                $class = 'inactive';
+
                 if ($voucher->dossier_number === $url_dossier_id) {
                     $class = 'active bright';
-                } else {
-                    $class = 'inactive';
                 }
 
                 // if($prev !== $voucher->dossier_number){
 
                 // $prev = $voucher->dossier_number;
 
-//                $ctx->table->add_row(
-//                    array('class' => $class,
-//                        'data' => sprintf('<a class="id__cell" href="/fast_dossier/dossier/%s/%s">
-//                                            <span class="id__cell__icon icon--map"></span>
-//                                            <span class="id__cell__text__type">%s</span>
-//                                            <span class="id__cell__text">
-//                                              <span class="id__cell__text__data">
-//                                                <span class="id__cell__text__info">Oproepnummer: %s</span>
-//                                                <span class="id__cell__text__nr">%s</span>
-//                                                <span class="id__cell__text__info">%s %s</span>
-//                                              </span>
-//                                            </span></a>', $voucher->dossier_number, $voucher->voucher_number,
-//                            $voucher->voucher_number, $voucher->call_number, $voucher->incident_type,
-//                            $voucher->direction_name, $voucher->indicator_name))
-//                );
+                $ctx->table->add_row(
+                    array('class' => $class,
+                        'data' => sprintf('<a class="id__cell" href="/fast_dossier/dossier/%s/%s">
+                                            <span class="id__cell__icon icon--map"></span>
+                                            <span class="id__cell__text__type">%s</span>
+                                            <span class="id__cell__text">
+                                              <span class="id__cell__text__data">
+                                                <span class="id__cell__text__info">Oproepnummer: %s</span>
+                                                <span class="id__cell__text__nr">%s</span>
+                                                <span class="id__cell__text__info">%s %s</span>
+                                              </span>
+                                            </span></a>', $voucher->dossier_number, $voucher->voucher_number,
+                            $voucher->voucher_number, $voucher->call_number, $voucher->incident_type,
+                            $voucher->direction_name, $voucher->indicator_name))
+                );
 
                 // }
             }
