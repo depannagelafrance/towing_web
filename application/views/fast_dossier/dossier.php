@@ -163,7 +163,50 @@ $_dossier = $dossier->dossier;
             </div>
 
         </div>
+        
+        <div class="dossierbar">
 
+            <div class="dossierbar__vouchers">
+                <select name="voucher_switcher" id="voucher_switcher"
+                        data-did="<?php print $_dossier->dossier_number; ?>">
+                    <?php
+                    foreach ($_dossier->towing_vouchers as $_v) {
+                        $_is_selected = ($_v->voucher_number == $_voucher->voucher_number);
+
+                        $sel = '';
+
+                        if ($_is_selected || count($_dossier->towing_vouchers) == 1) {
+                            $sel = 'selected';
+                        }
+                        print '<option value="' . $_v->voucher_number . '"' . $sel . '>' . sprintf("%s (%s)", $_v->voucher_number, $_v->status) . '</option>';
+                    };
+                    ?>
+                </select>
+            </div>
+
+            <div class="dossierbar__mainactions">
+                <div class="dossierbar__mainaction__item">
+                    <div class="btn--icon--highlighted bright">
+                        <a class="icon--add" href="/fast_dossier/dossier/voucher/<?php print $_dossier->id; ?>"
+                           onclick="return confirm('Bent u zeker dat u een nieuwe takelbon wenst aan te maken?');">Add</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dossierbar__actions">
+                <?php
+                if ($_voucher->status == 'READY FOR INVOICE') {
+                    print generateInvoiceDropdownButton();
+                }
+
+                print generateEmailDropdownButton();
+                print generateNoteDropdownButton();
+                print generateAttachmentDropdownButton();
+                print generateVoucherReportDropdownButton($_dossier->id, $_voucher->id);
+                ?>
+            </div>
+
+        </div>
 
 
 
