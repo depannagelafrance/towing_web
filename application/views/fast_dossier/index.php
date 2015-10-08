@@ -53,4 +53,4 @@ if($dossiers && sizeof($dossiers) > 0) {
 
 echo $this->table->generate();
 ?>
-</div>
+</div><!-- nothing here -->
