@@ -1133,7 +1133,27 @@ $_dossier = $dossier->dossier;
 
     ?>
     <!-- INVOICE BLOCK -->
+    <div id="generate-invoice-form" style="display: none;">
+        <?php
+        print form_open('', $invoice_attr, $invoice_hidden);
+        ?>
+        <div class="form-item-horizontal">
+            <label>Commentaar:</label>
+            <?php print form_textarea('message'); ?>
+        </div>
 
+    </div>
+    <div class="fancybox-form__actions">
+        <div class="form-item fancybox-form__actions__cancel">
+            <a class="close_overlay" href="#">Annuleren</a>
+        </div>
+
+        <div class="form-item fancybox-form__actions__save">
+            <input type="submit" value="Aanmaken" name="btnInvoiceGenerate"/>
+        </div>
+    </div>
+    <?php print form_close(); ?>
+</div>
         <?php
     }
     ?>
