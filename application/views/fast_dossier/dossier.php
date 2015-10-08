@@ -343,6 +343,94 @@ $_dossier = $dossier->dossier;
                 </div>
                 <!-- END CAR -->
 
+
+
+
+
+                <div class="dsform__clearfix dsform_seperation">
+                    <div class="dsform__left">
+
+                        <!-- Customer Info -->
+                        <div id="customer_info" class="form-item-vertical facturation-container"></div>
+
+                        <!-- Causer Info -->
+                        <div id="causer_info" class="form-item-vertical nuisance-container"></div>
+
+
+                    </div>
+                    <div class="dsform__right">
+                        <!-- Depot Info -->
+                        <div id="depot_info" class="form-item-horizontal depot-container"></div>
+                    </div>
+                </div>
+
+                <div class="dsform__clearfix dsform_seperation">
+                    <div class="dsform__left">
+                        <!--ASSI-->
+                        <div class="form-item-horizontal dossiernr-container" style="padding-right: 15px;">
+                            <label>Assistance:</label>
+                            <?php print listbox_ajax('insurance_id', $_voucher->insurance_id); ?>
+                        </div>
+                        <!--END ASSI-->
+
+                        <div class="form-item-horizontal dossiernr-container" style="padding-right: 15px;">
+                            <label>Factuurnummer assistance:</label>
+                            <?php print form_input('insurance_invoice_number', $_voucher->insurance_invoice_number); ?>
+                        </div>
+                    </div>
+
+                    <div class="dsform__right">
+                        <!--DOSS-->
+                        <div class="form-item-horizontal dossiernr-container">
+                            <label>Dossiernr.:</label>
+                            <?php print form_input('insurance_dossiernr', $_voucher->insurance_dossiernr); ?>
+                        </div>
+                        <!--END DOSS-->
+
+                        <!--WARENTY-->
+                        <div class="form-item-horizontal warrenty-container">
+                            <label>Garantiehouder:</label>
+                            <?php print form_input('insurance_warranty_held_by', $_voucher->insurance_warranty_held_by); ?>
+                        </div>
+                        <!--END WARENTY-->
+                    </div>
+                </div>
+
+
+                <!--WORK-->
+                <div id="added-activities" class="form-item-vertical work-container">
+                    <!-- ACTIVITIES -->
+                    <div class="work-container__header">
+                        <div class="work-container__task__label"><label>Activiteiten:</label></div>
+                        <div class="work-container__number__label"><label>Aantal:</label></div>
+                        <div class="work-container__incl__label"><label>EHP (excl.):</label></div>
+                        <div class="work-container__excl__label"><label>EHP (incl.):</label></div>
+                        <div class="work-container__tot__incl__label"><label>Totaal (excl.):</label></div>
+                        <div class="work-container__tot__excl__label"><label>Totaal (incl.):</label></div>
+                    </div>
+
+                    <div class="work-container__fields"></div>
+
+                    <div class="work-container__actions">
+                        <div class="work-container__add">
+                            <a id="add-activity-link" class="inform-link" href="#add-activity-form"
+                               data-did="<?php print $_dossier->id; ?>" data-vid="<?php print $_voucher->id; ?>">Activiteit
+                                toevoegen</a>
+                        </div>
+                    </div>
+
+                    <!-- ADDITIONAL COSTS -->
+                    <div class="additional-costs-container__header">
+                        <div class="additional-costs-container__task__label"><label>Extra kosten:</label></div>
+                        <div class="additional-costs-container__incl__label"><label>EHP (excl.):</label></div>
+                        <div class="additional-costs-container__excl__label"><label>EHP (incl.):</label></div>
+                    </div>
+
+                    <div class="additional-costs-container__fields"></div>
+
+                    <div class="additional-costs-container__actions">
+                    </div>
+
 <?php
 function tofloat($num)
 {
