@@ -930,6 +930,69 @@ $_dossier = $dossier->dossier;
         <?php print form_close(); ?>
     </div>
 
+    <!-- EMAIL -->
+    <div id="add-email-form" style="display: none;">
+
+        <?php
+
+        $email_attr = array(
+            'data-vid' => $_voucher->id,
+            'data-did' => $_dossier->id
+        );
+
+        $email_hidden = array(
+            'voucher_id' => $_voucher->id,
+            'dossier_id' => $_dossier->id
+        );
+
+        print form_open('', $email_attr, $email_hidden);
+
+        ?>
+
+        <div class="fancybox-form">
+            <h3>Email versturen</h3>
+
+            <div class="msg msg__error msg__hidden">Er is een fout opgetreden bij het versturen van de email</div>
+            <div class="form-item-horizontal">
+                <label>Email:</label>
+                <?php print form_input('recipients'); ?>
+            </div>
+
+            <div class="form-item-horizontal">
+                <label>Onderwerp:</label>
+                <?php print form_input('subject'); ?>
+            </div>
+
+            <div class="form-item-horizontal">
+                <label>Bericht:</label>
+                <?php print form_textarea('message'); ?>
+            </div>
+
+        </div>
+        <div class="fancybox-form__actions">
+            <div class="form-item fancybox-form__actions__cancel">
+                <a class="close_overlay" href="#">Annuleren</a>
+            </div>
+
+            <div class="form-item fancybox-form__actions__save">
+                <input type="submit" value="Bewaren" name="btnEmailSave"/>
+            </div>
+        </div>
+        <?php print form_close(); ?>
+    </div>
+
+    <div id="view-email-container" style="display: none;">
+        <div class="emails">
+            <!-- EMAILS LOADED BY JS -->
+        </div>
+        <div class="fancybox-form__actions">
+            <div class="form-item fancybox-form__actions__save">
+                <a class="close_overlay" href="#">Sluiten</a>
+            </div>
+        </div>
+    </div>
+    <!-- END EMAIL -->
+
 <?php
 function tofloat($num)
 {
