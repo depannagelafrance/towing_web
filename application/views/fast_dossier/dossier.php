@@ -452,6 +452,44 @@ $_dossier = $dossier->dossier;
                 </div>
                 <!-- END WORK-->
 
+                <!--AUTOGRAPHS-->
+                <div class="autograph-container">
+                    <div class="autograph-container__police">
+                        <label>Bevestiging politie:</label>
+
+                        <div class="form-item-horizontal  autograph-container__police__trafficpost">
+                            <label class="notbold">Verkeerspost:</label>
+                            <?php print listbox('traffic_post_id', $traffic_posts, $_dossier->police_traffic_post_id); ?>
+                        </div>
+
+                        <div class="form-item-horizontal  autograph-container__police__trafficpost">
+                            <label class="notbold">Handtekening afwezig?</label>
+                            <input type="checkbox" name="police_not_present" id="police_not_present"
+                                   value="1" <?php if ($_voucher->police_not_present) print 'checked="checked"'; ?>/>
+                        </div>
+
+                        <div class="form-item-horizontal  autograph-container__police__timestamp">
+                            <label class="notbold">Tijdstip:</label>
+                            <?php
+
+                            // $police_signature_dt = array(
+                            //     'name' => 'police_signature_dt',
+                            //     'class' => 'datetimepicker',
+                            //     'value' => mdate('%d/%m/%Y %H:%i',strtotime($_voucher->police_signature_dt))
+                            // );
+                            //
+                            // print form_input($police_signature_dt);
+                            //
+
+                            if ($_voucher->police_signature_dt && trim($_voucher->police_signature_dt) != "") {
+                                print mdate('%d/%m/%Y %H:%i', $_voucher->police_signature_dt);
+                            } else {
+                                print "";
+                            }
+                            ?>
+                        </div>
+                    </div>
+
 <?php
 function tofloat($num)
 {
