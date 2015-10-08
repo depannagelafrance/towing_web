@@ -1176,7 +1176,12 @@ $_dossier = $dossier->dossier;
                         }
 
 
-                        printf("<tr><td>%s</td>", $label);
+                        printf('<tr><td>%s</td><td style="padding-right: 25px;">%s</td></tr>',
+                                $label,
+                                form_input(array('name' => "invoice_payment_amount_" . $category_key,
+                                    'value' => $amount,
+                                    'readonly' => 'readonly',
+                                    'style' => 'background: #F0F0F0')));
 
                     }
                     ?>
