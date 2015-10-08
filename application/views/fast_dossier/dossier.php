@@ -163,7 +163,7 @@ $_dossier = $dossier->dossier;
             </div>
 
         </div>
-        
+
         <div class="dossierbar">
 
             <div class="dossierbar__vouchers">
@@ -205,13 +205,101 @@ $_dossier = $dossier->dossier;
                 print generateVoucherReportDropdownButton($_dossier->id, $_voucher->id);
                 ?>
             </div>
-
         </div>
 
+        <?php
+        print generateValidationMessagesBlock($_voucher->status);
+        ?>
+
+        <div class="box unpadded dsform">
+            <div class="inner_padding">
+
+                <!--SIGNA-->
+                <div class="signa-container">
+                    <div class="signa-container__left">
+                        <div class="form-item-horizontal signa-container__signa" style="width: 100%;">
+                            <label>Signa:</label>
+                            <?php /* print form_input('signa_by', $_voucher->signa_by);*/ ?>
+                            <?php print listbox_ajax('signa_id', $_voucher->signa_id); ?>
 
 
+                            <?php
+                            $data = array(
+                                'name' => 'signa_by_vehicle',
+                                'type' => 'hidden',
+                                'value' => $_voucher->signa_by_vehicle);
 
+                            print form_input($data);
+                            ?>
+                        </div>
+                    </div>
 
+                    <div class="signa-container__right">
+                        <div class="form-item-horizontal signa-container__arrival">
+                            <label>Aankomst:</label>
+
+                            <?php print displayVoucherTimeField($_voucher->signa_arrival, 'signa_arrival'); ?>
+                        </div>
+
+                        <div class="form-item-horizontal signa-container__arrival">
+                            <label>Afmelding CIC:</label>
+
+                            <?php print displayVoucherTimeField($_voucher->cic, 'cic'); ?>
+                        </div>
+                    </div>
+                </div>
+                <!-- END SIGNA -->
+                
+                <!--TOWED BY-->
+                <div class="towedby-container">
+                    <div class="towedby-container__left">
+                        <div class="form-item-horizontal towedby-container__towedby">
+                            <label>Takelaar:</label>
+                            <?php /* print form_input('towed_by', $_voucher->towed_by);*/ ?>
+                            <?php print listbox_ajax('towing_id', $_voucher->towing_id); ?>
+                        </div>
+
+                        <div class="form-item-horizontal towedby-container__licenceplate">
+                            <label>Voertuig:</label>
+                            <?php
+                            // $data = array(
+                            //   'name'        => 'towed_by_vehicle',
+                            //   'value'       => $_voucher->towed_by_vehicle,
+                            //   'readonly'    => 'readonly',
+                            //   'style'       => 'background: #F0F0F0'
+                            // );
+                            //
+                            // print form_hidden($data);
+
+                            print listbox_ajax('towing_vehicle_id', $_voucher->towing_vehicle_id);
+                            ?>
+                        </div>
+                    </div>
+
+                    <div class="towedby-container__right">
+                        <div class="form-item-horizontal towedby-container__call">
+                            <label>Oproep:</label>
+                            <?php print displayVoucherTimeField($_voucher->towing_called, 'towing_called'); ?>
+                        </div>
+
+                        <div class="form-item-horizontal towedby-container__arival">
+                            <label>Aankomst:</label>
+                            <?php print displayVoucherTimeField($_voucher->towing_arrival, 'towing_arrival'); ?>
+                        </div>
+
+                        <div class="form-item-horizontal towedby-container__start">
+                            <label>Start:</label>
+                            <?php print displayVoucherTimeField($_voucher->towing_start, 'towing_start'); ?>
+                        </div>
+
+                        <div class="form-item-horizontal towedby-container__completed">
+                            <label>Stop:</label>
+                            <?php print displayVoucherTimeField($_voucher->towing_completed, 'towing_completed'); ?>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- END TOWEDBY -->
 
 <?php
 function tofloat($num)
