@@ -21,7 +21,25 @@ $this->load->helper('date');
 
 $_dossier = $dossier->dossier;
 ?>
+<div class="layout-has-sidebar edit-view">
+    <div class="layout-sidebar">
+        <div class="box table_list table_list_small">
 
+            <?php
+            $this->load->helper('date');
+
+            print showDossierList($this, $search_results, 'Zoekresultaten');
+            if (count($search_results) > 0) {
+                echo '<div style="padding-top: 15px; padding-bottom: 15px;background-color: #f0f0f0">';
+                echo '<input type="button" value="Wis zoekresultaten" id="btn_delete_search_results">';
+                echo '</div>';
+            }
+
+            print showDossierList($this, $vouchers, 'Dossiers');
+
+            ?>
+        </div>
+    </div>
 
 
 
