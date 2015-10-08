@@ -489,7 +489,116 @@ $_dossier = $dossier->dossier;
                             ?>
                         </div>
                     </div>
+                    <!-- Causer Short Info -->
+                    <div id="causer_info_short" class="autograph-container__nuisance"></div>
 
+
+                    <div class="autograph-container__collecting">
+                        <label>Bevestiging afhaler:</label>
+
+                        <div class="form-item-horizontal  autograph-container__collecting__collector">
+                            <label class="notbold">Afhaler:</label>
+                            <?php print listbox_ajax('collector_id', $_voucher->collector_id); ?>
+                        </div>
+
+                        <div class="form-item-horizontal  autograph-container__collecting__date">
+                            <label class="notbold">Naam:</label>
+                            <?php
+                            print $_voucher->collector_name; ?>
+                        </div>
+
+                        <div class="form-item-horizontal  autograph-container__collecting__date">
+                            <label class="notbold">Datum:</label>
+                            <?php
+
+                            $vehicule = array(
+                                'name' => 'vehicule_collected',
+                                'class' => 'datetimepicker',
+                                'value' => ($_voucher->vehicule_collected ? mdate('%d/%m/%Y %H:%i', $_voucher->vehicule_collected) : '')
+                            );
+
+                            print form_input($vehicule); ?>
+                        </div>
+                    </div>
+                </div>
+                <!-- AUTHOGRAPH BUTTONS -->
+                <div class="autograph-container-buttons">
+                    <div class="autograph-container__police">
+                        <?php
+                        $police_has_autograph = false;
+                        $police_collecting_url = 'none';
+                        $police_class = '';
+                        if (property_exists($_voucher, 'signature_traffic_post') && $_voucher->signature_traffic_post) {
+                            $police_class = 'active';
+                            $police_has_autograph = true;
+                            $police_collecting_url = "/fast_dossier/image/view/" . $_voucher->signature_traffic_post->document_blob_id . '/200/125';
+                        }
+                        ?>
+                        <div
+                            class="autograph-block autograph-container__police__autograph <?php print $police_class; ?>"
+                            style="background-image: url(<?php print $police_collecting_url; ?>);">
+                            <?php if ($police_has_autograph): ?>
+                                <!-- a id="edit-autograph-police" class="inform-link icon--edit--small" href="#"></a -->
+                            <?php else: ?>
+                                <a class="add_autograph" id="signature-traffic-post"
+                                   data-did="<?php print $_dossier->dossier_number; ?>"
+                                   data-vid="<?php print $_voucher->id; ?>"
+                                   href="#">Voeg een handtekening toe</a>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+
+                    <div class="autograph-container__nuisance">
+                        <?php
+                        $nuisance_has_autograph = false;
+                        $nuisance_collecting_url = 'none';
+                        $nuisance_class = '';
+                        if (property_exists($_voucher, 'signature_causer') && $_voucher->signature_causer) {
+                            $nuisance_class = 'active';
+                            $nuisance_has_autograph = true;
+                            $nuisance_collecting_url = "/fast_dossier/image/view/" . $_voucher->signature_causer->document_blob_id . '/200/125';
+                        }
+                        ?>
+                        <div
+                            class="autograph-block autograph-container__nuisance__autograph <?php print $nuisance_class; ?>"
+                            style="background-image: url(<?php print $nuisance_collecting_url; ?>);">
+                            <?php if ($nuisance_has_autograph): ?>
+                                <!--a id="edit-autograph-nuisance" class="inform-link icon--edit--small" href="#"></a-->
+                            <?php else: ?>
+                                <a class="add_autograph" id="signature-causer"
+                                   data-did="<?php print $_dossier->dossier_number; ?>"
+                                   data-vid="<?php print $_voucher->id; ?>"
+                                   href="#">Voeg een handtekening toe</a>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+
+                    <div class="autograph-container__collecting">
+                        <?php
+                        $collecting_class = '';
+                        $collecting_has_autograph = false;
+                        $autograph_collecting_url = 'none';
+                        if (property_exists($_voucher, 'signature_collector') && $_voucher->signature_collector) {
+                            $collecting_class = 'active';
+                            $collecting_has_autograph = true;
+                            $autograph_collecting_url = "/fast_dossier/image/view/" . $_voucher->signature_collector->document_blob_id . '/200/125';
+                        }
+                        ?>
+                        <div
+                            class="autograph-block autograph-container__collecting__autograph <?php print $collecting_class; ?>"
+                            style="background-image: url(<?php print $autograph_collecting_url; ?>);">
+                            <?php if (!$collecting_has_autograph) { ?>
+                                <a class="add_autograph" id="signature-collector"
+                                   data-did="<?php print $_dossier->id; ?>"
+                                   data-vid="<?php print $_voucher->id; ?>"
+                                   href="#">Voeg een handtekening toe</a>
+                            <?php }  ?>
+                        </div>
+                    </div>
+                </div>
+                <!-- END AUTOGRAPH BUTTONS -->
+                <!-- END AUTOGRAPHS-->
+            </div>
 <?php
 function tofloat($num)
 {
