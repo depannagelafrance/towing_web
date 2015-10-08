@@ -10,9 +10,7 @@ $module = $this->uri->segment(1);
   <a class="<?php print $active_tab == 'index' ? 'active' : '';  ?>" href="/<?=$module?>/index">Alle</a>
   <?php
   if($hasSearchResults) {
-    ?>
-      <a class="<?php print $active_tab == 'searchresults' ? 'active' : '';  ?>" href="/<?=$module?>/overview/searchresults">Zoekresultaten</a>
-    <?
+     printf('<a class="%s" href="%s/overview/searchresults">', ($active_tab == 'searchresults' ? 'active' : ''), $module);
   }
   ?>
   <a class="<?php print $active_tab == 'new' ? 'active' : '';  ?>" href="/<?=$module?>/overview/new">Nieuw</a>
@@ -54,3 +52,7 @@ if($dossiers && sizeof($dossiers) > 0) {
 echo $this->table->generate();
 ?>
 </div><!-- nothing here -->
+
+
+
+
