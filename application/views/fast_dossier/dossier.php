@@ -993,6 +993,79 @@ $_dossier = $dossier->dossier;
     </div>
     <!-- END EMAIL -->
 
+    <!-- NOTA -->
+    <div id="add-nota-form" style="display: none;">
+        <?php
+
+        $nota_hidden = array(
+            'voucher_id' => $_voucher->id,
+            'dossier_id' => $_dossier->id
+        );
+
+        $nota_attr = array(
+            'data-vid' => $_voucher->id,
+            'data-did' => $_dossier->id
+        );
+
+        print form_open('', $nota_attr, $nota_hidden);
+
+        ?>
+        <div class="fancybox-form">
+            <h3>Nota toevoegen</h3>
+
+            <div class="msg msg__error msg__hidden">Er is een fout opgetreden bij het bewaren van de nota</div>
+            <div class="form-item-horizontal">
+                <label>Nota:</label>
+                <?php print form_textarea('message'); ?>
+            </div>
+
+        </div>
+        <div class="fancybox-form__actions">
+            <div class="form-item fancybox-form__actions__cancel">
+                <a class="close_overlay" href="#">Annuleren</a>
+            </div>
+
+            <div class="form-item fancybox-form__actions__save">
+                <input type="submit" value="Bewaren" name="btnNotaSave"/>
+            </div>
+        </div>
+        <?php print form_close(); ?>
+    </div>
+
+    <div id="view-nota-container" style="display: none;">
+        <div class="notas">
+            <!-- NOTAS LOADED BY JS -->
+        </div>
+        <div class="fancybox-form__actions">
+            <div class="form-item fancybox-form__actions__save">
+                <a class="close_overlay" href="#">Sluiten</a>
+            </div>
+        </div>
+    </div>
+
+    <!--END NOTA-->
+
+    <!-- WORK -->
+    <div id="add-activity-form" style="display: none;">
+        <?php print form_open(); ?>
+        <div class="fancybox-form">
+            <h3>Activiteiten toevoegen</h3>
+
+            <div id="add-work-form-ajaxloaded-content"></div>
+        </div>
+        <div class="fancybox-form__actions">
+            <div class="form-item fancybox-form__actions__cancel">
+                <a class="close_overlay" href="#">Annuleren</a>
+            </div>
+
+            <div class="form-item fancybox-form__actions__save">
+                <input type="submit" value="Bewaren" name="btnWorkSave"/>
+            </div>
+        </div>
+        <?php print form_close(); ?>
+    </div>
+
+    <!-- END WORK -->
 <?php
 function tofloat($num)
 {
