@@ -249,7 +249,7 @@ $_dossier = $dossier->dossier;
                     </div>
                 </div>
                 <!-- END SIGNA -->
-                
+
                 <!--TOWED BY-->
                 <div class="towedby-container">
                     <div class="towedby-container__left">
@@ -300,6 +300,48 @@ $_dossier = $dossier->dossier;
                     </div>
                 </div>
                 <!-- END TOWEDBY -->
+
+                <!-- VEHICULE -->
+                <div class="vehicule-container">
+                    <div class="vehicule-container__left">
+                        <div class="form-item-horizontal vehicule-container__vehicule">
+                            <label>Voertuig:</label>
+                            <?php print form_input('vehicule', $_voucher->vehicule); ?>
+                        </div>
+
+                        <div class="form-item-horizontal vehicule-container__license">
+                            <label>Kleur:</label>
+                            <?php print form_input('vehicule_color', $_voucher->vehicule_color); ?>
+                        </div>
+                    </div>
+
+                    <div class="vehicule-container__right">
+                        <div class="form-item-horizontal vehicule-container__keypresent">
+                            <label>Sleutels aanwezig?</label>
+                            <?php print form_checkbox('vehicule_keys_present', 1, ($_voucher->vehicule_keys_present == 1)); ?>
+                        </div>
+
+                        <div class="form-item-horizontal vehicule-container__country">
+                            <label>Land:</label>
+                            <?php print listbox_ajax('licence_plate_country', $_voucher->vehicule_country); ?>
+                        </div>
+                    </div>
+
+                    <div class="vehicule-container__left">
+                        <div class="form-item-horizontal vehicule-container__vehicule">
+                            <label>Type wagen:</label>
+                            <?php print form_input('vehicule_type', $_voucher->vehicule_type); ?>
+                        </div>
+
+                        <div class="form-item-horizontal vehicule-container__license">
+                            <label>Nummerplaat:</label>
+                            <?php print form_input('vehicule_licenceplate', $_voucher->vehicule_licenceplate); ?>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- END CAR -->
 
 <?php
 function tofloat($num)
