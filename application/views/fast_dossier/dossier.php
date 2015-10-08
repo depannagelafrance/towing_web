@@ -646,6 +646,92 @@ $_dossier = $dossier->dossier;
     <?php
         print form_close();
     ?>
+    <!-- DEPOT -->
+    <div id="depot_form" style="display: none;">
+        <?php
+        $depot_hidden = array(
+            'id' => $_voucher->depot->id
+        );
+
+        print form_open('', '', $depot_hidden);
+        ?>
+        <div class="fancybox-form">
+            <h3>Depot Bewerken</h3
+                <!-- DEPOT -->
+
+            <div class="depot-full-container">
+                <div class="msg msg__error msg__hidden">Er is een fout opgetreden bij het bewaren van de gegevens</div>
+
+                <div class="depot-full-container__left">
+                    <div class="form-item-horizontal depot-full-container__depot">
+                        <label>Depot:</label>
+                        <?php print form_input('name', $_voucher->depot->name); ?>
+                        <?php print form_hidden('default_depot', $_voucher->depot->default_depot); ?>
+                    </div>
+
+                    <div class="form-item-horizontal depot-full-container__street">
+                        <label>Straat:</label>
+                        <?php print form_input('street', $_voucher->depot->street); ?>
+                    </div>
+                </div>
+                <div class="depot-full-container__right">
+
+                    <div class="form-item-horizontal depot-full-container__streetnr">
+                        <label>Nr:</label>
+                        <?php print form_input('street_number', $_voucher->depot->street_number); ?>
+                    </div>
+
+                    <div class="form-item-horizontal depot-full-container__streetbox">
+                        <label>Box:</label>
+                        <?php print form_input('street_pobox', $_voucher->depot->street_pobox); ?>
+                    </div>
+
+                    <div class="form-item-horizontal depot-full-container__postal">
+                        <label>Zip:</label>
+                        <?php print form_input('zip', $_voucher->depot->zip); ?>
+                    </div>
+
+                    <div class="form-item-horizontal depot-full-container__city">
+                        <label>City:</label>
+                        <?php print form_input('city', $_voucher->depot->city); ?>
+                    </div>
+
+                    <div class="form-item-horizontal depot-full-container__city">
+                        <label>Standaard depot?</label>
+                        <table border="0">
+                            <tr>
+                                <td>Ja</td>
+                                <td>Nee</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <?php
+                                    print form_radio('default_depot', '1', $_voucher->depot->default_depot == 1);
+                                    ?>
+                                </td>
+                                <td>
+                                    <?php
+                                    print form_radio('default_depot', '0', $_voucher->depot->default_depot != 1); ?>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="fancybox-form__actions">
+            <div class="form-item fancybox-form__actions__cancel">
+                <a class="close_overlay" href="#">Annuleren</a>
+            </div>
+
+            <div class="form-item fancybox-form__actions__save fancybox-form__actions__twobuttons">
+                <input type="submit" value="AW&amp;V" name="btnDepotAWV"/>
+                <input type="submit" value="Standaard Depot" name="btnDepotDefault"/>
+                <input type="submit" value="Bewaren" name="btnDepotSave"/>
+            </div>
+        </div>
+        <?php print form_close(); ?>
+    </div>
 <?php
 function tofloat($num)
 {
