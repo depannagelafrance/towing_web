@@ -41,7 +41,43 @@ $_dossier = $dossier->dossier;
         </div>
     </div>
 
+    <?php
+    print validation_errors();
 
+    $_voucher = null;
+
+    foreach ($_dossier->towing_vouchers as $_v) {
+        if ($_v->voucher_number === $voucher_number) {
+            $_voucher = $_v;
+        }
+    }
+
+    if (!$_voucher) {
+        $_voucher = $_dossier->towing_vouchers[0];
+    }
+
+
+    print form_open('fast_dossier/dossier/save/' . $_dossier->dossier_number . '/' . $_voucher->voucher_number);
+
+
+    // -- dossier_id
+    $data = array(
+        'name' => 'data_dossier_id',
+        'id' => 'data_dossier_id',
+        'type' => 'hidden',
+        'value' => $_dossier->id);
+
+    print form_input($data);
+
+    // -- voucher_id
+    $data = array(
+        'name' => 'data_voucher_id',
+        'type' => 'hidden',
+        'id' => 'data_voucher_id',
+        'value' => $_voucher->id);
+
+    print form_input($data);
+    ?>
 
 
 
