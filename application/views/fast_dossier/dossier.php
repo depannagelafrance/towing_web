@@ -28,11 +28,9 @@ $_dossier = $dossier->dossier;
 
             print showDossierList($this, $search_results, 'Zoekresultaten');
             if (count($search_results) > 0) {
-                ?>
-                <div style="padding-top: 15px; padding-bottom: 15px;background-color: #f0f0f0">
-                    <input type="button" value="Wis zoekresultaten" id="btn_delete_search_results">
-                </div>
-                <?php
+                echo '<div style="padding-top: 15px; padding-bottom: 15px;background-color: #f0f0f0">';
+                echo '<input type="button" value="Wis zoekresultaten" id="btn_delete_search_results">';
+                echo '</div>';
             }
 
             print showDossierList($this, $vouchers, 'Dossiers');
