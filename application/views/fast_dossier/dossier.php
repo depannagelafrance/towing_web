@@ -25,14 +25,16 @@ $_dossier = $dossier->dossier;
       <?php
       $this->load->helper('date');
 
-      print showDossierList($this, $search_results, 'Zoekresultaten');
-      if(sizeof($search_results) > 0) {
+      print showDossierList($this, $search_results, 'Zoekresultaten')
+      ;
+      if(count($search_results) > 0) {
         ?>
           <div style="padding-top: 15px; padding-bottom: 15px;background-color: #f0f0f0">
             <input type="button" value="Wis zoekresultaten" id="btn_delete_search_results">
           </div>
         <?php
       }
+
       print showDossierList($this, $vouchers, 'Dossiers');
 
       ?>
@@ -1257,13 +1259,15 @@ $_dossier = $dossier->dossier;
 </div>
 
 <?php
-function tofloat($num) {
+function tofloat($num)
+{
     $dotPos = strrpos($num, '.');
     $commaPos = strrpos($num, ',');
     $sep = (($dotPos > $commaPos) && $dotPos) ? $dotPos :
         ((($commaPos > $dotPos) && $commaPos) ? $commaPos : false);
 
-    if (!$sep) {
+    if (!$sep)
+    {
         return floatval(preg_replace("/[^0-9]/", "", $num));
     }
 
@@ -1273,13 +1277,13 @@ function tofloat($num) {
     );
 }
 
-function showDossierList($ctx, $data, $title) {
-  if(sizeof($data) > 0)
+function showDossierList($ctx, $data, $title)
+{
+  if(count($data) > 0)
   {
     $last = $ctx->uri->total_segments();
     $url_dossier_id = $ctx->uri->segment($last - 1);
     $url_takelbon_id = $ctx->uri->segment($last);
-
 
     $ctx->table->set_heading($title);
 
@@ -1288,11 +1292,16 @@ function showDossierList($ctx, $data, $title) {
     $prev = '';
     $vouchers = $data;
 
-    if($vouchers && sizeof($vouchers) > 0) {
-      foreach($vouchers as $voucher) {
-        if($voucher->dossier_number === $url_dossier_id){
+    if($vouchers && sizeof($vouchers) > 0)
+    {
+      foreach($vouchers as $voucher)
+      {
+        if($voucher->dossier_number === $url_dossier_id)
+        {
           $class = 'active bright';
-        }else{
+        }
+        else
+        {
           $class = 'inactive';
         }
 
@@ -1311,7 +1320,9 @@ function showDossierList($ctx, $data, $title) {
                                                 <span class="id__cell__text__nr">%s</span>
                                                 <span class="id__cell__text__info">%s %s</span>
                                               </span>
-                                            </span></a>', $voucher->dossier_number, $voucher->voucher_number, $voucher->voucher_number, $voucher->call_number, $voucher->incident_type, $voucher->direction_name , $voucher->indicator_name))
+                                            </span></a>', $voucher->dossier_number, $voucher->voucher_number,
+                                                          $voucher->voucher_number, $voucher->call_number, $voucher->incident_type,
+                                                          $voucher->direction_name , $voucher->indicator_name))
           );
 
         // }
