@@ -107,7 +107,6 @@ $_dossier = $dossier->dossier;
                 </div>
             </div>
 
-
             <div class="idbar__incident">
                 <?php print $_dossier->incident_type_name; ?>
             </div>
@@ -180,7 +179,7 @@ $_dossier = $dossier->dossier;
                         if ($_is_selected || count($_dossier->towing_vouchers) == 1) {
                             $sel = 'selected';
                         }
-                        print '<option value="' . $_v->voucher_number . '" ' . $sel . '>' . sprintf("%s (%s)", $_v->voucher_number, $_v->status) . '</option>';
+                        print '<option value="' . $_v->voucher_number . '"' . $sel . '>' . sprintf("%s (%s)", $_v->voucher_number, $_v->status) . '</option>';
                     };
                     ?>
                 </select>
@@ -198,80 +197,14 @@ $_dossier = $dossier->dossier;
             <div class="dossierbar__actions">
                 <?php
                 if ($_voucher->status == 'READY FOR INVOICE') {
-                    ?>
-                    <div class="dossierbar__action__item">
-                        <!-- <input type="button" value="Factuur aanmaken" id="create-invoice-button" /> -->
-                        <div class="btn--dropdown">
-                            <div class="btn--dropdown--btn btn--icon">
-                                <span class="icon--invoice">Facturatie</span>
-                            </div>
-                            <ul class="btn--dropdown--drop">
-                                <li><a id="generate-invoice-link" href="#generate-invoice-form">Factuur aanmaken</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <?php
+                    print generateInvoiceDropdownButton();
                 }
-                ?>
-                <div class="dossierbar__action__item">
-                    <div class="btn--dropdown">
-                        <div class="btn--dropdown--btn btn--icon">
-                            <span class="icon--email">Email</span>
-                        </div>
-                        <ul class="btn--dropdown--drop">
-                            <li><a id="add-email-link" href="#add-email-form">Email verzenden</a></li>
-                            <li><a id="view-email-link" href="#view-email-container">Emails bekijken</a></li>
-                            <li><a id="send-voucher-email-awv-link" href="#send-voucher-email-awv-container">Takelbon
-                                    verzenden naar AW&amp;V</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="dossierbar__action__item">
-                    <div class="btn--dropdown">
-                        <div class="btn--dropdown--btn btn--icon">
-                            <span class="icon--nota">Nota</span>
-                        </div>
-                        <ul class="btn--dropdown--drop">
-                            <li><a id="add-nota-link" href="#add-nota-form">Nota toevoegen</a></li>
-                            <li><a id="view-nota-link" href="#view-nota-container">Notas bekijken</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="dossierbar__action__item">
-                    <div class="btn--dropdown">
-                        <div class="btn--dropdown--btn btn--icon">
-                            <span class="icon--attachement">Bijlage</span>
-                        </div>
-                        <ul class="btn--dropdown--drop">
-                            <li><a id="add-attachment-link" href="#add-attachment-form">Bijlage Toevoegen</a></li>
-                            <li><a id="view-attachment-link" href="#view-attachment-container">Bijlages bekijken</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="dossierbar__action__item">
-                    <div class="btn--dropdown">
-                        <div class="btn--dropdown--btn btn--icon">
-                            <span class="icon--print">Print</span>
-                        </div>
-                        <ul class="btn--dropdown--drop">
-                            <li>
-                                <a href="/fast_dossier/report/voucher/towing/<?php print $_dossier->id; ?>/<?php print $_voucher->id; ?>">Exemplaar
-                                    Takeldienst</a></li>
-                            <li>
-                                <a href="/fast_dossier/report/voucher/collector/<?php print $_dossier->id; ?>/<?php print $_voucher->id; ?>">Exemplaar
-                                    Afhaler</a></li>
-                            <li>
-                                <a href="/fast_dossier/report/voucher/customer/<?php print $_dossier->id; ?>/<?php print $_voucher->id; ?>">Exemplaar
-                                    Klant</a></li>
-                            <li>
-                                <a href="/fast_dossier/report/voucher/other/<?php print $_dossier->id; ?>/<?php print $_voucher->id; ?>">Exemplaar
-                                    op Aanvraag</a></li>
-                        </ul>
-                    </div>
-                </div>
 
+                print generateEmailDropdownButton();
+                print generateNoteDropdownButton();
+                print generateAttachmentDropdownButton();
+                print generateVoucherReportDropdownButton($_dossier->id, $_voucher->id);
+                ?>
             </div>
 
         </div>
@@ -1359,5 +1292,94 @@ function showDossierList($ctx, $data, $title)
     }
 
     return '';
+}
+
+function generateInvoiceDropdownButton() {
+    return '<div class="dossierbar__action__item">
+                        <!-- <input type="button" value="Factuur aanmaken" id="create-invoice-button" /> -->
+                        <div class="btn--dropdown">
+                            <div class="btn--dropdown--btn btn--icon">
+                                <span class="icon--invoice">Facturatie</span>
+                            </div>
+                            <ul class="btn--dropdown--drop">
+                                <li><a id="generate-invoice-link" href="#generate-invoice-form">Factuur aanmaken</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>';
+}
+
+function generateEmailDropdownButton() {
+    return '<div class="dossierbar__action__item">
+                    <div class="btn--dropdown">
+                        <div class="btn--dropdown--btn btn--icon">
+                            <span class="icon--email">Email</span>
+                        </div>
+                        <ul class="btn--dropdown--drop">
+                            <li><a id="add-email-link" href="#add-email-form">Email verzenden</a></li>
+                            <li><a id="view-email-link" href="#view-email-container">Emails bekijken</a></li>
+                            <li><a id="send-voucher-email-awv-link" href="#send-voucher-email-awv-container">Takelbon
+                                    verzenden naar AW&amp;V</a></li>
+                        </ul>
+                    </div>
+                </div>';
+}
+
+function generateNoteDropdownButton() {
+    return '<div class="dossierbar__action__item">
+                    <div class="btn--dropdown">
+                        <div class="btn--dropdown--btn btn--icon">
+                            <span class="icon--nota">Nota</span>
+                        </div>
+                        <ul class="btn--dropdown--drop">
+                            <li><a id="add-nota-link" href="#add-nota-form">Nota toevoegen</a></li>
+                            <li><a id="view-nota-link" href="#view-nota-container">Notas bekijken</a></li>
+                        </ul>
+                    </div>
+                </div>';
+}
+
+function generateAttachmentDropdownButton() {
+    return '<div class="dossierbar__action__item">
+                    <div class="btn--dropdown">
+                        <div class="btn--dropdown--btn btn--icon">
+                            <span class="icon--attachement">Bijlage</span>
+                        </div>
+                        <ul class="btn--dropdown--drop">
+                            <li><a id="add-attachment-link" href="#add-attachment-form">Bijlage Toevoegen</a></li>
+                            <li><a id="view-attachment-link" href="#view-attachment-container">Bijlages bekijken</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>';
+}
+
+function generateVoucherReportDropdownButton($dossier_id, $voucher_id)
+{
+    return sprintf('<div class="dossierbar__action__item">
+                    <div class="btn--dropdown">
+                        <div class="btn--dropdown--btn btn--icon">
+                            <span class="icon--print">Print</span>
+                        </div>
+                        <ul class="btn--dropdown--drop">
+                            <li>
+                                <a href="/fast_dossier/report/voucher/towing/%s/%s">Exemplaar
+                                    Takeldienst</a></li>
+                            <li>
+                                <a href="/fast_dossier/report/voucher/collector/%s/%s">Exemplaar
+                                    Afhaler</a></li>
+                            <li>
+                                <a href="/fast_dossier/report/voucher/customer/%s/%s">Exemplaar
+                                    Klant</a></li>
+                            <li>
+                                <a href="/fast_dossier/report/voucher/other/%s/%s">Exemplaar
+                                    op Aanvraag</a></li>
+                        </ul>
+                    </div>
+                </div>',
+                    $dossier_id, $voucher_id,
+                    $dossier_id, $voucher_id,
+                    $dossier_id, $voucher_id,
+                    $dossier_id, $voucher_id);
 }
 ?>
