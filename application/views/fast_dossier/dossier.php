@@ -1306,54 +1306,53 @@ function tofloat($num)
 
 function showDossierList($ctx, $data, $title)
 {
-    if (count($data) > 0) {
-        $last = $ctx->uri->total_segments();
-        $url_dossier_id = $ctx->uri->segment($last - 1);
-        //$url_takelbon_id = $ctx->uri->segment($last);
-
-        $ctx->table->set_heading($title);
-
-        //d.id, d.id as 'dossier_id', t.id as 'voucher_id', d.call_number, d.call_date, t.voucher_number, ad.name 'direction_name',
-        //adi.name 'indicator_name', c.code as `towing_service`, ip.name as `incident_type`
-        //$prev = '';
-        $vouchers = $data;
-
-        if ($vouchers && sizeof($vouchers) > 0) {
-            foreach ($vouchers as $voucher) {
-                $class = 'inactive';
-
-                if ($voucher->dossier_number === $url_dossier_id) {
-                    $class = 'active bright';
-                }
-
-                // if($prev !== $voucher->dossier_number){
-
-                // $prev = $voucher->dossier_number;
-
-                $ctx->table->add_row(
-                    array('class' => $class,
-                        'data' => sprintf('<a class="id__cell" href="/fast_dossier/dossier/%s/%s">
-                                            <span class="id__cell__icon icon--map"></span>
-                                            <span class="id__cell__text__type">%s</span>
-                                            <span class="id__cell__text">
-                                              <span class="id__cell__text__data">
-                                                <span class="id__cell__text__info">Oproepnummer: %s</span>
-                                                <span class="id__cell__text__nr">%s</span>
-                                                <span class="id__cell__text__info">%s %s</span>
-                                              </span>
-                                            </span></a>', $voucher->dossier_number, $voucher->voucher_number,
-                            $voucher->voucher_number, $voucher->call_number, $voucher->incident_type,
-                            $voucher->direction_name, $voucher->indicator_name))
-                );
-
-                // }
-            }
-        }
-
-        return $ctx->table->generate();
-    }
+//    if (count($data) > 0) {
+//        $last = $ctx->uri->total_segments();
+//        $url_dossier_id = $ctx->uri->segment($last - 1);
+//        //$url_takelbon_id = $ctx->uri->segment($last);
+//
+//        $ctx->table->set_heading($title);
+//
+//        //d.id, d.id as 'dossier_id', t.id as 'voucher_id', d.call_number, d.call_date, t.voucher_number, ad.name 'direction_name',
+//        //adi.name 'indicator_name', c.code as `towing_service`, ip.name as `incident_type`
+//        //$prev = '';
+//        $vouchers = $data;
+//
+//        if ($vouchers && sizeof($vouchers) > 0) {
+//            foreach ($vouchers as $voucher) {
+//                $class = 'inactive';
+//
+//                if ($voucher->dossier_number === $url_dossier_id) {
+//                    $class = 'active bright';
+//                }
+//
+//                // if($prev !== $voucher->dossier_number){
+//
+//                // $prev = $voucher->dossier_number;
+//
+//                $ctx->table->add_row(
+//                    array('class' => $class,
+//                        'data' => sprintf('<a class="id__cell" href="/fast_dossier/dossier/%s/%s">
+//                                            <span class="id__cell__icon icon--map"></span>
+//                                            <span class="id__cell__text__type">%s</span>
+//                                            <span class="id__cell__text">
+//                                              <span class="id__cell__text__data">
+//                                                <span class="id__cell__text__info">Oproepnummer: %s</span>
+//                                                <span class="id__cell__text__nr">%s</span>
+//                                                <span class="id__cell__text__info">%s %s</span>
+//                                              </span>
+//                                            </span></a>', $voucher->dossier_number, $voucher->voucher_number,
+//                            $voucher->voucher_number, $voucher->call_number, $voucher->incident_type,
+//                            $voucher->direction_name, $voucher->indicator_name))
+//                );
+//
+//                // }
+//            }
+//        }
+//
+//        return $ctx->table->generate();
+//    }
 
     return '';
 }
-
 ?>
