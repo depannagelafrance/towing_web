@@ -2,12 +2,15 @@
 
 function displayVoucherTimeField($value, $name)
 {
-    if ($value) {
+    if ($value)
+    {
         $render = sprintf('<div class="input_value">%s</div>', asTime($value));
         $render .= form_hidden($name, asJsonDateTime($value));
 
         return $render;
-    } else {
+    }
+    else
+    {
         return form_input($name, asTime($value));
     }
 }
@@ -50,8 +53,9 @@ $_dossier = $dossier->dossier;
         }
     }
 
-    if (!$_voucher)
+    if (!$_voucher) {
         $_voucher = $_dossier->towing_vouchers[0];
+    }
 
 
     print form_open('fast_dossier/dossier/save/' . $_dossier->dossier_number . '/' . $_voucher->voucher_number);
@@ -172,7 +176,8 @@ $_dossier = $dossier->dossier;
                         $_is_selected = ($_v->voucher_number == $_voucher->voucher_number);
 
                         $sel = '';
-                        if ($_is_selected || sizeof($_dossier->towing_vouchers) == 1) {
+
+                        if ($_is_selected || count($_dossier->towing_vouchers) == 1) {
                             $sel = 'selected';
                         }
                         print '<option value="' . $_v->voucher_number . '" ' . $sel . '>' . sprintf("%s (%s)", $_v->voucher_number, $_v->status) . '</option>';
@@ -192,7 +197,7 @@ $_dossier = $dossier->dossier;
 
             <div class="dossierbar__actions">
                 <?php
-                if ($_voucher->status === 'READY FOR INVOICE') {
+                if ($_voucher->status == 'READY FOR INVOICE') {
                     ?>
                     <div class="dossierbar__action__item">
                         <!-- <input type="button" value="Factuur aanmaken" id="create-invoice-button" /> -->
@@ -272,7 +277,7 @@ $_dossier = $dossier->dossier;
         </div>
 
         <?php
-        if ($_voucher->status === 'TO CHECK' || $_voucher->status === 'READY FOR INVOICE') {
+        if ($_voucher->status == 'TO CHECK' || $_voucher->status == 'READY FOR INVOICE') {
             print '<div class="unpadded" style="background-color: #feec8a; padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px; margin-bottom: 15px; color: #7f2710;" id="validation_messages"></div>';
         }
 
@@ -1318,7 +1323,7 @@ function showDossierList($ctx, $data, $title)
         //$prev = '';
         $vouchers = $data;
 
-        if ($vouchers && sizeof($vouchers) > 0) {
+        if ($vouchers && count($vouchers) > 0) {
             foreach ($vouchers as $voucher) {
                 $class = 'inactive';
 
