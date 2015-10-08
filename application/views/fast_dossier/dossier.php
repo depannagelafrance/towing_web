@@ -831,6 +831,105 @@ $_dossier = $dossier->dossier;
         </div>
         <?php print form_close(); ?>
     </div>
+
+    <!-- NUISANCE -->
+    <div id="causer_form" style="display: none;">
+
+        <?php
+        $nuisance_hidden = array(
+            'id' => $_voucher->causer->id,
+        );
+        print form_open('', '', $nuisance_hidden);
+        ?>
+        <div class="fancybox-form">
+            <h3>Hinderverwerker gegevens Bewerken</h3>
+
+            <input id="causersearch" type="text" placeholder="Zoek in bestaande klanten"/>
+
+            <div class="nuisance-full-container">
+                <div class="msg msg__error msg__hidden">Er is een fout opgetreden bij het bewaren van de gegevens</div>
+                <div class="nuisance-full-container__name">
+                    <div class="form-item-horizontal nuisance-full-container__first_name">
+                        <label>Voornaam:</label>
+                        <?php print form_input(array('name' => 'first_name', 'value' => $_voucher->causer->first_name, 'id' => 'causer_search_firstname')); ?>
+                    </div>
+                    <div class="form-item-horizontal nuisance-full-container__last_name">
+                        <label>Achternaam:</label>
+                        <?php print form_input(array('name' => 'last_name', 'value' => $_voucher->causer->last_name, 'id' => 'causer_search_lastname')); ?>
+                    </div>
+                </div>
+
+                <div class="nuisance-full-container__company">
+                    <div class="form-item-horizontal nuisance-full-container__company_name">
+                        <label>Bedrijf:</label>
+                        <?php print form_input(array('name' => 'company_name', 'value' => $_voucher->causer->company_name, 'id' => 'causer_search_company_name')); ?>
+                    </div>
+                    <div class="form-item-horizontal nuisance-full-container__company_vat">
+                        <label>Bedrijf VAT:</label>
+                        <?php print form_input(array('name' => 'company_vat', 'value' => $_voucher->causer->company_name, 'id' => 'causer_search_company_vat')); ?>
+                    </div>
+                </div>
+
+                <div class="nuisance-full-container__address__street">
+                    <div class="form-item-horizontal nuisance-full-container__street">
+                        <label>Straat:</label>
+                        <?php print form_input(array('name' => 'street', 'value' => $_voucher->causer->street, 'id' => 'causer_search_street')); ?>
+                    </div>
+                    <div class="form-item-horizontal nuisance-full-container__street_number">
+                        <label>Nummer:</label>
+                        <?php print form_input(array('name' => 'street_number', 'value' => $_voucher->causer->street_number, 'id' => 'causer_search_street_number')); ?>
+                    </div>
+                    <div class="form-item-horizontal nuisance-full-container__street_pobox">
+                        <label>Bus:</label>
+                        <?php print form_input(array('name' => 'street_pobox', 'value' => $_voucher->causer->street_pobox, 'id' => 'causer_search_street_pobox')); ?>
+                    </div>
+                </div>
+
+                <div class="nuisance-full-container__address__city">
+                    <div class="form-item-horizontal nuisance-full-container__zip">
+                        <label>Postcode:</label>
+                        <?php print form_input(array('name' => 'zip', 'value' => $_voucher->causer->zip, 'id' => 'causer_search_zip')); ?>
+                    </div>
+                    <div class="form-item-horizontal nuisance-full-container__city">
+                        <label>Gemeente:</label>
+                        <?php print form_input(array('name' => 'city', 'value' => $_voucher->causer->city, 'id' => 'causer_search_city')); ?>
+                    </div>
+                </div>
+
+                <div class="form-item-horizontal nuisance-full-container__country">
+                    <label>Land:</label>
+                    <?php print form_input(array('name' => 'country', 'value' => $_voucher->causer->country, 'id' => 'causer_search_country')); ?>
+                </div>
+
+                <div class="nuisance-full-container__contact">
+                    <div class="form-item-horizontal nuisance-full-container__phone">
+                        <label>Telefoon:</label>
+                        <?php print form_input(array('name' => 'phone', 'value' => $_voucher->causer->phone, 'id' => 'causer_search_phone')); ?>
+                    </div>
+
+                    <div class="form-item-horizontal nuisance-full-container__email">
+                        <label>Email:</label>
+                        <?php print form_input(array('name' => 'email', 'value' => $_voucher->causer->email, 'id' => 'causer_search_email')); ?>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="fancybox-form__actions">
+            <div class="form-item fancybox-form__actions__cancel">
+                <a class="close_overlay" href="#">Annuleren</a>
+            </div>
+
+            <div class="form-item fancybox-form__actions__save fancybox-form__actions__twobuttons">`
+                <input type="submit" value="Gebruik deze gegevens ook voor facturatie" name="btnCauserCopy"/>
+
+                <input type="submit" value="Bewaren" name="btnCauserSave"/>
+            </div>
+        </div>
+        <?php print form_close(); ?>
+    </div>
+
 <?php
 function tofloat($num)
 {
