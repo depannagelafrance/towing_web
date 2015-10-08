@@ -732,6 +732,105 @@ $_dossier = $dossier->dossier;
         </div>
         <?php print form_close(); ?>
     </div>
+
+    <!-- CUSTOMER -->
+    <div id="customer_form" style="display: none;">
+        <?php
+
+        $fact_hidden = array(
+            'id' => $_voucher->customer->id,
+            'type' => $_voucher->customer->type //can either be DEFAULT or AGENCY (for AW&V)
+        );
+
+        print form_open('', '', $fact_hidden);
+        print form_input(array('name' => 'type', 'type' => 'hidden', 'value' => $_voucher->customer->type, 'id' => 'customer_search_type'));
+        ?>
+        <div class="fancybox-form">
+            <h3>Facturatie gegevens Bewerken</h3>
+
+            <input id="customersearch" type="text" placeholder="Zoek in bestaande klanten"/>
+
+            <div class="invoice-full-container">
+                <div class="msg msg__error msg__hidden">Er is een fout opgetreden bij het bewaren van de gegevens</div>
+                <div class="invoice-full-container__name">
+                    <div class="form-item-horizontal invoice-full-container__first_name">
+                        <label>Voornaam:</label>
+                        <?php print form_input(array('name' => 'first_name', 'value' => $_voucher->customer->first_name, 'id' => 'customer_search_firstname')); ?>
+                    </div>
+                    <div class="form-item-horizontal invoice-full-container__last_name">
+                        <label>Achternaam:</label>
+                        <?php print form_input(array('name' => 'last_name', 'value' => $_voucher->customer->last_name, 'id' => 'customer_search_lastname')); ?>
+                    </div>
+                </div>
+
+                <div class="invoice-full-container__company">
+                    <div class="form-item-horizontal invoice-full-container__company_name">
+                        <label>Bedrijf:</label>
+                        <?php print form_input(array('name' => 'company_name', 'value' => $_voucher->customer->company_name, 'id' => 'customer_search_company_name')); ?>
+                    </div>
+                    <div class="form-item-horizontal invoice-full-container__company_vat">
+                        <label>BTW:</label>
+                        <?php print form_input(array('name' => 'company_vat', 'value' => $_voucher->customer->company_vat, 'id' => 'customer_search_company_vat')); ?>
+                    </div>
+                </div>
+
+                <div class="invoice-full-container__address__street">
+                    <div class="form-item-horizontal invoice-full-container__street">
+                        <label>Straat:</label>
+                        <?php print form_input(array('name' => 'street', 'value' => $_voucher->customer->street, 'id' => 'customer_search_street')); ?>
+                    </div>
+                    <div class="form-item-horizontal invoice-full-container__street_number">
+                        <label>Nr:</label>
+                        <?php print form_input(array('name' => 'street_number', 'value' => $_voucher->customer->street_number, 'id' => 'customer_search_street_number')); ?>
+                    </div>
+                    <div class="form-item-horizontal invoice-full-container__street_pobox">
+                        <label>Bus:</label>
+                        <?php print form_input(array('name' => 'street_pobox', 'value' => $_voucher->customer->street_pobox, 'id' => 'customer_search_street_pobox')); ?>
+                    </div>
+                </div>
+
+                <div class="invoice-full-container__address__city">
+                    <div class="form-item-horizontal invoice-full-container__zip">
+                        <label>Postcode:</label>
+                        <?php print form_input(array('name' => 'zip', 'value' => $_voucher->customer->zip, 'id' => 'customer_search_zip')); ?>
+                    </div>
+                    <div class="form-item-horizontal invoice-full-container__city">
+                        <label>Gemeente:</label>
+                        <?php print form_input(array('name' => 'city', 'value' => $_voucher->customer->city, 'id' => 'customer_search_city')); ?>
+                    </div>
+                </div>
+
+                <div class="form-item-horizontal invoice-full-container__country">
+                    <label>Land:</label>
+                    <?php print form_input(array('name' => 'country', 'value' => $_voucher->customer->country, 'id' => 'customer_search_country')); ?>
+                </div>
+
+                <div class="invoice-full-container__contact">
+                    <div class="form-item-horizontal invoice-full-container__phone">
+                        <label>Telefoon:</label>
+                        <?php print form_input(array('name' => 'phone', 'value' => $_voucher->customer->phone, 'id' => 'customer_search_phone')); ?>
+                    </div>
+
+                    <div class="form-item-horizontal invoice-full-container__email">
+                        <label>Email:</label>
+                        <?php print form_input(array('name' => 'email', 'value' => $_voucher->customer->email, 'id' => 'customer_search_email')); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="fancybox-form__actions">
+            <div class="form-item fancybox-form__actions__cancel">
+                <a class="close_overlay" href="#">Annuleren</a>
+            </div>
+
+            <div class="form-item fancybox-form__actions__save fancybox-form__actions__twobuttons">
+                <input type="submit" value="AW&amp;V" name="btnCopyCustomerAWV"/>
+                <input type="submit" value="Gebruik deze gegevens ook voor hinderverwekker" name="btnCustomerCopy"/>
+                <input type="submit" value="Bewaren" name="btnCustomerSave"/>
+            </div>
+        </div>
+        <?php print form_close(); ?>
+    </div>
 <?php
 function tofloat($num)
 {
