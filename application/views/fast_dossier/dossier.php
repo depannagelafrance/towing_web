@@ -1152,23 +1152,29 @@ $_dossier = $dossier->dossier;
                         $label = '';
                         $amount = 0.0;
 
-                        ?>
-                        <tr>
-                            <td>
-                                <?php
-                                echo $label;
-                                ?>
-                            </td>
-                            <td style="padding-right: 25px;">
-                                <?php
-                                print form_input(array('name' => "invoice_payment_amount_" . $category_key,
-                                    'value' => $amount,
-                                    'readonly' => 'readonly',
-                                    'style' => 'background: #F0F0F0'));
-                                ?>
-                            </td>
-                        </tr>
-                        <?
+                        switch ($detail->category) {
+                            case 'CUSTOMER':
+                                $label = 'Klant';
+                                $category_key = 'customer';
+                                break;
+                            case 'INSURANCE':
+                                $label = 'Assistance';
+                                $category_key = 'assurance';
+                                break;
+                            case 'COLLECTOR':
+                                $label = 'Afhaler';
+                                $category_key = 'collector';
+                                break;
+                            default:
+                                $label = 'Onbekend';
+                        }
+
+                        $amount = $detail->amount_incl_vat;
+
+                        if ($detail->foreign_vat) {
+                            $amount = $detail->amount_excl_vat;
+                        }
+
                     }
                     ?>
 
