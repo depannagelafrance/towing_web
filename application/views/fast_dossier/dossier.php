@@ -431,6 +431,27 @@ $_dossier = $dossier->dossier;
                     <div class="additional-costs-container__actions">
                     </div>
 
+                    <div class="form-item-vertical">
+                        <div style="float: left; font-weight: bold; width:10%;"><label>Categorie:</label></div>
+                        <div style="float: left; font-weight: bold; width:10%;"><label>Vrij van BTW? </label></div>
+                        <div style="float: left; font-weight: bold; width:10%;"><label>Bedrag (excl. BTW): </label>
+                        </div>
+                        <div style="float: left; font-weight: bold; width:10%;"><label>Bedrag (incl. BTW):</label></div>
+                        <div style="float: left; font-weight: bold; width:10%;"><label>Contant:</label></div>
+                        <div style="float: left; font-weight: bold; width:10%;"><label>Overschrijving: </label></div>
+                        <div style="float: left; font-weight: bold; width:10%;"><label>Maestro:</label></div>
+                        <div style="float: left; font-weight: bold; width:10%;"><label>Visa: </label></div>
+                        <div style="float: left; font-weight: bold; width:10%;"><label>Openstaand (excl. BTW): </label>
+                        </div>
+                        <div style="float: left; font-weight: bold; width:10%;"><label>Openstaand (incl. BTW):</label>
+                        </div>
+                    </div>
+
+                    <div class="payment-detail-container__fields"></div>
+
+                </div>
+                <!-- END WORK-->
+
 <?php
 function tofloat($num)
 {
