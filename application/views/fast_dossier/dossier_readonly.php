@@ -504,7 +504,7 @@ $_dossier = $dossier->dossier;
 
 
                 <!--WORK-->
-                < id="added-activities" class="form-item-vertical work-container">
+                <div id="added-activities" class="form-item-vertical work-container">
                 <?php if (count($_voucher->towing_activities) > 0): ?>
 
                     <?php
@@ -523,6 +523,7 @@ $_dossier = $dossier->dossier;
                     print $this->table->generate();
                     ?>
                 <?php endif; ?>
+                </div>
 
                 <!-- ADDITIONAL COSTS -->
                 <div class="additional-costs-container__header">
