@@ -138,9 +138,9 @@ this["Handlebars"]["Templates"]["activity/paymentdetails"] = Handlebars.template
   return "selected=\"selected\"";
   },"4":function(depth0,helpers,partials,data) {
   var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
-  return "    <div style=\"float: left; width:10%; padding-right: 3px;\"><input type=\"text\" class=\"paymentdetail-field\" value=\""
+  return "    <div style=\"float: left; width:10%; padding-right: 3px;\"><input type=\"text\" class=\"paymentdetail-field\" id=\"paymentdetail-insurance-field-amount-excl-vat\" value=\""
     + escapeExpression(((helper = (helper = helpers.amount_excl_vat || (depth0 != null ? depth0.amount_excl_vat : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"amount_excl_vat","hash":{},"data":data}) : helper)))
-    + "\" name=\"payment_detail_amount_excl_vat[]\"></div>\n    <div style=\"float: left; width:10%; padding-right: 3px;\"><input type=\"text\" class=\"paymentdetail-field\" value=\""
+    + "\" name=\"payment_detail_amount_excl_vat[]\"></div>\n    <div style=\"float: left; width:10%; padding-right: 3px;\"><input type=\"text\" class=\"paymentdetail-field\" id=\"paymentdetail-insurance-field-amount-incl-vat\" value=\""
     + escapeExpression(((helper = (helper = helpers.amount_incl_vat || (depth0 != null ? depth0.amount_incl_vat : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"amount_incl_vat","hash":{},"data":data}) : helper)))
     + "\" name=\"payment_detail_amount_incl_vat[]\"></div>\n";
 },"6":function(depth0,helpers,partials,data) {

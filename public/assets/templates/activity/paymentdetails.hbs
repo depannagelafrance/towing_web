@@ -13,8 +13,8 @@
       </select>
     </div>
     {{#equal category "INSURANCE"}}
-    <div style="float: left; width:10%; padding-right: 3px;"><input type="text" class="paymentdetail-field" value="{{amount_excl_vat}}" name="payment_detail_amount_excl_vat[]"></div>
-    <div style="float: left; width:10%; padding-right: 3px;"><input type="text" class="paymentdetail-field" value="{{amount_incl_vat}}" name="payment_detail_amount_incl_vat[]"></div>
+    <div style="float: left; width:10%; padding-right: 3px;"><input type="text" class="paymentdetail-field" id="paymentdetail-insurance-field-amount-excl-vat" value="{{amount_excl_vat}}" name="payment_detail_amount_excl_vat[]"></div>
+    <div style="float: left; width:10%; padding-right: 3px;"><input type="text" class="paymentdetail-field" id="paymentdetail-insurance-field-amount-incl-vat" value="{{amount_incl_vat}}" name="payment_detail_amount_incl_vat[]"></div>
     {{/equal}}
 
     {{#equal category "CUSTOMER"}}

@@ -1074,21 +1074,21 @@ $(document).ready(function() {
     //     $('#payment_total').trigger('change');
     // }
 
-    function recalcuteActivityPrice(){
-        // var insurance = $('#payment_insurance input').val() || 0;
-        // var cash      = $('#payment_cash input').val() || 0;
-        // var bank      = $('#payment_bank input').val() || 0;
-        // var debit     = $('#payment_debit input').val() || 0;
-        // var credit    = $('#payment_credit input').val() || 0;
-        // var total     = $('#payment_total input').val() || 0;
-        //
-        // var topay     = total - insurance - cash - bank - debit - credit;
-        // var paid      = (total - topay).toFixed(2);
-        // var unpaid    = topay.toFixed(2);
-        //
-        // $('#payment_paid input').val(paid);
-        // $('#payment_unpaid input').val(unpaid);
+    $(document).on('keyup', '#paymentdetail-insurance-field-amount-excl-vat', function(event) {
+        var $amount_excl_vat = isNaN(this.value) ? 0 : this.value;
+        var $amount_incl_vat = $amount_excl_vat > 0 ? $amount_excl_vat * VAT_PERCENTAGE : 0;
 
+        $('#paymentdetail-insurance-field-amount-incl-vat').val($amount_incl_vat.toFixed(2));
+    });
+
+    $(document).on('keyup', '#paymentdetail-insurance-field-amount-incl-vat', function(event) {
+        var $amount_incl_vat = isNaN(this.value) ? 0 : this.value;
+        var $amount_excl_vat = $amount_incl_vat > 0 ? $amount_incl_vat / VAT_PERCENTAGE : 0;
+
+        $('#paymentdetail-insurance-field-amount-excl-vat').val($amount_excl_vat.toFixed(2));
+    });
+
+    function recalcuteActivityPrice(){
         $('input[name="payment_detail_id[]"]').each(function($i, $id_element){
           var $selectedVatTypeOptions =$('select[name="payment_detail_foreign_vat[]"]').get($i).options;
           var $selectedVatType = $selectedVatTypeOptions[$selectedVatTypeOptions.selectedIndex];
@@ -1103,15 +1103,15 @@ $(document).ready(function() {
 
           var $unpaid_excl_vat = 0;
           var $unpaid_incl_vat = 0;
-
-          if(($amount_excl_vat == '' && $amount_incl_vat != '') /* || ($amount_excl_vat > 0 && ($amount_incl_vat == 0 || $amount_incl_vat == '')) */) {
-            $amount_excl_vat = parseFloat($amount_incl_vat) / VAT_PERCENTAGE;
-            $('input[name="payment_detail_amount_excl_vat[]"]').get($i).value = $amount_excl_vat.toFixed(2);
-          }
-          else if(($amount_incl_vat == '' && $amount_excl_vat != '') /* || ($amount_incl_vat > 0 && ($amount_excl_vat == 0 || $amount_excl_vat == '')) */) {
-            $amount_incl_vat = parseFloat($amount_excl_vat) * VAT_PERCENTAGE;
-            $('input[name="payment_detail_amount_incl_vat[]"]').get($i).value = $amount_incl_vat.toFixed(2);
-          }
+          //
+          //if(($amount_excl_vat == '' && $amount_incl_vat != '') /* || ($amount_excl_vat > 0 && ($amount_incl_vat == 0 || $amount_incl_vat == '')) */) {
+          //  $amount_excl_vat = parseFloat($amount_incl_vat) / VAT_PERCENTAGE;
+          //  $('input[name="payment_detail_amount_excl_vat[]"]').get($i).value = $amount_excl_vat.toFixed(2);
+          //}
+          //else if(($amount_incl_vat == '' && $amount_excl_vat != '')  /* || ($amount_incl_vat > 0 && ($amount_excl_vat == 0 || $amount_excl_vat == '')) */) {
+          //  $amount_incl_vat = parseFloat($amount_excl_vat) * VAT_PERCENTAGE;
+          //  $('input[name="payment_detail_amount_incl_vat[]"]').get($i).value = $amount_incl_vat.toFixed(2);
+          //}
 
           if($is_foreign_vat)
           {
