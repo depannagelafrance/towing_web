@@ -7,7 +7,8 @@ $module = $this->uri->segment(1);
 ?>
 <script type="text/javascript">
   $(document).ready(function() {
-    $(".credit_invoice").on('click', function() {
+    $(".credit_invoice").on('click', function(event) {
+        event.stopPropagation();
       return confirm('Bent u zeker dat u deze factuur wenst te crediteren?');
     });
     $(".invoice_checkbox").on('click', function(event) {

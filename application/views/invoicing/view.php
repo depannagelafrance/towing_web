@@ -67,6 +67,7 @@
         </div>
       <?php } ?>
 
+      <?php if($invoice->document_id != null && $invoice->document_id =! '') { ?>
       <div class="dossierbar__action__item">
         <div class="btn--dropdown">
           <div class="btn--dropdown--btn btn--icon">
@@ -77,6 +78,7 @@
           </ul>
         </div>
       </div>
+      <?php } ?>
     </div>
   </div>
 
