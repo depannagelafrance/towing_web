@@ -69,6 +69,17 @@
 
     <div class="invoice-full-container__name">
       <div class="form-item-horizontal invoice-full-container__first_name">
+        <label>Klantnummer:</label>
+        <?php print form_input(array('name' => 'customer_number', 'value' => $invoice->invoice_customer->customer_number, 'id' => 'customer_search_customer_number')); ?>
+      </div>
+      <div class="form-item-horizontal invoice-full-container__last_name">
+        <label>&nbsp;</label>
+        &nbsp;
+      </div>
+    </div>
+
+    <div class="invoice-full-container__name">
+      <div class="form-item-horizontal invoice-full-container__first_name">
         <label>Voornaam:</label>
         <?php print form_input(array('name' => 'first_name', 'value' => $invoice->invoice_customer->first_name, 'id' => 'customer_search_firstname')); ?>
       </div>

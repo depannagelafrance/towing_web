@@ -97,6 +97,7 @@ class Invoice extends Page {
         $invoice->invoice_payment_type = $this->input->post('invoice_payment_type');
         $invoice->invoice_message = $this->input->post('invoice_message');
 
+        $invoice->invoice_customer->customer_number = $this->input->post('customer_number');
         $invoice->invoice_customer->first_name = $this->input->post('first_name');
         $invoice->invoice_customer->last_name = $this->input->post('last_name');
         $invoice->invoice_customer->company_name = $this->input->post('company_name');
