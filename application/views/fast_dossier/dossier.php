@@ -633,7 +633,7 @@ $_dossier = $dossier->dossier;
             <div class="form__actions">
                 <div class="form__actions__cancel"></div>
                 <div class="form__actions__save">
-                    <div class="form-item">
+                    <div class="form-item-horizontal">
                         <input type="submit" value="Bewaren" name="btnSave"/>
                     </div>
                 </div>
@@ -720,11 +720,11 @@ $_dossier = $dossier->dossier;
             </div>
         </div>
         <div class="fancybox-form__actions">
-            <div class="form-item fancybox-form__actions__cancel">
+            <div class="form-item-horizontal fancybox-form__actions__cancel">
                 <a class="close_overlay" href="#">Annuleren</a>
             </div>
 
-            <div class="form-item fancybox-form__actions__save fancybox-form__actions__twobuttons">
+            <div class="form-item-horizontal fancybox-form__actions__save fancybox-form__actions__twobuttons">
                 <input type="submit" value="AW&amp;V" name="btnDepotAWV"/>
                 <input type="submit" value="Standaard Depot" name="btnDepotDefault"/>
                 <input type="submit" value="Bewaren" name="btnDepotSave"/>
@@ -819,11 +819,11 @@ $_dossier = $dossier->dossier;
             </div>
         </div>
         <div class="fancybox-form__actions">
-            <div class="form-item fancybox-form__actions__cancel">
+            <div class="form-item-horizontal fancybox-form__actions__cancel">
                 <a class="close_overlay" href="#">Annuleren</a>
             </div>
 
-            <div class="form-item fancybox-form__actions__save fancybox-form__actions__twobuttons">
+            <div class="form-item-horizontal fancybox-form__actions__save fancybox-form__actions__twobuttons">
                 <input type="submit" value="AW&amp;V" name="btnCopyCustomerAWV"/>
                 <input type="submit" value="Gebruik deze gegevens ook voor hinderverwekker" name="btnCustomerCopy"/>
                 <input type="submit" value="Bewaren" name="btnCustomerSave"/>
@@ -917,11 +917,11 @@ $_dossier = $dossier->dossier;
             </div>
         </div>
         <div class="fancybox-form__actions">
-            <div class="form-item fancybox-form__actions__cancel">
+            <div class="form-item-horizontal fancybox-form__actions__cancel">
                 <a class="close_overlay" href="#">Annuleren</a>
             </div>
 
-            <div class="form-item fancybox-form__actions__save fancybox-form__actions__twobuttons">`
+            <div class="form-item-horizontal fancybox-form__actions__save fancybox-form__actions__twobuttons">`
                 <input type="submit" value="Gebruik deze gegevens ook voor facturatie" name="btnCauserCopy"/>
 
                 <input type="submit" value="Bewaren" name="btnCauserSave"/>
@@ -970,11 +970,11 @@ $_dossier = $dossier->dossier;
 
         </div>
         <div class="fancybox-form__actions">
-            <div class="form-item fancybox-form__actions__cancel">
+            <div class="form-item-horizontal fancybox-form__actions__cancel">
                 <a class="close_overlay" href="#">Annuleren</a>
             </div>
 
-            <div class="form-item fancybox-form__actions__save">
+            <div class="form-item-horizontal fancybox-form__actions__save">
                 <input type="submit" value="Bewaren" name="btnEmailSave"/>
             </div>
         </div>
@@ -986,7 +986,7 @@ $_dossier = $dossier->dossier;
             <!-- EMAILS LOADED BY JS -->
         </div>
         <div class="fancybox-form__actions">
-            <div class="form-item fancybox-form__actions__save">
+            <div class="form-item-horizontal fancybox-form__actions__save">
                 <a class="close_overlay" href="#">Sluiten</a>
             </div>
         </div>
@@ -1021,11 +1021,11 @@ $_dossier = $dossier->dossier;
 
         </div>
         <div class="fancybox-form__actions">
-            <div class="form-item fancybox-form__actions__cancel">
+            <div class="form-item-horizontal fancybox-form__actions__cancel">
                 <a class="close_overlay" href="#">Annuleren</a>
             </div>
 
-            <div class="form-item fancybox-form__actions__save">
+            <div class="form-item-horizontal fancybox-form__actions__save">
                 <input type="submit" value="Bewaren" name="btnNotaSave"/>
             </div>
         </div>
@@ -1037,7 +1037,7 @@ $_dossier = $dossier->dossier;
             <!-- NOTAS LOADED BY JS -->
         </div>
         <div class="fancybox-form__actions">
-            <div class="form-item fancybox-form__actions__save">
+            <div class="form-item-horizontal fancybox-form__actions__save">
                 <a class="close_overlay" href="#">Sluiten</a>
             </div>
         </div>
@@ -1054,11 +1054,11 @@ $_dossier = $dossier->dossier;
             <div id="add-work-form-ajaxloaded-content"></div>
         </div>
         <div class="fancybox-form__actions">
-            <div class="form-item fancybox-form__actions__cancel">
+            <div class="form-item-horizontal fancybox-form__actions__cancel">
                 <a class="close_overlay" href="#">Annuleren</a>
             </div>
 
-            <div class="form-item fancybox-form__actions__save">
+            <div class="form-item-horizontal fancybox-form__actions__save">
                 <input type="submit" value="Bewaren" name="btnWorkSave"/>
             </div>
         </div>
@@ -1091,11 +1091,11 @@ $_dossier = $dossier->dossier;
 
         </div>
         <div class="fancybox-form__actions">
-            <div class="form-item fancybox-form__actions__cancel">
+            <div class="form-item-horizontal fancybox-form__actions__cancel">
                 <a class="close_overlay" href="#">Annuleren</a>
             </div>
 
-            <div class="form-item fancybox-form__actions__save">
+            <div class="form-item-horizontal fancybox-form__actions__save">
                 <input type="submit" value="Bewaren" name="btnAttachmentSave"/>
             </div>
         </div>
@@ -1107,7 +1107,7 @@ $_dossier = $dossier->dossier;
             <!-- ATTACHMENTS LOADED BY JS -->
         </div>
         <div class="fancybox-form__actions">
-            <div class="form-item fancybox-form__actions__save">
+            <div class="form-item-horizontal fancybox-form__actions__save">
                 <a class="close_overlay" href="#">Sluiten</a>
             </div>
         </div>
@@ -1180,11 +1180,11 @@ $_dossier = $dossier->dossier;
 
     </div>
     <div class="fancybox-form__actions">
-        <div class="form-item fancybox-form__actions__cancel">
+        <div class="form-item-horizontal fancybox-form__actions__cancel">
             <a class="close_overlay" href="#">Annuleren</a>
         </div>
 
-        <div class="form-item fancybox-form__actions__save">
+        <div class="form-item-horizontal fancybox-form__actions__save">
             <input type="submit" value="Aanmaken" name="btnInvoiceGenerate"/>
         </div>
     </div>

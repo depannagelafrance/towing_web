@@ -105,12 +105,12 @@ if($errors) {
 
     <div class="form__actions">
         <div class="form__actions__cancel">
-            <div class="form-item">
+            <div class="form-item-horizontal">
                 <a href="/admin/index">Annuleren</a>
             </div>
         </div>
         <div class="form__actions__save">
-            <div class="form-item">
+            <div class="form-item-horizontal">
                 <input type="submit" value="Bewaren" name="submit">
             </div>
         </div>

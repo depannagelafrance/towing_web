@@ -15,17 +15,17 @@ if($errors) {
 
       <h2 class="admin_form_title">Voertuig aanmaken</h2>
 
-        <div class="form-item">
+        <div class="form-item-horizontal">
         	<input type="text" placeholder="Naam"
         		value="<?php print set_value('name'); ?>" name="name" />
         </div>
 
-        <div class="form-item">
+        <div class="form-item-horizontal">
         	<input type="text" placeholder="Nummerplaat"
         		value="<?php print set_value('licence_plate'); ?>" name="licence_plate" />
         </div>
 
-        <div class="form-item">
+        <div class="form-item-horizontal">
           <fieldset>
             <legend>Type</legend>
           <?php
@@ -41,12 +41,12 @@ if($errors) {
 
         <div class="box form__actions">
           <div class="form__actions__cancel">
-            <div class="form-item">
+            <div class="form-item-horizontal">
               <a href="/admin/vehicle">Annuleren</a>
             </div>
           </div>
           <div class="form__actions__save">
-            <div class="form-item">
+            <div class="form-item-horizontal">
               <input type="submit" value="Bewaren" name="submit">
             </div>
           </div>

@@ -1453,6 +1453,13 @@ $(document).ready(function() {
         };
     }
 
+    var customerDataMapper = function(item) {
+        return  {
+            value     : item.id,
+            text      : item.company_name
+        };
+    }
+
     var driverDataMapper = function (item) {
       var $label = item.name;
 
@@ -1481,8 +1488,8 @@ $(document).ready(function() {
       }
     }
 
-    fetchDataForListBox('#list_insurance_id',             '/fast_dossier/ajax/insurances',            defaultDataMapper, true);
-    fetchDataForListBox('#list_collector_id',             '/fast_dossier/ajax/collectors',            defaultDataMapper, true);
+    fetchDataForListBox('#list_insurance_id',             '/fast_dossier/ajax/insurances',            customerDataMapper, true);
+    fetchDataForListBox('#list_collector_id',             '/fast_dossier/ajax/collectors',            customerDataMapper, true);
     fetchDataForListBox('#list_signa_id',                 '/fast_dossier/ajax/signadrivers',          driverDataMapper, true);
     fetchDataForListBox('#list_towing_id',                '/fast_dossier/ajax/towingdrivers',         driverDataMapper, true);
     fetchDataForListBox('#list_licence_plate_country',    '/fast_dossier/ajax/licenceplatecountries', licencePlateDataMapper, true);

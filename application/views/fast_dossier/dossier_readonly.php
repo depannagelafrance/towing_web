@@ -264,6 +264,11 @@ $_dossier = $dossier->dossier;
                             <span class="icon--nota">Nota</span>
                         </div>
                         <ul class="btn--dropdown--drop">
+                            <?php
+                            if ($IS_FAST_MANAGER) {
+                            ?>
+                            <li><a id="add-nota-link" href="#add-nota-form">Nota toevoegen</a></li>
+                            <? } ?>
                             <li><a id="view-nota-link" href="#view-nota-container">Notas bekijken</a></li>
                         </ul>
                     </div>
@@ -808,12 +813,54 @@ $_dossier = $dossier->dossier;
         <!-- EMAILS LOADED BY JS -->
     </div>
     <div class="fancybox-form__actions">
-        <div class="form-item fancybox-form__actions__save">
+        <div class="form-item-horizontal fancybox-form__actions__save">
             <a class="close_overlay" href="#">Sluiten</a>
         </div>
     </div>
 </div>
 <!-- END EMAIL -->
+
+<!-- NOTA -->
+<?php
+if($IS_FAST_MANAGER) {
+    $nota_hidden = array(
+        'voucher_id' => $_voucher->id,
+        'dossier_id' => $_dossier->id
+    );
+
+    $nota_attr = array(
+        'data-vid' => $_voucher->id,
+        'data-did' => $_dossier->id
+    );
+
+    ?>
+    <div id="add-nota-form" style="display: none;">
+        <?php print form_open('', $nota_attr, $nota_hidden); ?>
+        <div class="fancybox-form">
+            <h3>Nota toevoegen</h3>
+
+            <div class="msg msg__error msg__hidden">Er is een fout opgetreden bij het bewaren van de nota</div>
+            <div class="form-item-horizontal">
+                <label>Nota:</label>
+                <?php print form_textarea('message'); ?>
+            </div>
+
+        </div>
+        <div class="fancybox-form__actions">
+            <div class="form-item-horizontal fancybox-form__actions__cancel">
+                <a class="close_overlay" href="#">Annuleren</a>
+            </div>
+
+            <div class="form-item-horizontal fancybox-form__actions__save">
+                <input type="submit" value="Bewaren" name="btnNotaSave"/>
+            </div>
+        </div>
+        <?php print form_close(); ?>
+    </div>
+<?php
+}
+?>
+
 
 
 <div id="view-nota-container" style="display: none;">
@@ -821,7 +868,7 @@ $_dossier = $dossier->dossier;
         <!-- NOTAS LOADED BY JS -->
     </div>
     <div class="fancybox-form__actions">
-        <div class="form-item fancybox-form__actions__save">
+        <div class="form-item-horizontal fancybox-form__actions__save">
             <a class="close_overlay" href="#">Sluiten</a>
         </div>
     </div>
@@ -834,7 +881,7 @@ $_dossier = $dossier->dossier;
         <!-- NOTAS LOADED BY JS -->
     </div>
     <div class="fancybox-form__actions">
-        <div class="form-item fancybox-form__actions__save">
+        <div class="form-item-horizontal fancybox-form__actions__save">
             <a class="close_overlay" href="#">Sluiten</a>
         </div>
     </div>

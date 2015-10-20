@@ -132,7 +132,10 @@ if($errors) {
 
         <div class="form-item-horizontal">
             <label>Assistance:</label>
-            <?php print listbox('insurance_id', $insurances, $_dossier->towing_vouchers[0]->insurance_id); ?>
+            <?php print listbox('insurance_id', $insurances, $_dossier->towing_vouchers[0]->insurance_id, array(
+                'value_key' => 'id',
+                'label_key' => 'company_name',
+            )); ?>
         </div>
 
         <div class="form-item-horizontal">
@@ -245,7 +248,7 @@ if($errors) {
     <div class="box form__actions">
       <div class="form__actions__cancel"></div>
       <div class="form__actions__save">
-        <div class="form-item">
+        <div class="form-item-horizontal">
           <input type="submit" value="Bewaren" name="btnSave" />
         </div>
       </div>

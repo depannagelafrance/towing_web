@@ -185,7 +185,7 @@ class Dossier extends Page {
     }
 
     if($collectors != null)
-      $data['collectors'] = $collectors;
+      $data['customers'] = $collectors;
 
     $this->_add_content($this->load->view($view, $data, true));
 

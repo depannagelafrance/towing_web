@@ -121,6 +121,34 @@ class Admin_service extends Rest_service {
     return $this->CI->rest->delete(sprintf('/admin/collector/%s/%s', $id, $token));
   }
 
+// -- -------------------------------------------------
+// -- CUSTOMER MANAGEMENT
+// -- -------------------------------------------------
+
+  public function fetchAllCustomers($token) {
+    return $this->CI->rest->get(sprintf('/admin/customer/%s', $token));
+  }
+
+  public function fetchCustomerById($id, $token) {
+    return $this->CI->rest->get(sprintf('/admin/customer/%s/%s', $id, $token));
+  }
+
+  public function createCustomer(Customer_Model $customer, $token) {
+    return $this->CI->rest->post(sprintf('/admin/customer/%s', $token),
+        json_encode($customer),
+        'application/json');
+  }
+
+  public function updateCustomer(Customer_Model $customer, $token) {
+    return $this->CI->rest->put(sprintf('/admin/customer/%s/%s', $customer->id, $token),
+        json_encode($customer),
+        'application/json');
+  }
+
+  public function deleteCustomer($id, $token) {
+    return $this->CI->rest->delete(sprintf('/admin/customer/%s/%s', $id, $token));
+  }
+
 
   // -- -------------------------------------------------
   // -- VEHICLE MANAGEMENT

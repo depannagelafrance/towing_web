@@ -15,31 +15,31 @@ if($errors) {
 
       <h2 class="admin_form_title">Gebruiker bewerken</h2>
 
-    <div class="form-item">
+    <div class="form-item-horizontal">
 	<input type="text" placeholder="Login"
 		value="<?php print set_value('login', $users->login); ?>" name="login" />
     </div>
 
-    <div class="form-item">
+    <div class="form-item-horizontal">
     	<input type="text" placeholder="Voornaam"
     		value="<?php print set_value('firstname', $users->firstname); ?>" name="firstname" />
     </div>
 
-    <div class="form-item">
+    <div class="form-item-horizontal">
     	<input type="text" placeholder="Naam"
     		value="<?php print set_value('lastname', $users->lastname); ?>" name="lastname" />
     </div>
 
-    <div class="form-item">
+    <div class="form-item-horizontal">
     	<input type="text" placeholder="E-mail"
     		value="<?php print set_value('email', $users->email); ?>" name="email" />
     </div>
 
-    <div class="form-item admin-form-checks">
+    <div class="form-item-horizontal admin-form-checks">
       <fieldset>
         <legend>Functies</legend>
 
-        <div class="form-item">
+        <div class="form-item-horizontal">
           <label>Standaard voertuig:</label>
           <?php print listbox('vehicle_id', $company_vehicles, $users->vehicle_id); ?>
         </div>
@@ -51,7 +51,7 @@ if($errors) {
             'checked'     => ($users->is_signa == 1)
           );
 
-          echo '<div class="form-item admin-user-checkbox">' . form_checkbox($data) . '<span>Signa?</span></div>' ;
+          echo '<div class="form-item-horizontal admin-user-checkbox">' . form_checkbox($data) . '<span>Signa?</span></div>' ;
 
           $data = array(
             'name'        => 'is_towing',
@@ -59,13 +59,13 @@ if($errors) {
             'checked'     => ($users->is_towing == 1)
           );
 
-          echo '<div class="form-item admin-user-checkbox">' . form_checkbox($data) . '<span>Takel?</span></div>' ;
+          echo '<div class="form-item-horizontal admin-user-checkbox">' . form_checkbox($data) . '<span>Takel?</span></div>' ;
           ?>
       </fieldset>
     </div>
 
 
-    <div class="form-item admin-form-checks">
+    <div class="form-item-horizontal admin-form-checks">
         <fieldset>
           <legend>Machtigingen</legend>
         <?php
@@ -78,7 +78,7 @@ if($errors) {
                 'checked'     => _userHasRole($users->user_roles, $role->id)
                 );
 
-            echo '<div class="form-item admin-user-checkbox">' . form_checkbox($data) . '<span>' . $role->name . '</span></div>' ;
+            echo '<div class="form-item-horizontal admin-user-checkbox">' . form_checkbox($data) . '<span>' . $role->name . '</span></div>' ;
           }
         ?>
         </fieldset>
@@ -89,12 +89,12 @@ if($errors) {
 
       <div class="box form__actions">
           <div class="form__actions__cancel">
-              <div class="form-item">
+              <div class="form-item-horizontal">
                   <a href="/admin/user">Annuleren</a>
               </div>
           </div>
           <div class="form__actions__save">
-              <div class="form-item">
+              <div class="form-item-horizontal">
                   <input type="submit" value="Bewaren" name="submit">
               </div>
           </div>

@@ -1,4 +1,4 @@
-.form-item{
+.form-item-horizontal {
 
   margin-top: 10px;
   margin-bottom: 10px;
@@ -6,7 +6,7 @@
 }
 
 .form-item-horizontal{
-  @extend .form-item;
+  @extend .form-item-horizontal;
   @include clearfix;
 
   &.less_padded{
@@ -45,7 +45,7 @@
 }
 
 .form-item-vertical{
-  @extend .form-item;
+  @extend .form-item-horizontal;
   @include clearfix;
 
   &.less_padded{
