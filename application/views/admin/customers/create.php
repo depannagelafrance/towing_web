@@ -114,18 +114,18 @@ if ($errors) {
         </div>
     </div>
 
-    <div class="form__actions">
-        <div class="form__actions__cancel">
-            <div class="form-item-horizontal">
-                <a href="/admin/customer">Annuleren</a>
+        <div class="form__actions">
+            <div class="form__actions__cancel">
+                <div class="form-item-horizontal">
+                    <a href="/admin/customer">Annuleren</a>
+                </div>
+            </div>
+            <div class="form__actions__save">
+                <div class="form-item-horizontal">
+                    <input type="submit" value="Bewaren" name="submit">
+                </div>
             </div>
         </div>
-        <div class="form__actions__save">
-            <div class="form-item-horizontal">
-                <input type="submit" value="Bewaren" name="submit">
-            </div>
-        </div>
-    </div>
 </div>
 
 <?php echo form_close(); ?>

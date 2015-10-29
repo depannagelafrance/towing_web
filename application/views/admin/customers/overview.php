@@ -1,8 +1,16 @@
+<div class="status--indication">
+    <a class="active" href="/admin/customer">Klanten</a>
+    <a href="/admin/customer/upload">Importeer klanten</a>
+    <a href="/admin/customer/export">Exporteer klanten</a>
+</div>
+
 <div class="layout-actions">
   <div class="btn--icon--highlighted bright">
     <a class="icon--add" href="/admin/customer/create">Create new customer</a>
   </div>
 </div>
+
+
 
 
 <div class="box">

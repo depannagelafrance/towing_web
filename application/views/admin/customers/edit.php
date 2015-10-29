@@ -74,7 +74,7 @@ if($errors) {
           $data = array(
               'name'        => 'invoice_excluded',
               'value'       => 1,
-              'checked'     => ($invoice_excluded == 1)
+              'checked'     => (isset($invoice_excluded) && $invoice_excluded == 1)
           );
 
           print form_checkbox($data);
@@ -87,7 +87,7 @@ if($errors) {
             $data = array(
                 'name'        => 'is_insurance',
                 'value'       => 1,
-                'checked'     => ($is_insurance == 1)
+                'checked'     => (isset($is_insurance) && $is_insurance == 1)
             );
 
             print form_checkbox($data);
@@ -100,7 +100,7 @@ if($errors) {
             $data = array(
                 'name'        => 'is_collector',
                 'value'       => 1,
-                'checked'     => ($is_collector == 1)
+                'checked'     => (isset($is_collector) && $is_collector == 1)
             );
 
             print form_checkbox($data);

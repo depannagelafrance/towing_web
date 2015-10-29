@@ -24,6 +24,96 @@ class Customer extends Page
     }
 
     /**
+     * Process the uploading of customers
+     */
+    public function upload()
+    {
+        if ($this->input->post('submit')) {
+            $config['upload_path'] = '/tmp/';
+            $config['allowed_types'] = 'xml';
+            $config['max_size'] = '1024';
+            //$config['max_width']  = '1024';
+            //$config['max_height']  = '768';
+
+            $this->load->library('upload', $config);
+
+            if (!$this->upload->do_upload()) {
+                $error = array('error' => $this->upload->display_errors());
+
+                $this->_add_content(
+                    $this->load->view(
+                        'admin/customers/upload',
+                        $error,
+                        true
+                    )
+                );
+
+                $this->_render_page();
+            } else {
+                $data = array('upload_data' => $this->upload->data());
+                $file = ($data['upload_data']['full_path']);
+
+                $fh = fopen($file, "r") or die("Unable to open file!");
+                $xml_data = fread($fh, filesize($file));
+                fclose($fh);
+
+                $result = $this->admin_service->importCustomers($xml_data, $this->_get_user_token());
+
+                if ($result && property_exists($result, 'statusCode')) {
+                    $error = array('error' => 'Er is een fout opgetreden bij het opladen van de gebruikers');
+
+                    $this->_add_content(
+                        $this->load->view(
+                            'admin/customers/upload',
+                            $error,
+                            true
+                        )
+                    );
+
+                    $this->_render_page();
+                } else {
+                    //yes, nicely done!
+                    $this->session->set_flashdata('_INFO_MSG', "Upload van de klanten is gestart, dit kan enkele minuten in beslag nemen.");
+
+                    redirect("/admin/customer");
+
+                    die();
+                }
+            }
+        } else {
+            $this->_add_content(
+                $this->load->view(
+                    'admin/customers/upload',
+                    array(),
+                    true
+                )
+            );
+
+            $this->_render_page();
+        }
+    }
+
+    public function export()
+    {
+        $data = $this->admin_service->exportCustomers($this->_get_user_token());
+
+        header('Pragma: public');     // required
+        header('Expires: 0');         // no cache
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header('Last-Modified: ' . gmdate('D, d M Y H:i:s', time()) . ' GMT');
+        header('Cache-Control: private', false);
+        header('Content-Type: application/zip');  // Add the mime type from Code igniter.
+        header('Content-Disposition: attachment; filename="' . $data->name . '"');  // Add the file name
+        header('Content-Transfer-Encoding: binary');
+        //header('Content-Length: '.filesize($path)); // provide file size
+        header('Connection: close');
+
+        print base64_decode($data->base64);
+
+        die();
+    }
+
+    /**
      * create new customer
      */
     public function create()
@@ -88,7 +178,8 @@ class Customer extends Page
      * Edit customer (create form to edit)
      * @param int $id
      */
-    public function edit($id)
+    public
+    function edit($id)
     {
         $this->load->helper('form');
 
@@ -187,7 +278,8 @@ class Customer extends Page
      * Delete customer
      * @param int $id
      */
-    public function delete($id)
+    public
+    function delete($id)
     {
         $result = $this->admin_service->deleteCustomer($id, $this->_get_user_token());
 
@@ -205,7 +297,8 @@ class Customer extends Page
     /**
      * Render overview
      */
-    private function _displayOverviewPage()
+    private
+    function _displayOverviewPage()
     {
         $customers = $this->admin_service->fetchAllCustomers($this->_get_user_token());
 
@@ -232,7 +325,8 @@ class Customer extends Page
      * Get customer data by id
      * @param int id
      */
-    private function _getCustomerById($id)
+    private
+    function _getCustomerById($id)
     {
         return $this->admin_service->fetchCustomerById($id, $this->_get_user_token());
     }
