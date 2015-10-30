@@ -1,6 +1,6 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 require_once(APPPATH . '/controllers/Page.php');
-require_once(APPPATH . '/models/Customer_model.php');
+require_once(APPPATH . '/models/Customer_Model.php');
 
 class Customer extends Page
 {
