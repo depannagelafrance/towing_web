@@ -287,7 +287,8 @@ $_dossier = $dossier->dossier;
                             <span class="icon--print">Print</span>
                         </div>
                         <ul class="btn--dropdown--drop">
-                            <li><a href="/fast_dossier/report/voucher/towing/<?php print $_dossier->id . "/" . $_voucher->id; ?>">Exemplaar
+                            <li>
+                                <a href="/fast_dossier/report/voucher/towing/<?php print $_dossier->id . "/" . $_voucher->id; ?>">Exemplaar
                                     Takeldienst</a></li>
                             <li>
                                 <a href="/fast_dossier/report/voucher/collector/<?php print $_dossier->id . "/" . $_voucher->id; ?>">Exemplaar
@@ -295,7 +296,8 @@ $_dossier = $dossier->dossier;
                             <li>
                                 <a href="/fast_dossier/report/voucher/customer/<?php print $_dossier->id . "/" . $_voucher->id; ?>">Exemplaar
                                     Klant</a></li>
-                            <li><a href="/fast_dossier/report/voucher/other/<?php print $_dossier->id . "/" . $_voucher->id; ?>">Exemplaar
+                            <li>
+                                <a href="/fast_dossier/report/voucher/other/<?php print $_dossier->id . "/" . $_voucher->id; ?>">Exemplaar
                                     op Aanvraag</a></li>
                         </ul>
                     </div>
@@ -757,14 +759,10 @@ $_dossier = $dossier->dossier;
                     style="background-image: url(<?php print $autograph_collecting_url; ?>);">
                     <?php
                     if (!$collecting_has_autograph && $IS_FAST_MANAGER) {
-                    ?>
-                        <a class="add_autograph" id="signature-collector"
-                           data-did="<?php print $_dossier->id; ?>"
-                           data-vid="<?php print $_voucher->id; ?>"
-                           href="#">Voeg een handtekening toe</a>
-
-                        <?php
+                        printf('<a class="add_autograph" id="signature-collector"
+                                    data-did="%s"  data-vid="%s" href="#">Voeg een handtekening toe</a>', $_dossier->id, $_voucher->id);
                     }
+                    ?>
                 </div>
             </div>
         </div>
