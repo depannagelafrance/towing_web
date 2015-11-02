@@ -287,15 +287,15 @@ $_dossier = $dossier->dossier;
                             <span class="icon--print">Print</span>
                         </div>
                         <ul class="btn--dropdown--drop">
-                            <li><a href="/fast_dossier/report/voucher/towing/<?= $_dossier->id ?>/<?= $_voucher->id ?>">Exemplaar
+                            <li><a href="/fast_dossier/report/voucher/towing/<?php print $_dossier->id . "/" . $_voucher->id; ?>">Exemplaar
                                     Takeldienst</a></li>
                             <li>
-                                <a href="/fast_dossier/report/voucher/collector/<?= $_dossier->id ?>/<?= $_voucher->id ?>">Exemplaar
+                                <a href="/fast_dossier/report/voucher/collector/<?php print $_dossier->id . "/" . $_voucher->id; ?>">Exemplaar
                                     Afhaler</a></li>
                             <li>
-                                <a href="/fast_dossier/report/voucher/customer/<?= $_dossier->id ?>/<?= $_voucher->id ?>">Exemplaar
+                                <a href="/fast_dossier/report/voucher/customer/<?php print $_dossier->id . "/" . $_voucher->id; ?>">Exemplaar
                                     Klant</a></li>
-                            <li><a href="/fast_dossier/report/voucher/other/<?= $_dossier->id ?>/<?= $_voucher->id ?>">Exemplaar
+                            <li><a href="/fast_dossier/report/voucher/other/<?php print $_dossier->id . "/" . $_voucher->id; ?>">Exemplaar
                                     op Aanvraag</a></li>
                         </ul>
                     </div>
@@ -432,7 +432,7 @@ $_dossier = $dossier->dossier;
                             <label>Facturatiegegevens:</label>
 
                             <div id="edit-invoice-data" class="facturation-container__info">
-                                <?= displayCustomerInformation($_voucher->customer) ?>
+                                <?php print displayCustomerInformation($_voucher->customer); ?>
                             </div>
                         </div>
 
@@ -441,21 +441,19 @@ $_dossier = $dossier->dossier;
                             <label>Hinderverwekker:</label>
 
                             <div id="edit-nuisance-data" class="nuisance-container__info">
-                                <?= displayCustomerInformation($_voucher->causer) ?>
+                                <?php print displayCustomerInformation($_voucher->causer); ?>
                             </div>
                         </div>
 
 
                     </div>
                     <div class="dsform__right">
-
-
                         <!-- Depot Info -->
                         <div class="form-item-horizontal depot-container">
                             <label>Depot/Afvoerlocatie:</label>
 
                             <div id="edit-nuisance-data" class="nuisance-container__info">
-                                <?= $_voucher->depot->display_name ?>
+                                <?php print $_voucher->depot->display_name; ?>
                             </div>
                         </div>
 
