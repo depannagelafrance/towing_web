@@ -570,9 +570,8 @@ $_dossier = $dossier->dossier;
                 $data_foreign_vat = array(
                     1 => "Ja",
                     0 => "Nee"
-                )
-                ?>
-                <?php
+                );
+
                 foreach ($_voucher->towing_payment_details as $detail) {
                     echo '<div class="form-item-vertical">';
                     $div_holder = '<div style="float: left; width:10%%; padding-right: 3px;">%s</div>';
