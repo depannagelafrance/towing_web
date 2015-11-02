@@ -240,12 +240,10 @@ $_dossier = $dossier->dossier;
             <div class="dossierbar__actions">
                 <?php
                 if ($_voucher->status === 'INVOICED WITHOUT STORAGE' && $IS_FAST_MANAGER) {
-                    ?>
-                    <div class="dossierbar__action__item">
+                    echo '<div class="dossierbar__action__item">
                         <input type="button" value="Factuur stallingskosten aanmaken"
                                id="create-invoice-storage-button"/>
-                    </div>
-                    <?php
+                    </div>';
                 }
                 ?>
                 <div class="dossierbar__action__item">
@@ -266,9 +264,8 @@ $_dossier = $dossier->dossier;
                         <ul class="btn--dropdown--drop">
                             <?php
                             if ($IS_FAST_MANAGER) {
-                            ?>
-                            <li><a id="add-nota-link" href="#add-nota-form">Nota toevoegen</a></li>
-                            <? } ?>
+                                echo '<li><a id="add-nota-link" href="#add-nota-form">Nota toevoegen</a></li>';
+                            } ?>
                             <li><a id="view-nota-link" href="#view-nota-container">Notas bekijken</a></li>
                         </ul>
                     </div>
@@ -316,9 +313,10 @@ $_dossier = $dossier->dossier;
                     <div class="signa-container__left">
                         <div class="form-item-horizontal signa-container__signa" style="width: 100%;">
                             <label>Signa:</label>
-                            <?php printf("%s (%s)", $_voucher->signa_by, $_voucher->signa_by_vehicle) ?>
-
                             <?php
+
+                            printf("%s (%s)", $_voucher->signa_by, $_voucher->signa_by_vehicle)
+
                             $data = array(
                                 'name' => 'signa_by_vehicle',
                                 'type' => 'hidden',
@@ -494,14 +492,14 @@ $_dossier = $dossier->dossier;
                         <!--DOSS-->
                         <div class="form-item-horizontal dossiernr-container">
                             <label>Dossiernr.:</label>
-                            <?= $_voucher->insurance_dossiernr ?>
+                            <?php print $_voucher->insurance_dossiernr; ?>
                         </div>
                         <!--END DOSS-->
 
                         <!--WARRANTY-->
                         <div class="form-item-horizontal warrenty-container">
                             <label>Garantiehouder:</label>
-                            <?= $_voucher->insurance_warranty_held_by ?>
+                            <?php print $_voucher->insurance_warranty_held_by; ?>
                         </div>
                         <!--END WARENTY-->
                     </div>
@@ -510,32 +508,31 @@ $_dossier = $dossier->dossier;
 
                 <!--WORK-->
                 <div id="added-activities" class="form-item-vertical work-container">
-                <?php if (count($_voucher->towing_activities) > 0): ?>
-
                     <?php
-                    $this->table->set_heading('Activiteit', 'Aantal', 'EHP (excl.)', 'EHP (incl.):', 'Totaal (excl.)', 'Totaal (incl.):');
+                    if (count($_voucher->towing_activities) > 0) {
+                        $this->table->set_heading('Activiteit', 'Aantal', 'EHP (excl.)', 'EHP (incl.):', 'Totaal (excl.)', 'Totaal (incl.):');
 
-                    foreach ($_voucher->towing_activities as $_activity) {
-                        $this->table->add_row(
-                            $_activity->name,
-                            $_activity->amount,
-                            sprintf("%1\$.2f", $_activity->fee_excl_vat),
-                            sprintf("%1\$.2f", $_activity->fee_incl_vat),
-                            $_activity->cal_fee_excl_vat,
-                            $_activity->cal_fee_incl_vat);
+                        foreach ($_voucher->towing_activities as $_activity) {
+                            $this->table->add_row(
+                                $_activity->name,
+                                $_activity->amount,
+                                sprintf("%1\$.2f", $_activity->fee_excl_vat),
+                                sprintf("%1\$.2f", $_activity->fee_incl_vat),
+                                $_activity->cal_fee_excl_vat,
+                                $_activity->cal_fee_incl_vat);
+                        }
+
+                        print $this->table->generate();
                     }
-
-                    print $this->table->generate();
                     ?>
-                <?php endif; ?>
+
                 </div>
 
                 <!-- ADDITIONAL COSTS -->
                 <div class="additional-costs-container__header">
 
-                    <?php if (count($_voucher->towing_additional_costs) > 0): ?>
-
-                        <?php
+                    <?php
+                    if (count($_voucher->towing_additional_costs) > 0) {
                         $this->table->set_heading('Extra kost', 'EHP (excl.)', 'EHP (incl.):');
 
                         foreach ($_voucher->towing_additional_costs as $_activity) {
@@ -546,8 +543,8 @@ $_dossier = $dossier->dossier;
                         }
 
                         print $this->table->generate();
-                        ?>
-                    <?php endif; ?>
+                    }
+                    ?>
                 </div>
 
                 <!--PAYMENT-->
@@ -573,7 +570,7 @@ $_dossier = $dossier->dossier;
                 );
 
                 foreach ($_voucher->towing_payment_details as $detail) {
-                    echo '<div class="form-item-vertical">';
+                    print '<div class="form-item-vertical">';
                     $div_holder = '<div style="float: left; width:10%%; padding-right: 3px;">%s</div>';
 
                     printf($div_holder, $detail->category_display_name);
@@ -592,8 +589,6 @@ $_dossier = $dossier->dossier;
                 ?>
 
             </div>
-
-
         </div>
         <!-- END WORK-->
 
@@ -821,7 +816,7 @@ $_dossier = $dossier->dossier;
 
 <!-- NOTA -->
 <?php
-if($IS_FAST_MANAGER) {
+if ($IS_FAST_MANAGER) {
     $nota_hidden = array(
         'voucher_id' => $_voucher->id,
         'dossier_id' => $_dossier->id
@@ -856,11 +851,9 @@ if($IS_FAST_MANAGER) {
         </div>
         <?php print form_close(); ?>
     </div>
-<?php
+    <?php
 }
 ?>
-
-
 
 <div id="view-nota-container" style="display: none;">
     <div class="notas">
@@ -887,6 +880,4 @@ if($IS_FAST_MANAGER) {
 </div>
 
 <!--END ATTACHMENT-->
-
-
 </div>
