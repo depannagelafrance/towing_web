@@ -315,7 +315,7 @@ $_dossier = $dossier->dossier;
                             <label>Signa:</label>
                             <?php
 
-                            printf("%s (%s)", $_voucher->signa_by, $_voucher->signa_by_vehicle)
+                            printf("%s (%s)", $_voucher->signa_by, $_voucher->signa_by_vehicle);
 
                             $data = array(
                                 'name' => 'signa_by_vehicle',
@@ -757,14 +757,16 @@ $_dossier = $dossier->dossier;
                 <div
                     class="autograph-block autograph-container__collecting__autograph <?php print $collecting_class; ?>"
                     style="background-image: url(<?php print $autograph_collecting_url; ?>);">
-                    <?php if ($collecting_has_autograph || !$IS_FAST_MANAGER): ?>
-                        <!-- a id="edit-autograph-collecting" class="inform-link icon--edit--small" href="#"></a-->
-                    <?php else: ?>
+                    <?php
+                    if (!$collecting_has_autograph && $IS_FAST_MANAGER) {
+                    ?>
                         <a class="add_autograph" id="signature-collector"
                            data-did="<?php print $_dossier->id; ?>"
                            data-vid="<?php print $_voucher->id; ?>"
                            href="#">Voeg een handtekening toe</a>
-                    <?php endif; ?>
+
+                        <?php
+                    }
                 </div>
             </div>
         </div>
