@@ -685,7 +685,7 @@ $_dossier = $dossier->dossier;
                         <label class="notbold">Afhaler:</label>
 
                         <?php
-                        if ($_voucher->collector_id) {
+                        if ($_voucher->collector_id && !empty($collectors)) {
                             foreach ($collectors as $d) {
                                 if ($d->id === $_voucher->collector_id)
                                     print $d->name;
