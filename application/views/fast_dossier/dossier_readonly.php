@@ -688,7 +688,7 @@ $_dossier = $dossier->dossier;
                         if ($_voucher->collector_id && !empty($collectors)) {
                             foreach ($collectors as $d) {
                                 if ($d->id === $_voucher->collector_id)
-                                    print $d->name;
+                                    print $d->company_name;
                             }
                         } else {
                             print "-- Geen afhaler toegekend -- ";
