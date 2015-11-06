@@ -32,7 +32,9 @@ class Customer_Model
                 $this->zip = $data['zip'];
                 $this->city = $data['city'];
                 $this->country = $data['country'];
-                $this->customer_number = $data['customer_number'];
+
+                if (array_key_exists('customer_number', $data))
+                    $this->customer_number = $data['customer_number'];
 
                 if (array_key_exists('id', $data))
                     $this->id = $data['id'];
@@ -52,13 +54,13 @@ class Customer_Model
                 if (array_key_exists('type', $data))
                     $this->type = $data['type'];
 
-                if(array_key_exists('invoice_excluded', $data))
+                if (array_key_exists('invoice_excluded', $data))
                     $this->invoice_excluded = $data['invoice_excluded'];
 
-                if(array_key_exists('is_insurance', $data))
+                if (array_key_exists('is_insurance', $data))
                     $this->is_insurance = $data['is_insurance'];
 
-                if(array_key_exists('is_collector', $data))
+                if (array_key_exists('is_collector', $data))
                     $this->is_collector = $data['is_collector'];
 
             } else {
@@ -78,15 +80,15 @@ class Customer_Model
                 $this->phone = $data->phone;
                 $this->type = $data->type;
 
-                if(property_exists($data, 'invoice_excluded')) {
+                if (property_exists($data, 'invoice_excluded')) {
                     $this->invoice_excluded = $data->invoice_excluded;
                 }
 
-                if(property_exists($data, 'is_insurance')) {
+                if (property_exists($data, 'is_insurance')) {
                     $this->is_insurance = $data->is_insurance;
                 }
 
-                if(property_exists($data, 'is_collector')) {
+                if (property_exists($data, 'is_collector')) {
                     $this->is_collector = $data->is_collector;
                 }
             }
