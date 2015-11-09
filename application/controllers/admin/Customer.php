@@ -123,12 +123,15 @@ class Customer extends Page
         if ($this->input->post('submit')) {
             $this->form_validation->set_rules('company_name', 'Naam', 'required');
 
+            $data = $this->input->post();
+            $data['invoice_to_options'] = $this->_getInvoiceToOptions();
+
             //return to form if validation failed
             if (!$this->form_validation->run()) {
                 $this->_add_content(
                     $this->load->view(
                         'admin/customers/create',
-                        array("company_name" => ""),
+                        $data,
                         true
                     )
                 );
@@ -144,8 +147,6 @@ class Customer extends Page
                         $this->_add_error(sprintf('Fout bij het aanmaken van item (%d - %s)', $result->statusCode, $result->message));
                     }
 
-                    $data = $this->input->post();
-
                     $this->_add_content(
                         $this->load->view(
                             'admin/customers/create',
@@ -160,12 +161,16 @@ class Customer extends Page
                     redirect("/admin/customer");
                 }
             }
-        } else //not a post, so load default view
+        }
+        else //not a post, so load default view
         {
+            $data['company_name'] = '';
+            $data['invoice_to_options'] = $this->_getInvoiceToOptions();
+
             $this->_add_content(
                 $this->load->view(
                     'admin/customers/create',
-                    array("company_name" => ""),
+                    $data,
                     true
                 )
             );
@@ -178,8 +183,7 @@ class Customer extends Page
      * Edit customer (create form to edit)
      * @param int $id
      */
-    public
-    function edit($id)
+    public function edit($id)
     {
         $this->load->helper('form');
 
@@ -191,6 +195,7 @@ class Customer extends Page
             if (!$this->form_validation->run()) {
                 $data = $this->input->post();
                 $data['id'] = $id;
+                $data['invoice_to_options'] = $this->_getInvoiceToOptions();
 
                 $this->_add_content(
                     $this->load->view(
@@ -218,6 +223,7 @@ class Customer extends Page
 
                     $data = $this->input->post();
                     $data['id'] = $id;
+                    $data['invoice_to_options'] = $this->_getInvoiceToOptions();
 
                     $this->_add_content(
                         $this->load->view(
@@ -262,8 +268,10 @@ class Customer extends Page
                             'first_name' => $result->first_name,
                             'last_name' => $result->last_name,
                             'invoice_excluded' => $result->invoice_excluded,
+                            'invoice_to' => $result->invoice_to,
                             'is_insurance' => $result->is_insurance,
-                            'is_collector' => $result->is_collector
+                            'is_collector' => $result->is_collector,
+                            'invoice_to_options' => $this->_getInvoiceToOptions()
                         ),
                         true
                     )
@@ -278,8 +286,7 @@ class Customer extends Page
      * Delete customer
      * @param int $id
      */
-    public
-    function delete($id)
+    public function delete($id)
     {
         $result = $this->admin_service->deleteCustomer($id, $this->_get_user_token());
 
@@ -297,8 +304,7 @@ class Customer extends Page
     /**
      * Render overview
      */
-    private
-    function _displayOverviewPage()
+    private function _displayOverviewPage()
     {
         $customers = $this->admin_service->fetchAllCustomers($this->_get_user_token());
 
@@ -325,9 +331,18 @@ class Customer extends Page
      * Get customer data by id
      * @param int id
      */
-    private
-    function _getCustomerById($id)
+    private function _getCustomerById($id)
     {
         return $this->admin_service->fetchCustomerById($id, $this->_get_user_token());
+    }
+
+    private function _getInvoiceToOptions()
+    {
+        return array(
+            "OTHER" => "-",
+            "CUSTOMER" => "Klant/Hinderverwekker",
+            "INSURANCE" => "Assistance",
+            "COLLECTOR" => "Afhaler"
+        );
     }
 }

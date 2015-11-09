@@ -18,6 +18,7 @@ class Customer_Model
     public $phone = null;
     public $invoice_ref = null;
     public $invoice_excluded = null;
+    public $invoice_to = null;
     public $type = 'DEFAULT';
 
     public function __construct($data = null)
@@ -57,6 +58,9 @@ class Customer_Model
                 if (array_key_exists('invoice_excluded', $data))
                     $this->invoice_excluded = $data['invoice_excluded'];
 
+                if (array_key_exists('invoice_to', $data))
+                    $this->invoice_to = $data['invoice_to'];
+
                 if (array_key_exists('is_insurance', $data))
                     $this->is_insurance = $data['is_insurance'];
 
@@ -82,6 +86,10 @@ class Customer_Model
 
                 if (property_exists($data, 'invoice_excluded')) {
                     $this->invoice_excluded = $data->invoice_excluded;
+                }
+
+                if (property_exists($data, 'invoice_to')) {
+                    $this->invoice_to = $data->invoice_to;
                 }
 
                 if (property_exists($data, 'is_insurance')) {

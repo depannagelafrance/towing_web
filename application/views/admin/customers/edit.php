@@ -82,6 +82,13 @@ if($errors) {
         </div>
 
         <div class="form-item-horizontal">
+            <label>Factureren aan </label>
+            <?php
+            echo form_dropdown('invoice_to', $invoice_to_options, $invoice_to);
+            ?>
+        </div>
+
+        <div class="form-item-horizontal">
             <label>Verzekeringsmaatschappij? </label>
             <?php
             $data = array(
