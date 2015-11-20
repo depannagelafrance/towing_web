@@ -21,10 +21,7 @@ class Export extends Page
 
   public function expertm()
   {
-    $invoice_ids = $this->input->post('selected_invoice_id');
-
-    if($invoice_ids != null && is_array($invoice_ids) && count($invoice_ids) > 0) {
-      $data = $this->invoice_service->createExpertMInvoiceExport($invoice_ids, $this->_get_user_token());
+      $data = $this->invoice_service->createExpertMInvoiceExport($this->_get_user_token());
 
       header('Pragma: public');     // required
       header('Expires: 0');         // no cache
@@ -40,8 +37,5 @@ class Export extends Page
       print base64_decode($data->base64);
 
       die();
-    } else {
-      redirect("/invoicing/overview/batch", 302);
-    }
   }
 }

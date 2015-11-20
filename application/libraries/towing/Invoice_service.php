@@ -24,10 +24,10 @@ class Invoice_service extends Rest_service {
       return $this->CI->rest->post(sprintf('/invoice/batch/%s', $token));
     }
 
-    public function createExpertMInvoiceExport($ids, $token) {
+    public function createExpertMInvoiceExport($token) {
       return $this->CI->rest->post(
                   sprintf('/invoice/export/expertm/%s', $token),
-                  json_encode(array('invoices' => $ids)),
+                  array(),
                   'application/json');
     }
 
