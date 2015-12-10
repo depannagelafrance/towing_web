@@ -463,6 +463,11 @@ $_dossier = $dossier->dossier;
                         </div>
 
                         <div class="form-item-horizontal  autograph-container__police__trafficpost">
+                            <label class="notbold">Naam:</label>
+                            <?php print form_input('police_name', $_voucher->police_name); ?>
+                        </div>
+
+                        <div class="form-item-horizontal  autograph-container__police__trafficpost">
                             <label class="notbold">Handtekening afwezig?</label>
                             <input type="checkbox" name="police_not_present" id="police_not_present"
                                    value="1" <?php if ($_voucher->police_not_present) print 'checked="checked"'; ?>/>

@@ -288,6 +288,7 @@ class Dossier extends Page
 
                 $voucher->causer_not_present = $this->input->post('causer_not_present');
                 $voucher->police_not_present = $this->input->post('police_not_present');
+                $voucher->police_name = $this->input->post('police_name');
 
                 $activity_ids = $this->input->post('activity_id');
                 $activity_amounts = $this->input->post('amount');

@@ -39,12 +39,13 @@ class Voucher_Model  {
   public $cic                  = null;
   public $causer_not_present   = null;
   public $police_not_present   = null;
+  public $police_name          = null;
   public $additional_info      = null;
   public $actions              = null;
 
   public $depot = null; //instance of Depot_Model
 
-  public $towing_activities     = array(); //array of TowingActivy_model
+  public $towing_activities     = array(); //array of TowingActivity_model
 
   public $towing_additional_costs = array(); //array
 
@@ -81,6 +82,7 @@ class Voucher_Model  {
       $this->cic                          = $data->cic;
       $this->causer_not_present           = $data->causer_not_present;
       $this->police_not_present           = $data->police_not_present;
+      $this->police_name                  = $data->police_name;
 
       if(property_exists($data, 'additional_info'))
         $this->additional_info = $data->additional_info;

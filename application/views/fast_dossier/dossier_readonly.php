@@ -593,210 +593,232 @@ $_dossier = $dossier->dossier;
         <!-- END WORK-->
 
 
-        <!--AUTOGRAPHS-->
-        <div class="autograph-container">
-            <div class="autograph-container__police">
-                <label>Bevestiging politie:</label>
+        <div class="box unpadded dsform">
+            <div class="inner_padding">
+                <!--AUTOGRAPHS-->
+                <div class="autograph-container">
+                    <div class="autograph-container__police">
+                        <label>Bevestiging politie:</label>
 
-                <div class="form-item-horizontal  autograph-container__police__trafficpost">
-                    <label class="notbold">Verkeerspost:</label>
-                    <?php
-                    if ($_dossier->police_traffic_post_id) {
-                        foreach ($traffic_posts as $d) {
-                            if ($d->id === $_dossier->police_traffic_post_id) {
-                                print $d->name;
+                        <div class="form-item-horizontal  autograph-container__police__trafficpost">
+                            <label class="notbold">Verkeerspost:</label>
+                            <?php
+                            if ($_dossier->police_traffic_post_id) {
+                                foreach ($traffic_posts as $d) {
+                                    if ($d->id === $_dossier->police_traffic_post_id) {
+                                        print $d->name;
+                                    }
+                                }
+                            } else {
+                                print '-- Geen verkeerspost toegekend --';
                             }
-                        }
-                    } else {
-                        print '-- Geen verkeerspost toegekend --';
-                    }
 
-                    ?>
+                            ?>
 
-                </div>
+                        </div>
 
-                <div class="form-item-horizontal  autograph-container__police__timestamp">
-                    <label class="notbold">Tijdstip:</label>
-                    <?php
+                        <div class="form-item-horizontal  autograph-container__police__timestamp">
+                            <label class="notbold">Naam:</label>
+                            <?php
 
-                    if ($_voucher->police_signature_dt && trim($_voucher->police_signature_dt) != "") {
-                        print mdate('%d/%m/%Y %H:%i', strtotime($_voucher->police_signature_dt));
-                    } else {
-                        print "";
-                    }
-
-                    if ($_voucher->police_not_present) {
-                        print "<br /><strong>Verkeerspost niet beschikbaar voor handtekening</strong>";
-                    }
-                    ?>
-                </div>
-            </div>
-
-            <!-- Causer Short Info -->
-            <div id="causer_info_readonly" class="autograph-container__nuisance">
-                <label>Bevestiging hinderverwekker:</label>
-                <br/>
-                <?php
-                print displayCustomerInformation($_voucher->causer);
-
-                if ($_voucher->causer->causer_not_present) {
-                    print "<br /><strong>Hinderverwekker niet beschikbaar voor handtekening</strong>";
-                }
-                ?>
-            </div>
-
-
-            <?php
-            if ($_voucher->status === 'INVOICED WITHOUT STORAGE' && $IS_FAST_MANAGER) {
-                print form_open('fast_dossier/dossier/save_collector/' . $_dossier->dossier_number . '/' . $_voucher->voucher_number);
-                ?>
-                <div class="autograph-container__collecting">
-                    <label>Bevestiging afhaler:</label>
-
-                    <div class="form-item-horizontal  autograph-container__collecting__collector">
-                        <label class="notbold">Afhaler:</label>
-                        <?php print listbox_ajax('collector_id', $_voucher->collector_id); ?>
-                    </div>
-
-                    <div class="form-item-horizontal  autograph-container__collecting__date">
-                        <label class="notbold">Datum:</label>
-                        <?php
-
-                        $vehicule = array(
-                            'name' => 'vehicule_collected',
-                            'class' => 'datetimepicker',
-                            'value' => $_voucher->vehicule_collected ? mdate('%d/%m/%Y %H:%i', $_voucher->vehicule_collected) : ''
-                        );
-
-                        print form_input($vehicule); ?>
-                    </div>
-                    <div class="form-item-horizontal  autograph-container__collecting__date">
-                        <input type="submit" value="Bewaren" name="btnSaveCollectionInformation">
-                    </div>
-                </div>
-                <?php
-                print form_close();
-            } else {
-                ?>
-                <div class="autograph-container__collecting">
-                    <label>Bevestiging afhaler:</label>
-
-                    <div class="form-item-horizontal  autograph-container__collecting__collector">
-                        <label class="notbold">Afhaler:</label>
-
-                        <?php
-                        if ($_voucher->collector_id && !empty($collectors)) {
-                            foreach ($collectors as $d) {
-                                if ($d->id === $_voucher->collector_id)
-                                    print $d->company_name;
+                            if (!empty($_voucher->police_name)) {
+                                print $_voucher->police_name;
+                            } else {
+                                print "--";
                             }
-                        } else {
-                            print "-- Geen afhaler toegekend -- ";
+
+                            if ($_voucher->police_not_present) {
+                                print "<br /><strong>Verkeerspost niet beschikbaar voor handtekening</strong>";
+                            }
+                            ?>
+                        </div>
+
+                        <div class="form-item-horizontal  autograph-container__police__timestamp">
+                            <label class="notbold">Tijdstip:</label>
+                            <?php
+
+                            if ($_voucher->police_signature_dt && trim($_voucher->police_signature_dt) != "") {
+                                print mdate('%d/%m/%Y %H:%i', strtotime($_voucher->police_signature_dt));
+                            } else {
+                                print "";
+                            }
+
+                            if ($_voucher->police_not_present) {
+                                print "<br /><strong>Verkeerspost niet beschikbaar voor handtekening</strong>";
+                            }
+                            ?>
+                        </div>
+                    </div>
+
+                    <!-- Causer Short Info -->
+                    <div id="causer_info_readonly" class="autograph-container__nuisance">
+                        <label>Bevestiging hinderverwekker:</label>
+                        <br/>
+                        <?php
+                        print displayCustomerInformation($_voucher->causer);
+
+                        if ($_voucher->causer->causer_not_present) {
+                            print "<br /><strong>Hinderverwekker niet beschikbaar voor handtekening</strong>";
                         }
                         ?>
                     </div>
 
-                    <div class="form-item-horizontal  autograph-container__collecting__date">
-                        <label class="notbold">Datum:</label>
-                        <?php
-                        print $_voucher->vehicule_collected ? mdate('%d/%m/%Y %H:%i', strtotime($_voucher->vehicule_collected)) : ''
-                        ?>
-                    </div>
-                </div>
-                <?php
-            }
-            ?>
-        </div>
-        <!-- AUTHOGRAPH BUTTONS -->
-        <div class="autograph-container-buttons">
-            <div class="autograph-container__police">
-                <?php
-                $police_has_autograph = false;
-                $police_collecting_url = 'none';
-                $police_class = '';
-                if (property_exists($_voucher, 'signature_traffic_post') && $_voucher->signature_traffic_post) {
-                    $police_class = 'active';
-                    $police_has_autograph = true;
-                    $police_collecting_url = "/fast_dossier/image/view/" . $_voucher->signature_traffic_post->document_blob_id . '/200/125';
-                }
-                ?>
-                <div class="autograph-block autograph-container__police__autograph <?php print $police_class; ?>"
-                     style="background-image: url(<?php print $police_collecting_url; ?>);">
 
-                </div>
-            </div>
-
-            <div class="autograph-container__nuisance">
-                <?php
-                $nuisance_has_autograph = false;
-                $nuisance_collecting_url = 'none';
-                $nuisance_class = '';
-                if (property_exists($_voucher, 'signature_causer') && $_voucher->signature_causer) {
-                    $nuisance_class = 'active';
-                    $nuisance_has_autograph = true;
-                    $nuisance_collecting_url = "/fast_dossier/image/view/" . $_voucher->signature_causer->document_blob_id . '/200/125';
-                }
-                ?>
-                <div class="autograph-block autograph-container__nuisance__autograph <?php print $nuisance_class; ?>"
-                     style="background-image: url(<?php print $nuisance_collecting_url; ?>);">
-
-                </div>
-            </div>
-
-            <div class="autograph-container__collecting">
-                <?php
-                $collecting_class = '';
-                $collecting_has_autograph = false;
-                $autograph_collecting_url = 'none';
-                if (property_exists($_voucher, 'signature_collector') && $_voucher->signature_collector) {
-                    $collecting_class = 'active';
-                    $collecting_has_autograph = true;
-                    $autograph_collecting_url = "/fast_dossier/image/view/" . $_voucher->signature_collector->document_blob_id . '/200/125';
-                }
-                ?>
-                <div
-                    class="autograph-block autograph-container__collecting__autograph <?php print $collecting_class; ?>"
-                    style="background-image: url(<?php print $autograph_collecting_url; ?>);">
                     <?php
-                    if (!$collecting_has_autograph && $IS_FAST_MANAGER) {
-                        printf('<a class="add_autograph" id="signature-collector"
+                    if ($_voucher->status === 'INVOICED WITHOUT STORAGE' && $IS_FAST_MANAGER) {
+                        print form_open('fast_dossier/dossier/save_collector/' . $_dossier->dossier_number . '/' . $_voucher->voucher_number);
+                        ?>
+                        <div class="autograph-container__collecting">
+                            <label>Bevestiging afhaler:</label>
+
+                            <div class="form-item-horizontal  autograph-container__collecting__collector">
+                                <label class="notbold">Afhaler:</label>
+                                <?php print listbox_ajax('collector_id', $_voucher->collector_id); ?>
+                            </div>
+
+                            <div class="form-item-horizontal  autograph-container__collecting__date">
+                                <label class="notbold">Datum:</label>
+                                <?php
+
+                                $vehicule = array(
+                                    'name' => 'vehicule_collected',
+                                    'class' => 'datetimepicker',
+                                    'value' => $_voucher->vehicule_collected ? mdate('%d/%m/%Y %H:%i', $_voucher->vehicule_collected) : ''
+                                );
+
+                                print form_input($vehicule); ?>
+                            </div>
+                            <div class="form-item-horizontal  autograph-container__collecting__date">
+                                <input type="submit" value="Bewaren" name="btnSaveCollectionInformation">
+                            </div>
+                        </div>
+                        <?php
+                        print form_close();
+                    } else {
+                        ?>
+                        <div class="autograph-container__collecting">
+                            <label>Bevestiging afhaler:</label>
+
+                            <div class="form-item-horizontal  autograph-container__collecting__collector">
+                                <label class="notbold">Afhaler:</label>
+
+                                <?php
+                                if ($_voucher->collector_id && !empty($collectors)) {
+                                    foreach ($collectors as $d) {
+                                        if ($d->id === $_voucher->collector_id)
+                                            print $d->company_name;
+                                    }
+                                } else {
+                                    print "-- Geen afhaler toegekend -- ";
+                                }
+                                ?>
+                            </div>
+
+                            <div class="form-item-horizontal  autograph-container__collecting__date">
+                                <label class="notbold">Datum:</label>
+                                <?php
+                                print $_voucher->vehicule_collected ? mdate('%d/%m/%Y %H:%i', strtotime($_voucher->vehicule_collected)) : ''
+                                ?>
+                            </div>
+                        </div>
+                        <?php
+                    }
+                    ?>
+                </div>
+                <!-- AUTHOGRAPH BUTTONS -->
+                <div class="autograph-container-buttons">
+                    <div class="autograph-container__police">
+                        <?php
+                        $police_has_autograph = false;
+                        $police_collecting_url = 'none';
+                        $police_class = '';
+                        if (property_exists($_voucher, 'signature_traffic_post') && $_voucher->signature_traffic_post) {
+                            $police_class = 'active';
+                            $police_has_autograph = true;
+                            $police_collecting_url = "/fast_dossier/image/view/" . $_voucher->signature_traffic_post->document_blob_id . '/200/125';
+                        }
+                        ?>
+                        <div
+                            class="autograph-block autograph-container__police__autograph <?php print $police_class; ?>"
+                            style="background-image: url(<?php print $police_collecting_url; ?>);">
+
+                        </div>
+                    </div>
+
+                    <div class="autograph-container__nuisance">
+                        <?php
+                        $nuisance_has_autograph = false;
+                        $nuisance_collecting_url = 'none';
+                        $nuisance_class = '';
+                        if (property_exists($_voucher, 'signature_causer') && $_voucher->signature_causer) {
+                            $nuisance_class = 'active';
+                            $nuisance_has_autograph = true;
+                            $nuisance_collecting_url = "/fast_dossier/image/view/" . $_voucher->signature_causer->document_blob_id . '/200/125';
+                        }
+                        ?>
+                        <div
+                            class="autograph-block autograph-container__nuisance__autograph <?php print $nuisance_class; ?>"
+                            style="background-image: url(<?php print $nuisance_collecting_url; ?>);">
+
+                        </div>
+                    </div>
+
+                    <div class="autograph-container__collecting">
+                        <?php
+                        $collecting_class = '';
+                        $collecting_has_autograph = false;
+                        $autograph_collecting_url = 'none';
+                        if (property_exists($_voucher, 'signature_collector') && $_voucher->signature_collector) {
+                            $collecting_class = 'active';
+                            $collecting_has_autograph = true;
+                            $autograph_collecting_url = "/fast_dossier/image/view/" . $_voucher->signature_collector->document_blob_id . '/200/125';
+                        }
+                        ?>
+                        <div
+                            class="autograph-block autograph-container__collecting__autograph <?php print $collecting_class; ?>"
+                            style="background-image: url(<?php print $autograph_collecting_url; ?>);">
+                            <?php
+                            if (!$collecting_has_autograph && $IS_FAST_MANAGER) {
+                                printf('<a class="add_autograph" id="signature-collector"
                                     data-did="%s"  data-vid="%s" href="#">Voeg een handtekening toe</a>', $_dossier->id, $_voucher->id);
-                    }
-                    ?>
+                            }
+                            ?>
+                        </div>
+                    </div>
                 </div>
+                <!-- END AUTOGRAPH BUTTONS -->
+                <!-- END AUTOGRAPHS-->
+
+                <!-- VEHICLE DAMAGE -->
+                <div class="dsform__clearfix dsform_seperation">
+                    <div class="dsform_left">
+                        <div class="vehicule-container__left vehicule-extrainfo">
+                            <div class="form-item-horizontal">
+                                <label>Schade aan voertuig:</label>
+                                <?php nl2br(print $_voucher->vehicule_impact_remarks); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- END VEHICLE DAMAGE -->
+
+                <!-- ADDITIONAL INFORMATION -->
+                <div class="dsform__clearfix dsform_seperation">
+                    <div class="dsform_left">
+                        <div class="vehicule-container__left vehicule-extrainfo">
+                            <div class="form-item-horizontal">
+                                <label>Extra informatie:</label>
+                                <?php nl2br(print $_voucher->additional_info); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- END ADDITIONAL INFORMATION -->
             </div>
         </div>
-        <!-- END AUTOGRAPH BUTTONS -->
-        <!-- END AUTOGRAPHS-->
     </div>
-
-    <!-- VEHICLE DAMAGE -->
-    <div class="dsform__clearfix dsform_seperation">
-        <div class="dsform_left">
-            <div class="vehicule-container__left vehicule-extrainfo">
-                <div class="form-item-horizontal">
-                    <label>Schade aan voertuig:</label>
-                    <?php nl2br(print $_voucher->vehicule_impact_remarks); ?>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- END VEHICLE DAMAGE -->
-
-    <!-- ADDITIONAL INFORMATION -->
-    <div class="dsform__clearfix dsform_seperation">
-        <div class="dsform_left">
-            <div class="vehicule-container__left vehicule-extrainfo">
-                <div class="form-item-horizontal">
-                    <label>Extra informatie:</label>
-                    <?php nl2br(print $_voucher->additional_info); ?>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- END ADDITIONAL INFORMATION -->
 </div>
 
 
