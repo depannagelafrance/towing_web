@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 require_once(APPPATH . '/controllers/Ajaxpage.php');
 require_once(APPPATH . '/models/Depot_Model.php');
@@ -9,351 +9,368 @@ require_once(APPPATH . '/models/File_Model.php');
 
 class Ajax extends AjaxPage
 {
-  public function __construct()
-  {
-    parent::__construct();
+    public function __construct()
+    {
+        parent::__construct();
 
-    $this->load->library('towing/Dossier_service');
-    $this->load->library('towing/Vocabulary_service');
-  }
+        $this->load->library('towing/Dossier_service');
+        $this->load->library('towing/Vocabulary_service');
+    }
 
-  public function updateDepot($dossier_id, $voucher_id)
-  {
+    public function updateDepot($dossier_id, $voucher_id)
+    {
 
-    $token = $this->_get_user_token();
+        $token = $this->_get_user_token();
 
-    $depot = new Depot_Model($this->input->post('depot'));
-    $depot_id = $depot->id;
+        $depot = new Depot_Model($this->input->post('depot'));
+        $depot_id = $depot->id;
 
-    $result = $this->dossier_service->updateTowingDepot($depot_id, $voucher_id, $depot, $token);
+        $result = $this->dossier_service->updateTowingDepot($depot_id, $voucher_id, $depot, $token);
 
-    $this->_sendJson($result);
-  }
+        $this->_sendJson($result);
+    }
 
-  public function updateDepotToDefault($dossier_id, $voucher_id)
-  {
-    $_depot = $this->input->post('depot');
+    public function updateDepotToDefault($dossier_id, $voucher_id)
+    {
+        $_depot = $this->input->post('depot');
 
-    $token = $this->_get_user_token();
-    $depot = new Depot_Model($this->_get_company_depot());
-    $depot->default_depot = 1;
-    $depot->id = $_depot['id'];
-    $depot_id = $depot->id;
+        $token = $this->_get_user_token();
+        $depot = new Depot_Model($this->_get_company_depot());
+        $depot->default_depot = 1;
+        $depot->id = $_depot['id'];
+        $depot_id = $depot->id;
 
-    $result = $this->dossier_service->updateTowingDepot($depot_id, $voucher_id, $depot, $token);
+        $result = $this->dossier_service->updateTowingDepot($depot_id, $voucher_id, $depot, $token);
 
-    $this->_sendJson($result);
-  }
+        $this->_sendJson($result);
+    }
 
-  public function updateDepotToAgency($dossier_id, $voucher_id)
-  {
-    $_depot = $this->input->post('depot');
+    public function updateDepotToAgency($dossier_id, $voucher_id)
+    {
+        $_depot = $this->input->post('depot');
 
-    $token = $this->_get_user_token();
-    $result = $this->dossier_service->updateTowingDepotToAgency($_depot['id'], $voucher_id, $token);
+        $token = $this->_get_user_token();
+        $result = $this->dossier_service->updateTowingDepotToAgency($_depot['id'], $voucher_id, $token);
 
-    $this->_sendJson($result);
-  }
+        $this->_sendJson($result);
+    }
 
-  public function updateCauser($dossier_id, $voucher_id)
-  {
-    $token = $this->_get_user_token();
+    public function updateCauser($dossier_id, $voucher_id)
+    {
+        $token = $this->_get_user_token();
 
-    $causer = new Causer_Model($this->input->post('causer'));
+        $causer = new Causer_Model($this->input->post('causer'));
 
-    $result = $this->dossier_service->updateCauser($causer->id, $voucher_id, $causer, $token);
+        $result = $this->dossier_service->updateCauser($causer->id, $voucher_id, $causer, $token);
 
-    $this->_sendJson($result);
-  }
+        $this->_sendJson($result);
+    }
 
-  public function updateCustomer($dossier_id, $voucher_id)
-  {
-    $token = $this->_get_user_token();
+    public function updateCustomer($dossier_id, $voucher_id)
+    {
+        $token = $this->_get_user_token();
 
-    $customer = new Customer_Model($this->input->post('customer'));
+        $customer = new Customer_Model($this->input->post('customer'));
 
-    $result = $this->dossier_service->updateCustomer($customer->id, $voucher_id, $customer, $token);
+        $result = $this->dossier_service->updateCustomer($customer->id, $voucher_id, $customer, $token);
 
-    $this->_sendJson($result);
-  }
+        $this->_sendJson($result);
+    }
 
-  public function searchCustomer()
-  {
-    $token = $this->_get_user_token();
+    public function searchCustomer()
+    {
+        $token = $this->_get_user_token();
 
-    $find = $this->input->post('search');
-    $result = $this->dossier_service->searchCustomer($find, $token);
+        $find = $this->input->post('search');
+        $result = $this->dossier_service->searchCustomer($find, $token);
 
-    $this->_sendJson($result);
-  }
+        $this->_sendJson($result);
+    }
 
-  public function updateAgencyCustomer($dossier_id, $voucher_id)
-  {
-    $token = $this->_get_user_token();
+    public function updateAgencyCustomer($dossier_id, $voucher_id)
+    {
+        $token = $this->_get_user_token();
 
-    $result = $this->dossier_service->updateCustomerToAgency($voucher_id, $token);
+        $result = $this->dossier_service->updateCustomerToAgency($voucher_id, $token);
 
-    $this->_sendJson($result);
-  }
+        $this->_sendJson($result);
+    }
 
-  public function depot($dossier_id, $voucher_id)
-  {
-    return $this->_sendJson($this->dossier_service->fetchVoucherDepot($dossier_id, $voucher_id, $this->_get_user_token()));
-  }
+    public function depot($dossier_id, $voucher_id)
+    {
+        return $this->_sendJson($this->dossier_service->fetchVoucherDepot($dossier_id, $voucher_id, $this->_get_user_token()));
+    }
 
-  public function customer($dossier_id, $voucher_id)
-  {
-    return $this->_sendJson($this->dossier_service->fetchVoucherCustomer($dossier_id, $voucher_id, $this->_get_user_token()));
-  }
+    public function customer($dossier_id, $voucher_id)
+    {
+        return $this->_sendJson($this->dossier_service->fetchVoucherCustomer($dossier_id, $voucher_id, $this->_get_user_token()));
+    }
 
-  public function causer($dossier_id, $voucher_id)
-  {
-    return $this->_sendJson($this->dossier_service->fetchVoucherCauser($dossier_id, $voucher_id, $this->_get_user_token()));
-  }
+    public function causer($dossier_id, $voucher_id)
+    {
+        return $this->_sendJson($this->dossier_service->fetchVoucherCauser($dossier_id, $voucher_id, $this->_get_user_token()));
+    }
 
-  public function activities($dossier_id, $voucher_id)
-  {
-    $token = $this->_get_user_token();
-    $result = $this->dossier_service->fetchActivitiesForVoucher($dossier_id, $voucher_id, $token);
-    $this->_sendJson($result);
-  }
+    public function activities($dossier_id, $voucher_id)
+    {
+        $token = $this->_get_user_token();
+        $result = $this->dossier_service->fetchActivitiesForVoucher($dossier_id, $voucher_id, $token);
+        $this->_sendJson($result);
+    }
 
-  public function additionalCosts($dossier_id, $voucher_id)
-  {
-    $token = $this->_get_user_token();
-    $result = $this->dossier_service->fetchAllVoucherAdditionalCosts($dossier_id, $voucher_id, $token);
-    $this->_sendJson($result);
-  }
+    public function additionalCosts($dossier_id, $voucher_id)
+    {
+        $token = $this->_get_user_token();
+        $result = $this->dossier_service->fetchAllVoucherAdditionalCosts($dossier_id, $voucher_id, $token);
+        $this->_sendJson($result);
+    }
 
-  public function paymentDetails($dossier_id, $voucher_id)
-  {
-    $token = $this->_get_user_token();
-    $result = $this->dossier_service->fetchVoucherPaymentDetails($dossier_id, $voucher_id, $token);
-    $this->_sendJson($result);
-  }
+    public function paymentDetails($dossier_id, $voucher_id)
+    {
+        $token = $this->_get_user_token();
+        $result = $this->dossier_service->fetchVoucherPaymentDetails($dossier_id, $voucher_id, $token);
+        $this->_sendJson($result);
+    }
 
 
+    public function availableActivities($dossier_id, $voucher_id)
+    {
+        $token = $this->_get_user_token();
 
+        $result = $this->dossier_service->fetchAllAvailableActivitiesForVoucher($dossier_id, $voucher_id, $token);
 
-  public function availableActivities($dossier_id, $voucher_id)
-  {
-    $token = $this->_get_user_token();
+        $this->_sendJson($result);
+    }
 
-    $result = $this->dossier_service->fetchAllAvailableActivitiesForVoucher($dossier_id, $voucher_id, $token);
+    public function insurances()
+    {
+        $token = $this->_get_user_token();
 
-    $this->_sendJson($result);
-  }
+        $result = $this->vocabulary_service->fetchAllInsurances($token);
 
-  public function insurances() {
-    $token = $this->_get_user_token();
+        $this->_sendJson($result);
+    }
 
-    $result = $this->vocabulary_service->fetchAllInsurances($token);
+    public function collectors()
+    {
+        $token = $this->_get_user_token();
 
-    $this->_sendJson($result);
-  }
+        $result = $this->vocabulary_service->fetchAllCollectors($token);
 
-  public function collectors() {
-    $token = $this->_get_user_token();
+        $this->_sendJson($result);
+    }
 
-    $result = $this->vocabulary_service->fetchAllCollectors($token);
+    public function directions()
+    {
+        $token = $this->_get_user_token();
 
-    $this->_sendJson($result);
-  }
+        $result = $this->vocabulary_service->fetchAllDirections($token);
 
-  public function directions() {
-    $token = $this->_get_user_token();
+        $this->_sendJson($result);
+    }
 
-    $result = $this->vocabulary_service->fetchAllDirections($token);
+    public function indicators($direction)
+    {
+        $token = $this->_get_user_token();
 
-    $this->_sendJson($result);
-  }
+        $result = $this->vocabulary_service->fetchAllIndicatorsByDirection($direction, $token);
 
-  public function indicators($direction) {
-    $token = $this->_get_user_token();
+        $this->_sendJson($result);
+    }
 
-    $result = $this->vocabulary_service->fetchAllIndicatorsByDirection($direction, $token);
+    public function licencePlateCountries()
+    {
+        $token = $this->_get_user_token();
 
-    $this->_sendJson($result);
-  }
+        $result = $this->vocabulary_service->fetchAllCountryLicencePlates($token);
 
-  public function licencePlateCountries() {
-    $token = $this->_get_user_token();
+        $this->_sendJson($result);
+    }
 
-    $result = $this->vocabulary_service->fetchAllCountryLicencePlates($token);
+    public function signaDrivers()
+    {
+        $token = $this->_get_user_token();
 
-    $this->_sendJson($result);
-  }
+        $result = $this->vocabulary_service->fetchAllSignaDrivers($token);
 
-  public function signaDrivers() {
-    $token = $this->_get_user_token();
+        $this->_sendJson($result);
+    }
 
-    $result = $this->vocabulary_service->fetchAllSignaDrivers($token);
+    public function towingDrivers()
+    {
+        $token = $this->_get_user_token();
 
-    $this->_sendJson($result);
-  }
+        $result = $this->vocabulary_service->fetchAllTowingDrivers($token);
 
-  public function towingDrivers() {
-    $token = $this->_get_user_token();
+        $this->_sendJson($result);
+    }
 
-    $result = $this->vocabulary_service->fetchAllTowingDrivers($token);
+    public function towingVehicles()
+    {
+        $token = $this->_get_user_token();
 
-    $this->_sendJson($result);
-  }
+        $result = $this->vocabulary_service->fetchAllTowingVehicles($token);
 
-  public function towingVehicles() {
-    $token = $this->_get_user_token();
+        $this->_sendJson($result);
+    }
 
-    $result = $this->vocabulary_service->fetchAllTowingVehicles($token);
+    public function removeActivityFromVoucher($voucher_id, $activity_id)
+    {
 
-    $this->_sendJson($result);
-  }
+        $activity_id = intval($activity_id);
 
-  public function removeActivityFromVoucher($voucher_id, $activity_id)
-  {
+        $this->_sendJson(
+            $this->dossier_service->removeActivityFromVoucher(
+                $voucher_id,
+                $activity_id,
+                $this->_get_user_token()
+            )
+        );
+    }
 
-    $activity_id = intval ($activity_id);
+    public function removeAdditionalCostFromVoucher($voucher_id, $cost_id)
+    {
 
-    $this->_sendJson(
-      $this->dossier_service->removeActivityFromVoucher(
-        $voucher_id,
-        $activity_id,
-        $this->_get_user_token()
-      )
-    );
-  }
+        $_cost_id = intval($cost_id);
 
-  public function removeAdditionalCostFromVoucher($voucher_id, $cost_id)
-  {
+        $this->_sendJson(
+            $this->dossier_service->removeVoucherAdditionalCost(
+                $_cost_id,
+                $voucher_id,
+                $this->_get_user_token()
+            )
+        );
+    }
 
-    $_cost_id = intval ($cost_id);
+    public function addActivitiesToVoucher($dossier_id, $voucher_id)
+    {
+        $token = $this->_get_user_token();
 
-    $this->_sendJson(
-      $this->dossier_service->removeVoucherAdditionalCost(
-        $_cost_id,
-        $voucher_id,
-        $this->_get_user_token()
-      )
-    );
-  }
+        //array of ids
+        $activities = $this->input->post('activities');
 
-  public function addActivitiesToVoucher($dossier_id, $voucher_id)
-  {
-    $token = $this->_get_user_token();
+        $result = $this->dossier_service->addActivitiesToVoucher($dossier_id, $voucher_id, $activities, $token);
+        $this->_sendJson($result);
+    }
 
-    //array of ids
-    $activities = $this->input->post('activities');
+    public function addInternalCommunication()
+    {
+        $token = $this->_get_user_token();
 
-    $result = $this->dossier_service->addActivitiesToVoucher($dossier_id, $voucher_id, $activities, $token);
-    $this->_sendJson($result);
-  }
+        $model = new Communication_Model($this->input->post('communication'));
 
-  public function addInternalCommunication()
-  {
-    $token = $this->_get_user_token();
+        $result = $this->dossier_service->addInternalCommunication($model, $token);
 
-    $model = new Communication_Model($this->input->post('communication'));
+        $this->_sendJson($result);
+    }
 
-    $result = $this->dossier_service->addInternalCommunication($model, $token);
+    public function getInternalCommunication($dossier_id, $voucher_id)
+    {
+        $token = $this->_get_user_token();
 
-    $this->_sendJson($result);
-  }
+        $result = $this->dossier_service->fetchAllInternalCommunications($dossier_id, $voucher_id, $token);
 
-  public function getInternalCommunication($dossier_id, $voucher_id)
-  {
-    $token = $this->_get_user_token();
+        $this->_sendJson($result);
+    }
 
-    $result = $this->dossier_service->fetchAllInternalCommunications($dossier_id, $voucher_id, $token);
+    public function addEmailCommunication()
+    {
+        $token = $this->_get_user_token();
 
-    $this->_sendJson($result);
-  }
+        $model = new Communication_Model($this->input->post('communication'));
 
-  public function addEmailCommunication()
-  {
-    $token = $this->_get_user_token();
+        $result = $this->dossier_service->addEmailCommunication($model, $token);
 
-    $model = new Communication_Model($this->input->post('communication'));
+        $this->_sendJson($result);
+    }
 
-    $result = $this->dossier_service->addEmailCommunication($model, $token);
+    public function getEmailCommunication($dossier_id, $voucher_id)
+    {
+        $token = $this->_get_user_token();
 
-    $this->_sendJson($result);
-  }
+        $result = $this->dossier_service->fetchAllEmailCommunications($dossier_id, $voucher_id, $token);
 
-  public function getEmailCommunication($dossier_id, $voucher_id)
-  {
-    $token = $this->_get_user_token();
+        $this->_sendJson($result);
+    }
 
-    $result = $this->dossier_service->fetchAllEmailCommunications($dossier_id,$voucher_id, $token);
+    public function sendVoucherEmailToAWV($dossier_id, $voucher_id)
+    {
+        $token = $this->_get_user_token();
 
-    $this->_sendJson($result);
-  }
+        $result = $this->dossier_service->sendVoucherEmailToAWV($dossier_id, $voucher_id, $token);
 
-  public function sendVoucherEmailToAWV($dossier_id, $voucher_id)
-  {
-    $token = $this->_get_user_token();
+        $this->_sendJson($result);
+    }
 
-    $result = $this->dossier_service->sendVoucherEmailToAWV($dossier_id, $voucher_id, $token);
+    public function requestCollectorSignature($dossier_id, $voucher_id)
+    {
+        $token = $this->_get_user_token();
 
-    $this->_sendJson($result);
-  }
+        $result = $this->dossier_service->requestCollectorSignature($dossier_id, $voucher_id, $token);
 
-  public function requestCollectorSignature($dossier_id, $voucher_id) {
-    $token = $this->_get_user_token();
+        $this->_sendJson($result);
+    }
 
-    $result = $this->dossier_service->requestCollectorSignature($dossier_id, $voucher_id, $token);
+    public function requestCauserSignature($dossier_id, $voucher_id)
+    {
+        $token = $this->_get_user_token();
 
-    $this->_sendJson($result);
-  }
+        $result = $this->dossier_service->requestCauserSignature($dossier_id, $voucher_id, $token);
 
-  public function requestCauserSignature($dossier_id, $voucher_id) {
-    $token = $this->_get_user_token();
+        $this->_sendJson($result);
+    }
 
-    $result = $this->dossier_service->requestCauserSignature($dossier_id, $voucher_id, $token);
+    public function requestTrafficPostSignature($dossier_id, $voucher_id)
+    {
+        $token = $this->_get_user_token();
 
-    $this->_sendJson($result);
-  }
+        $result = $this->dossier_service->requestTrafficPostSignature($dossier_id, $voucher_id, $token);
 
-  public function requestTrafficPostSignature($dossier_id, $voucher_id) {
-    $token = $this->_get_user_token();
+        $this->_sendJson($result);
+    }
 
-    $result = $this->dossier_service->requestTrafficPostSignature($dossier_id, $voucher_id, $token);
+    public function addAttachment($dossier_id, $voucher_id)
+    {
+        $token = $this->_get_user_token();
+        $file = new File_Model($this->input->post('file'));
+        $result = $this->dossier_service->addAttachment($dossier_id, $voucher_id, $file, $token);
+        $this->_sendJson($result);
+    }
 
-    $this->_sendJson($result);
-  }
+    public function getAttachments($dossier_id, $voucher_id)
+    {
+        $token = $this->_get_user_token();
 
+        $result = $this->dossier_service->fetchAllAttachments($dossier_id, $voucher_id, $token);
 
-  public function addAttachment($dossier_id, $voucher_id)
-  {
-    $token = $this->_get_user_token();
-    $file = new File_Model($this->input->post('file'));
-    $result = $this->dossier_service->addAttachment($dossier_id, $voucher_id, $file, $token);
-    $this->_sendJson($result);
-  }
+        $this->_sendJson($result);
+    }
 
-  public function getAttachments($dossier_id, $voucher_id)
-  {
-    $token = $this->_get_user_token();
+    public function deleteAttachment($dossier_id, $voucher_id)
+    {
+        $token = $this->_get_user_token();
+        $docid = $this->input->post('document_id');
 
-    $result = $this->dossier_service->fetchAllAttachments($dossier_id, $voucher_id, $token);
+        $result = $this->dossier_service->deleteAttachment($dossier_id, $voucher_id, $docid, $token);
 
-    $this->_sendJson($result);
-  }
+        $this->_sendJson($result);
+    }
 
-  public function deleteAttachment($dossier_id, $voucher_id) {
-    $token = $this->_get_user_token();
-    $docid = $this->input->post('document_id');
+    public function fetchValidationMessages($voucher_id)
+    {
+        $token = $this->_get_user_token();
 
-    $result = $this->dossier_service->deleteAttachment($dossier_id, $voucher_id, $docid, $token);
+        $result = $this->dossier_service->fetchAllVoucherValidationMessages($voucher_id, $token);
 
-    $this->_sendJson($result);
-  }
+        $this->_sendJson($result);
+    }
 
+    public function fetchTrackingLocations($dossier_id, $voucher_id)
+    {
+        $token = $this->_get_user_token();
 
-  public function fetchValidationMessages($voucher_id)
-  {
-    $token = $this->_get_user_token();
+        $result = $this->dossier_service->fetchAllVoucherTrackingLocations($voucher_id, $token);
 
-    $result = $this->dossier_service->fetchAllVoucherValidationMessages($voucher_id, $token);
-
-    $this->_sendJson($result);
-  }
+        $this->_sendJson($result);
+    }
 }

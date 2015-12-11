@@ -1,15 +1,12 @@
 <?php
 function displayVoucherTimeField($value, $name)
 {
-    if ($value)
-    {
+    if ($value) {
         $render = sprintf('<div class="input_value">%s</div>', asTime($value));
         $render .= form_hidden($name, asJsonDateTime($value));
 
         return $render;
-    }
-    else
-    {
+    } else {
         return form_input($name, asTime($value));
     }
 }
@@ -21,6 +18,21 @@ $this->load->helper('date');
 
 $_dossier = $dossier->dossier;
 ?>
+<script src="https://maps.googleapis.com/maps/api/js"></script>
+
+<style>
+    #map {
+        width: 100%;
+        height: 350px;
+    }
+
+    #mapContainer {
+        width: 100%;
+        height: 400px;
+        display: none;
+    }
+</style>
+
 <div class="layout-has-sidebar edit-view">
     <div class="layout-sidebar">
         <div class="box table_list table_list_small">
@@ -78,6 +90,53 @@ $_dossier = $dossier->dossier;
 
     print form_input($data);
     ?>
+
+    <script type="application/javascript">
+        var map = null;
+
+        $(document).ready(function () {
+            $('.showLocationsOnMap').on('click', function () {
+                $('#mapContainer').show(1000, function() {
+                    var $voucher_id = <?php print $_voucher->id; ?>;
+                    var $dossier_id = <?php print $_dossier->id; ?>;
+
+                    var $api = '/fast_dossier/ajax/fetchTrackingLocations/' + $dossier_id + '/' + $voucher_id;
+
+                    $.getJSON($api, function (data, status, xhr) {
+                        if (data) {
+                            console.log(data);
+                            $.each(data, function (index, $item) {
+
+                                if ($item.category === 'home') {
+                                    var mapCanvas = document.getElementById('map');
+                                    var mapOptions = {
+                                        center: {lat: $item.lat, lng: $item.long},
+                                        zoom: 8,
+                                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                                    };
+
+                                    map = new google.maps.Map(mapCanvas, mapOptions);
+                                } else {
+                                    //add marker
+                                    new google.maps.Marker({
+                                        position: new google.maps.LatLng($item.lat, $item.long),
+                                        map: map,
+                                        title: $item.category
+                                    });
+
+                                    console.log($item);
+                                }
+                            });
+                        }
+                    });
+                });
+            });
+
+            $('#hideMap').on('click', function () {
+                $('#mapContainer').hide(500);
+            });
+        });
+    </script>
 
 
     <div class="layout-content">
@@ -211,6 +270,13 @@ $_dossier = $dossier->dossier;
         print generateValidationMessagesBlock($_voucher->status);
         ?>
 
+        <div id="mapContainer">
+            <div id="map"></div>
+            <div id="mapActions">
+                <input type="button" id="hideMap" value="Verberg map"/>
+            </div>
+        </div>
+
         <div class="box unpadded dsform">
             <div class="inner_padding">
 
@@ -238,7 +304,13 @@ $_dossier = $dossier->dossier;
                         <div class="form-item-horizontal signa-container__arrival">
                             <label>Aankomst:</label>
 
-                            <?php print displayVoucherTimeField($_voucher->signa_arrival, 'signa_arrival'); ?>
+                            <?php
+                            print displayVoucherTimeField($_voucher->signa_arrival, 'signa_arrival');
+
+                            if (!empty($_voucher->signa_arrival)) {
+                                print '<a href="#" class="showLocationsOnMap"><i class="fa fa-map-o"> Toon locaties</i></a>';
+                            }
+                            ?>
                         </div>
 
                         <div class="form-item-horizontal signa-container__arrival">
@@ -342,9 +414,6 @@ $_dossier = $dossier->dossier;
 
                 </div>
                 <!-- END CAR -->
-
-
-
 
 
                 <div class="dsform__clearfix dsform_seperation">
@@ -597,7 +666,7 @@ $_dossier = $dossier->dossier;
                                    data-did="<?php print $_dossier->id; ?>"
                                    data-vid="<?php print $_voucher->id; ?>"
                                    href="#">Voeg een handtekening toe</a>
-                            <?php }  ?>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
@@ -649,7 +718,7 @@ $_dossier = $dossier->dossier;
 
     </div>
     <?php
-        print form_close();
+    print form_close();
     ?>
     <!-- DEPOT -->
     <div id="depot_form" style="display: none;">
@@ -1124,77 +1193,77 @@ $_dossier = $dossier->dossier;
     <!-- INVOICE -->
     <?php
     if ($_voucher->status === 'READY FOR INVOICE') {
-    $invoice_hidden = array(
-        'voucher_id' => $_voucher->id,
-        'dossier_id' => $_dossier->id
-    );
+        $invoice_hidden = array(
+            'voucher_id' => $_voucher->id,
+            'dossier_id' => $_dossier->id
+        );
 
-    $invoice_attr = array(
-        'data-vid' => $_voucher->id,
-        'data-did' => $_dossier->id
-    );
+        $invoice_attr = array(
+            'data-vid' => $_voucher->id,
+            'data-did' => $_dossier->id
+        );
 
-    $payment_types = $this->invoice_service->fetchAvailablePaymentTypes();
+        $payment_types = $this->invoice_service->fetchAvailablePaymentTypes();
 
-    ?>
-    <!-- INVOICE BLOCK -->
-    <div id="generate-invoice-form" style="display: none;">
-        <?php
-        print form_open('', $invoice_attr, $invoice_hidden);
         ?>
+        <!-- INVOICE BLOCK -->
+        <div id="generate-invoice-form" style="display: none;">
+            <?php
+            print form_open('', $invoice_attr, $invoice_hidden);
+            ?>
 
-        <div class="fancybox-form">
-            <h3>Factuur aanmaken</h3>
+            <div class="fancybox-form">
+                <h3>Factuur aanmaken</h3>
 
-            <div class="form-item-horizontal">
-                <label>Betalingsinformatie:</label>
-                <table>
-                    <tbody>
+                <div class="form-item-horizontal">
+                    <label>Betalingsinformatie:</label>
+                    <table>
+                        <tbody>
 
-                    <?php
-                    foreach ($_voucher->towing_payment_details as $k => $detail) {
-                        $category_key =  strtolower($detail->category);
-                        $amount = $detail->amount_incl_vat;
+                        <?php
+                        foreach ($_voucher->towing_payment_details as $k => $detail) {
+                            $category_key = strtolower($detail->category);
+                            $amount = $detail->amount_incl_vat;
 
-                        if($detail->category == 'INSURANCE')
-                            $category_key = 'assurance';
+                            if ($detail->category == 'INSURANCE')
+                                $category_key = 'assurance';
 
-                        if ($detail->foreign_vat) {
-                            $amount = $detail->amount_excl_vat;
-                        }
+                            if ($detail->foreign_vat) {
+                                $amount = $detail->amount_excl_vat;
+                            }
 
 
-                        printf('<tr><td>%s</td><td style="padding-right: 25px;">%s</td></tr>',
+                            printf('<tr><td>%s</td><td style="padding-right: 25px;">%s</td></tr>',
                                 $detail->category_display_name,
                                 form_input(array('name' => "invoice_payment_amount_" . $category_key,
                                     'value' => $amount,
                                     'readonly' => 'readonly',
                                     'style' => 'background: #F0F0F0')));
 
-                    }
-                    ?>
-                    </tbody>
-                </table>
+                        }
+                        ?>
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <div class="form-item-horizontal">
+                    <label>Commentaar:</label>
+                    <?php print form_textarea('message'); ?>
+                </div>
+
             </div>
+            <div class="fancybox-form__actions">
+                <div class="form-item-horizontal fancybox-form__actions__cancel">
+                    <a class="close_overlay" href="#">Annuleren</a>
+                </div>
 
-
-        <div class="form-item-horizontal">
-            <label>Commentaar:</label>
-            <?php print form_textarea('message'); ?>
+                <div class="form-item-horizontal fancybox-form__actions__save">
+                    <input type="submit" value="Aanmaken" name="btnInvoiceGenerate"/>
+                </div>
+            </div>
+            <?php print form_close(); ?>
         </div>
-
-    </div>
-    <div class="fancybox-form__actions">
-        <div class="form-item-horizontal fancybox-form__actions__cancel">
-            <a class="close_overlay" href="#">Annuleren</a>
-        </div>
-
-        <div class="form-item-horizontal fancybox-form__actions__save">
-            <input type="submit" value="Aanmaken" name="btnInvoiceGenerate"/>
-        </div>
-    </div>
-    <?php print form_close(); ?>
-</div>
         <?php
     }
     ?>
@@ -1273,7 +1342,8 @@ function showDossierList($ctx, $data, $title)
     return '';
 }
 
-function generateInvoiceDropdownButton() {
+function generateInvoiceDropdownButton()
+{
     return '<div class="dossierbar__action__item">
                         <!-- <input type="button" value="Factuur aanmaken" id="create-invoice-button" /> -->
                         <div class="btn--dropdown">
@@ -1288,7 +1358,8 @@ function generateInvoiceDropdownButton() {
                     </div>';
 }
 
-function generateEmailDropdownButton() {
+function generateEmailDropdownButton()
+{
     return '<div class="dossierbar__action__item">
                     <div class="btn--dropdown">
                         <div class="btn--dropdown--btn btn--icon">
@@ -1304,7 +1375,8 @@ function generateEmailDropdownButton() {
                 </div>';
 }
 
-function generateNoteDropdownButton() {
+function generateNoteDropdownButton()
+{
     return '<div class="dossierbar__action__item">
                     <div class="btn--dropdown">
                         <div class="btn--dropdown--btn btn--icon">
@@ -1318,7 +1390,8 @@ function generateNoteDropdownButton() {
                 </div>';
 }
 
-function generateAttachmentDropdownButton() {
+function generateAttachmentDropdownButton()
+{
     return '<div class="dossierbar__action__item">
                     <div class="btn--dropdown">
                         <div class="btn--dropdown--btn btn--icon">
@@ -1362,11 +1435,13 @@ function generateVoucherReportDropdownButton($dossier_id, $voucher_id)
         $dossier_id, $voucher_id);
 }
 
-function generateValidationMessagesBlock($status) {
+function generateValidationMessagesBlock($status)
+{
     if ($status === 'TO CHECK' || $status == 'READY FOR INVOICE') {
         return '<div class="unpadded" style="background-color: #feec8a; padding-left: 15px; padding-right: 15px; padding-top: 15px; padding-bottom: 15px; margin-bottom: 15px; color: #7f2710;" id="validation_messages"></div>';
     }
 
     return '';
 }
+
 ?>
