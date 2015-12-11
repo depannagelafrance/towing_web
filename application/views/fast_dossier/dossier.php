@@ -104,18 +104,24 @@ $_dossier = $dossier->dossier;
 
                     $.getJSON($api, function (data, status, xhr) {
                         if (data) {
-                            console.log(data);
-                            $.each(data, function (index, $item) {
+                            var directionsService = new google.maps.DirectionsService;
+                            var directionsDisplay = new google.maps.DirectionsRenderer;
 
+                            var $startPoint = null;
+                            var $endPoint = null;
+                            var $wayPoints = [];
+
+                            $.each(data, function (index, $item) {
                                 if ($item.category === 'home') {
                                     var mapCanvas = document.getElementById('map');
                                     var mapOptions = {
                                         center: {lat: $item.lat, lng: $item.long},
-                                        zoom: 8,
+                                        zoom: 11,
                                         mapTypeId: google.maps.MapTypeId.ROADMAP
                                     };
 
                                     map = new google.maps.Map(mapCanvas, mapOptions);
+                                    directionsDisplay.setMap(map);
                                 } else {
                                     //add marker
                                     new google.maps.Marker({
@@ -124,7 +130,58 @@ $_dossier = $dossier->dossier;
                                         title: $item.category
                                     });
 
-                                    console.log($item);
+                                    console.log($item.category);
+
+                                    //set the startPoint
+                                    if($startPoint == null) {
+                                        $startPoint = new google.maps.LatLng($item.lat, $item.long);
+                                        console.log(" --> Set a start point");
+                                    }
+
+                                    //not the first and not the last element
+                                    if((index + 1) < data.length) {
+                                        console.log(" --> Adding as waypoint");
+                                        $wayPoints.push({
+                                            location: new google.maps.LatLng($item.lat, $item.long),
+                                            stopover: false
+                                        });
+                                    } else {
+                                        console.log(" --> Adding as endpoint");
+                                        //set the end point
+                                        $endPoint = new google.maps.LatLng($item.lat, $item.long);
+
+                                    }
+
+                                }
+                            });
+
+                            if($endPoint == null) {
+                                $endPoint = $startPoint;
+                            }
+
+                            directionsService.route({
+                                origin: $startPoint,
+                                destination: $endPoint,
+                                waypoints: $wayPoints,
+                                optimizeWaypoints: true,
+                                travelMode: google.maps.TravelMode.DRIVING
+                            }, function(response, status) {
+                                if (status === google.maps.DirectionsStatus.OK) {
+                                    directionsDisplay.setDirections(response);
+//                                    var route = response.routes[0];
+//                                    var summaryPanel = document.getElementById('directions-panel');
+//                                    summaryPanel.innerHTML = '';
+//                                    // For each route, display summary information.
+//                                    for (var i = 0; i < route.legs.length; i++) {
+//                                        var routeSegment = i + 1;
+//                                        summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
+//                                            '</b><br>';
+//                                        summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
+//                                        summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
+//                                        summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
+//                                    }
+                                } else {
+                                    window.alert('Directions request failed due to ' + status);
                                 }
                             });
                         }
