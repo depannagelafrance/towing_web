@@ -1173,12 +1173,39 @@ $(document).ready(function() {
 
     function updatePaymentDetailsList(data){
         var items = {
-            details : []
+            details : [],
+            total: {}
         };
+
+        var $amount_excl_vat = 0.0;
+        var $amount_incl_vat = 0.0;
+        var $amount_paid_cash = 0.0;
+        var $amount_paid_bank = 0.0;
+        var $amount_paid_maestro = 0.0;
+        var $amount_paid_visa = 0.0;
+        var $amount_unpaid_excl_vat = 0.0;
+        var $amount_unpaid_incl_vat = 0.0;
 
         $.each( data, function( key, value ) {
             items.details.push(value);
+            $amount_excl_vat += value.amount_excl_vat;
+            $amount_incl_vat += value.amount_incl_vat;
+            $amount_paid_cash += value.amount_paid_cash;
+            $amount_paid_bank += value.amount_paid_bankdeposit;
+            $amount_paid_maestro += value.amount_paid_maestro;
+            $amount_paid_visa += value.amount_paid_visa;
+            $amount_unpaid_excl_vat += value.amount_unpaid_excl_vat;
+            $amount_unpaid_incl_vat += value.amount_unpaid_incl_vat;
         });
+
+        items.total.amount_excl_vat = $amount_excl_vat.toFixed(2);
+        items.total.amount_incl_vat = $amount_incl_vat.toFixed(2);
+        items.total.amount_paid_cash = $amount_paid_cash.toFixed(2);
+        items.total.amount_paid_bankdeposit = $amount_paid_bank.toFixed(2);
+        items.total.amount_paid_maestro = $amount_paid_maestro.toFixed(2);
+        items.total.amount_paid_visa = $amount_paid_visa.toFixed(2);
+        items.total.amount_unpaid_excl_vat = $amount_unpaid_excl_vat.toFixed(2);
+        items.total.amount_unpaid_incl_vat = $amount_unpaid_incl_vat.toFixed(2);
 
         var template = Handlebars.Templates['activity/paymentdetails'];
         $('#added-activities .payment-detail-container__fields').html(template(items));
@@ -1189,10 +1216,6 @@ $(document).ready(function() {
             var items = {
                 activities : []
             };
-
-            $.each( data, function( key, value ) {
-                items.activities.push(value);
-            });
 
             var template = Handlebars.Templates['activity/checkboxes'];
             $('#add-work-form-ajaxloaded-content').html(template(items));

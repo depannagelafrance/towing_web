@@ -1,52 +1,98 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 require_once(APPPATH . '/libraries/towing/Rest_service.php');
 
-class Vocabulary_service extends Rest_service {
-    public function __construct() {
-      parent::__construct();
+class Vocabulary_service extends Rest_service
+{
+    public function __construct()
+    {
+        parent::__construct();
     }
 
-  public function fetchAllInsurances($token) {
-    return $this->CI->rest->get(sprintf('/vocab/insurances/%s', $token));
-  }
+    public function fetchAllInsurances($token)
+    {
+        return $this->CI->rest->get(sprintf('/vocab/insurances/%s', $token));
+    }
 
-  public function fetchAllCollectors($token) {
-    return $this->CI->rest->get(sprintf('/vocab/collectors/%s', $token));
-  }
+    public function fetchAllCollectors($token)
+    {
+        return $this->CI->rest->get(sprintf('/vocab/collectors/%s', $token));
+    }
 
-  public function fetchAllDirections($token) {
-    return $this->CI->rest->get(sprintf('/vocab/directions/%s', $token));
-  }
+    public function fetchAllDirections($token)
+    {
+        return $this->CI->rest->get(sprintf('/vocab/directions/%s', $token));
+    }
 
-  public function fetchAllIndicatorsByDirection($direction, $token) {
-    if($direction && trim($direction) !== "")
-      return $this->CI->rest->get(sprintf('/vocab/indicators/%s/%s', $direction, $token));
+    public function fetchDirectionById($id, $token)
+    {
+        $data = $this->CI->rest->get(sprintf('/vocab/direction/%s/%s', $id, $token));
 
-    return array();
-  }
+        $data->indicators = $this->fetchAllIndicatorsByDirection($id, $token);
 
-  public function fetchAllTrafficLanes($token) {
-    return $this->CI->rest->get(sprintf('/vocab/traffic_lanes/%s', $token));
-  }
+        return $data;
+    }
 
-  public function fetchAllCountryLicencePlates($token) {
-    return $this->CI->rest->get(sprintf('/vocab/country_licence_plates/%s', $token));
-  }
+    public function fetchAllIndicatorsByDirection($direction, $token)
+    {
+        if ($direction && trim($direction) !== "")
+            return $this->CI->rest->get(sprintf('/vocab/indicators/%s/%s', $direction, $token));
 
-  public function fetchAllIncidentTypes($token) {
-    return $this->CI->rest->get(sprintf('/vocab/incident_types/%s', $token));
-  }
+        return array();
+    }
 
-  public function fetchAllSignaDrivers($token) {
-    return $this->CI->rest->get(sprintf('/vocab/drivers/signa/%s', $token));
-  }
 
-  public function fetchAllTowingDrivers($token) {
-    return $this->CI->rest->get(sprintf('/vocab/drivers/towing/%s', $token));
-  }
+    public function fetchIndicatorById($direction_id, $indicator_id, $token)
+    {
+        return $this->CI->rest->get(sprintf('/vocab/indicators/%s/%s/%s', $direction_id, $indicator_id, $token));
+    }
 
-  public function fetchAllTowingVehicles($token) {
-    return $this->CI->rest->get(sprintf('/vocab/vehicles/towing/%s', $token));
-  }
+    public function createIndicator($direction, $indicator, $token)
+    {
+        return $this->CI->rest->post(
+            sprintf('/vocab/indicators/%s/%s', $direction, $token),
+            json_encode($indicator),
+            'application/json'
+
+        );
+    }
+
+    public function updateIndicator($direction, $indicator, $token)
+    {
+        return $this->CI->rest->put(
+            sprintf('/vocab/indicators/%s/%s/%s', $direction, $indicator->id, $token),
+            json_encode($indicator),
+            'application/json'
+        );
+    }
+
+    public function fetchAllTrafficLanes($token)
+    {
+        return $this->CI->rest->get(sprintf('/vocab/traffic_lanes/%s', $token));
+    }
+
+    public function fetchAllCountryLicencePlates($token)
+    {
+        return $this->CI->rest->get(sprintf('/vocab/country_licence_plates/%s', $token));
+    }
+
+    public function fetchAllIncidentTypes($token)
+    {
+        return $this->CI->rest->get(sprintf('/vocab/incident_types/%s', $token));
+    }
+
+    public function fetchAllSignaDrivers($token)
+    {
+        return $this->CI->rest->get(sprintf('/vocab/drivers/signa/%s', $token));
+    }
+
+    public function fetchAllTowingDrivers($token)
+    {
+        return $this->CI->rest->get(sprintf('/vocab/drivers/towing/%s', $token));
+    }
+
+    public function fetchAllTowingVehicles($token)
+    {
+        return $this->CI->rest->get(sprintf('/vocab/vehicles/towing/%s', $token));
+    }
 }

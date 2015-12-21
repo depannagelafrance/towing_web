@@ -25,6 +25,11 @@
   </div>
 
   <div class="admin_item box">
+    <div style="text-align: center;"><a href="/admin/allotment"><span class="fa fa-map-marker fa-5x"></span></a></div>
+    <div class="admin_link"><a href="/admin/timeframe"><span>Perceel</span></a></div>
+  </div>
+
+  <div class="admin_item box">
     <div style="text-align: center;"><a href="/admin/customer"><span class="fa fa-users fa-5x"></span></a></div>
     <div class="admin_link"><a href="/admin/collector"><span>Klanten</span></a></div>
   </div>
