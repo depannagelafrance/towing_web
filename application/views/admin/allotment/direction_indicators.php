@@ -1,4 +1,3 @@
-
 <div class="breadcrumbs">
     <div class="breadcrum-item-link"><a href="/admin/index">Algemeen beheer</a></div>
     <i class="fa fa-chevron-right"></i>
@@ -45,6 +44,13 @@
         </div>
 
         <div class="form-item-horizontal">
+            <label>Volgorde: </label>
+
+            <input type="text" placeholder="Volgorde (1,2,3...)"
+                   value="<?php print set_value('sequence'); ?>" name="sequence"/>
+        </div>
+
+        <div class="form-item-horizontal">
             <input type="submit" value="Bewaren" name="submit">
         </div>
 
@@ -58,12 +64,19 @@
     <?php
 
     //set table headers
-    $this->table->set_heading(sprintf("KM-palen voor %s", $direction->name), 'Verwijderen', 'Aanpassen');
+    $this->table->set_heading(
+        "Volgorde",
+        sprintf("KM-palen voor %s", $direction->name),
+        "&nbsp;",
+        'Verwijderen',
+        'Aanpassen');
     //add table row(s)
     foreach ($direction->indicators as $item) {
         $this->table->add_row(
+            $item->sequence,
             $item->name,
-            sprintf('<a href="/admin/vehicle/delete/%s"><i class="fa fa-trash-o fa-2x">&nbsp;</i></a>', $item->id),
+            sprintf('%s %s', $item->zip, $item->city),
+            sprintf('<a href="/admin/allotment/delete_indicator/%s/%s"><i class="fa fa-trash-o fa-2x">&nbsp;</i></a>', $direction->id, $item->id),
             sprintf('<a href="/admin/allotment/edit_indicator/%s/%s"><i class="fa fa-pencil-square-o fa-2x"></i></a>', $direction->id, $item->id)
         );
     }

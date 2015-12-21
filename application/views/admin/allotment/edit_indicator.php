@@ -43,6 +43,13 @@
             <input type="text" placeholder="Stad/Gemeente"
                    value="<?php print set_value('city') ? set_value('city') : $indicator->city; ?>" name="city"/>
         </div>
+
+        <div class="form-item-horizontal">
+            <label>Volgorde: </label>
+
+            <input type="text" placeholder="Volgorde (1,2,3...)"
+                   value="<?php print set_value('sequence') ? set_value('sequence') : $indicator->sequence; ?>" name="sequence"/>
+        </div>
     </div>
 
     <div class="box form__actions">

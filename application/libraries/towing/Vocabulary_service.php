@@ -33,6 +33,32 @@ class Vocabulary_service extends Rest_service
         return $data;
     }
 
+    public function createDirection($name, $token)
+    {
+        return $this->CI->rest->post(
+            sprintf('/vocab/directions/%s', $token),
+            json_encode(array("name" => $name)),
+            'application/json'
+
+        );
+    }
+
+    public function updateDirection($direction, $name, $token)
+    {
+        return $this->CI->rest->put(
+            sprintf('/vocab/directions/%s/%s', $direction, $token),
+            json_encode(array("name" => $name)),
+            'application/json'
+        );
+    }
+
+    public function deleteDirections($direction, $token)
+    {
+        return $this->CI->rest->delete(
+            sprintf('/vocab/directions/%s/%s/%s', $direction, $token)
+        );
+    }
+
     public function fetchAllIndicatorsByDirection($direction, $token)
     {
         if ($direction && trim($direction) !== "")
@@ -63,6 +89,13 @@ class Vocabulary_service extends Rest_service
             sprintf('/vocab/indicators/%s/%s/%s', $direction, $indicator->id, $token),
             json_encode($indicator),
             'application/json'
+        );
+    }
+
+    public function deleteIndicator($direction, $indicator, $token)
+    {
+        return $this->CI->rest->delete(
+            sprintf('/vocab/indicators/%s/%s/%s', $direction, $indicator, $token)
         );
     }
 

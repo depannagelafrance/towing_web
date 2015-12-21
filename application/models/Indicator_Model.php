@@ -7,6 +7,7 @@ class Indicator_Model
     public $name = null;
     public $zip = null;
     public $city = null;
+    public $sequence = null;
 
     public function __construct($data = null)
     {
@@ -19,6 +20,7 @@ class Indicator_Model
                 $this->name = $data->name;
                 $this->zip = $data->zip;
                 $this->city = $data->city;
+                $this->sequence = $data->sequence;
             }
 
         }
@@ -31,5 +33,6 @@ class Indicator_Model
         $this->name = $data['name'];
         $this->zip = $data['zip'];
         $this->city = $data['city'];
+        $this->sequence = $data['sequence'];
     }
 }

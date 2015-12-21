@@ -19,18 +19,7 @@ class Allotment extends Page
      */
     public function index()
     {
-        $data = $this->vocabulary_service->fetchAllDirections($this->_get_user_token());
-
-        $this->_add_content(
-            $this->load->view(
-                'admin/allotment/directions',
-                array(
-                    'directions' => $data
-                ),
-                true
-            )
-        );
-        $this->_render_page();
+        $this->_showDirectionOverview();
     }
 
     public function direction($id)
@@ -38,6 +27,75 @@ class Allotment extends Page
         $this->_showIndicatorOverview($id);
     }
 
+    /**
+     * CREATE A NEW DIRECTION FLOW
+     */
+    public function create_direction()
+    {
+        if ($this->input->post('submit')) {
+            $this->_setDirectionFormValidationRules();
+
+            if (!$this->form_validation->run()) {
+                $this->_showDirectionOverview();
+            } else {
+                $name = $this->input->post('name');
+
+                $result = $this->vocabulary_service->createDirection($name, $this->_get_user_token());
+
+                if (property_exists($result, 'statusCode')) {
+                    $this->_add_error('Er is een fout opgetreden bij het aanmaken van een nieuwe rijrichting');
+                    $this->_showDirectionOverview();
+                } else {
+                    $this->session->set_flashdata('_INFO_MSG', sprintf("Het item (%s) werd aangemaakt!", $this->input->post('name')));
+                    redirect("/admin/allotment/direction/" . $result->id);
+                }
+            }
+        } else {
+            redirect("/admin/allotment/index");
+        }
+    }
+
+    public function edit_direction($direction_id)
+    {
+        if ($this->input->post('submit')) {
+            $this->_setDirectionFormValidationRules();
+
+            if (!$this->form_validation->run()) {
+                $this->_showDirectionEdit($direction_id);
+            } else {
+                $result = $this->vocabulary_service->updateDirection($direction_id, $this->input->post('name'), $this->_get_user_token());
+
+                if (property_exists($result, 'statusCode')) {
+                    $this->_add_error("Er is een fout opgetreden bij het aanpassen van de rijrichting");
+                    $this->_showIndicatorEdit($direction_id);
+                } else {
+                    $this->session->set_flashdata('_INFO_MSG', sprintf("Het item (%s) werd aangepast!", $this->input->post('name')));
+                    redirect("/admin/allotment/direction/" . $direction_id);
+                }
+            }
+        } else {
+            $this->_showDirectionEdit($direction_id);
+        }
+    }
+
+
+    public function delete_direction($direction_id)
+    {
+        $result = $this->vocabulary_service->deleteDirection($direction_id, $this->_get_user_token());
+
+        if (property_exists($result, 'statusCode')) {
+            $this->_add_error("Er is een fout opgetreden bij het verwijderen van de rijrichting");
+            $this->_showDirectionOverview();
+        } else {
+            $this->session->set_flashdata('_INFO_MSG', sprintf("Het item werd verwijderd!"));
+            redirect("/admin/allotment/index");
+        }
+    }
+
+    /**
+     * CREATE A NEW INDICATOR
+     * @param $id int The id of the direction to which the indicator will belong
+     */
     public function create_indicator($id)
     {
         if ($this->input->post('submit')) {
@@ -89,6 +147,35 @@ class Allotment extends Page
         }
     }
 
+    public function delete_indicator($direction_id, $id)
+    {
+        $result = $this->vocabulary_service->deleteIndicator($direction_id, $id, $this->_get_user_token());
+
+        if (property_exists($result, 'statusCode')) {
+            $this->_add_error("Er is een fout opgetreden bij het verwijderen van de km-paal");
+            $this->_showIndicatorOverview($direction_id);
+        } else {
+            $this->session->set_flashdata('_INFO_MSG', sprintf("Het item werd verwijderd!"));
+            redirect("/admin/allotment/direction/" . $direction_id);
+        }
+    }
+
+    private function _showDirectionOverview()
+    {
+        $data = $this->vocabulary_service->fetchAllDirections($this->_get_user_token());
+
+        $this->_add_content(
+            $this->load->view(
+                'admin/allotment/directions',
+                array(
+                    'directions' => $data
+                ),
+                true
+            )
+        );
+        $this->_render_page();
+    }
+
     private function _showIndicatorOverview($id)
     {
         $direction = $this->vocabulary_service->fetchDirectionById($id, $this->_get_user_token());
@@ -134,6 +221,14 @@ class Allotment extends Page
         $this->form_validation->set_rules('name', 'Naam', 'required');
         $this->form_validation->set_rules('zip', 'Postcode', 'required');
         $this->form_validation->set_rules('city', 'Stad/Gemeente', 'required');
+        $this->form_validation->set_rules('sequence', 'Volgorde', 'required|numeric');
+    }
+
+    private function _setDirectionFormValidationRules()
+    {
+        $this->load->library("form_validation");
+
+        $this->form_validation->set_rules('name', 'Naam', 'required');
     }
 
     /**
