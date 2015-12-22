@@ -4,6 +4,14 @@
   </div>
 </div>
 
+
+<div class="breadcrumbs">
+    <div class="breadcrum-item-link"><a href="/admin/index">Algemeen beheer</a></div>
+    <i class="fa fa-chevron-right"></i>
+
+    <div class="breadcrum-item-current">Gebruikers</div>
+</div>
+
 <div class="box">
 <?php
 

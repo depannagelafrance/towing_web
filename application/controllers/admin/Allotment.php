@@ -210,6 +210,23 @@ class Allotment extends Page
         $this->_render_page();
     }
 
+    private function _showDirectionEdit($direction_id)
+    {
+        $direction = $this->vocabulary_service->fetchDirectionById($direction_id, $this->_get_user_token());
+
+        $this->_add_content(
+            $this->load->view(
+                'admin/allotment/edit_direction',
+                array(
+                    'direction' => $direction
+                ),
+                true
+            )
+        );
+        $this->_render_page();
+    }
+
+
 
     /**
      * Form validation rules

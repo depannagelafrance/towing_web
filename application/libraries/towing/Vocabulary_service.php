@@ -52,10 +52,10 @@ class Vocabulary_service extends Rest_service
         );
     }
 
-    public function deleteDirections($direction, $token)
+    public function deleteDirection($direction, $token)
     {
         return $this->CI->rest->delete(
-            sprintf('/vocab/directions/%s/%s/%s', $direction, $token)
+            sprintf('/vocab/directions/%s/%s', $direction, $token)
         );
     }
 

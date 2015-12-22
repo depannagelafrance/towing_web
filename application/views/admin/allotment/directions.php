@@ -45,8 +45,8 @@
     foreach ($directions as $item) {
         $this->table->add_row(
             $item->name,
-            sprintf('<a href="/admin/vehicle/delete/%s"><i class="fa fa-trash-o fa-2x">&nbsp;</i></a>', $item->id),
-            sprintf('<a href="/admin/vehicle/edit/%s"><i class="fa fa-pencil-square-o fa-2x"></i></a>', $item->id),
+            sprintf('<a href="/admin/allotment/delete_direction/%s"><i class="fa fa-trash-o fa-2x">&nbsp;</i></a>', $item->id),
+            sprintf('<a href="/admin/allotment/edit_direction/%s"><i class="fa fa-pencil-square-o fa-2x"></i></a>', $item->id),
             sprintf('<a href="/admin/allotment/direction/%s"><i class="fa fa-ellipsis-h fa-2x"></i></a>', $item->id)
         );
     }
