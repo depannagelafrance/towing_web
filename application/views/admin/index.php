@@ -27,7 +27,7 @@
     <div class="admin_item box">
         <div style="text-align: center;"><a href="/admin/allotment"><span class="fa fa-map-marker fa-5x"></span></a>
         </div>
-        <div class="admin_link"><a href="/admin/timeframe"><span>Perceel</span></a></div>
+        <div class="admin_link"><a href="/admin/allotment"><span>Perceel</span></a></div>
     </div>
 
     <div class="admin_item box">
