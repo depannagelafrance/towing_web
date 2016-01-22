@@ -1217,6 +1217,11 @@ $(document).ready(function() {
                 activities : []
             };
 
+            $.each(data, function( key, value ) {
+                items.activities.push(value);
+            });
+
+
             var template = Handlebars.Templates['activity/checkboxes'];
             $('#add-work-form-ajaxloaded-content').html(template(items));
         }else{
