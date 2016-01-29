@@ -61,6 +61,17 @@
         <?php print form_input(array('name' => 'close_invoice', 'value' => 1, 'id' => 'close_invoice', 'type' => 'checkbox')); ?>
       </div>
     </div>
+
+    <div class="invoice-full-container__name">
+      <div class="form-item-horizontal invoice-full-container__first_name">
+        <label>Referentie document:</label>
+        <?php print form_input(array('name' => 'invoice_doc_ref', 'value' => $invoice->invoice_doc_ref, 'id' => 'invoice_doc_ref')); ?>
+      </div>
+
+      <div class="form-item-horizontal invoice-full-container__last_name">
+        &nbsp;
+      </div>
+    </div>
   </div>
 
   <!-- invoice customer -->

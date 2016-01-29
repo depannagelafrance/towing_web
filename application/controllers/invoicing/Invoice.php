@@ -92,6 +92,7 @@ class Invoice extends Page {
     {
       if($invoice)
       {
+        $invoice->invoice_doc_ref = $this->input->post('invoice_doc_ref');
         $invoice->invoice_structured_reference = $this->input->post('invoice_structured_reference');
         $invoice->invoice_amount_paid = $this->input->post('invoice_amount_paid');
         $invoice->invoice_payment_type = $this->input->post('invoice_payment_type');
